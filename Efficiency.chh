@@ -32,6 +32,7 @@ class Efficiency
   //variable
   private:
   //for tree
+  TTree *tChain;
   Double_t m_toff_pt;
   Double_t m_toff_eta;
   Double_t m_toff_exteta;
@@ -200,23 +201,11 @@ class Efficiency
   Double_t m_eta_max,m_phi_max,m_reqL1dR;
   std::string m_method_name;
   Int_t m_threshold_SA;
-  Int_t m_efficiency_nbin;
 
-  Int_t m_countL1;
-  Int_t m_countSA;
-  Int_t m_countEF;
-  Int_t m_countSA_barrel;
-  Int_t m_countEF_barrel;
-  Int_t m_countSA_endcap;
-  Int_t m_countEF_endcap;
-
-  TTree *tChain;
-  Int_t m_tnumber;
   Double_t m_binmax;
   Double_t m_efficiency_xerr;
 
 public:
-  void SetNbin(Int_t nbin);
   void Init(TTree *tree,std::string name,const Int_t threshold_SA,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err);
   bool Dicision_barrel(Double_t eta);
   bool Cut_L1(Int_t pass,Double_t dr);
