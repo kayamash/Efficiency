@@ -46,11 +46,11 @@ void efficiencyloop(){
 	TTree *tr1 = dynamic_cast<TTree*>(tf1->Get("t_tap"));
 	for(Int_t i = 0;i < 82;i += 2){
 		eff.Init(tr1,trigger,i,24,20,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err);
-		cout<<"start init"<<endl;
+		cout<<"start  "<<trigger<<"  "<<i<<endl;
 		for(Int_t event = 0;event < tr1->GetEntries(); event++){
 			eff.Execute(event);
 		}
-		cout<<"start final"<<endl;
+		cout<<"finalize"<<endl;
 		eff.Final(output_file);
 	}
 }
