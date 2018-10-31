@@ -196,12 +196,14 @@ class Efficiency
   TH2F *h_eff_pL1_etaphi;
   TH2F *h_eff_pSA_etaphi;
   TH2F *h_poffvsSA_pt;
-
-  Int_t m_nbin_eta,m_nbin_phi;
-  Double_t m_eta_max,m_phi_max,m_reqL1dR;
+//other parameter
+  Int_t m_nbin_eta;
+  Int_t m_nbin_phi;
+  Double_t m_eta_max;
+  Double_t m_phi_max;
+  Double_t m_reqL1dR;
   std::string m_method_name;
   Int_t m_threshold_SA;
-
   Double_t m_binmax;
   Double_t m_efficiency_xerr;
 
