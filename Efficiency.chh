@@ -1,0 +1,232 @@
+#ifndef EFFICIENCY_CHH
+#define EFFICIENCY_CHH
+
+#include <TROOT.h>
+#include <TChain.h>
+#include <TFile.h>
+#include <TH1.h>
+#include <TH2.h>
+#include <TCanvas.h>
+#include <stdio.h>
+#include <math.h>
+#include <cmath>
+#include <iostream>
+#include <fstream>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <string>
+#include <sstream>
+#include <TF1.h>
+#include <TTree.h>
+#include <TStyle.h>
+#include <TText.h>
+#include <TGraphErrors.h>
+#include <TLegend.h>
+#include <vector>
+#include <TMath.h>
+#include <TBranch.h>
+#include <TObject.h>
+
+class Efficiency
+ {
+  //variable
+  private:
+  //for tree
+  Double_t m_toff_pt;
+  Double_t m_toff_eta;
+  Double_t m_toff_exteta;
+  Double_t m_toff_extinneta;
+  Double_t m_toff_phi;
+  Double_t m_toff_extphi;
+  Double_t m_toff_extinnphi;
+  Double_t m_tag_charge;
+  Double_t m_tag_d0,m_tag_z0;
+  Double_t m_poff_pt;
+  Double_t m_poff_eta;
+  Double_t m_poff_exteta;
+  Double_t m_poff_extinneta;
+  Double_t m_poff_phi;
+  Double_t m_poff_extphi;
+  Double_t m_poff_extinnphi;
+  Double_t m_probe_charge;
+  Double_t m_probe_d0;
+  Double_t m_probe_z0;
+  Double_t m_tL1_pt;
+  Double_t m_tL1_eta;
+  Double_t m_tL1_phi;
+  Double_t m_tSA_pt;
+  Double_t m_tSA_eta;
+  Double_t m_tSA_phi;
+  Double_t m_tCB_pt;
+  Double_t m_tCB_eta;
+  Double_t m_tCB_phi;
+  Double_t m_tEF_pt;
+  Double_t m_tEF_eta;
+  Double_t m_tEF_phi;
+
+  std::vector<std::string> *m_mes_name;
+  std::vector<Double_t> *m_pL1_pt;
+  std::vector<Double_t> *m_pL1_eta;
+  std::vector<Double_t> *m_pL1_phi;
+  std::vector<Double_t> *m_pL1_dR;
+  std::vector<Double_t> *m_pSA_pt;
+  std::vector<Double_t> *m_pSA_eta;
+  std::vector<Double_t> *m_pSA_phi;
+  std::vector<Double_t> *m_pSA_dR;
+  std::vector<Double_t> *m_pCB_pt;
+  std::vector<Double_t> *m_pCB_eta;
+  std::vector<Double_t> *m_pCB_phi;
+  std::vector<Double_t> *m_pCB_dR;
+  std::vector<Double_t> *m_pEF_pt;
+  std::vector<Double_t> *m_pEF_eta;
+  std::vector<Double_t> *m_pEF_phi;
+  std::vector<Double_t> *m_pEF_dR;
+  std::vector<Int_t> *m_pL1_pass;
+  std::vector<Int_t> *m_pSA_pass;
+  std::vector<Int_t> *m_pCB_pass;
+  std::vector<Int_t> *m_pEF_pass;
+
+  TBranch *b_tag_pt;
+  TBranch *b_tag_eta;
+  TBranch *b_tag_exteta;
+  TBranch *b_tag_extinneta;
+  TBranch *b_tag_phi;
+  TBranch *b_tag_extphi;
+  TBranch *b_tag_extinnphi;
+  TBranch *b_tag_charge;
+  TBranch *b_tag_d0;
+  TBranch *b_tag_z0;
+  TBranch *b_probe_pt;
+  TBranch *b_probe_eta;
+  TBranch *b_probe_exteta;
+  TBranch *b_probe_extinneta;
+  TBranch *b_probe_phi;
+  TBranch *b_probe_extphi;
+  TBranch *b_probe_extinnphi;
+  TBranch *b_probe_charge;
+  TBranch *b_probe_d0;
+  TBranch *b_probe_z0;
+  TBranch *b_tL1_pt;
+  TBranch *b_tL1_eta;
+  TBranch *b_tL1_phi;
+  TBranch *b_tSA_pt;
+  TBranch *b_tSA_eta;
+  TBranch *b_tSA_phi;
+  TBranch *b_tCB_pt;
+  TBranch *b_tCB_eta;
+  TBranch *b_tCB_phi;
+  TBranch *b_tEF_pt;
+  TBranch *b_tEF_eta;
+  TBranch *b_tEF_phi;
+  TBranch *b_mes_name;
+  TBranch *b_pL1_pt;
+  TBranch *b_pL1_eta;
+  TBranch *b_pL1_phi;
+  TBranch *b_pL1_dR;;
+  TBranch *b_pSA_pt;
+  TBranch *b_pSA_eta;
+  TBranch *b_pSA_phi;
+  TBranch *b_pSA_dR;
+  TBranch *b_pCB_pt;
+  TBranch *b_pCB_eta;
+  TBranch *b_pCB_phi;
+  TBranch *b_pCB_dR;
+  TBranch *b_pEF_pt;
+  TBranch *b_pEF_eta;
+  TBranch *b_pEF_phi;
+  TBranch *b_pEF_dR;
+  TBranch *b_pL1_pass;
+  TBranch *b_pSA_pass;
+  TBranch *b_pCB_pass;
+  TBranch *b_pEF_pass;
+
+  //histgram
+  TH1D *h_poff_pt;
+  TH1D *h_pL1_pt;
+  TH1D *h_pSA_pt;
+  TH1D *h_pCB_pt;
+  TH1D *h_pEF_pt;
+  TH1D *h_pL1_dR;
+  TH1D *h_pSA_dR;
+  TH1D *h_pCB_dR;
+  TH1D *h_pEF_dR;
+  TH1D *h_textL1_dR;
+  TH1D *h_textSA_dR;
+  TH1D *h_textCB_dR;
+  TH1D *h_textEF_dR;
+  TH1D *h_pextL1_dR;
+  TH1D *h_pextSA_dR;
+  TH1D *h_pextCB_dR;
+  TH1D *h_pextEF_dR;
+  TH1D *h_td0;
+  TH1D *h_tz0;
+  TH1D *h_pd0;
+  TH1D *h_pz0;
+  TH1D *h_pSA_respt;
+  TH1D *h_pCB_respt;
+  TH1D *h_pEF_respt;
+  TH1D *h_invmass_off;
+  TH1D *h_invmass_L1;
+  TH1D *h_invmass_SA;
+  TH1D *h_invmass_CB;
+  TH1D *h_invmass_EF;
+  TH1D *h_eoff_pt;
+  TH1D *h_eL1_pt;
+  TH1D *h_eSA_pt;
+  TH1D *h_eCB_pt;
+  TH1D *h_eEF_pt;
+  TH1D *h_eoff_eta;
+  TH1D *h_eL1_eta;
+  TH1D *h_eSA_eta;
+  TH1D *h_eCB_eta;
+  TH1D *h_eEF_eta;
+  TH1D *h_eoff_pt_barrel;
+  TH1D *h_eL1_pt_barrel;
+  TH1D *h_eSA_pt_barrel;
+  TH1D *h_eCB_pt_barrel;
+  TH1D *h_eEF_pt_barrel;
+  TH1D *h_eoff_pt_end;
+  TH1D *h_eL1_pt_end;
+  TH1D *h_eSA_pt_end;
+  TH1D *h_eCB_pt_end;
+  TH1D *h_eEF_pt_end;
+
+  TH2F *h_eff_poff_etaphi;
+  TH2F *h_eff_pL1_etaphi;
+  TH2F *h_eff_pSA_etaphi;
+  TH2F *h_poffvsSA_pt;
+
+  Int_t m_nbin_eta,m_nbin_phi;
+  Double_t m_eta_max,m_phi_max,m_reqL1dR;
+  std::string m_method_name;
+  Int_t m_threshold_SA;
+  Int_t m_efficiency_nbin;
+
+  Int_t m_countL1;
+  Int_t m_countSA;
+  Int_t m_countEF;
+  Int_t m_countSA_barrel;
+  Int_t m_countEF_barrel;
+  Int_t m_countSA_endcap;
+  Int_t m_countEF_endcap;
+
+  TTree *tChain;
+  Int_t m_tnumber;
+  Double_t m_binmax;
+  Double_t m_efficiency_xerr;
+
+public:
+  void SetNbin(Int_t nbin);
+  void Init(TTree *tree,std::string name,const Int_t threshold_SA,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err);
+  bool Dicision_barrel(Double_t eta);
+  bool Cut_L1(Int_t pass,Double_t dr);
+  bool Cut_SA(Int_t pass,Double_t pt,Double_t th);
+  bool Cut_CB(Int_t pass);
+  bool Cut_EF(Int_t pass);
+  void Execute(Int_t ev);
+  void Final(TFile *tf1);
+
+};
+
+
+#endif//Efficiency_chh
