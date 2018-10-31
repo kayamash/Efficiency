@@ -26,9 +26,10 @@
 const string trigger = "mu26ivm";
 //const string trigger = "mu4";
 //const string inputfilename = "~/dataset/efficiencysample2.root";
-const string inputfilename = "/gpfs/fs6001/kayamash/data18_physics_Main_Ztap_hadd.root";
+//const string inputfilename = "/gpfs/fs6001/kayamash/data18_physics_Main_Ztap_hadd.root";
 //const string inputfilename = "/gpfs/fs6001/kayamash/data18_physics_Main_Ztap_hadd.root";
 //const string inputfilename = "/gpfs/fs6001/kayamash/efficiency_output/mc16_13TeVZmumu070.root";
+const string outputfilename = "/gpfs/fs6001/kayamash/dataset/Zmumu300540_hadd.root";
 const string outputfilename = "/gpfs/fs6001/kayamash/output/" + trigger + "/plottest.root";
 const Int_t efficiency_maxenergy = 101;
 const Int_t efficiency_nbin = 300;
