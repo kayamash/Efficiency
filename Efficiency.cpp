@@ -25,6 +25,7 @@
 #include <TBranch.h>
 #include <TROOT.h>
 #include <TChain.h>
+#include <CalcEfficiency.cpp>
 
  void Efficiency::SetNbin(Int_t nbin){
      m_efficiency_nbin = nbin;
@@ -486,7 +487,7 @@ void Efficiency::Execute(Int_t ev){
 }
 
 void Efficiency::Final(TFile *tf1){
-     gROOT->LoadMacro("CalcEfficiency.cpp");
+     //gROOT->LoadMacro("CalcEfficiency.cpp");
      CalcEfficiency ceff;
      tf1->cd();
      //SetCondition
@@ -580,16 +581,16 @@ void Efficiency::Final(TFile *tf1){
      //base,target
      ceff.SetConditionName(Form("L1Efficiency_%dGeV",m_threshold_SA));
      ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency","L1efficiency_pt.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiency(h_eoff_pt,h_eL1_pt,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiency(h_eoff_pt,h_eL1_pt,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetConditionName(Form("SAEfficiency_%dGeV",m_threshold_SA));
      ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency","SAefficiency_pt.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiency(h_eL1_pt,h_eSA_pt,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiency(h_eL1_pt,h_eSA_pt,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetConditionName(Form("CBEfficiency_%dGeV",m_threshold_SA));
      ceff.SetCondition("muComb Efficiency;offline pt[GeV];Efficiency","CBefficiency_pt.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiency(h_eSA_pt,h_eCB_pt,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiency(h_eSA_pt,h_eCB_pt,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetConditionName(Form("EFEfficiency_%dGeV",m_threshold_SA));
      ceff.SetCondition("EventFilter Efficiency;offline pt[GeV];Efficiency","EFefficiency_pt.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiency(h_eCB_pt,h_eEF_pt,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiency(h_eCB_pt,h_eEF_pt,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetConditionName(Form("L1Efficiency_eta_%dGeV",m_threshold_SA));
      ceff.SetCondition("L1 Efficiency;offline eta;Efficiency","L1efficiency_eta.png",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyeta(h_eoff_eta,h_eL1_eta,m_binmax);
@@ -604,28 +605,28 @@ void Efficiency::Final(TFile *tf1){
      ceff.DrawEfficiencyeta(h_eCB_eta,h_eEF_eta,m_binmax);
      ceff.SetConditionName(Form("L1Efficiency_barrel_%dGeV",m_threshold_SA));
      ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency","L1efficiency_pt_barrel.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiency(h_eoff_pt_barrel,h_eL1_pt_barrel,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiency(h_eoff_pt_barrel,h_eL1_pt_barrel,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetConditionName(Form("SAEfficiency_barrel_%dGeV",m_threshold_SA));
      ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency","SAefficiency_pt_barrel.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiency(h_eL1_pt_barrel,h_eSA_pt_barrel,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiency(h_eL1_pt_barrel,h_eSA_pt_barrel,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetConditionName(Form("CBEfficiency_barrel_%dGeV",m_threshold_SA));
      ceff.SetCondition("muComb Efficiency;offline pt[GeV];Efficiency","CBefficiency_pt_barrel.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiency(h_eSA_pt_barrel,h_eCB_pt_barrel,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiency(h_eSA_pt_barrel,h_eCB_pt_barrel,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetConditionName(Form("EFEfficiency_barrel_%dGeV",m_threshold_SA));
      ceff.SetCondition("EventFilter Efficiency;offline pt[GeV];Efficiency","EFefficiency_pt_barrel.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiency(h_eCB_pt_barrel,h_eEF_pt_barrel,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiency(h_eCB_pt_barrel,h_eEF_pt_barrel,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetConditionName(Form("L1Efficiency_end_%dGeV",m_threshold_SA));
      ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency","L1efficiency_pt_end.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiency(h_eoff_pt_end,h_eL1_pt_end,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiency(h_eoff_pt_end,h_eL1_pt_end,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetConditionName(Form("SAEfficiency_end_%dGeV",m_threshold_SA));
      ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency","SAefficiency_pt_end.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiency(h_eL1_pt_end,h_eSA_pt_end,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiency(h_eL1_pt_end,h_eSA_pt_end,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetConditionName(Form("CBEfficiency_end_%dGeV",m_threshold_SA));
      ceff.SetCondition("muComb Efficiency;offline pt[GeV];Efficiency","CBefficiency_pt_end.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiency(h_eSA_pt_end,h_eCB_pt_end,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiency(h_eSA_pt_end,h_eCB_pt_end,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetConditionName(Form("EFEfficiency_end_%dGeV",m_threshold_SA));
      ceff.SetCondition("EventFilter Efficiency;offline pt[GeV];Efficiency","EFefficiency_pt_end.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiency(h_eCB_pt_end,h_eEF_pt_end,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiency(h_eCB_pt_end,h_eEF_pt_end,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetConditionName(Form("SA2DEfficiency_%dGeV",m_threshold_SA));
      ceff.SetCondition("L1vsL2MuonSA Efficiency;offline eta;offline phi","2DSAefficiency.png",1.5,0.1,0.1,0.105,0.165);
      ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
@@ -636,11 +637,11 @@ void Efficiency::Final(TFile *tf1){
      ceff.DrawEfficiency2D(h_eff_poff_etaphi,h_eff_pL1_etaphi);
      ceff.SetConditionlabel("Off/L1 efficiency","L1/SA efficiency","SA/CB efficiency","CB/EF efficiency","error");
      ceff.SetCondition("Efficiency;offline pt[GeV];Efficiency","efficiencyAll.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiencyAll(h_eoff_pt,h_eL1_pt,h_eSA_pt,h_eCB_pt,h_eEF_pt,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiencyAll(h_eoff_pt,h_eL1_pt,h_eSA_pt,h_eCB_pt,h_eEF_pt,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetCondition("Efficiency;offline pt[GeV];Efficiency","efficiencyAll_barrel.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiencyAll(h_eoff_pt_barrel,h_eL1_pt_barrel,h_eSA_pt_barrel,h_eCB_pt_barrel,h_eEF_pt_barrel,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiencyAll(h_eoff_pt_barrel,h_eL1_pt_barrel,h_eSA_pt_barrel,h_eCB_pt_barrel,h_eEF_pt_barrel,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
      ceff.SetCondition("Efficiency;offline pt[GeV];Efficiency","efficiencyAll_end.png",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiencyAll(h_eoff_pt_end,h_eL1_pt_end,h_eSA_pt_end,h_eCB_pt_end,h_eEF_pt_end,m_binmax,m_efficiency_nbin);
+     ceff.DrawEfficiencyAll(h_eoff_pt_end,h_eL1_pt_end,h_eSA_pt_end,h_eCB_pt_end,h_eEF_pt_end,m_binmax,m_efficiency_nbin,m_efficiency_xerr);
 
      delete h_poff_pt;
      delete h_pL1_pt;
@@ -695,7 +696,6 @@ void Efficiency::Final(TFile *tf1){
      delete h_eff_pL1_etaphi;
      delete h_eff_pSA_etaphi;
      delete h_poffvsSA_pt;
-     delete h_poffvsSA_pt_bad;
      m_mes_name->clear();
      m_pL1_pt->clear();
      m_pL1_eta->clear();

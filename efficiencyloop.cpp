@@ -21,6 +21,7 @@
 #include <TLegend.h>
 #include <TMath.h>
 #include <TBranch.h>
+#include <Efficiency.cpp>
 
 const string trigger = "mu26ivm";
 //const string trigger = "mu4";
@@ -36,7 +37,7 @@ const Double_t efficiency_x_err = 0.25;
 //main function
 void efficiencyloop(){
 	std::cout<<"start!"<<std::endl;
-  gROOT->LoadMacro("Efficiency.cpp");
+  //gROOT->LoadMacro("Efficiency.cpp");
 	Efficiency eff;
   eff.SetNbin(efficiency_nbin);
 	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
