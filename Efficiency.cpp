@@ -493,7 +493,6 @@ void Efficiency::Final(TFile *tf1){
      //title,file title,yoffset,top margin,bottom margin,left margin,right margin
 
      ceff.SetDirectry("/gpfs/fs6001/kayamash/output/" + m_method_name + Form("/%dGeV/",m_threshold_SA) );
-     ceff.GetDirectry();
      ceff.SetCondition("test","probe_offline_pt.png",1.5,0,0,0,0);
      ceff.DrawHist1D(h_poff_pt);
      ceff.SetCondition("test","probeL1_pt.png",1.5,0,0,0,0);
