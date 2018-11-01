@@ -32,25 +32,20 @@ const string inputfilename = "/gpfs/fs6001/kayamash/dataset/Zmumu300540_hadd.roo
 const string outputfilename = "/gpfs/fs6001/kayamash/output/" + trigger + "/plottest.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
-//threshold_max == real max+2
-const Int_t threshold_max = 82;
-
+const Int_t nhist = 13;
+const Int_t thpitch = 2;
 
 //main function
 void efficiencyloop(){
 	std::cout<<"start!"<<std::endl;
-  //gROOT->LoadMacro("Efficiency.cpp");
 	Efficiency eff;
 	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
 	TFile *tf1 = TFile::Open(inputfilename.c_str(),"read");
 	TTree *tr1 = dynamic_cast<TTree*>(tf1->Get("t_tap"));
-	for(Int_t i = 0;i < threshold_max;i += 2){
-		eff.Init(tr1,trigger,i,24,20,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err);
-		cout<<"start  "<<trigger<<"  "<<i<<endl;
-		for(Int_t event = 0;event < tr1->GetEntries(); event++){
-			eff.Execute(event);
-		}
-		cout<<"finalize"<<endl;
-		eff.Final(output_file);
+	eff.Init(tr1,trigger,24,20,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,thpitch);
+	for(Int_t event = 0;event < tr1->GetEntries(); event++){
+		eff.Execute(event);
 	}
+	cout<<"finalize"<<endl;
+	eff.Finalize(output_file);
 }
