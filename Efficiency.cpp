@@ -37,6 +37,8 @@
      m_method_name = name;
      m_binmax = max;
      m_efficiency_xerr = err;
+     m_nhist = nh;
+     m_thpitch = th;
     
      //initialize
      m_toff_pt = 0;
@@ -204,59 +206,52 @@
      tChain->SetBranchAddress("probe_mesEF_pass",&m_pEF_pass,&b_pEF_pass);
      tChain->SetBranchAddress("probe_mesEF_dR",&m_pEF_dR,&b_pEF_dR);
      //define each histgram
-     h_poff_pt = new TH1D(Form("h_poff_pt_%dGeV",m_threshold_SA),"probe offline pt;offline pt[GeV];Entries",150,0,150);
-     h_pL1_pt = new TH1D(Form("h_pL1_pt_%dGeV",m_threshold_SA),"probe L1 pt;L1 pt[GeV];Entries",150,0,150);
-     h_pSA_pt = new TH1D(Form("h_pSA_pt_%dGeV",m_threshold_SA),"probe L2MuonSA pt;L2MuonSA pt[GeV];Entries",150,0,150);
-     h_pCB_pt = new TH1D(Form("h_pCB_pt_%dGeV",m_threshold_SA),"probe muComb pt;muComb pt[GeV];Entries",150,0,150);
-     h_pEF_pt = new TH1D(Form("h_pEF_pt_%dGeV",m_threshold_SA),"probe EventFilter pt;EventFilter pt[GeV];Entries",150,0,150);
-     h_pL1_dR = new TH1D(Form("h_L1 dR_%dGeV",m_threshold_SA),"L1 dR;dR;Entries",1000,0,0.1);
-     h_pSA_dR = new TH1D(Form("h_SA dR_%dGeV",m_threshold_SA),"L2MuonSA dR;dR;Entries",500,0,0.05);
-     h_pCB_dR = new TH1D(Form("h_CB dR_%dGeV",m_threshold_SA),"muComb dR;dR;Entries",200,0,0.002);
-     h_pEF_dR = new TH1D(Form("h_EF dR_%dGeV",m_threshold_SA),"EventFilter dR;dR;Entries",100,0,0.001);
-     h_textL1_dR = new TH1D(Form("h_textL1_dR_%dGeV",m_threshold_SA),"tag extL1 dR;dR;Entries",1000,0,0.1);
-     h_textSA_dR = new TH1D(Form("h_textSA_dR_%dGeV",m_threshold_SA),"tag extL2MuonSA dR;dR;Entries",1000,0,0.1);
-     h_textCB_dR = new TH1D(Form("h_textCB_dR_%dGeV",m_threshold_SA),"tag extmuComb dR;dR;Entries",1000,0,0.01);
-     h_textEF_dR = new TH1D(Form("h_textEF_dR_%dGeV",m_threshold_SA),"tag extEventFilter dR;dR;Entries",1000,0,0.01);
-     h_pextL1_dR = new TH1D(Form("h_pextL1_dR_%dGeV",m_threshold_SA),"probe extL1 dR;dR;Entries",1000,0,0.1);
-     h_pextSA_dR = new TH1D(Form("h_pextSA_dR_%dGeV",m_threshold_SA),"probe extL2MuonSA dR;dR;Entries",1000,0,0.1);
-     h_pextCB_dR = new TH1D(Form("h_pextCB_dR_%dGeV",m_threshold_SA),"probe extmuComb dR;dR;Entries",1000,0,0.01);
-     h_pextEF_dR = new TH1D(Form("h_pextEF_dR_%dGeV",m_threshold_SA),"probe extEventFilter dR;dR;Entries",1000,0,0.01);
-     h_td0 = new TH1D(Form("h_td0_%dGeV",m_threshold_SA),"tag d0;tag d0;Entries",1000,0,0.1);
-     h_tz0 = new TH1D(Form("h_tz0_%dGeV",m_threshold_SA),"tag z0;tag z0;Entries",10000,0,1000);
-     h_pd0 = new TH1D(Form("h_pd0_%dGeV",m_threshold_SA),"probe d0;probe d0;Entries",500,0,0.05);
-     h_pz0 = new TH1D(Form("h_pz0_%dGeV",m_threshold_SA),"probe z0;probe z0;Entries",10000,0,1000);
-     h_pSA_respt = new TH1D(Form("h_pSA_respt_%dGeV",m_threshold_SA),"probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-     h_pCB_respt = new TH1D(Form("h_pCB_respt_%dGeV",m_threshold_SA),"probe muComb residual pt;residual pt;Entries",640,-0.8,0.8);
-     h_pEF_respt = new TH1D(Form("h_pEF_respt_%dGeV",m_threshold_SA),"probe EventFilter residual pt;residual pt;Entries",1800,-0.3,0.3);
-     h_invmass_off = new TH1D(Form("h_invmass_off_%dGeV",m_threshold_SA),"offline invariant mass;invariant mass[GeV];Entries",800,0,200);
-     h_invmass_L1 = new TH1D(Form("h_invmass_L1_%dGeV",m_threshold_SA),"L1 invariant mass;invariant mass[GeV];Entries",800,0,200);
-     h_invmass_SA = new TH1D(Form("h_invmass_SA_%dGeV",m_threshold_SA),"L2MuonSA invariant mass;invariant mass[GeV];Entries",800,0,200);
-     h_invmass_CB = new TH1D(Form("h_invmass_CB_%dGeV",m_threshold_SA),"muComb invariant mass;invariant mass[GeV];Entries",800,0,200);
-     h_invmass_EF = new TH1D(Form("h_invmass_EF_%dGeV",m_threshold_SA),"EventFilter invariant mass;invariant mass[GeV];Entries",800,0,200);
-     h_eoff_pt = new TH1D(Form("h_eoff_pt_%dGeV",m_threshold_SA),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75);
-     h_eL1_pt = new TH1D(Form("h_eL1_pt_%dGeV",m_threshold_SA),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75);
-     h_eSA_pt = new TH1D(Form("h_eSA_pt_%dGeV",m_threshold_SA),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75);
-     h_eCB_pt = new TH1D(Form("h_eCB_pt_%dGeV",m_threshold_SA),"mesCB_pt;CB pt[GeV];Entries",300,-0.25,149.75);
-     h_eEF_pt = new TH1D(Form("h_eEF_pt_%dGeV",m_threshold_SA),"mesEF_pt;EF pt[GeV];Entries",300,-0.25,149.75);
-     h_eoff_eta = new TH1D(Form("h_eoff_eta_%dGeV",m_threshold_SA),"off eta;off eta;Entries",50,-2.5,2.5);
-     h_eL1_eta = new TH1D(Form("h_eL1_eta_%dGeV",m_threshold_SA),"L1 eta;L1 eta;Entries",50,-2.5,2.5);
-     h_eSA_eta = new TH1D(Form("h_eSA_eta_%dGeV",m_threshold_SA),"SA eta;SA eta;Entries",50,-2.5,2.5);
-     h_eCB_eta = new TH1D(Form("h_eCB_eta_%dGeV",m_threshold_SA),"CB eta;CB eta;Entries",50,-2.5,2.5);
-     h_eEF_eta = new TH1D(Form("h_eEF_eta_%dGeV",m_threshold_SA),"EF eta;EF eta;Entries",50,-2.5,2.5);
-     h_eoff_pt_barrel = new TH1D(Form("h_eoff_pt_barrel_%dGeV",m_threshold_SA),"off_pt;off pt[GeV];Entries",300,-0.25,149.75);
-     h_eL1_pt_barrel = new TH1D(Form("h_eL1_pt_barrel_%dGeV",m_threshold_SA),"L1_pt;L1 pt[GeV];Entries",300,-0.25,149.75);
-     h_eSA_pt_barrel = new TH1D(Form("h_eSA_pt_barrel_%dGeV",m_threshold_SA),"SA_pt;SA pt[GeV];Entries",300,-0.25,149.75);
-     h_eCB_pt_barrel = new TH1D(Form("h_eCB_pt_barrel_%dGeV",m_threshold_SA),"CB_pt;CB pt[GeV];Entries",300,-0.25,149.75);
-     h_eEF_pt_barrel = new TH1D(Form("h_eEF_pt_barrel_%dGeV",m_threshold_SA),"EF_pt;EF pt[GeV];Entries",300,-0.25,149.75);
-     h_eoff_pt_end = new TH1D(Form("h_eoff_pt_end_%dGeV",m_threshold_SA),"off_pt;off pt[GeV];Entries",300,-0.25,149.75);
-     h_eL1_pt_end = new TH1D(Form("h_eL1_pt_end_%dGeV",m_threshold_SA),"L1_pt;L1 pt[GeV];Entries",300,-0.25,149.75);
-     h_eSA_pt_end = new TH1D(Form("h_eSA_pt_end_%dGeV",m_threshold_SA),"SA_pt;SA pt[GeV];Entries",300,-0.25,149.75);
-     h_eCB_pt_end = new TH1D(Form("h_eCB_pt_end_%dGeV",m_threshold_SA),"CB_pt;CB pt[GeV];Entries",300,-0.25,149.75);
-     h_eEF_pt_end = new TH1D(Form("h_eEF_pt_end_%dGeV",m_threshold_SA),"EF_pt;EF pt[GeV];Entries",300,-0.25,149.75);
-     h_eff_poff_etaphi = new TH2F(Form("h_eff_poff_etaphi_%dGeV",m_threshold_SA),"offlineeta vs offlinephi;offline eta;offline phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max);
-     h_eff_pL1_etaphi = new TH2F(Form("h_eff_pL1_etaphi_%dGeV",m_threshold_SA),"L1eta vs L1phi;L1 eta;L1 phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max);
-     h_eff_pSA_etaphi = new TH2F(Form("h_eff_pSA_etaphi_%dGeV",m_threshold_SA),"L2MuonSAeta vs L2MuonSAphi;L2MuonSA eta;L2MuonSA phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max);
-     h_poffvsSA_pt = new TH2F(Form("h_poffvsSA_pt_%dGeV",m_threshold_SA),"probe offline pt vs probe L2MuonSA pt@mu26ivm;probe offline pt[GeV];probe L2MuonSA pt[GeV]",150,0,150,150,0,150);
+     for(Int_t i = 0;i < m_nhist;i++){
+          m_h_poff_pt.push_back(new TH1D(Form("h_poff_pt_%dGeV",i*thpitch),"probe offline pt;offline pt[GeV];Entries",150,0,150));
+          m_h_pL1_pt.push_back(new TH1D(Form("h_pL1_pt_%dGeV",i*thpitch),"probe L1 pt;L1 pt[GeV];Entries",150,0,150));
+          m_h_pSA_pt.push_back(new TH1D(Form("h_pSA_pt_%dGeV",i*thpitch),"probe L2MuonSA pt;L2MuonSA pt[GeV];Entries",150,0,150));
+          m_h_pCB_pt.push_back(new TH1D(Form("h_pCB_pt_%dGeV",i*thpitch),"probe muComb pt;muComb pt[GeV];Entries",150,0,150));
+          m_h_pEF_pt.push_back(new TH1D(Form("h_pEF_pt_%dGeV",i*thpitch),"probe EventFilter pt;EventFilter pt[GeV];Entries",150,0,150));
+          m_h_pL1_dR.push_back(new TH1D(Form("h_L1 dR_%dGeV",i*thpitch),"L1 dR;dR;Entries",1000,0,0.1));
+          m_h_pSA_dR.push_back(new TH1D(Form("h_SA dR_%dGeV",i*thpitch),"L2MuonSA dR;dR;Entries",500,0,0.05));
+          m_h_pCB_dR.push_back(new TH1D(Form("h_CB dR_%dGeV",i*thpitch),"muComb dR;dR;Entries",200,0,0.002));
+          m_h_pEF_dR.push_back(new TH1D(Form("h_EF dR_%dGeV",i*thpitch),"EventFilter dR;dR;Entries",100,0,0.001));
+          m_h_textL1_dR.push_back(new TH1D(Form("h_textL1_dR_%dGeV",i*thpitch),"tag extL1 dR;dR;Entries",1000,0,0.1));
+          m_h_textSA_dR.push_back(new TH1D(Form("h_textSA_dR_%dGeV",i*thpitch),"tag extL2MuonSA dR;dR;Entries",1000,0,0.1));
+          m_h_textCB_dR.push_back(new TH1D(Form("h_textCB_dR_%dGeV",i*thpitch),"tag extmuComb dR;dR;Entries",1000,0,0.01));
+          m_h_textEF_dR.push_back(new TH1D(Form("h_textEF_dR_%dGeV",i*thpitch),"tag extEventFilter dR;dR;Entries",1000,0,0.01));
+          m_h_pextL1_dR.push_back(new TH1D(Form("h_pextL1_dR_%dGeV",i*thpitch),"probe extL1 dR;dR;Entries",1000,0,0.1));
+          m_h_pextSA_dR.push_back(new TH1D(Form("h_pextSA_dR_%dGeV",i*thpitch),"probe extL2MuonSA dR;dR;Entries",1000,0,0.1));
+          m_h_pextCB_dR.push_back(new TH1D(Form("h_pextCB_dR_%dGeV",i*thpitch),"probe extmuComb dR;dR;Entries",1000,0,0.01));
+          m_h_pextEF_dR.push_back(new TH1D(Form("h_pextEF_dR_%dGeV",i*thpitch),"probe extEventFilter dR;dR;Entries",1000,0,0.01));
+          m_h_pSA_respt.push_back(new TH1D(Form("h_pSA_respt_%dGeV",i*thpitch),"probe L2MuonSA residual pt;residual pt;Entries",300,-1,1));
+          m_h_pCB_respt.push_back(new TH1D(Form("h_pCB_respt_%dGeV",i*thpitch),"probe muComb residual pt;residual pt;Entries",640,-0.8,0.8));
+          m_h_pEF_respt.push_back(new TH1D(Form("h_pEF_respt_%dGeV",i*thpitch),"probe EventFilter residual pt;residual pt;Entries",1800,-0.3,0.3));
+          m_h_eoff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eL1_pt.push_back(new TH1D(Form("h_eL1_pt_%dGeV",i*thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eSA_pt.push_back(new TH1D(Form("h_eSA_pt_%dGeV",i*thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eCB_pt.push_back(new TH1D(Form("h_eCB_pt_%dGeV",i*thpitch),"mesCB_pt;CB pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eEF_pt.push_back(new TH1D(Form("h_eEF_pt_%dGeV",i*thpitch),"mesEF_pt;EF pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eoff_eta.push_back(new TH1D(Form("h_eoff_eta_%dGeV",i*thpitch),"off eta;off eta;Entries",50,-2.5,2.5));
+          m_h_eL1_eta.push_back(new TH1D(Form("h_eL1_eta_%dGeV",i*thpitch),"L1 eta;L1 eta;Entries",50,-2.5,2.5));
+          m_h_eSA_eta.push_back(new TH1D(Form("h_eSA_eta_%dGeV",i*thpitch),"SA eta;SA eta;Entries",50,-2.5,2.5));
+          m_h_eCB_eta.push_back(new TH1D(Form("h_eCB_eta_%dGeV",i*thpitch),"CB eta;CB eta;Entries",50,-2.5,2.5));
+          m_h_eEF_eta.push_back(new TH1D(Form("h_eEF_eta_%dGeV",i*thpitch),"EF eta;EF eta;Entries",50,-2.5,2.5));
+          m_h_eoff_pt_barrel.push_back(new TH1D(Form("h_eoff_pt_barrel_%dGeV",i*thpitch),"off_pt;off pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eL1_pt_barrel.push_back(new TH1D(Form("h_eL1_pt_barrel_%dGeV",i*thpitch),"L1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eSA_pt_barrel.push_back(new TH1D(Form("h_eSA_pt_barrel_%dGeV",i*thpitch),"SA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eCB_pt_barrel.push_back(new TH1D(Form("h_eCB_pt_barrel_%dGeV",i*thpitch),"CB_pt;CB pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eEF_pt_barrel.push_back(new TH1D(Form("h_eEF_pt_barrel_%dGeV",i*thpitch),"EF_pt;EF pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eoff_pt_end.push_back(new TH1D(Form("h_eoff_pt_end_%dGeV",i*thpitch),"off_pt;off pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eL1_pt_end.push_back(new TH1D(Form("h_eL1_pt_end_%dGeV",i*thpitch),"L1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eSA_pt_end.push_back(new TH1D(Form("h_eSA_pt_end_%dGeV",i*thpitch),"SA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eCB_pt_end.push_back(new TH1D(Form("h_eCB_pt_end_%dGeV",i*thpitch),"CB_pt;CB pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eEF_pt_end.push_back(new TH1D(Form("h_eEF_pt_end_%dGeV",i*thpitch),"EF_pt;EF pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eff_poff_etaphi.push_back(new TH2F(Form("h_eff_poff_etaphi_%dGeV",i*thpitch),"offlineeta vs offlinephi;offline eta;offline phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max));
+          m_h_eff_pL1_etaphi.push_back(new TH2F(Form("h_eff_pL1_etaphi_%dGeV",i*thpitch),"L1eta vs L1phi;L1 eta;L1 phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max));
+          m_h_eff_pSA_etaphi.push_back(new TH2F(Form("h_eff_pSA_etaphi_%dGeV",i*thpitch),"L2MuonSAeta vs L2MuonSAphi;L2MuonSA eta;L2MuonSA phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max));
+          m_h_poffvsSA_pt.push_back(new TH2F(Form("h_poffvsSA_pt_%dGeV",i*thpitch),"probe offline pt vs probe L2MuonSA pt@mu26ivm;probe offline pt[GeV];probe L2MuonSA pt[GeV]",150,0,150,150,0,150));
+     }
    }
  }
 
@@ -268,7 +263,7 @@
      }
 }
 
-bool Efficiency::Cut_L1(Int_t pass,Double_t dr){
+bool Efficiency::Cut_L1(Int_t pass){
   if(pass > -1){
           return kTRUE;
      }else{
@@ -362,11 +357,6 @@ void Efficiency::Execute(Int_t ev){
   if(std::fabs(m_poff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_poff_pt) + 0.18;
        //offline
        h_poff_pt->Fill(m_poff_pt*0.001);
-       h_invmass_off->Fill(0.001*TMath::Sqrt(2.0*m_toff_pt*m_poff_pt*(TMath::CosH(m_toff_eta - m_poff_eta) - TMath::Cos(m_toff_phi - m_poff_phi))));
-       h_td0->Fill(m_tag_d0);
-       h_pd0->Fill(m_probe_d0);
-       h_tz0->Fill(m_tag_z0);
-       h_pz0->Fill(m_probe_z0);
        h_eoff_pt->Fill(std::fabs(m_poff_pt*0.001));
         if(std::fabs(m_poff_pt*0.001) > 40)h_eoff_eta->Fill(m_poff_eta);
        if(Dicision_barrel(m_poff_eta)){
@@ -377,16 +367,14 @@ void Efficiency::Execute(Int_t ev){
     if(std::fabs(m_poff_pt*0.001) > 40)h_eff_poff_etaphi->Fill(m_poff_eta,m_poff_phi);
 
      //L1
-       if(Cut_L1(pL1_pass,pL1_dR)){
+       if(Cut_L1(pL1_pass)){
      Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
        pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
-       Double_t invmass_L1 = 0.001*TMath::Sqrt(2.0*m_tL1_pt*pL1_pt*(TMath::CosH(m_tL1_eta - pL1_eta) - TMath::Cos(m_tL1_phi - pL1_phi)));
 
        h_pL1_pt->Fill(std::fabs(pL1_pt*0.001));
        h_pL1_dR->Fill(pL1_dR);
        h_textL1_dR->Fill(textL1_dR);
        h_pextL1_dR->Fill(pextL1_dR);
-       h_invmass_L1->Fill(invmass_L1);
        h_eL1_pt->Fill(std::fabs(m_poff_pt*0.001));
        if(Dicision_barrel(m_poff_eta)){
                h_eL1_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
@@ -401,7 +389,6 @@ void Efficiency::Execute(Int_t ev){
        if(Cut_SA(pSA_pass,pSA_pt,m_threshold_SA)){
        Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
        pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
-       Double_t invmass_SA = TMath::Sqrt(2.0*m_tSA_pt*pSA_pt*(TMath::CosH(m_tSA_eta - pSA_eta) - TMath::Cos(m_tSA_phi - pSA_phi)));
        Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
        Double_t buf_pSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_eta,2) + pow(pSA_phi - m_poff_phi,2));
 
@@ -409,7 +396,6 @@ void Efficiency::Execute(Int_t ev){
        h_pSA_dR->Fill(buf_pSA_dR);
        h_textSA_dR->Fill(textSA_dR);
        h_pextSA_dR->Fill(pextSA_dR);
-       h_invmass_SA->Fill(invmass_SA);
        h_eSA_pt->Fill(std::fabs(m_poff_pt*0.001));
        h_pSA_respt->Fill(resSA_pt);
        if(Dicision_barrel(m_poff_eta)){
@@ -426,14 +412,12 @@ void Efficiency::Execute(Int_t ev){
        if(Cut_CB(pCB_pass)){
        Double_t textCB_dR = TMath::Sqrt(pow(m_tCB_eta - m_toff_exteta,2) + pow(m_tCB_phi - m_toff_extphi,2));
        pextCB_dR = TMath::Sqrt(pow(pCB_eta - m_poff_exteta,2) + pow(pCB_phi - m_poff_extphi,2));
-       Double_t invmass_CB = TMath::Sqrt(2.0*m_tSA_pt*pSA_pt*(TMath::CosH(m_tCB_eta - pCB_eta) - TMath::Cos(m_tCB_phi - pCB_phi)));
        Double_t resCB_pt = std::fabs(m_poff_pt)/std::fabs(pCB_pt) - 1.0;
 
        h_pCB_pt->Fill(std::fabs(pCB_pt*0.001));
        h_pCB_dR->Fill(pCB_dR);
        h_textCB_dR->Fill(textCB_dR);
        h_pextCB_dR->Fill(pextCB_dR);
-       h_invmass_CB->Fill(invmass_CB);
        h_eCB_pt->Fill(std::fabs(m_poff_pt*0.001));
        if(std::fabs(m_poff_pt*0.001) > 40)h_eCB_eta->Fill(m_poff_eta);
        h_pCB_respt->Fill(resCB_pt);
@@ -447,14 +431,12 @@ void Efficiency::Execute(Int_t ev){
        if(Cut_EF(pEF_pass)){
        Double_t textEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_exteta,2) + pow(m_tEF_phi - m_toff_extphi,2));
        pextEF_dR = TMath::Sqrt(pow(pEF_eta - m_poff_exteta,2) + pow(pEF_phi - m_poff_extphi,2));
-       Double_t invmass_EF = TMath::Sqrt(2.0*m_tSA_pt*pSA_pt*(TMath::CosH(m_tEF_eta - pEF_eta) - TMath::Cos(m_tEF_phi - pEF_phi)));
        Double_t resEF_pt = std::fabs(m_poff_pt)/std::fabs(pEF_pt) - 1.0;
 
        h_pEF_pt->Fill(std::fabs(pEF_pt*0.001));
        h_pEF_dR->Fill(pEF_dR);
        h_textEF_dR->Fill(textEF_dR);
        h_pextEF_dR->Fill(pextEF_dR);
-       h_invmass_EF->Fill(invmass_EF);
        h_eEF_pt->Fill(std::fabs(m_poff_pt*0.001));
        if(std::fabs(m_poff_pt*0.001) > 40)h_eEF_eta->Fill(m_poff_eta);
        h_pEF_respt->Fill(resEF_pt);
@@ -510,29 +492,11 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.SetCondition("test",1.5,0,0,0,0);
      ceff.DrawHist1D(h_pextEF_dR);
      ceff.SetCondition("test",1.5,0,0,0,0);
-     ceff.DrawHist1D(h_td0);
-     ceff.SetCondition("test",1.5,0,0,0,0);
-     ceff.DrawHist1D(h_tz0);
-     ceff.SetCondition("test",1.5,0,0,0,0);
-     ceff.DrawHist1D(h_pd0);
-     ceff.SetCondition("test",1.5,0,0,0,0);
-     ceff.DrawHist1D(h_pz0);
-     ceff.SetCondition("test",1.5,0,0,0,0);
      ceff.DrawHist1D(h_pSA_respt);
      ceff.SetCondition("test",1.5,0,0,0,0);
      ceff.DrawHist1D(h_pCB_respt);
      ceff.SetCondition("test",1.5,0,0,0,0);
      ceff.DrawHist1D(h_pEF_respt);
-     ceff.SetCondition("test",1.5,0,0,0,0);
-     ceff.DrawHist1D(h_invmass_off);
-     ceff.SetCondition("test",1.5,0,0,0,0);
-     ceff.DrawHist1D(h_invmass_L1);
-     ceff.SetCondition("test",1.5,0,0,0,0);
-     ceff.DrawHist1D(h_invmass_SA);
-     ceff.SetCondition("test",1.5,0,0,0,0);
-     ceff.DrawHist1D(h_invmass_CB);
-     ceff.SetCondition("test",1.5,0,0,0,0);
-     ceff.DrawHist1D(h_invmass_EF);
      ceff.SetCondition("trigger;offline eta;count",1.5,0,0,0,0);
      ceff.DrawHist1D(h_eL1_eta);
      ceff.SetCondition("test",1.5,0,0,0,0);
@@ -626,18 +590,9 @@ void Efficiency::Finalize(TFile *tf1){
      delete h_pextSA_dR;
      delete h_pextCB_dR;
      delete h_pextEF_dR;
-     delete h_td0;
-     delete h_tz0;
-     delete h_pd0;
-     delete h_pz0;
      delete h_pSA_respt;
      delete h_pCB_respt;
      delete h_pEF_respt;
-     delete h_invmass_off;
-     delete h_invmass_L1;
-     delete h_invmass_SA;
-     delete h_invmass_CB;
-     delete h_invmass_EF;
      delete h_eoff_pt;
      delete h_eL1_pt;
      delete h_eSA_pt;

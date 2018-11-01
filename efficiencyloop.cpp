@@ -32,7 +32,7 @@ const string inputfilename = "/gpfs/fs6001/kayamash/dataset/Zmumu300540_hadd.roo
 const string outputfilename = "/gpfs/fs6001/kayamash/output/" + trigger + "/plottest.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
-const Int_t nhist = 13;
+const Int_t nhist = 14;
 const Int_t thpitch = 2;
 
 //main function
