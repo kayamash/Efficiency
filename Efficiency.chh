@@ -74,6 +74,7 @@ class Efficiency
   std::vector<Double_t> *m_pSA_eta;
   std::vector<Double_t> *m_pSA_phi;
   std::vector<Double_t> *m_pSA_dR;
+  std::vector<Double_t> *m_pSA_sAddress;
   std::vector<Double_t> *m_pCB_pt;
   std::vector<Double_t> *m_pCB_eta;
   std::vector<Double_t> *m_pCB_phi;
@@ -128,6 +129,7 @@ class Efficiency
   TBranch *b_pSA_eta;
   TBranch *b_pSA_phi;
   TBranch *b_pSA_dR;
+  TBranch *b_pSA_sAddress;
   TBranch *b_pCB_pt;
   TBranch *b_pCB_eta;
   TBranch *b_pCB_phi;
@@ -187,6 +189,19 @@ class Efficiency
   vector<TH2F> *m_h_eff_pL1_etaphi;
   vector<TH2F> *m_h_eff_pSA_etaphi;
   vector<TH2F> *m_h_poffvsSA_pt;
+  vector<TH2F> *m_h_off_ptvsSA_resptplus0;
+  vector<TH2F> *m_h_off_ptvsSA_resptplus1;
+  vector<TH2F> *m_h_off_ptvsSA_resptplus2;
+  vector<TH2F> *m_h_off_ptvsSA_resptplus3;
+  vector<TH2F> *m_h_off_ptvsSA_resptminus0;
+  vector<TH2F> *m_h_off_ptvsSA_resptminus1;
+  vector<TH2F> *m_h_off_ptvsSA_resptminus2;
+  vector<TH2F> *m_h_off_ptvsSA_resptminus3;
+  vector<TH2F> *m_h_offphivsSA_sAddress;
+  vector<TH2F> *m_h_offphivsSA_respt0;
+  vector<TH2F> *m_h_offphivsSA_respt1;
+  vector<TH2F> *m_h_offphivsSA_respt2;
+  vector<TH2F> *m_h_offphivsSA_respt3;
 
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;
@@ -196,6 +211,11 @@ class Efficiency
 
   Double_t m_binmax;
   Double_t m_efficiency_xerr;
+
+  vector<Int_t> m_countLarge;
+  vector<Int_t> m_countLargeSpecial;
+  vector<Int_t> m_countSmall;
+  vector<Int_t> m_countSmallSpecial;
 
 public:
   void Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th);
