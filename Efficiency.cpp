@@ -637,7 +637,7 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.DrawEfficiency2D(m_h_eff_poff_etaphi.at(i),m_h_eff_pL1_etaphi.at(i));
 
           cout<<"ptSA threshold   numberofLarge   numberofLargeSpecial   numberofSmall   numberofSmallSpecial"<<endl;
-          cout<<i*m_thpitch.at(i)<<"   "<<m_countLarge.at(i)<<"   "<<m_countLargeSpecial.at(i)<<"   "<<m_countSmall.at(i)<<"   "<<m_countSmallSpecial.at(i);
+          cout<<i*m_thpitch<<"   "<<m_countLarge.at(i)<<"   "<<m_countLargeSpecial.at(i)<<"   "<<m_countSmall.at(i)<<"   "<<m_countSmallSpecial.at(i);
      }
 
      m_h_poff_pt.clear();
