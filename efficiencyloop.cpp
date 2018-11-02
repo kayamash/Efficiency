@@ -41,12 +41,12 @@ void efficiencyloop(){
 	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
 	TFile *tf1 = TFile::Open(inputfilename.c_str(),"read");
 	TTree *tr1 = dynamic_cast<TTree*>(tf1->Get("t_tap"));
-	cout<<"start init!"<<endl;
+	cout<<"Initialize"<<endl;
 	eff.Init(tr1,trigger,24,20,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,thpitch);
-	cout<<"start execute!"<<endl;
+	cout<<"Execute"<<endl;
 	for(Int_t event = 0;event < tr1->GetEntries(); event++){
 		eff.Execute(event);
 	}
-	cout<<"finalize"<<endl;
+	cout<<"Finalize"<<endl;
 	eff.Finalize(output_file);
 }

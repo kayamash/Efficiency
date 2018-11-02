@@ -208,10 +208,9 @@
      tChain->SetBranchAddress("probe_mesEF_phi",&m_pEF_phi,&b_pEF_phi);
      tChain->SetBranchAddress("probe_mesEF_pass",&m_pEF_pass,&b_pEF_pass);
      tChain->SetBranchAddress("probe_mesEF_dR",&m_pEF_dR,&b_pEF_dR);
-     cout<<"end set branch"<<endl;
 
      //define each histgram
-     for(Int_t i = 0;i < m_nhist;i++){
+     for(Int_t i = 0;i <= m_nhist;i++){
           m_h_poff_pt.push_back(new TH1D(Form("h_poff_pt_%dGeV",i*m_thpitch),"probe offline pt;offline pt[GeV];Entries",150,0,150));
           m_h_pL1_pt.push_back(new TH1D(Form("h_pL1_pt_%dGeV",i*m_thpitch),"probe L1 pt;L1 pt[GeV];Entries",150,0,150));
           m_h_pSA_pt.push_back(new TH1D(Form("h_pSA_pt_%dGeV",i*m_thpitch),"probe L2MuonSA pt;L2MuonSA pt[GeV];Entries",150,0,150)); 
@@ -327,7 +326,7 @@ bool Efficiency::Cut_EF(Int_t pass){
 
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
-     for(Int_t i = 0;i<m_nhist;i++){
+     for(Int_t i = 0;i <= m_nhist;i++){
           Double_t pextL1_dR = 1; 
           Double_t pextSA_dR = 1; 
           Double_t pextCB_dR = 1; 
@@ -433,6 +432,7 @@ void Efficiency::Execute(Int_t ev){
                          m_h_eSA_eta.at(i)->Fill(m_poff_eta);
                     }
                     m_h_poffvsSA_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001),std::fabs(pSA_pt));
+                    cout<<static_cast<Int_t>(pSA_sAddress)<<endl;
                     switch(static_cast<Int_t>(pSA_sAddress)){
                          case 0:
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
@@ -506,9 +506,10 @@ void Efficiency::Execute(Int_t ev){
 void Efficiency::Finalize(TFile *tf1){
      CalcEfficiency ceff;
      tf1->cd();
+     cout<<"ptSA threshold   numberofLarge   numberofLargeSpecial   numberofSmall   numberofSmallSpecial"<<endl;
      //SetCondition
      //title,file title,yoffset,top margin,bottom margin,left margin,right margin
-     for(Int_t i = 0;i < m_nhist;i++){
+     for(Int_t i = 0;i <= m_nhist;i++){
           ceff.SetCondition("test",1.5,0,0,0,0);
           ceff.DrawHist1D(m_h_poff_pt.at(i));
           ceff.SetCondition("test",1.5,0,0,0,0);
@@ -638,7 +639,6 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
           ceff.DrawEfficiency2D(m_h_eff_poff_etaphi.at(i),m_h_eff_pL1_etaphi.at(i));
 
-          cout<<"ptSA threshold   numberofLarge   numberofLargeSpecial   numberofSmall   numberofSmallSpecial"<<endl;
           cout<<i*m_thpitch<<"   "<<m_countLarge.at(i)<<"   "<<m_countLargeSpecial.at(i)<<"   "<<m_countSmall.at(i)<<"   "<<m_countSmallSpecial.at(i);
      }
 
