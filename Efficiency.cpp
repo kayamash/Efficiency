@@ -433,7 +433,6 @@ void Efficiency::Execute(Int_t ev){
                          m_h_eSA_eta.at(i)->Fill(m_poff_eta);
                     }
                     m_h_poffvsSA_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001),std::fabs(pSA_pt));
-                    cout<<static_cast<Int_t>(pSA_sAddress)<<endl;
                     switch(static_cast<Int_t>(pSA_sAddress)){
                          case 0:
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
@@ -640,7 +639,7 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
           ceff.DrawEfficiency2D(m_h_eff_poff_etaphi.at(i),m_h_eff_pL1_etaphi.at(i));
 
-          cout<<i*m_thpitch<<"   "<<m_countLarge.at(i)<<"   "<<m_countLargeSpecial.at(i)<<"   "<<m_countSmall.at(i)<<"   "<<m_countSmallSpecial.at(i);
+          cout<<i*m_thpitch<<"   "<<m_countLarge.at(i)<<"   "<<m_countLargeSpecial.at(i)<<"   "<<m_countSmall.at(i)<<"   "<<m_countSmallSpecial.at(i)<<endl;
      }
 
      m_h_poff_pt.clear();
