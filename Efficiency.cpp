@@ -269,13 +269,10 @@
           m_h_offphivsSA_respt1.push_back(new TH2F(Form("h_offphivsSA_respt1_%dGeV",i*m_thpitch),"LargeSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
           m_h_offphivsSA_respt2.push_back(new TH2F(Form("h_offphivsSA_respt2_%dGeV",i*m_thpitch),"Small;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
           m_h_offphivsSA_respt3.push_back(new TH2F(Form("h_offphivsSA_respt3_%dGeV",i*m_thpitch),"SmallSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
-          cout<<"count"<<endl;
           m_countLarge.push_back(0);
           m_countLargeSpecial.push_back(0);
-          cout<<"count now"<<endl;
           m_countSmall.push_back(0);
           m_countSmallSpecial.push_back(0);
-          cout<<"count end"<<endl;
      }
    }
  }
@@ -415,6 +412,7 @@ void Efficiency::Execute(Int_t ev){
 
                //SA
                if(Cut_SA(pSA_pass,pSA_pt,i*m_thpitch)){
+                    cout<<"pass SA"<<endl;
                     Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
                     pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
                     Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
@@ -466,6 +464,7 @@ void Efficiency::Execute(Int_t ev){
 
                     //CB
                     if(Cut_CB(pCB_pass)){
+                         cout<<"pass CB"<<endl;
                          Double_t textCB_dR = TMath::Sqrt(pow(m_tCB_eta - m_toff_exteta,2) + pow(m_tCB_phi - m_toff_extphi,2));
                          pextCB_dR = TMath::Sqrt(pow(pCB_eta - m_poff_exteta,2) + pow(pCB_phi - m_poff_extphi,2));
                          Double_t resCB_pt = std::fabs(m_poff_pt)/std::fabs(pCB_pt) - 1.0;
