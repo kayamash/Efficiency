@@ -220,7 +220,6 @@
           m_h_pL1_dR.push_back(new TH1D(Form("h_L1 dR_%dGeV",i*m_thpitch),"L1 dR;dR;Entries",1000,0,0.1));
           m_h_pSA_dR.push_back(new TH1D(Form("h_SA dR_%dGeV",i*m_thpitch),"L2MuonSA dR;dR;Entries",500,0,0.05));
           m_h_pCB_dR.push_back(new TH1D(Form("h_CB dR_%dGeV",i*m_thpitch),"muComb dR;dR;Entries",200,0,0.002));
-          cout<<1<<endl;
           m_h_pEF_dR.push_back(new TH1D(Form("h_EF dR_%dGeV",i*m_thpitch),"EventFilter dR;dR;Entries",100,0,0.001));
           m_h_textL1_dR.push_back(new TH1D(Form("h_textL1_dR_%dGeV",i*m_thpitch),"tag extL1 dR;dR;Entries",1000,0,0.1));
           m_h_textSA_dR.push_back(new TH1D(Form("h_textSA_dR_%dGeV",i*m_thpitch),"tag extL2MuonSA dR;dR;Entries",1000,0,0.1));
@@ -257,16 +256,19 @@
           m_h_eff_pL1_etaphi.push_back(new TH2F(Form("h_eff_pL1_etaphi_%dGeV",i*m_thpitch),"L1eta vs L1phi;L1 eta;L1 phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max));
           m_h_eff_pSA_etaphi.push_back(new TH2F(Form("h_eff_pSA_etaphi_%dGeV",i*m_thpitch),"L2MuonSAeta vs L2MuonSAphi;L2MuonSA eta;L2MuonSA phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max));
           m_h_poffvsSA_pt.push_back(new TH2F(Form("h_poffvsSA_pt_%dGeV",i*m_thpitch),"probe offline pt vs probe L2MuonSA pt@mu26ivm;probe offline pt[GeV];probe L2MuonSA pt[GeV]",150,0,150,150,0,150));
-          cout<<"tape"<<endl;
+          cout<<"plus"<<endl;
           m_h_off_ptvsSA_resptplus0.push_back(new TH2F(Form("h_off_ptvsSA_resptplus0_%dGeV",i*m_thpitch),"Large Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
           m_h_off_ptvsSA_resptplus1.push_back(new TH2F(Form("h_off_ptvsSA_resptplus1_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
           m_h_off_ptvsSA_resptplus2.push_back(new TH2F(Form("h_off_ptvsSA_resptplus2_%dGeV",i*m_thpitch),"Small Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
           m_h_off_ptvsSA_resptplus3.push_back(new TH2F(Form("h_off_ptvsSA_resptplus3_%dGeV",i*m_thpitch),"SmallSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
+          cout<<"minus"<<endl;
           m_h_off_ptvsSA_resptminus0.push_back(new TH2F(Form("h_off_ptvsSA_resptminus0_%dGeV",i*m_thpitch),"Large Qeta/|eta|=-1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
           m_h_off_ptvsSA_resptminus1.push_back(new TH2F(Form("h_off_ptvsSA_resptminus1_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=-1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
           m_h_off_ptvsSA_resptminus2.push_back(new TH2F(Form("h_off_ptvsSA_resptminus2_%dGeV",i*m_thpitch),"Small Qeta/|eta|=-1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
           m_h_off_ptvsSA_resptminus3.push_back(new TH2F(Form("h_off_ptvsSA_resptminus3_%dGeV",i*m_thpitch),"SmallSpecial Qeta/|eta|=-1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
+          cout<<"sAddress"<<endl;
           m_h_offphivsSA_sAddress.push_back(new TH2F(Form("h_offphivsSA_sAddress_%dGeV",i*m_thpitch),"offline phi vs sAddress;offline phi;sAddress",140,-3.5,3.5,4,0.0,4.0));
+          cout<<"respt"<<endl;
           m_h_offphivsSA_respt0.push_back(new TH2F(Form("h_offphivsSA_respt0_%dGeV",i*m_thpitch),"Large;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
           m_h_offphivsSA_respt1.push_back(new TH2F(Form("h_offphivsSA_respt1_%dGeV",i*m_thpitch),"LargeSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
           m_h_offphivsSA_respt2.push_back(new TH2F(Form("h_offphivsSA_respt2_%dGeV",i*m_thpitch),"Small;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
@@ -275,7 +277,6 @@
           m_countLargeSpecial.at(i) = 0;
           m_countSmall.at(i) = 0;
           m_countSmallSpecial.at(i) = 0;
-          cout<<i<<"   end define hist"<<endl;
      }
    }
  }
