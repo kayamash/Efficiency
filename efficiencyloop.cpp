@@ -21,6 +21,7 @@
 #include <TLegend.h>
 #include <TMath.h>
 #include <TBranch.h>
+#include <TChain.h>
 #include "Efficiency.cpp"
 
 const string trigger = "mu26ivm";
