@@ -273,8 +273,10 @@
           cout<<"count"<<endl;
           m_countLarge.at(i) = 0;
           m_countLargeSpecial.at(i) = 0;
+          cout<<"count now"<<endl;
           m_countSmall.at(i) = 0;
           m_countSmallSpecial.at(i) = 0;
+          cout<<"count end"<<endl;
      }
    }
  }
