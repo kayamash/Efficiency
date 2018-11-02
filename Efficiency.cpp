@@ -506,7 +506,7 @@ void Efficiency::Execute(Int_t ev){
 void Efficiency::Finalize(TFile *tf1){
      CalcEfficiency ceff;
      tf1->cd();
-     cout<<"ptSA threshold   numberofLarge   numberofLargeSpecial   numberofSmall   numberofSmallSpecial"<<endl;
+     cout<<"ptSA th   nLarge   nuLargeS   nSmall   nSmallS"<<endl;
      //SetCondition
      //title,file title,yoffset,top margin,bottom margin,left margin,right margin
      for(Int_t i = 0;i <= m_nhist;i++){
