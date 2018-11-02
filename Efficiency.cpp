@@ -213,19 +213,12 @@
      //define each histgram
      for(Int_t i = 0;i < m_nhist;i++){
           m_h_poff_pt.push_back(new TH1D(Form("h_poff_pt_%dGeV",i*m_thpitch),"probe offline pt;offline pt[GeV];Entries",150,0,150));
-          cout<<1<<endl;
           m_h_pL1_pt.push_back(new TH1D(Form("h_pL1_pt_%dGeV",i*m_thpitch),"probe L1 pt;L1 pt[GeV];Entries",150,0,150));
-          cout<<1<<endl;
-          m_h_pSA_pt.push_back(new TH1D(Form("h_pSA_pt_%dGeV",i*m_thpitch),"probe L2MuonSA pt;L2MuonSA pt[GeV];Entries",150,0,150));
-          cout<<1<<endl;
+          m_h_pSA_pt.push_back(new TH1D(Form("h_pSA_pt_%dGeV",i*m_thpitch),"probe L2MuonSA pt;L2MuonSA pt[GeV];Entries",150,0,150)); 
           m_h_pCB_pt.push_back(new TH1D(Form("h_pCB_pt_%dGeV",i*m_thpitch),"probe muComb pt;muComb pt[GeV];Entries",150,0,150));
-          cout<<1<<endl;
           m_h_pEF_pt.push_back(new TH1D(Form("h_pEF_pt_%dGeV",i*m_thpitch),"probe EventFilter pt;EventFilter pt[GeV];Entries",150,0,150));
-          cout<<1<<endl;
           m_h_pL1_dR.push_back(new TH1D(Form("h_L1 dR_%dGeV",i*m_thpitch),"L1 dR;dR;Entries",1000,0,0.1));
-          cout<<1<<endl;
           m_h_pSA_dR.push_back(new TH1D(Form("h_SA dR_%dGeV",i*m_thpitch),"L2MuonSA dR;dR;Entries",500,0,0.05));
-          cout<<1<<endl;
           m_h_pCB_dR.push_back(new TH1D(Form("h_CB dR_%dGeV",i*m_thpitch),"muComb dR;dR;Entries",200,0,0.002));
           cout<<1<<endl;
           m_h_pEF_dR.push_back(new TH1D(Form("h_EF dR_%dGeV",i*m_thpitch),"EventFilter dR;dR;Entries",100,0,0.001));
@@ -264,6 +257,7 @@
           m_h_eff_pL1_etaphi.push_back(new TH2F(Form("h_eff_pL1_etaphi_%dGeV",i*m_thpitch),"L1eta vs L1phi;L1 eta;L1 phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max));
           m_h_eff_pSA_etaphi.push_back(new TH2F(Form("h_eff_pSA_etaphi_%dGeV",i*m_thpitch),"L2MuonSAeta vs L2MuonSAphi;L2MuonSA eta;L2MuonSA phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max));
           m_h_poffvsSA_pt.push_back(new TH2F(Form("h_poffvsSA_pt_%dGeV",i*m_thpitch),"probe offline pt vs probe L2MuonSA pt@mu26ivm;probe offline pt[GeV];probe L2MuonSA pt[GeV]",150,0,150,150,0,150));
+          cout<<"tape"<<endl;
           m_h_off_ptvsSA_resptplus0.push_back(new TH2F(Form("h_off_ptvsSA_resptplus0_%dGeV",i*m_thpitch),"Large Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
           m_h_off_ptvsSA_resptplus1.push_back(new TH2F(Form("h_off_ptvsSA_resptplus1_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
           m_h_off_ptvsSA_resptplus2.push_back(new TH2F(Form("h_off_ptvsSA_resptplus2_%dGeV",i*m_thpitch),"Small Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
