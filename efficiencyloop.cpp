@@ -21,7 +21,6 @@
 #include <TLegend.h>
 #include <TMath.h>
 #include <TBranch.h>
-#include <TChain.h>
 #include "Efficiency.cpp"
 
 const string trigger = "mu26ivm";
@@ -30,8 +29,8 @@ const string trigger = "mu26ivm";
 //const string inputfilename = "/gpfs/fs6001/kayamash/data18_physics_Main_Ztap_hadd.root";
 //const string inputfilename = "/gpfs/fs6001/kayamash/efficiency_output/mc16_13TeVZmumu070.root";
 //const string inputfilename = "/gpfs/fs6001/kayamash/dataset/Zmumu300540_hadd.root";
-const string inputfilelist = "~/list/data16_grid.list";
-const string outputfilename = "/gpfs/fs6001/kayamash/output/" + trigger + "/plottest.root";
+const string inputfilelist = "/home/kayamash/list/data16_grid.list";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/plot4.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
 const Int_t nhist = 14;

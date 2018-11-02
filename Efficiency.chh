@@ -26,6 +26,7 @@
 #include <TMath.h>
 #include <TBranch.h>
 #include <TObject.h>
+#include <TChain.h>
 
 class Efficiency
  {
