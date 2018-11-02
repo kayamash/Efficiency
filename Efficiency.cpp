@@ -29,6 +29,7 @@
 
   void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th){
    if (tree){
+     cout<<"In init"<<endl;
      tChain = tree;
      m_nbin_phi = np;
      m_nbin_eta = ne;
@@ -208,6 +209,8 @@
      tChain->SetBranchAddress("probe_mesEF_phi",&m_pEF_phi,&b_pEF_phi);
      tChain->SetBranchAddress("probe_mesEF_pass",&m_pEF_pass,&b_pEF_pass);
      tChain->SetBranchAddress("probe_mesEF_dR",&m_pEF_dR,&b_pEF_dR);
+     cout<<"end set branch"<<endl;
+
      //define each histgram
      for(Int_t i = 0;i < m_nhist;i++){
           m_h_poff_pt.push_back(new TH1D(Form("h_poff_pt_%dGeV",i*m_thpitch),"probe offline pt;offline pt[GeV];Entries",150,0,150));
@@ -271,6 +274,7 @@
           m_countLargeSpecial.at(i) = 0;
           m_countSmall.at(i) = 0;
           m_countSmallSpecial.at(i) = 0;
+          cout<<i<<"   end define hist"<<endl;
      }
    }
  }
