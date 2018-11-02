@@ -28,7 +28,8 @@ const string trigger = "mu26ivm";
 //const string inputfilename = "~/dataset/efficiencysample2.root";
 //const string inputfilename = "/gpfs/fs6001/kayamash/data18_physics_Main_Ztap_hadd.root";
 //const string inputfilename = "/gpfs/fs6001/kayamash/efficiency_output/mc16_13TeVZmumu070.root";
-const string inputfilename = "/gpfs/fs6001/kayamash/dataset/Zmumu300540_hadd.root";
+//const string inputfilename = "/gpfs/fs6001/kayamash/dataset/Zmumu300540_hadd.root";
+const string inputfilelist = "./data16_grid.list";
 const string outputfilename = "/gpfs/fs6001/kayamash/output/" + trigger + "/plottest.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
@@ -38,9 +39,18 @@ const Int_t thpitch = 2;
 //main function
 void efficiencyloop(){
 	Efficiency eff;
+	/*
 	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
 	TFile *tf1 = TFile::Open(inputfilename.c_str(),"read");
 	TTree *tr1 = dynamic_cast<TTree*>(tf1->Get("t_tap"));
+	*/
+
+	TChain *tr1 = new TChain("t_tap");
+	std::ifstream ifs(inputfilelist.c_str());
+	std::string str;
+	while(getline(ifs,str)){
+		tr1->Add(str.c_str());
+	}
 	cout<<"Initialize"<<endl;
 	eff.Init(tr1,trigger,24,20,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,thpitch);
 	cout<<"Execute"<<endl;
