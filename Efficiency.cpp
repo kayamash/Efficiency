@@ -380,7 +380,7 @@ void Efficiency::Execute(Int_t ev){
           //offline
           m_h_poff_pt.at(i)->Fill(m_poff_pt*0.001);
           m_h_eoff_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-          if(std::fabs(m_poff_pt*0.001) > 40)m_h_eoff_eta.Fill(m_poff_eta);
+          if(std::fabs(m_poff_pt*0.001) > 40)m_h_eoff_eta.at(i)->Fill(m_poff_eta);
           if(Dicision_barrel(m_poff_eta)){
                m_h_eoff_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           }else{
@@ -409,7 +409,7 @@ void Efficiency::Execute(Int_t ev){
                }
 
                //SA
-               if(Cut_SA(pSA_pass,pSA_pt,i*thpitch)){
+               if(Cut_SA(pSA_pass,pSA_pt,i*m_thpitch)){
                     Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
                     pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
                     Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
@@ -445,7 +445,7 @@ void Efficiency::Execute(Int_t ev){
                          case 2:
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus2.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus2.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                              m_countSmll.at(i)++;
+                              m_countSmall.at(i)++;
                               break;
                          case 3:
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus3.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
@@ -469,7 +469,7 @@ void Efficiency::Execute(Int_t ev){
                          m_h_textCB_dR.at(i)->Fill(textCB_dR);
                          m_h_pextCB_dR.at(i)->Fill(pextCB_dR);
                          m_h_eCB_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(std::fabs(m_poff_pt*0.001) > 40)m_h_eCB_eta->Fill(m_poff_eta);
+                         if(std::fabs(m_poff_pt*0.001) > 40)m_h_eCB_eta.at(i)->Fill(m_poff_eta);
                          m_h_pCB_respt.at(i)->Fill(resCB_pt);
                          if(Dicision_barrel(m_poff_eta)){
                               m_h_eCB_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
@@ -603,7 +603,7 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionName(Form("EFEfficiency_eta_%dGeV",i*m_thpitch));
           ceff.SetCondition("EventFilter Efficiency;offline eta;Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiencyeta(m_h_eCB_eta.at(i),m_h_eEF_eta.at(i));
-          ceff.SetConditionName(Form("L1Efficiency_barrel_%dGeV",m_i*thpitch));
+          ceff.SetConditionName(Form("L1Efficiency_barrel_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eoff_pt_barrel.at(i),m_h_eL1_pt_barrel.at(i),m_binmax,300,m_efficiency_xerr);
           ceff.SetConditionName(Form("SAEfficiency_barrel_%dGeV",i*m_thpitch));
@@ -630,14 +630,14 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionName(Form("SA2DEfficiency_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1vsL2MuonSA Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
-          ceff.DrawEfficiency2D(m_h_eff_pL1_etaphi,m_h_eff_pSA_etaphi);
+          ceff.DrawEfficiency2D(m_h_eff_pL1_etaphi.at(i),m_h_eff_pSA_etaphi.at(i));
           ceff.SetConditionName(Form("L12DEfficiency_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
           ceff.DrawEfficiency2D(m_h_eff_poff_etaphi.at(i),m_h_eff_pL1_etaphi.at(i));
 
           cout<<"ptSA threshold   numberofLarge   numberofLargeSpecial   numberofSmall   numberofSmallSpecial"<<endl;
-          cout<<i<<"   "<<m_countLarge<<"   "<<m_countLargeSpecial<<"   "<<m_countSmall<<"   "<<m_countSmallSpecial;
+          cout<<i*m_thpitch.at(i)<<"   "<<m_countLarge.at(i)<<"   "<<m_countLargeSpecial.at(i)<<"   "<<m_countSmall.at(i)<<"   "<<m_countSmallSpecial.at(i);
      }
 
      m_h_poff_pt.clear();
@@ -718,8 +718,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_pEF_phi->clear();
      m_pEF_pass->clear();
      m_pEF_dR->clear();
-     m_countLarge->clear();
-     m_countLargeSpecial->clear();
-     m_countSmall->clear();
-     m_countSmallSpecial->clear();
+     m_countLarge.clear();
+     m_countLargeSpecial.clear();
+     m_countSmall.clear();
+     m_countSmallSpecial.clear();
 }
