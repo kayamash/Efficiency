@@ -37,7 +37,6 @@ const Int_t thpitch = 2;
 
 //main function
 void efficiencyloop(){
-	std::cout<<"start!"<<std::endl;
 	Efficiency eff;
 	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
 	TFile *tf1 = TFile::Open(inputfilename.c_str(),"read");
