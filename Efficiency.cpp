@@ -265,17 +265,16 @@
           m_h_off_ptvsSA_resptminus2.push_back(new TH2F(Form("h_off_ptvsSA_resptminus2_%dGeV",i*m_thpitch),"Small Qeta/|eta|=-1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
           m_h_off_ptvsSA_resptminus3.push_back(new TH2F(Form("h_off_ptvsSA_resptminus3_%dGeV",i*m_thpitch),"SmallSpecial Qeta/|eta|=-1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
           m_h_offphivsSA_sAddress.push_back(new TH2F(Form("h_offphivsSA_sAddress_%dGeV",i*m_thpitch),"offline phi vs sAddress;offline phi;sAddress",140,-3.5,3.5,4,0.0,4.0));
-          cout<<"respt"<<endl;
           m_h_offphivsSA_respt0.push_back(new TH2F(Form("h_offphivsSA_respt0_%dGeV",i*m_thpitch),"Large;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
           m_h_offphivsSA_respt1.push_back(new TH2F(Form("h_offphivsSA_respt1_%dGeV",i*m_thpitch),"LargeSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
           m_h_offphivsSA_respt2.push_back(new TH2F(Form("h_offphivsSA_respt2_%dGeV",i*m_thpitch),"Small;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
           m_h_offphivsSA_respt3.push_back(new TH2F(Form("h_offphivsSA_respt3_%dGeV",i*m_thpitch),"SmallSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
           cout<<"count"<<endl;
-          m_countLarge.at(i) = 0;
-          m_countLargeSpecial.at(i) = 0;
+          m_countLarge.push_back(0);
+          m_countLargeSpecial.push_back(0);
           cout<<"count now"<<endl;
-          m_countSmall.at(i) = 0;
-          m_countSmallSpecial.at(i) = 0;
+          m_countSmall.push_back(0);
+          m_countSmallSpecial.push_back(0);
           cout<<"count end"<<endl;
      }
    }
