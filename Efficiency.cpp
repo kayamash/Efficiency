@@ -374,6 +374,7 @@ void Efficiency::Execute(Int_t ev){
                     pSA_dR = m_pSA_dR->at(method);
                     pCB_dR = m_pCB_dR->at(method);
                     pEF_dR = m_pEF_dR->at(method);
+                    pSA_sAddress = m_pSA_sAddress->at(method);
                }
           }
           pL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_eta,2) + pow(pL1_phi - m_poff_phi,2) );
