@@ -96,10 +96,6 @@
      m_pEF_dR = 0;
      m_pEF_pass = 0;
      m_reqL1dR = req;
-     m_countLarge = 0;
-     m_countLargeSpecial = 0;
-     m_countSmall = 0;
-     m_countSmallSpecial = 0;
 
     //active only need branch 
      tChain->SetBranchStatus("*",0);
@@ -146,7 +142,7 @@
      tChain->SetBranchStatus("probe_mesSA_phi",1);
      tChain->SetBranchStatus("probe_mesSA_pass",1);
      tChain->SetBranchStatus("probe_mesSA_dR",1);
-     tChain->SetBranchAddress("probe_mesSA_sAddress",1);
+     tChain->SetBranchStatus("probe_mesSA_sAddress",1);
      tChain->SetBranchStatus("probe_mesCB_pt",1);
      tChain->SetBranchStatus("probe_mesCB_eta",1);
      tChain->SetBranchStatus("probe_mesCB_phi",1);  

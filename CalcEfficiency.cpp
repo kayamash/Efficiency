@@ -142,9 +142,8 @@ void CalcEfficiency::DrawEfficiency2D(TH2F *h1,TH2F *h2){
 	delete c1;
 }
 
-void CalcEfficiency::SetCondition(string title,string png,Double_t offset,Double_t tmargin,Double_t bmargin,Double_t lmargin,Double_t rmargin){
+void CalcEfficiency::SetCondition(string title,Double_t offset,Double_t tmargin,Double_t bmargin,Double_t lmargin,Double_t rmargin){
 	m_title = title;
-	m_png = png;
 	m_yoffset = offset;
 	m_topmargin = tmargin;
 	m_bottommargin = bmargin;
