@@ -506,7 +506,7 @@ void Efficiency::Execute(Int_t ev){
 void Efficiency::Finalize(TFile *tf1){
      CalcEfficiency ceff;
      tf1->cd();
-     cout<<"ptSA th   nLarge   nuLargeS   nSmall   nSmallS"<<endl;
+     cout<<"ptSAth   nLarge   nuLargeS   nSmall   nSmallS"<<endl;
      //SetCondition
      //title,file title,yoffset,top margin,bottom margin,left margin,right margin
      for(Int_t i = 0;i <= m_nhist;i++){
@@ -639,7 +639,7 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
           ceff.DrawEfficiency2D(m_h_eff_poff_etaphi.at(i),m_h_eff_pL1_etaphi.at(i));
 
-          cout<<i*m_thpitch<<"   "<<m_countLarge.at(i)<<"   "<<m_countLargeSpecial.at(i)<<"   "<<m_countSmall.at(i)<<"   "<<m_countSmallSpecial.at(i)<<endl;
+          cout<<i*m_thpitch<<"      "<<m_countLarge.at(i)<<"      "<<m_countLargeSpecial.at(i)<<"      "<<m_countSmall.at(i)<<"      "<<m_countSmallSpecial.at(i)<<endl;
      }
 
      m_h_poff_pt.clear();
