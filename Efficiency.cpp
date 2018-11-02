@@ -84,6 +84,7 @@
      m_pSA_phi = 0;
      m_pSA_dR = 0;
      m_pSA_pass = 0;
+     m_pSA_sAddress = 0;
      m_pCB_pt = 0;
      m_pCB_eta = 0;
      m_pCB_phi = 0;
@@ -95,6 +96,10 @@
      m_pEF_dR = 0;
      m_pEF_pass = 0;
      m_reqL1dR = req;
+     m_countLarge = 0;
+     m_countLargeSpecial = 0;
+     m_countSmall = 0;
+     m_countSmallSpecial = 0;
 
     //active only need branch 
      tChain->SetBranchStatus("*",0);
@@ -141,6 +146,7 @@
      tChain->SetBranchStatus("probe_mesSA_phi",1);
      tChain->SetBranchStatus("probe_mesSA_pass",1);
      tChain->SetBranchStatus("probe_mesSA_dR",1);
+     tChain->SetBranchAddress("probe_mesSA_sAddress",1);
      tChain->SetBranchStatus("probe_mesCB_pt",1);
      tChain->SetBranchStatus("probe_mesCB_eta",1);
      tChain->SetBranchStatus("probe_mesCB_phi",1);  
@@ -195,6 +201,7 @@
      tChain->SetBranchAddress("probe_mesSA_phi",&m_pSA_phi,&b_pSA_phi);
      tChain->SetBranchAddress("probe_mesSA_pass",&m_pSA_pass,&b_pSA_pass);
      tChain->SetBranchAddress("probe_mesSA_dR",&m_pSA_dR,&b_pSA_dR);
+     tChain->SetBranchAddress("probe_mesSA_sAddress",&m_pSA_sAddress,&b_pSA_sAddress);
      tChain->SetBranchAddress("probe_mesCB_pt",&m_pCB_pt,&b_pCB_pt);
      tChain->SetBranchAddress("probe_mesCB_eta",&m_pCB_eta,&b_pCB_eta);
      tChain->SetBranchAddress("probe_mesCB_phi",&m_pCB_phi,&b_pCB_phi);
@@ -251,6 +258,19 @@
           m_h_eff_pL1_etaphi.push_back(new TH2F(Form("h_eff_pL1_etaphi_%dGeV",i*thpitch),"L1eta vs L1phi;L1 eta;L1 phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max));
           m_h_eff_pSA_etaphi.push_back(new TH2F(Form("h_eff_pSA_etaphi_%dGeV",i*thpitch),"L2MuonSAeta vs L2MuonSAphi;L2MuonSA eta;L2MuonSA phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max));
           m_h_poffvsSA_pt.push_back(new TH2F(Form("h_poffvsSA_pt_%dGeV",i*thpitch),"probe offline pt vs probe L2MuonSA pt@mu26ivm;probe offline pt[GeV];probe L2MuonSA pt[GeV]",150,0,150,150,0,150));
+          m_h_off_ptvsSA_resptplus0.push_back(new TH2F(Form("h_off_ptvsSA_resptplus0_%dGeV",i*thpitch),"Large Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
+          m_h_off_ptvsSA_resptplus1.push_back(new TH2F(Form("h_off_ptvsSA_resptplus1_%dGeV",i*thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
+          m_h_off_ptvsSA_resptplus2.push_back(new TH2F(Form("h_off_ptvsSA_resptplus2_%dGeV",i*thpitch),"Small Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
+          m_h_off_ptvsSA_resptplus3.push_back(new TH2F(Form("h_off_ptvsSA_resptplus3_%dGeV",i*thpitch),"SmallSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
+          m_h_off_ptvsSA_resptminus0.push_back(new TH2F(Form("h_off_ptvsSA_resptminus0_%dGeV",i*thpitch),"Large Qeta/|eta|=-1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
+          m_h_off_ptvsSA_resptminus1.push_back(new TH2F(Form("h_off_ptvsSA_resptminus1_%dGeV",i*thpitch),"LargeSpecial Qeta/|eta|=-1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
+          m_h_off_ptvsSA_resptminus2.push_back(new TH2F(Form("h_off_ptvsSA_resptminus2_%dGeV",i*thpitch),"Small Qeta/|eta|=-1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
+          m_h_off_ptvsSA_resptminus3.push_back(new TH2F(Form("h_off_ptvsSA_resptminus3_%dGeV",i*thpitch),"SmallSpecial Qeta/|eta|=-1;probe offline pt[GeV];SApt residual",70,0,70,80,-2.0,2.0));
+          m_h_offphivsSA_sAddress.push_back(new TH2F(Form("h_offphivsSA_sAddress_%dGeV",i*thpitch),"offline phi vs sAddress;offline phi;sAddress",140,-3.5,3.5,4,0.0,4.0));
+          m_h_offphivsSA_respt0.push_back(new TH2F(Form("h_offphivsSA_respt0_%dGeV",i*thpitch),"Large;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
+          m_h_offphivsSA_respt1.push_back(new TH2F(Form("h_offphivsSA_respt1_%dGeV",i*thpitch),"LargeSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
+          m_h_offphivsSA_respt2.push_back(new TH2F(Form("h_offphivsSA_respt2_%dGeV",i*thpitch),"Small;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
+          m_h_offphivsSA_respt3.push_back(new TH2F(Form("h_offphivsSA_respt3_%dGeV",i*thpitch),"SmallSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
      }
    }
  }
@@ -320,6 +340,7 @@ void Efficiency::Execute(Int_t ev){
           Double_t pSA_phi = 0;
           Double_t pSA_dR = 1;
           Int_t pSA_pass = 0;
+          Double_t pSA_sAddress = -1;
           Double_t pCB_pt = -99999;
           Double_t pCB_eta = 0;
           Double_t pCB_phi = 0;
