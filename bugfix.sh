@@ -1,5 +1,5 @@
 #!/bin/bash
-branch="master"
+branch="dev_kayamash"
 add="git add ."
 message="bug fix"
 push="git push origin "
