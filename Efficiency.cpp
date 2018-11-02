@@ -327,7 +327,7 @@ bool Efficiency::Cut_EF(Int_t pass){
 
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
-     for(Int_t i = 0;m_nhist;i++){
+     for(Int_t i = 0;i<m_nhist;i++){
           Double_t pextL1_dR = 1; 
           Double_t pextSA_dR = 1; 
           Double_t pextCB_dR = 1; 
@@ -412,7 +412,6 @@ void Efficiency::Execute(Int_t ev){
 
                //SA
                if(Cut_SA(pSA_pass,pSA_pt,i*m_thpitch)){
-                    cout<<"pass SA"<<endl;
                     Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
                     pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
                     Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
@@ -464,7 +463,6 @@ void Efficiency::Execute(Int_t ev){
 
                     //CB
                     if(Cut_CB(pCB_pass)){
-                         cout<<"pass CB"<<endl;
                          Double_t textCB_dR = TMath::Sqrt(pow(m_tCB_eta - m_toff_exteta,2) + pow(m_tCB_phi - m_toff_extphi,2));
                          pextCB_dR = TMath::Sqrt(pow(pCB_eta - m_poff_exteta,2) + pow(pCB_phi - m_poff_extphi,2));
                          Double_t resCB_pt = std::fabs(m_poff_pt)/std::fabs(pCB_pt) - 1.0;
