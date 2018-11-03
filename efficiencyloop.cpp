@@ -33,8 +33,8 @@ const string inputfilelist = "/home/kayamash/list/data16_grid.list";
 const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/plot4.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
-const Int_t nhist = 14;
-const Int_t thpitch = 2;
+const Int_t nhist = 7;
+const Int_t thpitch = 4;
 
 //main function
 void efficiencyloop(){
@@ -45,17 +45,21 @@ void efficiencyloop(){
 	TFile *tf1 = TFile::Open(inputfilename.c_str(),"read");
 	TTree *tr1 = dynamic_cast<TTree*>(tf1->Get("t_tap"));
 	*/
-
+        
 	TChain *tr1 = new TChain("t_tap");
 	std::ifstream ifs(inputfilelist.c_str());
 	std::string str;
 	while(getline(ifs,str)){
 		tr1->Add(str.c_str());
 	}
+        
+        if(!tr1)cout<<"read failed!"<<endl; 
 	cout<<"Initialize"<<endl;
 	eff.Init(tr1,trigger,24,20,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,thpitch);
+	cout<<tr1->GetEntries()<<endl;
 	cout<<"Execute"<<endl;
 	for(Int_t event = 0;event < tr1->GetEntries(); event++){
+	//for(Int_t event = 0;event < 100000; event++){
 		eff.Execute(event);
 	}
 	cout<<"Finalize"<<endl;
