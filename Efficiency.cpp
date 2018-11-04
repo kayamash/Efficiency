@@ -251,6 +251,10 @@
           m_h_eSA_pt_end.push_back(new TH1D(Form("h_eSA_pt_end_%dGeV",i*m_thpitch),"SA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
           m_h_eCB_pt_end.push_back(new TH1D(Form("h_eCB_pt_end_%dGeV",i*m_thpitch),"CB_pt;CB pt[GeV];Entries",300,-0.25,149.75));
           m_h_eEF_pt_end.push_back(new TH1D(Form("h_eEF_pt_end_%dGeV",i*m_thpitch),"EF_pt;EF pt[GeV];Entries",300,-0.25,149.75));
+          m_h_SA_respt0.push_back(new TH1D(Form("h_SA_respt0_%dGeV",i*m_thpitch),"SAresidualpt_Large;L2MuonSA residual pt;Entries",300,-1,1));
+          m_h_SA_respt1.push_back(new TH1D(Form("h_SA_respt1_%dGeV",i*m_thpitch),"SAresidualpt_LargeSpecial;L2MuonSA residual pt;Entries",300,-1,1));
+          m_h_SA_respt2.push_back(new TH1D(Form("h_SA_respt2_%dGeV",i*m_thpitch),"SAresidualpt_Small;L2MuonSA residual pt;Entries",300,-1,1));
+          m_h_SA_respt3.push_back(new TH1D(Form("h_SA_respt3_%dGeV",i*m_thpitch),"SAresidualpt_SmallSpecial;L2MuonSA residual pt;Entries",300,-1,1));
           m_h_eff_poff_etaphi.push_back(new TH2F(Form("h_eff_poff_etaphi_%dGeV",i*m_thpitch),"offlineeta vs offlinephi;offline eta;offline phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max));
           m_h_eff_pL1_etaphi.push_back(new TH2F(Form("h_eff_pL1_etaphi_%dGeV",i*m_thpitch),"L1eta vs L1phi;L1 eta;L1 phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max));
           m_h_eff_pSA_etaphi.push_back(new TH2F(Form("h_eff_pSA_etaphi_%dGeV",i*m_thpitch),"L2MuonSAeta vs L2MuonSAphi;L2MuonSA eta;L2MuonSA phi",m_nbin_eta,-m_eta_max,m_eta_max,m_nbin_phi,-m_phi_max,m_phi_max));
@@ -437,21 +441,25 @@ void Efficiency::Execute(Int_t ev){
                          case 0:
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              m_h_SA_respt0.at(i)->Fill(resSA_pt);
                               m_countLarge.at(i)++;
                               break;
                          case 1:
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              m_h_SA_respt1.at(i)->Fill(resSA_pt);
                               m_countLargeSpecial.at(i)++;
                               break;
                          case 2:
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus2.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus2.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              m_h_SA_respt2.at(i)->Fill(resSA_pt);
                               m_countSmall.at(i)++;
                               break;
                          case 3:
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus3.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus3.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              m_h_SA_respt3.at(i)->Fill(resSA_pt);
                               m_countSmallSpecial.at(i)++;
                               break;
                          default:
@@ -550,6 +558,14 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.DrawHist1D(m_h_pCB_respt.at(i));
           ceff.SetCondition("test",1.5,0,0,0,0);
           ceff.DrawHist1D(m_h_pEF_respt.at(i));
+          ceff.SetCondition("test",1.5,0,0,0,0);
+          ceff.DrawHist1D(m_h_SA_respt0.at(i));
+          ceff.SetCondition("test",1.5,0,0,0,0);
+          ceff.DrawHist1D(m_h_SA_respt1.at(i));
+          ceff.SetCondition("test",1.5,0,0,0,0);
+          ceff.DrawHist1D(m_h_SA_respt2.at(i));
+          ceff.SetCondition("test",1.5,0,0,0,0);
+          ceff.DrawHist1D(m_h_SA_respt3.at(i));
           ceff.SetCondition("trigger;offline eta;count",1.5,0,0,0,0);
           ceff.DrawHist1D(m_h_eL1_eta.at(i));
           ceff.SetCondition("test",1.5,0,0,0,0);
@@ -682,6 +698,10 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSA_pt_end.clear();
      m_h_eCB_pt_end.clear();
      m_h_eEF_pt_end.clear();
+     m_h_SA_respt0.clear();
+     m_h_SA_respt1.clear();
+     m_h_SA_respt2.clear();
+     m_h_SA_respt3.clear();
      m_h_eff_poff_etaphi.clear();
      m_h_eff_pL1_etaphi.clear();
      m_h_eff_pSA_etaphi.clear();
