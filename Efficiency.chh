@@ -193,7 +193,7 @@ class Efficiency
   vector<TH1D*> m_h_eoff_pt_LargeSpecial;
   vector<TH1D*> m_h_eoff_pt_Small;
   vector<TH1D*> m_h_eoff_pt_SmallSpecial;
-  vector<TH1D*> m_h_L1_pt_Large;
+  vector<TH1D*> m_h_eL1_pt_Large;
   vector<TH1D*> m_h_eL1_pt_LargeSpecial;
   vector<TH1D*> m_h_eL1_pt_Small;
   vector<TH1D*> m_h_eL1_pt_SmallSpecial;
