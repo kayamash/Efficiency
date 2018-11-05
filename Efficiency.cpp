@@ -272,6 +272,18 @@
           m_h_offphivsSA_respt1.push_back(new TH2F(Form("h_offphivsSA_respt1_%dGeV",i*m_thpitch),"LargeSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
           m_h_offphivsSA_respt2.push_back(new TH2F(Form("h_offphivsSA_respt2_%dGeV",i*m_thpitch),"Small;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
           m_h_offphivsSA_respt3.push_back(new TH2F(Form("h_offphivsSA_respt3_%dGeV",i*m_thpitch),"SmallSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
+          m_h_eoff_ptLarge.push_back(new TH1D(Form("h_eoff_ptLarge_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eL1_ptLarge.push_back(new TH1D(Form("h_eL1_ptLarge_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eSA_ptLarge.push_back(new TH1D(Form("h_eSA_ptLarge_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eoff_ptLargeSpecial.push_back(new TH1D(Form("h_eoff_ptLargeSpecial_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eL1_ptLargeSpecial.push_back(new TH1D(Form("h_eL1_ptLargeSpecial_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eSA_ptLargeSpecial.push_back(new TH1D(Form("h_eSA_ptLargeSpecial_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eoff_ptSmall.push_back(new TH1D(Form("h_eoff_ptSmall_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eL1_ptSmall.push_back(new TH1D(Form("h_eL1_ptSmall_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eSA_ptSmall.push_back(new TH1D(Form("h_eSA_ptSmall_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eoff_ptSmallSpecial.push_back(new TH1D(Form("h_eoff_ptSmallSpecial_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eL1_ptSmallSpecial.push_back(new TH1D(Form("h_eL1_ptSmallSpecial_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eSA_ptSmallSpecial.push_back(new TH1D(Form("h_eSA_ptSmallSpecial_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
           m_countLarge.push_back(0);
           m_countLargeSpecial.push_back(0);
           m_countSmall.push_back(0);
@@ -443,6 +455,7 @@ void Efficiency::Execute(Int_t ev){
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               m_h_SA_respt0.at(i)->Fill(resSA_pt);
                               m_h_offphivsSA_respt0.at(i)->Fill(m_poff_phi,resSA_pt);
+                              cout<<"0   "<<m_poff_phi<<"   "resSA_pt<<endl;
                               m_countLarge.at(i)++;
                               break;
                          case 1:
@@ -450,6 +463,7 @@ void Efficiency::Execute(Int_t ev){
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               m_h_SA_respt1.at(i)->Fill(resSA_pt);
                               m_h_offphivsSA_respt1.at(i)->Fill(m_poff_phi,resSA_pt);
+                              cout<<"1   "<<m_poff_phi<<"   "resSA_pt<<endl;
                               m_countLargeSpecial.at(i)++;
                               break;
                          case 2:
@@ -457,6 +471,7 @@ void Efficiency::Execute(Int_t ev){
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus2.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               m_h_SA_respt2.at(i)->Fill(resSA_pt);
                               m_h_offphivsSA_respt2.at(i)->Fill(m_poff_phi,resSA_pt);
+                              cout<<"2   "<<m_poff_phi<<"   "resSA_pt<<endl;
                               m_countSmall.at(i)++;
                               break;
                          case 3:
@@ -464,6 +479,7 @@ void Efficiency::Execute(Int_t ev){
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus3.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               m_h_SA_respt3.at(i)->Fill(resSA_pt);
                               m_h_offphivsSA_respt3.at(i)->Fill(m_poff_phi,resSA_pt);
+                              cout<<"3   "<<m_poff_phi<<"   "resSA_pt<<endl;
                               m_countSmallSpecial.at(i)++;
                               break;
                          default:
@@ -650,6 +666,32 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionName(Form("EFEfficiency_end_%dGeV",i*m_thpitch));
           ceff.SetCondition("EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eCB_pt_end.at(i),m_h_eEF_pt_end.at(i),m_binmax,300,m_efficiency_xerr);
+
+          ceff.SetConditionName(Form("L1EfficiencyLarge_%dGeV",i*m_thpitch));
+          ceff.SetCondition("L1 Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eoff_pt_Large.at(i),m_h_eL1_pt_Large.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiencyLarge_%dGeV",i*m_thpitch));
+          ceff.SetCondition("SA Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1_pt_Large.at(i),m_h_eSA_pt_Large.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("L1EfficiencyLargeSpecial_%dGeV",i*m_thpitch));
+          ceff.SetCondition("L1 LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eoff_pt_LargeSpecial.at(i),m_h_eL1_pt_LargeSpecial.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiencyLargeSpecial_%dGeV",i*m_thpitch));
+          ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecial.at(i),m_h_eSA_pt_LargeSpecial.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("L1EfficiencySmall_%dGeV",i*m_thpitch));
+          ceff.SetCondition("L1 Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eoff_pt_Small.at(i),m_h_eL1_pt_Small.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiencySmall_%dGeV",i*m_thpitch));
+          ceff.SetCondition("SA Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1_pt_Small.at(i),m_h_eSA_pt_Small.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("L1EfficiencySmallSpecial_%dGeV",i*m_thpitch));
+          ceff.SetCondition("L1 SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eoff_pt_SmallSpecial.at(i),m_h_eL1_pt_SmallSpecial.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiencySmallSpecial_%dGeV",i*m_thpitch));
+          ceff.SetCondition("SA SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1_pt_SmallSpecial.at(i),m_h_eSA_pt_SmallSpecial.at(i),m_binmax,300,m_efficiency_xerr);
+
           ceff.SetConditionName(Form("SA2DEfficiency_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1vsL2MuonSA Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
@@ -723,6 +765,18 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_offphivsSA_respt1.clear();
      m_h_offphivsSA_respt2.clear();
      m_h_offphivsSA_respt3.clear();
+     m_h_eoff_pt_Large.clear();
+     m_h_eL1_pt_Large.clear();
+     m_h_eSA_pt_Large.clear();
+     m_h_eoff_pt_LargeSpecial.clear();
+     m_h_eL1_pt_LargeSpecial.clear();
+     m_h_eSA_pt_LargeSpecial.clear();
+     m_h_eoff_pt_Small.clear();
+     m_h_eL1_pt_Small.clear();
+     m_h_eSA_pt_Small.clear();
+     m_h_eoff_pt_SmallSpecial.clear();
+     m_h_eL1_pt_SmallSpecial.clear();
+     m_h_eSA_pt_SmallSpecial.clear();
      m_mes_name->clear();
      m_pL1_pt->clear();
      m_pL1_eta->clear();
