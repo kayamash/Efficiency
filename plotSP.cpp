@@ -23,6 +23,8 @@
 #include <TBranch.h>
 
 const string inputfilename = "/gpfs/fs6001/kayamash/dataset/Zmumu300540_hadd.root";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/SPplot.root";
+const string mesSA = "mu26ivm";
 
 void plotSP(){
 	TChain *chain = new TChain("t_tap");
@@ -130,7 +132,12 @@ void plotSP(){
 	TBranch *b_probe_mesSA_superPointChi2_BEE;
 	TBranch *b_probe_mesSA_superPointChi2_BME;
 
-
+	for(Int_t event = 0;event < chain->GetEntries();event++){
+		chain->GetEntry(event);
+		for(Int_t mes = 0;mes < probe_mesSAsuperPointR_BI;mes++){
+			
+		}
+	}
 
 
 }
