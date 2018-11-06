@@ -22,13 +22,27 @@
 #include <TMath.h>
 #include <TBranch.h>
 
-const string inputfilename = "/gpfs/fs6001/kayamash/dataset/Zmumu300540_hadd.root";
+const string inputfilename1 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div1.root";
+const string inputfilename2 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div2.root";
+const string inputfilename3 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div3.root";
+const string inputfilename4 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div4.root";
+const string inputfilename5 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div5.root";
+const string inputfilename6 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div6.root";
+const string inputfilename7 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div7.root";
+const string inputfilename8 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div8.root";
 const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/SPplot.root";
 const string mesSA = "mu26ivm";
 
 void plotSP(){
 	TChain *chain = new TChain("t_tap");
-	chain->Add(inputfilename.c_str());
+	chain->Add(inputfilename1.c_str());
+	chain->Add(inputfilename2.c_str());
+	chain->Add(inputfilename3.c_str());
+	chain->Add(inputfilename4.c_str());
+	chain->Add(inputfilename5.c_str());
+	chain->Add(inputfilename6.c_str());
+	chain->Add(inputfilename7.c_str());
+	chain->Add(inputfilename8.c_str());
 
 	vector<double>  *SPZ = 0;
 	vector<double>  *SPR = 0;
