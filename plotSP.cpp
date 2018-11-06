@@ -22,9 +22,9 @@
 #include <TMath.h>
 #include <TBranch.h>
 
-const string inputfilename1 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div1.root";
-const string inputfilename2 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div2.root";
-const string inputfilename3 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div3.root";
+//const string inputfilename1 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div1.root";
+//const string inputfilename2 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div2.root";
+//const string inputfilename3 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div3.root";
 const string inputfilename4 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div4.root";
 const string inputfilename5 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div5.root";
 const string inputfilename6 = "/gpfs/fs6001/kayamash/Mywork/Zmumu300540_div6.root";
@@ -293,6 +293,7 @@ void plotSP(){
 	}
 
 	TCanvas *c1 = new TCanvas("c1","c1",1600,900);
+	cout<<SPR->size()<<endl;
 	TGraph *gr = new TGraph(SPR->size(),&(SPR->at(0)),&(SPZ->at(0)));
 	gr->Draw("P");
 	gr->SetName("R_Zplot");
