@@ -253,42 +253,52 @@ void plotSP(){
 		if(buf_probe_mesSA_superPointR_BI != -99999 && buf_probe_mesSA_superPointZ_BI != -99999){
 			SPR->push_back(buf_probe_mesSA_superPointR_BI);
 			SPZ->push_back(buf_probe_mesSA_superPointZ_BI);
+			cout<<"BI"<<endl;
 		}
 		if(buf_probe_mesSA_superPointR_BM != -99999 && buf_probe_mesSA_superPointZ_BM != -99999){
 			SPR->push_back(buf_probe_mesSA_superPointR_BM);
 			SPZ->push_back(buf_probe_mesSA_superPointZ_BM);
+			cout<<"BM"<<endl;
 		}
 		if(buf_probe_mesSA_superPointR_BO != -99999 && buf_probe_mesSA_superPointZ_BO != -99999){
 			SPR->push_back(buf_probe_mesSA_superPointR_BO);
 			SPZ->push_back(buf_probe_mesSA_superPointZ_BO);
+			cout<<"BO"<<endl;
 		}
 		if(buf_probe_mesSA_superPointR_EI != -99999 && buf_probe_mesSA_superPointZ_EI != -99999){
 			SPR->push_back(buf_probe_mesSA_superPointR_EI);
 			SPZ->push_back(buf_probe_mesSA_superPointZ_EI);
+			cout<<"EI"<<endl;
 		}
 		if(buf_probe_mesSA_superPointR_EM != -99999 && buf_probe_mesSA_superPointZ_EM != -99999){
 			SPR->push_back(buf_probe_mesSA_superPointR_EM);
 			SPZ->push_back(buf_probe_mesSA_superPointZ_EM);
+			cout<<"EM"<<endl;
 		}
 		if(buf_probe_mesSA_superPointR_EO != -99999 && buf_probe_mesSA_superPointZ_EO != -99999){
 			SPR->push_back(buf_probe_mesSA_superPointR_EO);
 			SPZ->push_back(buf_probe_mesSA_superPointZ_EO);
+			cout<<"EO"<<endl;
 		}
 		if(buf_probe_mesSA_superPointR_EE != -99999 && buf_probe_mesSA_superPointZ_EE != -99999){
 			SPR->push_back(buf_probe_mesSA_superPointR_EE);
 			SPZ->push_back(buf_probe_mesSA_superPointZ_EE);
+			cout<<"EE"<<endl;
 		}
 		if(buf_probe_mesSA_superPointR_CSC != -99999 && buf_probe_mesSA_superPointZ_CSC != -99999){
 			SPR->push_back(buf_probe_mesSA_superPointR_CSC);
 			SPZ->push_back(buf_probe_mesSA_superPointZ_CSC);
+			cout<<"CSC"<<endl;
 		}
 		if(buf_probe_mesSA_superPointR_BEE != -99999 && buf_probe_mesSA_superPointZ_BEE != -99999){
 			SPR->push_back(buf_probe_mesSA_superPointR_BEE);
 			SPZ->push_back(buf_probe_mesSA_superPointZ_BEE);
+			cout<<"BEE"<<endl;
 		}
 		if(buf_probe_mesSA_superPointR_BME != -99999 && buf_probe_mesSA_superPointZ_BME != -99999){
 			SPR->push_back(buf_probe_mesSA_superPointR_BME);
 			SPZ->push_back(buf_probe_mesSA_superPointZ_BME);
+			cout<<"BME"<<endl;
 		}
 	}
 
