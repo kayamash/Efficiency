@@ -498,7 +498,7 @@ void Efficiency::Execute(Int_t ev){
                               m_h_eSA_pt_LargeSpecial.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                               m_countLargeSpecial.at(i)++;
                               std::ofstream ofs("LargeSpecialEvent.dat",std::ios::app);
-                              std::ofs<<ev<<std::endl;
+                              ofs<<ev<<std::endl;
                               ofs.close();
                               break;
                          case 2:
