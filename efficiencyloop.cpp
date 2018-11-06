@@ -64,4 +64,7 @@ void efficiencyloop(){
 	}
 	cout<<"Finalize"<<endl;
 	eff.Finalize(output_file);
+
+	delete output_file;
+	delete tr1;
 }
