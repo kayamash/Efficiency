@@ -293,7 +293,7 @@ void plotSP(){
 	}
 
 	TCanvas *c1 = new TCanvas("c1","c1",1600,900);
-	TGraph *gr = new TGraph(SPR.size(),&(SPR.at(0)),&(SPZ.at(0)));
+	TGraph *gr = new TGraph(SPR->size(),&(SPR->at(0)),&(SPZ->at(0)));
 	gr->Draw("P");
 	gr->SetName("R_Zplot");
 	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
