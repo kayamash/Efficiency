@@ -35,9 +35,9 @@ const string mesSA = "mu26ivm";
 
 void plotSP(){
 	TChain *chain = new TChain("t_tap");
-	chain->Add(inputfilename1.c_str());
-	chain->Add(inputfilename2.c_str());
-	chain->Add(inputfilename3.c_str());
+	//chain->Add(inputfilename1.c_str());
+	//chain->Add(inputfilename2.c_str());
+	//chain->Add(inputfilename3.c_str());
 	chain->Add(inputfilename4.c_str());
 	chain->Add(inputfilename5.c_str());
 	chain->Add(inputfilename6.c_str());
