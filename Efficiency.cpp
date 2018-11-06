@@ -573,7 +573,7 @@ void Efficiency::Execute(Int_t ev){
 void Efficiency::Finalize(TFile *tf1){
      CalcEfficiency ceff;
      tf1->cd();
-     cout<<"ptSAth   nLarge   nuLargeS   nSmall   nSmallS"<<endl;
+     cout<<"ptSAth   nLarge   nLargeS   nSmall   nSmallS"<<endl;
      //SetCondition
      //title,file title,yoffset,top margin,bottom margin,left margin,right margin
      for(Int_t i = 0;i <= m_nhist;i++){
