@@ -482,7 +482,7 @@ void Efficiency::Execute(Int_t ev){
                     }
                     m_h_poffvsSA_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001),std::fabs(pSA_pt));
                     switch(static_cast<Int_t>(pSA_sAddress)){
-                         case 0:
+                         case 0:{
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               m_h_SA_respt0.at(i)->Fill(resSA_pt);
@@ -490,7 +490,8 @@ void Efficiency::Execute(Int_t ev){
                               m_h_eSA_pt_Large.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                               m_countLarge.at(i)++;
                               break;
-                         case 1:
+                         }
+                         case 1:{
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               m_h_SA_respt1.at(i)->Fill(resSA_pt);
@@ -501,7 +502,8 @@ void Efficiency::Execute(Int_t ev){
                               ofs<<ev<<std::endl;
                               ofs.close();
                               break;
-                         case 2:
+                         }
+                         case 2:{
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus2.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus2.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               m_h_SA_respt2.at(i)->Fill(resSA_pt);
@@ -509,7 +511,8 @@ void Efficiency::Execute(Int_t ev){
                               m_h_eSA_pt_Small.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                               m_countSmall.at(i)++;
                               break;
-                         case 3:
+                         }
+                         case 3:{
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus3.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus3.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                               m_h_SA_respt3.at(i)->Fill(resSA_pt);
@@ -517,6 +520,7 @@ void Efficiency::Execute(Int_t ev){
                               m_h_eSA_pt_SmallSpecial.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                               m_countSmallSpecial.at(i)++;
                               break;
+                         }
                          default:
                               break;
                     }
