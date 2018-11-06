@@ -497,6 +497,9 @@ void Efficiency::Execute(Int_t ev){
                               m_h_offphivsSA_respt1.at(i)->Fill(m_poff_phi,resSA_pt);
                               m_h_eSA_pt_LargeSpecial.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                               m_countLargeSpecial.at(i)++;
+                              std::ofstream ofs("LargeSpecialEvent.dat",std::ios::app);
+                              std::ofs<<ev<<std::endl;
+                              ofs.close();
                               break;
                          case 2:
                               if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus2.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);

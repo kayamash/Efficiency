@@ -40,6 +40,9 @@ const Int_t thpitch = 4;
 void efficiencyloop(){
 	Efficiency eff;
 	
+	std::ofstream ofs("LargeSpecialEvent.dat");
+	ofs.close();
+
 	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
     	/*
 	TFile *tf1 = TFile::Open(inputfilename.c_str(),"read");
