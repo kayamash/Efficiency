@@ -211,7 +211,7 @@ void plotSP(){
 		Double_t buf_probe_mesSA_superPointZ_CSC = -99999;
 		Double_t buf_probe_mesSA_superPointZ_BEE = -99999;
 		Double_t buf_probe_mesSA_superPointZ_BME = -99999;
-		for(Int_t mes = 0;mes < probe_mesSAsuperPointR_BI;mes++){
+		for(Int_t mes = 0;mes < probe_mesSAsuperPointR_BI->size();mes++){
 			if(mes_name->at(mes) == mesSA){
 				buf_probe_mesSA_superPointR_BI = probe_mesSA_superPointR_BI->at(mes);
 				buf_probe_mesSA_superPointR_BM = probe_mesSA_superPointR_BM->at(mes);
