@@ -88,6 +88,7 @@ class Efficiency
   std::vector<Double_t> *m_pEF_eta;
   std::vector<Double_t> *m_pEF_phi;
   std::vector<Double_t> *m_pEF_dR;
+  std::vector<Double_t> *m_pSA_phims;
   std::vector<Int_t> *m_pL1_pass;
   std::vector<Int_t> *m_pSA_pass;
   std::vector<Int_t> *m_pCB_pass;
@@ -136,6 +137,7 @@ class Efficiency
   TBranch *b_pSA_phi;
   TBranch *b_pSA_dR;
   TBranch *b_pSA_sAddress;
+  TBranch *b_pSA_phims;
   TBranch *b_pCB_pt;
   TBranch *b_pCB_eta;
   TBranch *b_pCB_phi;

@@ -102,6 +102,7 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      m_sumReqdREF = 0;
      m_tp_dR = 0;
      m_count = 0;
+     m_pSA_phims = 0;
 
      //active only need branch 
      tChain->SetBranchStatus("*",0);
@@ -149,6 +150,7 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      tChain->SetBranchStatus("probe_mesSA_pass",1);
      tChain->SetBranchStatus("probe_mesSA_dR",1);
      tChain->SetBranchStatus("probe_mesSA_sAddress",1);
+     tChain->SetBranchStatus("probe_mesSA_phims",1);
      tChain->SetBranchStatus("probe_mesCB_pt",1);
      tChain->SetBranchStatus("probe_mesCB_eta",1);
      tChain->SetBranchStatus("probe_mesCB_phi",1);  
@@ -213,6 +215,7 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      tChain->SetBranchAddress("probe_mesSA_pass",&m_pSA_pass,&b_pSA_pass);
      tChain->SetBranchAddress("probe_mesSA_dR",&m_pSA_dR,&b_pSA_dR);
      tChain->SetBranchAddress("probe_mesSA_sAddress",&m_pSA_sAddress,&b_pSA_sAddress);
+     tChain->SetBranchAddress("probe_mesSA_phims",&m_pSA_phims,&b_pSA_phims);
      tChain->SetBranchAddress("probe_mesCB_pt",&m_pCB_pt,&b_pCB_pt);
      tChain->SetBranchAddress("probe_mesCB_eta",&m_pCB_eta,&b_pCB_eta);
      tChain->SetBranchAddress("probe_mesCB_phi",&m_pCB_phi,&b_pCB_phi);
@@ -375,6 +378,7 @@ void Efficiency::Execute(Int_t ev){
           Double_t pSA_dR = 1;
           Int_t pSA_pass = 0;
           Double_t pSA_sAddress = -1;
+          Double_t pSA_phims = -99999;
           Double_t pCB_pt = -99999;
           Double_t pCB_eta = 0;
           Double_t pCB_phi = 0;
@@ -412,6 +416,7 @@ void Efficiency::Execute(Int_t ev){
                     pEF_dR = m_pEF_dR->at(method);
                     pEFTAG_pass = m_pEFTAG_pass->at(method);
                     pSA_sAddress = m_pSA_sAddress->at(method);
+                    pSA_phims = m_pSA_phims->at(method);
                }
           }
           tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
@@ -419,7 +424,7 @@ void Efficiency::Execute(Int_t ev){
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
           if(!Cut_tagprobe(pEFTAG_pass))return;
           //offline
-          if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
+          if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(pSA_phims);
           m_h_poff_pt.at(i)->Fill(m_poff_pt*0.001);
           m_h_eoff_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           if(std::fabs(m_poff_pt*0.001) > 40)m_h_eoff_eta.at(i)->Fill(m_poff_eta);
@@ -530,7 +535,7 @@ void Efficiency::Execute(Int_t ev){
                     break;
           }
           if(static_cast<Int_t>(pSA_sAddress) == 0 || static_cast<Int_t>(pSA_sAddress) == 1 || static_cast<Int_t>(pSA_sAddress) == 2 || static_cast<Int_t>(pSA_sAddress) == 3){
-               m_h_offphivsSA_sAddress.at(i)->Fill(m_poff_phi,pSA_sAddress);
+               m_h_offphivsSA_sAddress.at(i)->Fill(pSA_phims,pSA_sAddress);
           }
 
           //CB
