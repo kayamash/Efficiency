@@ -27,8 +27,8 @@
 #include <TChain.h>
 #include "CalcEfficiency.cpp"
 
-  void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th){
-   if (tree){
+void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th){
+     if (!tree)return;
      tChain = tree;
      m_nbin_phi = np;
      m_nbin_eta = ne;
@@ -103,7 +103,7 @@
      m_tp_dR = 0;
      m_count = 0;
 
-    //active only need branch 
+     //active only need branch 
      tChain->SetBranchStatus("*",0);
      tChain->SetBranchStatus("mes_name",1);
      tChain->SetBranchStatus("tag_pt",1);
@@ -226,6 +226,7 @@
      tChain->SetBranchAddress("probe_mesEFTAG_pass",&m_pEFTAG_pass,&b_pEFTAG_pass);
 
      //define each histgram
+     m_h_offphi_LargeSpecial = new TH1D("h_offphi_LargeSpecial_0GeV","offline phi;offline phi;Entries",600,-3.0,3.0);
      for(Int_t i = 0;i <= m_nhist;i++){
           m_h_poff_pt.push_back(new TH1D(Form("h_poff_pt_%dGeV",i*m_thpitch),"probe offline pt;offline pt[GeV];Entries",150,0,150));
           m_h_pL1_pt.push_back(new TH1D(Form("h_pL1_pt_%dGeV",i*m_thpitch),"probe L1 pt;L1 pt[GeV];Entries",150,0,150));
@@ -305,8 +306,7 @@
           m_countSmall.push_back(0);
           m_countSmallSpecial.push_back(0);
      }
-   }
- }
+}
 
  bool Efficiency::Dicision_barrel(Double_t eta){
      if(std::fabs(eta) <= 1.05){
@@ -419,6 +419,7 @@ void Efficiency::Execute(Int_t ev){
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
           if(!Cut_tagprobe(pEFTAG_pass))return;
           //offline
+          if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
           m_h_poff_pt.at(i)->Fill(m_poff_pt*0.001);
           m_h_eoff_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           if(std::fabs(m_poff_pt*0.001) > 40)m_h_eoff_eta.at(i)->Fill(m_poff_eta);
