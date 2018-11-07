@@ -65,6 +65,10 @@ class Efficiency
   Double_t m_tEF_pt;
   Double_t m_tEF_eta;
   Double_t m_tEF_phi;
+  Double_t m_tp_extdR;
+  Double_t m_sumReqdRL1;
+  Double_t m_sumReqdREF;
+  Double_t m_tp_dR;
 
   std::vector<std::string> *m_mes_name;
   std::vector<Double_t> *m_pL1_pt;
@@ -88,6 +92,7 @@ class Efficiency
   std::vector<Int_t> *m_pSA_pass;
   std::vector<Int_t> *m_pCB_pass;
   std::vector<Int_t> *m_pEF_pass;
+  std::vector<Int_t> *m_pEFTAG_pass;
 
   TBranch *b_tag_pt;
   TBranch *b_tag_eta;
@@ -143,6 +148,11 @@ class Efficiency
   TBranch *b_pSA_pass;
   TBranch *b_pCB_pass;
   TBranch *b_pEF_pass;
+  TBranch *b_pEFTAG_pass;
+  TBranch *b_tp_extdR;
+  TBranch *b_sumReqdRL1;
+  TBranch *b_sumReqdREF;
+  TBranch *b_tp_dR;
 
   //histgram
   vector<TH1D*> m_h_poff_pt;
@@ -221,6 +231,7 @@ class Efficiency
 public:
   void Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th);
   bool Dicision_barrel(Double_t eta);
+  bool Cut_tag();
   bool Cut_L1(Int_t pass);
   bool Cut_SA(Int_t pass,Double_t pt,Double_t th);
   bool Cut_CB(Int_t pass);

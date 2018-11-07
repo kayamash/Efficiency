@@ -95,7 +95,12 @@
      m_pEF_phi = 0;
      m_pEF_dR = 0;
      m_pEF_pass = 0;
+     m_pEFTAG_pass = 0;
      m_reqL1dR = req;
+     m_tp_extdR = 0;
+     m_sumReqdRL1 = 0;
+     m_sumReqdREF = 0;
+     m_tp_dR = 0;
 
     //active only need branch 
      tChain->SetBranchStatus("*",0);
@@ -153,8 +158,14 @@
      tChain->SetBranchStatus("probe_mesEF_phi",1);
      tChain->SetBranchStatus("probe_mesEF_pass",1);
      tChain->SetBranchStatus("probe_mesEF_dR",1);
+     tChain->SetBranchStatus("probe_mesEFTAG_pass",1);
+     tChain->SetBranchStatus("tp_extdR",1);
+     tChain->SetBranchStatus("sumTReqdRL1",1);
+     tChain->SetBranchStatus("sumTReqdREF",1);
      //setting each branch address
      tChain->SetBranchAddress("mes_name",&m_mes_name,&b_mes_name);
+     tChain->SetBranchAddress("sumReqdRL1",&m_sumReqdRL1,&b_sumReqdRL1);
+     tChain->SetBranchAddress("sumReqdREF",&m_sumReqdREF,&b_sumReqdREF);
      tChain->SetBranchAddress("tag_pt",&m_toff_pt,&b_tag_pt);
      tChain->SetBranchAddress("tag_eta",&m_toff_eta,&b_tag_eta);
      tChain->SetBranchAddress("tag_exteta",&m_toff_exteta,&b_tag_exteta);
@@ -175,6 +186,7 @@
      tChain->SetBranchAddress("probe_charge",&m_probe_charge,&b_probe_charge);
      tChain->SetBranchAddress("probe_d0",&m_probe_d0,&b_probe_d0);
      tChain->SetBranchAddress("probe_z0",&m_probe_z0,&b_probe_z0);
+     tChain->SetBranchAddress("tp_extdR",&m_tp_extdR,&b_tp_extdR);
      tChain->SetBranchAddress("tag_L1_pt",&m_tL1_pt,&b_tL1_pt);
      tChain->SetBranchAddress("tag_L1_eta",&m_tL1_eta,&b_tL1_eta);
      tChain->SetBranchAddress("tag_L1_phi",&m_tL1_phi,&b_tL1_phi);
@@ -208,6 +220,7 @@
      tChain->SetBranchAddress("probe_mesEF_phi",&m_pEF_phi,&b_pEF_phi);
      tChain->SetBranchAddress("probe_mesEF_pass",&m_pEF_pass,&b_pEF_pass);
      tChain->SetBranchAddress("probe_mesEF_dR",&m_pEF_dR,&b_pEF_dR);
+     tChain->SetBranchAddress("probe_mesEFTAG_pass",&m_pEFTAG_pass,&b_pEFTAG_pass);
 
      //define each histgram
      for(Int_t i = 0;i <= m_nhist;i++){
@@ -284,6 +297,15 @@
      }
 }
 
+bool Efficiency::Cut_tag(Int_t pass,Double_t drL1,Double_t drEF){
+     //if(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && drEF < 0.08 && m_probe_EF && pass > -1 && drL1 < m_reqL1dR){
+     if(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && m_sumReqdREF < m_tp_dR  && pass > -1){
+          return kTRUE;
+     }else{
+          return kFALSE;
+     }
+}
+
 bool Efficiency::Cut_L1(Int_t pass){
   if(pass > -1){
           return kTRUE;
@@ -293,18 +315,10 @@ bool Efficiency::Cut_L1(Int_t pass){
 }
 
 bool Efficiency::Cut_SA(Int_t pass,Double_t pt,Double_t th){
-     if(th == 0){
-          if(pass == 1){
-               return kTRUE;
-          }else{
-               return kFALSE;
-          }
+     if(pass == 1 && std::fabs(pt) > th){
+          return kTRUE;
      }else{
-          if(pass == 1 && std::fabs(pt) > th){
-               return kTRUE;
-          }else{
-               return kFALSE;
-          }
+          return kFALSE;
      }
 }
 
@@ -352,6 +366,7 @@ void Efficiency::Execute(Int_t ev){
           Double_t pEF_phi = 0;
           Double_t pEF_dR = 1;
           Int_t pEF_pass = 0;
+          Int_t pEFTAG_pass = -1;
           for(Int_t method = 0;method < 25;method++){
                if(m_mes_name->at(method) == m_method_name){
                     pL1_pt = m_pL1_pt->at(method);
@@ -374,11 +389,14 @@ void Efficiency::Execute(Int_t ev){
                     pSA_dR = m_pSA_dR->at(method);
                     pCB_dR = m_pCB_dR->at(method);
                     pEF_dR = m_pEF_dR->at(method);
+                    pEFTAG_pass = m_pEFTAG_pass->at(method);
                     pSA_sAddress = m_pSA_sAddress->at(method);
                }
           }
           pL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_eta,2) + pow(pL1_phi - m_poff_phi,2) );
+          pEF_dR = TMath::Sqrt(pow(pEF_eta - m_poff_eta,2) + pow(pEF_phi - m_poff_phi,2) );
           if(std::fabs(m_poff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_poff_pt) + 0.18;
+          if(!Cut_tag(pEFTAG_pass,pL1_dR,pEF_dR))return;
           //offline
           m_h_poff_pt.at(i)->Fill(m_poff_pt*0.001);
           m_h_eoff_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
@@ -391,114 +409,110 @@ void Efficiency::Execute(Int_t ev){
           if(std::fabs(m_poff_pt*0.001) > 40)m_h_eff_poff_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
 
           //L1
-          if(Cut_L1(pL1_pass)){
-               Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
-               pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
+          if(!Cut_L1(pL1_pass))return;
+          Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
+          pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
 
-               m_h_pL1_pt.at(i)->Fill(std::fabs(pL1_pt*0.001));
-               m_h_pL1_dR.at(i)->Fill(pL1_dR);
-               m_h_textL1_dR.at(i)->Fill(textL1_dR);
-               m_h_pextL1_dR.at(i)->Fill(pextL1_dR);
-               m_h_eL1_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-               if(Dicision_barrel(m_poff_eta)){
-                    m_h_eL1_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-               }else{
-                    m_h_eL1_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-               }
-               if(std::fabs(m_poff_pt*0.001) > 40){
-                    m_h_eff_pL1_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
-                    m_h_eL1_eta.at(i)->Fill(m_poff_eta);
-               }
+          m_h_pL1_pt.at(i)->Fill(std::fabs(pL1_pt*0.001));
+          m_h_pL1_dR.at(i)->Fill(pL1_dR);
+          m_h_textL1_dR.at(i)->Fill(textL1_dR);
+          m_h_pextL1_dR.at(i)->Fill(pextL1_dR);
+          m_h_eL1_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+          if(Dicision_barrel(m_poff_eta)){
+               m_h_eL1_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+          }else{
+               m_h_eL1_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+          }
+          if(std::fabs(m_poff_pt*0.001) > 40){
+               m_h_eff_pL1_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
+               m_h_eL1_eta.at(i)->Fill(m_poff_eta);
+          }
 
-               //SA
-               if(Cut_SA(pSA_pass,pSA_pt,i*m_thpitch)){
-                    Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
-                    pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
-                    Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
-                    Double_t buf_pSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_eta,2) + pow(pSA_phi - m_poff_phi,2));
+          //SA
+          if(!Cut_SA(pSA_pass,pSA_pt,i*m_thpitch))return;
+          Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
+          pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
+          Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
+          Double_t buf_pSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_eta,2) + pow(pSA_phi - m_poff_phi,2));
 
-                    m_h_pSA_pt.at(i)->Fill(std::fabs(pSA_pt));
-                    m_h_pSA_dR.at(i)->Fill(buf_pSA_dR);
-                    m_h_textSA_dR.at(i)->Fill(textSA_dR);
-                    m_h_pextSA_dR.at(i)->Fill(pextSA_dR);
-                    m_h_eSA_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                    m_h_pSA_respt.at(i)->Fill(resSA_pt);
-                    if(Dicision_barrel(m_poff_eta)){
-                         m_h_eSA_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                    }else{
-                         m_h_eSA_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                    }
-                    if(std::fabs(m_poff_pt*0.001) > 40){
-                         m_h_eff_pSA_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
-                         m_h_eSA_eta.at(i)->Fill(m_poff_eta);
-                    }
-                    m_h_poffvsSA_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001),std::fabs(pSA_pt));
-                    switch(static_cast<Int_t>(pSA_sAddress)){
-                         case 0:
-                              if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                              if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                              m_countLarge.at(i)++;
-                              break;
-                         case 1:
-                              if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                              if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                              m_countLargeSpecial.at(i)++;
-                              break;
-                         case 2:
-                              if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus2.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                              if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus2.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                              m_countSmall.at(i)++;
-                              break;
-                         case 3:
-                              if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus3.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                              if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus3.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                              m_countSmallSpecial.at(i)++;
-                              break;
-                         default:
-                              break;
-                    }
-                    if(static_cast<Int_t>(pSA_sAddress) == 0 || static_cast<Int_t>(pSA_sAddress) == 1 || static_cast<Int_t>(pSA_sAddress) == 2 || static_cast<Int_t>(pSA_sAddress) == 3){
-                         m_h_offphivsSA_sAddress.at(i)->Fill(m_poff_phi,pSA_sAddress);
-                    }
+          m_h_pSA_pt.at(i)->Fill(std::fabs(pSA_pt));
+          m_h_pSA_dR.at(i)->Fill(buf_pSA_dR);
+          m_h_textSA_dR.at(i)->Fill(textSA_dR);
+          m_h_pextSA_dR.at(i)->Fill(pextSA_dR);
+          m_h_eSA_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+          m_h_pSA_respt.at(i)->Fill(resSA_pt);
+          if(Dicision_barrel(m_poff_eta)){
+               m_h_eSA_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+          }else{
+               m_h_eSA_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+          }
+          if(std::fabs(m_poff_pt*0.001) > 40){
+               m_h_eff_pSA_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
+               m_h_eSA_eta.at(i)->Fill(m_poff_eta);
+          }
+          m_h_poffvsSA_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001),std::fabs(pSA_pt));
+          switch(static_cast<Int_t>(pSA_sAddress)){
+               case 0:
+                    if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                    if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                    m_countLarge.at(i)++;
+                    break;
+               case 1:
+                    if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                    if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                    m_countLargeSpecial.at(i)++;
+                    break;
+               case 2:
+                    if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus2.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                    if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus2.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                    m_countSmall.at(i)++;
+                    break;
+               case 3:
+                    if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus3.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                    if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus3.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                    m_countSmallSpecial.at(i)++;
+                    break;
+               default:
+                    break;
+          }
+          if(static_cast<Int_t>(pSA_sAddress) == 0 || static_cast<Int_t>(pSA_sAddress) == 1 || static_cast<Int_t>(pSA_sAddress) == 2 || static_cast<Int_t>(pSA_sAddress) == 3){
+               m_h_offphivsSA_sAddress.at(i)->Fill(m_poff_phi,pSA_sAddress);
+          }
 
-                    //CB
-                    if(Cut_CB(pCB_pass)){
-                         Double_t textCB_dR = TMath::Sqrt(pow(m_tCB_eta - m_toff_exteta,2) + pow(m_tCB_phi - m_toff_extphi,2));
-                         pextCB_dR = TMath::Sqrt(pow(pCB_eta - m_poff_exteta,2) + pow(pCB_phi - m_poff_extphi,2));
-                         Double_t resCB_pt = std::fabs(m_poff_pt)/std::fabs(pCB_pt) - 1.0;
-                         m_h_pCB_pt.at(i)->Fill(std::fabs(pCB_pt*0.001));
-                         m_h_pCB_dR.at(i)->Fill(pCB_dR);
-                         m_h_textCB_dR.at(i)->Fill(textCB_dR);
-                         m_h_pextCB_dR.at(i)->Fill(pextCB_dR);
-                         m_h_eCB_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(std::fabs(m_poff_pt*0.001) > 40)m_h_eCB_eta.at(i)->Fill(m_poff_eta);
-                         m_h_pCB_respt.at(i)->Fill(resCB_pt);
-                         if(Dicision_barrel(m_poff_eta)){
-                              m_h_eCB_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         }else{
-                              m_h_eCB_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         }
+          //CB
+          if(!Cut_CB(pCB_pass))return;
+          Double_t textCB_dR = TMath::Sqrt(pow(m_tCB_eta - m_toff_exteta,2) + pow(m_tCB_phi - m_toff_extphi,2));
+          pextCB_dR = TMath::Sqrt(pow(pCB_eta - m_poff_exteta,2) + pow(pCB_phi - m_poff_extphi,2));
+          Double_t resCB_pt = std::fabs(m_poff_pt)/std::fabs(pCB_pt) - 1.0;
+          m_h_pCB_pt.at(i)->Fill(std::fabs(pCB_pt*0.001));
+          m_h_pCB_dR.at(i)->Fill(pCB_dR);
+          m_h_textCB_dR.at(i)->Fill(textCB_dR);
+          m_h_pextCB_dR.at(i)->Fill(pextCB_dR);
+          m_h_eCB_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+          if(std::fabs(m_poff_pt*0.001) > 40)m_h_eCB_eta.at(i)->Fill(m_poff_eta);
+          m_h_pCB_respt.at(i)->Fill(resCB_pt);
+          if(Dicision_barrel(m_poff_eta)){
+               m_h_eCB_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+          }else{
+               m_h_eCB_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+          }
 
-                         //EF
-                         if(Cut_EF(pEF_pass)){
-                              Double_t textEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_exteta,2) + pow(m_tEF_phi - m_toff_extphi,2));
-                              pextEF_dR = TMath::Sqrt(pow(pEF_eta - m_poff_exteta,2) + pow(pEF_phi - m_poff_extphi,2));
-                              Double_t resEF_pt = std::fabs(m_poff_pt)/std::fabs(pEF_pt) - 1.0;
-                              m_h_pEF_pt.at(i)->Fill(std::fabs(pEF_pt*0.001));
-                              m_h_pEF_dR.at(i)->Fill(pEF_dR);
-                              m_h_textEF_dR.at(i)->Fill(textEF_dR);
-                              m_h_pextEF_dR.at(i)->Fill(pextEF_dR);
-                              m_h_eEF_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                              if(std::fabs(m_poff_pt*0.001) > 40)m_h_eEF_eta.at(i)->Fill(m_poff_eta);
-                              m_h_pEF_respt.at(i)->Fill(resEF_pt);
-                              if(Dicision_barrel(m_poff_eta)){
-                                   m_h_eEF_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                              }else{
-                                   m_h_eEF_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                              }
-                         }
-                    }
-               }
+          //EF
+          if(!Cut_EF(pEF_pass))return;
+          Double_t textEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_exteta,2) + pow(m_tEF_phi - m_toff_extphi,2));
+          pextEF_dR = TMath::Sqrt(pow(pEF_eta - m_poff_exteta,2) + pow(pEF_phi - m_poff_extphi,2));
+          Double_t resEF_pt = std::fabs(m_poff_pt)/std::fabs(pEF_pt) - 1.0;
+          m_h_pEF_pt.at(i)->Fill(std::fabs(pEF_pt*0.001));
+          m_h_pEF_dR.at(i)->Fill(pEF_dR);
+          m_h_textEF_dR.at(i)->Fill(textEF_dR);
+          m_h_pextEF_dR.at(i)->Fill(pextEF_dR);
+          m_h_eEF_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+          if(std::fabs(m_poff_pt*0.001) > 40)m_h_eEF_eta.at(i)->Fill(m_poff_eta);
+          m_h_pEF_respt.at(i)->Fill(resEF_pt);
+          if(Dicision_barrel(m_poff_eta)){
+               m_h_eEF_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+          }else{
+               m_h_eEF_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           }
      }
 }
