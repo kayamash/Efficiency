@@ -163,6 +163,7 @@
      tChain->SetBranchStatus("tp_extdR",1);
      tChain->SetBranchStatus("sumReqdRL1",1);
      tChain->SetBranchStatus("sumReqdREF",1);
+     tChain->SetBranchStatus("tp_dR",1);
      //setting each branch address
      tChain->SetBranchAddress("mes_name",&m_mes_name,&b_mes_name);
      tChain->SetBranchAddress("sumReqdRL1",&m_sumReqdRL1,&b_sumReqdRL1);
@@ -187,6 +188,7 @@
      tChain->SetBranchAddress("probe_charge",&m_probe_charge,&b_probe_charge);
      tChain->SetBranchAddress("probe_d0",&m_probe_d0,&b_probe_d0);
      tChain->SetBranchAddress("probe_z0",&m_probe_z0,&b_probe_z0);
+     tChain->SetBranchAddress("tp_dR",&m_tp_dR,&b_tp_dR);
      tChain->SetBranchAddress("tp_extdR",&m_tp_extdR,&b_tp_extdR);
      tChain->SetBranchAddress("tag_L1_pt",&m_tL1_pt,&b_tL1_pt);
      tChain->SetBranchAddress("tag_L1_eta",&m_tL1_eta,&b_tL1_eta);
@@ -314,10 +316,8 @@
      }
 }
 
-bool Efficiency::Cut_tagprobe(Int_t pass,Double_t drL1,Double_t drEF){
-     //if(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && m_sumReqdREF < m_tp_dR && pass > -1 && drL1 < m_reqL1dR && drEF < 0.08){
-     if(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && m_sumReqdREF < m_tp_dR){
-     //if(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR){
+bool Efficiency::Cut_tagprobe(Int_t pass){
+     if(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && m_sumReqdREF < m_tp_dR && pass > -1){
           m_count++;
           return kTRUE;
      }else{
@@ -417,7 +417,7 @@ void Efficiency::Execute(Int_t ev){
           tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
           tEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_eta,2) + pow(m_tEF_phi - m_toff_phi,2) );
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
-          if(!Cut_tagprobe(pEFTAG_pass,tL1_dR,tEF_dR))return;
+          if(!Cut_tagprobe(pEFTAG_pass))return;
           //offline
           m_h_poff_pt.at(i)->Fill(m_poff_pt*0.001);
           m_h_eoff_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
