@@ -160,8 +160,8 @@
      tChain->SetBranchStatus("probe_mesEF_dR",1);
      tChain->SetBranchStatus("probe_mesEFTAG_pass",1);
      tChain->SetBranchStatus("tp_extdR",1);
-     tChain->SetBranchStatus("sumTReqdRL1",1);
-     tChain->SetBranchStatus("sumTReqdREF",1);
+     tChain->SetBranchStatus("sumReqdRL1",1);
+     tChain->SetBranchStatus("sumReqdREF",1);
      //setting each branch address
      tChain->SetBranchAddress("mes_name",&m_mes_name,&b_mes_name);
      tChain->SetBranchAddress("sumReqdRL1",&m_sumReqdRL1,&b_sumReqdRL1);
