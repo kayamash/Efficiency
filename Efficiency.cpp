@@ -411,8 +411,8 @@ void Efficiency::Execute(Int_t ev){
                     pSA_sAddress = m_pSA_sAddress->at(method);
                }
           }
-          tL1_dR = TMath::Sqrt(pow(tL1_eta - m_toff_eta,2) + pow(tL1_phi - m_toff_phi,2) );
-          tEF_dR = TMath::Sqrt(pow(tEF_eta - m_toff_eta,2) + pow(tEF_phi - m_toff_phi,2) );
+          tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
+          tEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_eta,2) + pow(m_tEF_phi - m_toff_phi,2) );
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
           if(!Cut_tagprobe(pEFTAG_pass,tL1_dR,tEF_dR))return;
           //offline
