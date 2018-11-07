@@ -9,6 +9,8 @@ file6="plotSP.cpp"
 file7="run.sh"
 file8="bsub.sh"
 file9="gitadd.sh"
+file10="plot.sh"
+file11="LargeSpecialEvent.dat"
 add="git add "
 message="add list"
 push="git push origin "
@@ -22,6 +24,8 @@ eval $add$file6
 eval $add$file7
 eval $add$file8
 eval $add$file9
+eval $add$file10
+eval $add$file11
 git commit -m "${message}"
 eval $push$branch
 
