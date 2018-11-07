@@ -195,22 +195,6 @@ class Efficiency
   vector<TH1D*> m_h_eSA_pt_end;
   vector<TH1D*> m_h_eCB_pt_end;
   vector<TH1D*> m_h_eEF_pt_end;
-  vector<TH1D*> m_h_SA_respt0;
-  vector<TH1D*> m_h_SA_respt1;
-  vector<TH1D*> m_h_SA_respt2;
-  vector<TH1D*> m_h_SA_respt3;
-  vector<TH1D*> m_h_eoff_pt_Large;
-  vector<TH1D*> m_h_eoff_pt_LargeSpecial;
-  vector<TH1D*> m_h_eoff_pt_Small;
-  vector<TH1D*> m_h_eoff_pt_SmallSpecial;
-  vector<TH1D*> m_h_eL1_pt_Large;
-  vector<TH1D*> m_h_eL1_pt_LargeSpecial;
-  vector<TH1D*> m_h_eL1_pt_Small;
-  vector<TH1D*> m_h_eL1_pt_SmallSpecial;
-  vector<TH1D*> m_h_eSA_pt_Large;
-  vector<TH1D*> m_h_eSA_pt_LargeSpecial;
-  vector<TH1D*> m_h_eSA_pt_Small;
-  vector<TH1D*> m_h_eSA_pt_SmallSpecial;
 
   vector<TH2F*> m_h_eff_poff_etaphi;
   vector<TH2F*> m_h_eff_pL1_etaphi;
@@ -247,11 +231,11 @@ class Efficiency
 public:
   void Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th);
   bool Dicision_barrel(Double_t eta);
-  bool Cut_tag();
-  bool Cut_L1(Int_t pass);
+  bool Cut_tagprobe(Int_t pass,Double_t drL1,Double_t drEF);
+  bool Cut_L1(Int_t pass,Double_t dr);
   bool Cut_SA(Int_t pass,Double_t pt,Double_t th);
   bool Cut_CB(Int_t pass);
-  bool Cut_EF(Int_t pass);
+  bool Cut_EF(Int_t pass,Double_t dr);
   void Execute(Int_t ev);
   void Finalize(TFile *tf1);
 
