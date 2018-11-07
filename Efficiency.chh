@@ -249,10 +249,10 @@ public:
   void Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th);
   bool Dicision_barrel(Double_t eta);
   bool Cut_tagprobe(Int_t pass,Double_t drL1,Double_t drEF);
-  bool Cut_L1(Int_t pass,Double_t dr);
+  bool Cut_L1(Int_t pass);
   bool Cut_SA(Int_t pass,Double_t pt,Double_t th);
   bool Cut_CB(Int_t pass);
-  bool Cut_EF(Int_t pass,Double_t dr);
+  bool Cut_EF(Int_t pass);
   void Execute(Int_t ev);
   void Finalize(TFile *tf1);
 

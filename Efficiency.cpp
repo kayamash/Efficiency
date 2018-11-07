@@ -325,8 +325,8 @@ bool Efficiency::Cut_tagprobe(Int_t pass,Double_t drL1,Double_t drEF){
      }
 }
 
-bool Efficiency::Cut_L1(Int_t pass,Double_t dr){
-  if(pass > -1 && dr < m_reqL1dR){
+bool Efficiency::Cut_L1(Int_t pass){
+  if(pass > -1){
           return kTRUE;
      }else{
           return kFALSE;
@@ -349,8 +349,8 @@ bool Efficiency::Cut_CB(Int_t pass){
      }
 }
 
-bool Efficiency::Cut_EF(Int_t pass,Double_t dr){
-     if(pass == 1 && dr < 0.08){
+bool Efficiency::Cut_EF(Int_t pass){
+     if(pass == 1){
           return kTRUE;
      }else{
           return kFALSE;
@@ -446,8 +446,7 @@ void Efficiency::Execute(Int_t ev){
           }
 
           //L1
-          (std::fabs(m_poff_pt)*0.001 < 10.0)?m_reqL1dR = -0.00001*std::fabs(m_poff_pt) + 0.18 : 0.08;
-          if(!Cut_L1(pL1_pass,pL1_dR))return;
+          if(!Cut_L1(pL1_pass))return;
           Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
           pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
 
@@ -552,7 +551,7 @@ void Efficiency::Execute(Int_t ev){
           }
 
           //EF
-          if(!Cut_EF(pEF_pass,pEF_dR))return;
+          if(!Cut_EF(pEF_pass))return;
           Double_t textEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_exteta,2) + pow(m_tEF_phi - m_toff_extphi,2));
           pextEF_dR = TMath::Sqrt(pow(pEF_eta - m_poff_exteta,2) + pow(pEF_phi - m_poff_extphi,2));
           Double_t resEF_pt = std::fabs(m_poff_pt)/std::fabs(pEF_pt) - 1.0;
