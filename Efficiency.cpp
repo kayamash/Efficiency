@@ -101,6 +101,7 @@
      m_sumReqdRL1 = 0;
      m_sumReqdREF = 0;
      m_tp_dR = 0;
+     m_count = 0;
 
     //active only need branch 
      tChain->SetBranchStatus("*",0);
@@ -316,6 +317,7 @@
 bool Efficiency::Cut_tagprobe(Int_t pass,Double_t drL1,Double_t drEF){
      if(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && m_sumReqdREF < m_tp_dR && pass > -1 && drL1 < m_reqL1dR && drEF < 0.08){
      //if(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && m_sumReqdREF < m_tp_dR  && pass > -1){
+          m_count++;
           return kTRUE;
      }else{
           return kFALSE;
@@ -571,6 +573,7 @@ void Efficiency::Execute(Int_t ev){
 void Efficiency::Finalize(TFile *tf1){
      CalcEfficiency ceff;
      tf1->cd();
+     cout<<m_count<<endl;
      cout<<"ptSAth   nLarge   nLargeS   nSmall   nSmallS"<<endl;
      //SetCondition
      //title,file title,yoffset,top margin,bottom margin,left margin,right margin
