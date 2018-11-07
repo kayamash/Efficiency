@@ -316,8 +316,8 @@
 
 bool Efficiency::Cut_tagprobe(Int_t pass,Double_t drL1,Double_t drEF){
      //(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && m_sumReqdREF < m_tp_dR && pass > -1 && drL1 < m_reqL1dR && drEF < 0.08){
-     //(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && m_sumReqdREF < m_tp_dR  && pass > -1){
-     if(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR){
+     (m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && m_sumReqdREF < m_tp_dR){
+     //(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR){
           m_count++;
           return kTRUE;
      }else{
