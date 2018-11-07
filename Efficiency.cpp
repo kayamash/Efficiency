@@ -578,6 +578,8 @@ void Efficiency::Finalize(TFile *tf1){
      cout<<"ptSAth   nLarge   nLargeS   nSmall   nSmallS"<<endl;
      //SetCondition
      //title,file title,yoffset,top margin,bottom margin,left margin,right margin
+     ceff.SetCondition("test",1.5,0,0,0,0);
+     ceff.DrawHist1D(m_h_offphi_LargeSpecial);
      for(Int_t i = 0;i <= m_nhist;i++){
           ceff.SetCondition("test",1.5,0,0,0,0);
           ceff.DrawHist1D(m_h_poff_pt.at(i));
