@@ -26,11 +26,11 @@
 const string trigger = "mu26ivm";
 //const string trigger = "mu4";
 //const string inputfilename = "~/dataset/efficiencysample2.root";
-//const string inputfilename = "/gpfs/fs6001/kayamash/data18_physics_Main_Ztap_hadd.root";
 //const string inputfilename = "/gpfs/fs6001/kayamash/efficiency_output/mc16_13TeVZmumu070.root";
 //const string inputfilename = "/gpfs/fs6001/kayamash/dataset/Zmumu300540_hadd.root";
-const string inputfilelist = "/home/kayamash/list/data16_grid.list";
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/plot4.root";
+//const string inputfilelist = "/home/kayamash/list/data16_grid.list";
+const string inputfilelist = "/home/kayamash/list/data18_grid.list";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/plot2.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
 const Int_t nhist = 8;
@@ -44,10 +44,6 @@ void efficiencyloop(){
 	ofs.close();
 
 	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
-        /*
-	TFile *tf1 = TFile::Open(inputfilename.c_str(),"read");
-	TTree *tr1 = dynamic_cast<TTree*>(tf1->Get("t_tap"));
-	*/
 	TChain *tr1 = new TChain("t_tap");
 	std::ifstream ifs(inputfilelist.c_str());
 	std::string str;
