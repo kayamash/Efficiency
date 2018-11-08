@@ -525,6 +525,7 @@ void Efficiency::Execute(Int_t ev){
                     if(i == 0){
                          m_h_saphims_LargeSpecial->Fill(pSA_phims);
                          m_h_saroiphi_LargeSpecial->Fill(pSA_roiphi);
+                    }
                     m_countLarge.at(i)++;
                     break;
                case 1:
