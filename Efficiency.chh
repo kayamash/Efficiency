@@ -89,6 +89,7 @@ class Efficiency
   std::vector<Double_t> *m_pEF_phi;
   std::vector<Double_t> *m_pEF_dR;
   std::vector<Double_t> *m_pSA_phims;
+  std::vector<float> *m_pSA_roiphi;
   std::vector<Int_t> *m_pL1_pass;
   std::vector<Int_t> *m_pSA_pass;
   std::vector<Int_t> *m_pCB_pass;
@@ -138,6 +139,7 @@ class Efficiency
   TBranch *b_pSA_dR;
   TBranch *b_pSA_sAddress;
   TBranch *b_pSA_phims;
+  TBranch *b_pSA_roiphi;
   TBranch *b_pCB_pt;
   TBranch *b_pCB_eta;
   TBranch *b_pCB_phi;
@@ -215,6 +217,7 @@ class Efficiency
   vector<TH1D*> m_h_eSA_pt_SmallSpecial;
   TH1D *m_h_offphi_LargeSpecial;
   TH1D *m_h_saphims_LargeSpecial;
+  TH1D *m_h_saroiphi_LargeSpecial;
 
   vector<TH2F*> m_h_eff_poff_etaphi;
   vector<TH2F*> m_h_eff_pL1_etaphi;

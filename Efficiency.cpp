@@ -103,6 +103,7 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      m_tp_dR = 0;
      m_count = 0;
      m_pSA_phims = 0;
+     m_pSA_roiphi = 0;
 
      //active only need branch 
      tChain->SetBranchStatus("*",0);
@@ -151,6 +152,7 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      tChain->SetBranchStatus("probe_mesSA_dR",1);
      tChain->SetBranchStatus("probe_mesSA_sAddress",1);
      tChain->SetBranchStatus("probe_mesSA_phims",1);
+     tChain->SetBranchStatus("probe_mesSA_roiPhi",1);
      tChain->SetBranchStatus("probe_mesCB_pt",1);
      tChain->SetBranchStatus("probe_mesCB_eta",1);
      tChain->SetBranchStatus("probe_mesCB_phi",1);  
@@ -216,6 +218,7 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      tChain->SetBranchAddress("probe_mesSA_dR",&m_pSA_dR,&b_pSA_dR);
      tChain->SetBranchAddress("probe_mesSA_sAddress",&m_pSA_sAddress,&b_pSA_sAddress);
      tChain->SetBranchAddress("probe_mesSA_phims",&m_pSA_phims,&b_pSA_phims);
+     tChain->SetBranchAddress("probe_mesSA_roiPhi",&m_pSA_roiphi,&b_pSA_roiphi);
      tChain->SetBranchAddress("probe_mesCB_pt",&m_pCB_pt,&b_pCB_pt);
      tChain->SetBranchAddress("probe_mesCB_eta",&m_pCB_eta,&b_pCB_eta);
      tChain->SetBranchAddress("probe_mesCB_phi",&m_pCB_phi,&b_pCB_phi);
@@ -230,7 +233,8 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
 
      //define each histgram
      m_h_offphi_LargeSpecial = new TH1D("h_offphi_LargeSpecial_0GeV","offline phi;offline phi;Entries",600,-3.0,3.0);
-     m_h_saphims_LargeSpecial = new TH1D("h_saphims_LargeSpecial_0GeV","offline phi;L2MuonSA phims;Entries",600,-3.0,3.0);
+     m_h_saphims_LargeSpecial = new TH1D("h_saphims_LargeSpecial_0GeV","L2MuonSA phi;L2MuonSA phims;Entries",600,-3.0,3.0);
+     m_h_saroiphi_LargeSpecial = new TH1D("h_saroiphi_LargeSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
      for(Int_t i = 0;i <= m_nhist;i++){
           m_h_poff_pt.push_back(new TH1D(Form("h_poff_pt_%dGeV",i*m_thpitch),"probe offline pt;offline pt[GeV];Entries",150,0,150));
           m_h_pL1_pt.push_back(new TH1D(Form("h_pL1_pt_%dGeV",i*m_thpitch),"probe L1 pt;L1 pt[GeV];Entries",150,0,150));
@@ -381,6 +385,7 @@ void Efficiency::Execute(Int_t ev){
           Int_t pSA_pass = 0;
           Double_t pSA_sAddress = -1;
           Double_t pSA_phims = -99999;
+          float pSA_roiphi = -99999;
           Double_t pCB_pt = -99999;
           Double_t pCB_eta = 0;
           Double_t pCB_phi = 0;
@@ -419,6 +424,7 @@ void Efficiency::Execute(Int_t ev){
                     pEFTAG_pass = m_pEFTAG_pass->at(method);
                     pSA_sAddress = m_pSA_sAddress->at(method);
                     pSA_phims = m_pSA_phims->at(method);
+                    pSA_roiphi = m_pSA_roiphi->at(method);
                }
           }
           tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
@@ -516,7 +522,9 @@ void Efficiency::Execute(Int_t ev){
                case 0:
                     if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                     if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                    if(i == 0)m_h_saphims_LargeSpecial->Fill(pSA_phims);
+                    if(i == 0){
+                         m_h_saphims_LargeSpecial->Fill(pSA_phims);
+                         m_h_saroiphi_LargeSpecial->Fill(pSA_roiphi);
                     m_countLarge.at(i)++;
                     break;
                case 1:
@@ -591,6 +599,8 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawHist1D(m_h_offphi_LargeSpecial);
      ceff.SetCondition("test",1.5,0,0,0,0);
      ceff.DrawHist1D(m_h_saphims_LargeSpecial);
+     ceff.SetCondition("test",1.5,0,0,0,0);
+     ceff.DrawHist1D(m_h_saroiphi_LargeSpecial);
      for(Int_t i = 0;i <= m_nhist;i++){
           ceff.SetCondition("test",1.5,0,0,0,0);
           ceff.DrawHist1D(m_h_poff_pt.at(i));
@@ -761,6 +771,8 @@ void Efficiency::Finalize(TFile *tf1){
      
      delete m_h_offphi_LargeSpecial;
      delete m_h_saphims_LargeSpecial;
+     delete m_h_saroiphi_LargeSpecial;
+
      m_h_poff_pt.clear();
      m_h_pL1_pt.clear();
      m_h_pSA_pt.clear();
@@ -846,6 +858,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_pSA_eta->clear();
      m_pSA_phi->clear();
      m_pSA_phims->clear();
+     m_pSA_roiphi->clear();
      m_pSA_pass->clear();
      m_pSA_dR->clear();
      m_pCB_pt->clear();
