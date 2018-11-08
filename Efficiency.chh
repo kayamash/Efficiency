@@ -214,6 +214,7 @@ class Efficiency
   vector<TH1D*> m_h_eL1_pt_SmallSpecial;
   vector<TH1D*> m_h_eSA_pt_SmallSpecial;
   TH1D *m_h_offphi_LargeSpecial;
+  TH1D *m_h_saphims_LargeSpecial;
 
   vector<TH2F*> m_h_eff_poff_etaphi;
   vector<TH2F*> m_h_eff_pL1_etaphi;
@@ -232,6 +233,7 @@ class Efficiency
   vector<TH2F*> m_h_offphivsSA_respt1;
   vector<TH2F*> m_h_offphivsSA_respt2;
   vector<TH2F*> m_h_offphivsSA_respt3;
+  vector<TH2F*> m_h_offphivsSAphims;
 
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;

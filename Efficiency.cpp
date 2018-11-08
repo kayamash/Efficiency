@@ -230,6 +230,7 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
 
      //define each histgram
      m_h_offphi_LargeSpecial = new TH1D("h_offphi_LargeSpecial_0GeV","offline phi;offline phi;Entries",600,-3.0,3.0);
+     m_h_saphims_LargeSpecial = new TH1D("h_saphims_LargeSpecial_0GeV","offline phi;L2MuonSA phims;Entries",600,-3.0,3.0);
      for(Int_t i = 0;i <= m_nhist;i++){
           m_h_poff_pt.push_back(new TH1D(Form("h_poff_pt_%dGeV",i*m_thpitch),"probe offline pt;offline pt[GeV];Entries",150,0,150));
           m_h_pL1_pt.push_back(new TH1D(Form("h_pL1_pt_%dGeV",i*m_thpitch),"probe L1 pt;L1 pt[GeV];Entries",150,0,150));
@@ -304,6 +305,7 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
           m_h_eoff_pt_SmallSpecial.push_back(new TH1D(Form("h_eoff_ptSmallSpecial_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
           m_h_eL1_pt_SmallSpecial.push_back(new TH1D(Form("h_eL1_ptSmallSpecial_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
           m_h_eSA_pt_SmallSpecial.push_back(new TH1D(Form("h_eSA_ptSmallSpecial_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+          m_h_offphivsSAphims.push_back(new TH2F(Form("h_offphivsSAphims_%dGeV",i*m_thpitch),"offphi vs phims;offline phi;L2MuonSA phims",140,-3.5,3.5,140,-3.5,3.5));
           m_countLarge.push_back(0);
           m_countLargeSpecial.push_back(0);
           m_countSmall.push_back(0);
@@ -424,7 +426,7 @@ void Efficiency::Execute(Int_t ev){
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
           if(!Cut_tagprobe(pEFTAG_pass))return;
           //offline
-          if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(pSA_phims);
+          if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
           m_h_poff_pt.at(i)->Fill(m_poff_pt*0.001);
           m_h_eoff_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           if(std::fabs(m_poff_pt*0.001) > 40)m_h_eoff_eta.at(i)->Fill(m_poff_eta);
@@ -514,6 +516,7 @@ void Efficiency::Execute(Int_t ev){
                case 0:
                     if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                     if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                    if(i == 0)m_h_saphims_LargeSpecial->Fill(pSA_phims);
                     m_countLarge.at(i)++;
                     break;
                case 1:
@@ -537,6 +540,7 @@ void Efficiency::Execute(Int_t ev){
           if(static_cast<Int_t>(pSA_sAddress) == 0 || static_cast<Int_t>(pSA_sAddress) == 1 || static_cast<Int_t>(pSA_sAddress) == 2 || static_cast<Int_t>(pSA_sAddress) == 3){
                m_h_offphivsSA_sAddress.at(i)->Fill(pSA_phims,pSA_sAddress);
           }
+          m_h_offphivsSAphims.at(i)->Fill(m_poff_phi,pSA_phims);
 
           //CB
           if(!Cut_CB(pCB_pass))return;
@@ -585,6 +589,8 @@ void Efficiency::Finalize(TFile *tf1){
      //title,file title,yoffset,top margin,bottom margin,left margin,right margin
      ceff.SetCondition("test",1.5,0,0,0,0);
      ceff.DrawHist1D(m_h_offphi_LargeSpecial);
+     ceff.SetCondition("test",1.5,0,0,0,0);
+     ceff.DrawHist1D(m_h_saphims_LargeSpecial);
      for(Int_t i = 0;i <= m_nhist;i++){
           ceff.SetCondition("test",1.5,0,0,0,0);
           ceff.DrawHist1D(m_h_poff_pt.at(i));
@@ -664,6 +670,7 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.DrawHist2D(m_h_offphivsSA_respt1.at(i));
           ceff.DrawHist2D(m_h_offphivsSA_respt2.at(i));
           ceff.DrawHist2D(m_h_offphivsSA_respt3.at(i));
+          ceff.DrawHist2D(m_h_offphivsSAphims.at(i));
 
           //base,target
           ceff.SetConditionName(Form("L1Efficiency_%dGeV",i*m_thpitch));
@@ -751,7 +758,9 @@ void Efficiency::Finalize(TFile *tf1){
 
           cout<<i*m_thpitch<<"      "<<m_countLarge.at(i)<<"      "<<m_countLargeSpecial.at(i)<<"      "<<m_countSmall.at(i)<<"      "<<m_countSmallSpecial.at(i)<<endl;
      }
-
+     
+     delete m_h_offphi_LargeSpecial;
+     delete m_h_saphims_LargeSpecial;
      m_h_poff_pt.clear();
      m_h_pL1_pt.clear();
      m_h_pSA_pt.clear();
@@ -825,6 +834,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eoff_pt_SmallSpecial.clear();
      m_h_eL1_pt_SmallSpecial.clear();
      m_h_eSA_pt_SmallSpecial.clear();
+     m_h_offphivsSAphims.clear();
      m_mes_name->clear();
      m_pEFTAG_pass->clear();
      m_pL1_pt->clear();
@@ -835,6 +845,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_pSA_pt->clear();
      m_pSA_eta->clear();
      m_pSA_phi->clear();
+     m_pSA_phims->clear();
      m_pSA_pass->clear();
      m_pSA_dR->clear();
      m_pCB_pt->clear();
