@@ -209,6 +209,20 @@ class Efficiency
   vector<TH1D*> m_h_eoff_pt_LargeSpecial;
   vector<TH1D*> m_h_eL1_pt_LargeSpecial;
   vector<TH1D*> m_h_eSA_pt_LargeSpecial;
+  //
+  vector<TH1D*> m_h_eL1_pt_LargeSpecial11;//!
+  vector<TH1D*> m_h_eSA_pt_LargeSpecial11;//!
+  vector<TH1D*> m_h_eL1_pt_LargeSpecial15;//!
+  vector<TH1D*> m_h_eSA_pt_LargeSpecial15;//!
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialplus11;//!
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialplus11;//!
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialminus11;//!
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialminus11;//!
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialplus15;//!
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialplus15;//!
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialminus15;//!
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialminus15;//!
+  //
   vector<TH1D*> m_h_eoff_pt_Small;
   vector<TH1D*> m_h_eL1_pt_Small;
   vector<TH1D*> m_h_eSA_pt_Small;
@@ -237,6 +251,20 @@ class Efficiency
   vector<TH2F*> m_h_offphivsSA_respt2;
   vector<TH2F*> m_h_offphivsSA_respt3;
   vector<TH2F*> m_h_offphivsSAphims;
+  //
+  vector<TH2F*> m_h_off_ptvsSA_resptplusLS11;
+  vector<TH2F*> m_h_off_ptvsSA_resptplusLS15;
+  vector<TH2F*> m_h_off_ptvsSA_resptplusLSplus11;
+  vector<TH2F*> m_h_off_ptvsSA_resptplusLSminus11;
+  vector<TH2F*> m_h_off_ptvsSA_resptplusLSplus15;
+  vector<TH2F*> m_h_off_ptvsSA_resptplusLSminus15;
+  vector<TH2F*> m_h_off_ptvsSA_resptminusLS11;
+  vector<TH2F*> m_h_off_ptvsSA_resptminusLS15;
+  vector<TH2F*> m_h_off_ptvsSA_resptminusLSplus11;
+  vector<TH2F*> m_h_off_ptvsSA_resptminusLSminus11;
+  vector<TH2F*> m_h_off_ptvsSA_resptminusLSplus15;
+  vector<TH2F*> m_h_off_ptvsSA_resptminusLSminus15;
+  //
 
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;

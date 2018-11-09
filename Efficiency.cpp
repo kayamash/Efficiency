@@ -303,6 +303,18 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
           m_h_eoff_pt_LargeSpecial.push_back(new TH1D(Form("h_eoff_ptLargeSpecial_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
           m_h_eL1_pt_LargeSpecial.push_back(new TH1D(Form("h_eL1_ptLargeSpecial_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
           m_h_eSA_pt_LargeSpecial.push_back(new TH1D(Form("h_eSA_ptLargeSpecial_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eL1_pt_LargeSpecial11.push_back(new TH1D(Form("h_eL1_ptLargeSpecial11_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eSA_pt_LargeSpecial11.push_back(new TH1D(Form("h_eSA_ptLargeSpecial11_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eL1_pt_LargeSpecial15.push_back(new TH1D(Form("h_eL1_ptLargeSpecial15_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eSA_pt_LargeSpecial15.push_back(new TH1D(Form("h_eSA_ptLargeSpecial15_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eL1_pt_LargeSpecialplus11.push_back(new TH1D(Form("h_eL1_ptLargeSpecialplus11_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eSA_pt_LargeSpecialplus11.push_back(new TH1D(Form("h_eSA_ptLargeSpecialplus11_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eL1_pt_LargeSpecialminus11.push_back(new TH1D(Form("h_eL1_ptLargeSpecialminus11_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eSA_pt_LargeSpecialminus11.push_back(new TH1D(Form("h_eSA_ptLargeSpecialminus11_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eL1_pt_LargeSpecialplus15.push_back(new TH1D(Form("h_eL1_ptLargeSpecialplus15_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eSA_pt_LargeSpecialplus15.push_back(new TH1D(Form("h_eSA_ptLargeSpecialplus15_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eL1_pt_LargeSpecialminus15.push_back(new TH1D(Form("h_eL1_ptLargeSpecialminus15_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+          m_h_eSA_pt_LargeSpecialminus15.push_back(new TH1D(Form("h_eSA_ptLargeSpecialminus15_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
           m_h_eoff_pt_Small.push_back(new TH1D(Form("h_eoff_ptSmall_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
           m_h_eL1_pt_Small.push_back(new TH1D(Form("h_eL1_ptSmall_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
           m_h_eSA_pt_Small.push_back(new TH1D(Form("h_eSA_ptSmall_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
@@ -310,6 +322,19 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
           m_h_eL1_pt_SmallSpecial.push_back(new TH1D(Form("h_eL1_ptSmallSpecial_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
           m_h_eSA_pt_SmallSpecial.push_back(new TH1D(Form("h_eSA_ptSmallSpecial_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
           m_h_offphivsSAphims.push_back(new TH2F(Form("h_offphivsSAphims_%dGeV",i*m_thpitch),"offphi vs phims;offline phi;L2MuonSA phims",140,-3.5,3.5,140,-3.5,3.5));
+          m_h_off_ptvsSA_resptplusLS11.push_back(new TH2F(Form("h_off_ptvsSA_resptplusLS11_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+          m_h_off_ptvsSA_resptplusLS15.push_back(new TH2F(Form("h_off_ptvsSA_resptplusLS15_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+          m_h_off_ptvsSA_resptplusLSplus11.push_back(new TH2F(Form("h_off_ptvsSA_resptplusLSplus11_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+          m_h_off_ptvsSA_resptplusLSplus15.push_back(new TH2F(Form("h_off_ptvsSA_resptplusLSplus15_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+          m_h_off_ptvsSA_resptplusLSminus11.push_back(new TH2F(Form("h_off_ptvsSA_resptplusLSminus11_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+          m_h_off_ptvsSA_resptplusLSminus15.push_back(new TH2F(Form("h_off_ptvsSA_resptplusLSminus15_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+          m_h_off_ptvsSA_resptminusLS11.push_back(new TH2F(Form("h_off_ptvsSA_resptminusLS11_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+          m_h_off_ptvsSA_resptminusLS15.push_back(new TH2F(Form("h_off_ptvsSA_resptminusLS15_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+          m_h_off_ptvsSA_resptminusLSplus11.push_back(new TH2F(Form("h_off_ptvsSA_resptminusLSplus11_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+          m_h_off_ptvsSA_resptminusLSplus15.push_back(new TH2F(Form("h_off_ptvsSA_resptminusLSplus15_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+          m_h_off_ptvsSA_resptminusLSminus11.push_back(new TH2F(Form("h_off_ptvsSA_resptminusLSminus11_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+          m_h_off_ptvsSA_resptminusLSminus15.push_back(new TH2F(Form("h_off_ptvsSA_resptminusLSminus15_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+
           m_countLarge.push_back(0);
           m_countLargeSpecial.push_back(0);
           m_countSmall.push_back(0);
@@ -484,6 +509,22 @@ void Efficiency::Execute(Int_t ev){
                     break;
                case 1:
                     m_h_eL1_pt_LargeSpecial.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                    if(pSA_roiphi < -0.6 && pSA_roiphi > -1.0){//15
+                         m_h_eL1_pt_LargeSpecial15.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                         if(pSA_roiphi > -0.8){
+                              m_h_eL1_pt_LargeSpecialplus15.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                         }else{
+                              m_h_eL1_pt_LargeSpecialminus15.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                         }
+                    }
+                    if(pSA_roiphi < -2.0 && pSA_roiphi > -2.6){//11
+                         m_h_eL1_pt_LargeSpecial11.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                         if(pSA_roiphi > -2.4){
+                              m_h_eL1_pt_LargeSpecialplus11.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                         }else{
+                              m_h_eL1_pt_LargeSpecialminus11.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                         }
+                    }
                     break;
                case 2:
                     m_h_eL1_pt_Small.at(i)->Fill(std::fabs(m_poff_pt*0.001));
@@ -528,14 +569,67 @@ void Efficiency::Execute(Int_t ev){
                     m_countLarge.at(i)++;
                     break;
                case 1:
-                    if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_off_ptvsSA_resptplus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                    if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                    if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1){
+                         m_h_off_ptvsSA_resptplus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                         if(pSA_roiphi < -0.6 && pSA_roiphi > -1.0){//15
+                              m_h_off_ptvsSA_resptplusLS15.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              if(pSA_roiphi > -0.8){
+                                   m_h_off_ptvsSA_resptplusLSplus15.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              }else{
+                                   m_h_off_ptvsSA_resptplusLSminus15.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              }
+                         }
+                         if(pSA_roiphi < -2.0 && pSA_roiphi > -2.6){//11
+                              m_h_off_ptvsSA_resptplusLS11.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              if(pSA_roiphi > -2.4){
+                                   m_h_off_ptvsSA_resptplusLSplus11.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              }else{
+                                   m_h_off_ptvsSA_resptplusLSminus11.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              }
+                         }
+                    }
+                    if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1){
+                         m_h_off_ptvsSA_resptminus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                         if(pSA_roiphi < -0.6 && pSA_roiphi > -1.0){//15
+                              m_h_off_ptvsSA_resptminusLS15.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              if(pSA_roiphi > -0.8){
+                                   m_h_off_ptvsSA_resptminusLSplus15.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              }else{
+                                   m_h_off_ptvsSA_resptminusLSminus15.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              }
+                         }
+                         if(pSA_roiphi < -2.0 && pSA_roiphi > -2.6){//11
+                              m_h_off_ptvsSA_resptminusLS11.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              if(pSA_roiphi > -2.4){
+                                   m_h_off_ptvsSA_resptminusLSplus11.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              }else{
+                                   m_h_off_ptvsSA_resptminusLSminus11.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
+                              }
+                         }
+                    }
                     m_h_SA_respt1.at(i)->Fill(resSA_pt);
                     m_h_eSA_pt_LargeSpecial.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                     m_h_offphivsSA_respt1.at(i)->Fill(m_poff_phi,resSA_pt);
                     if(i == 0){
                          m_h_saphims_LargeSpecial->Fill(pSA_phims);
                          m_h_saroiphi_LargeSpecial->Fill(pSA_roiphi);
+                    }
+
+                    if(pSA_roiphi < -0.6 && pSA_roiphi > -1.0){//15
+                         m_h_eSA_pt_LargeSpecial15.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                         if(pSA_roiphi > -0.8){
+                              m_h_eSA_pt_LargeSpecialplus15.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                         }else{
+                              m_h_eSA_pt_LargeSpecialminus15.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                         }
+                    }
+                    if(pSA_roiphi < -2.0 && pSA_roiphi > -2.6){//11
+                         m_h_eSA_pt_LargeSpecial11.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                         if(pSA_roiphi > -2.4){
+                              m_h_eSA_pt_LargeSpecialplus11.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                         }else{
+                              m_h_eSA_pt_LargeSpecialminus11.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                         }
                     }
                     m_countLargeSpecial.at(i)++;
                     break;
@@ -694,6 +788,18 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.DrawHist2D(m_h_offphivsSA_respt2.at(i));
           ceff.DrawHist2D(m_h_offphivsSA_respt3.at(i));
           ceff.DrawHist2D(m_h_offphivsSAphims.at(i));
+          ceff.DrawHist2D(m_h_off_ptvsSA_resptplusLS11.at(i));
+          ceff.DrawHist2D(m_h_off_ptvsSA_resptplusLS15.at(i));
+          ceff.DrawHist2D(m_h_off_ptvsSA_resptplusLSplus11.at(i));
+          ceff.DrawHist2D(m_h_off_ptvsSA_resptplusLSplus15.at(i));
+          ceff.DrawHist2D(m_h_off_ptvsSA_resptplusLSminus11.at(i));
+          ceff.DrawHist2D(m_h_off_ptvsSA_resptplusLSminus15.at(i));
+          ceff.DrawHist2D(m_h_off_ptvsSA_resptminusLS11.at(i));
+          ceff.DrawHist2D(m_h_off_ptvsSA_resptminusLS15.at(i));
+          ceff.DrawHist2D(m_h_off_ptvsSA_resptminusLSplus11.at(i));
+          ceff.DrawHist2D(m_h_off_ptvsSA_resptminusLSplus15.at(i));
+          ceff.DrawHist2D(m_h_off_ptvsSA_resptminusLSminus11.at(i));
+          ceff.DrawHist2D(m_h_off_ptvsSA_resptminusLSminus15.at(i));
 
           //base,target
           ceff.SetConditionName(Form("L1Efficiency_%dGeV",i*m_thpitch));
@@ -757,6 +863,24 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionName(Form("SAEfficiencyLargeSpecial_%dGeV",i*m_thpitch));
           ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecial.at(i),m_h_eSA_pt_LargeSpecial.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiencyLargeSpecial11_%dGeV",i*m_thpitch));
+          ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecial11.at(i),m_h_eSA_pt_LargeSpecial11.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiencyLargeSpecial15_%dGeV",i*m_thpitch));
+          ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecial15.at(i),m_h_eSA_pt_LargeSpecial15.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiencyLargeSpecialplus11_%dGeV",i*m_thpitch));
+          ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialplus11.at(i),m_h_eSA_pt_LargeSpecialplus11.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiencyLargeSpecialplus15_%dGeV",i*m_thpitch));
+          ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialplus15.at(i),m_h_eSA_pt_LargeSpecialplus15.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiencyLargeSpecialminus11_%dGeV",i*m_thpitch));
+          ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialminus11.at(i),m_h_eSA_pt_LargeSpecialminus11.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiencyLargeSpecialminus15_%dGeV",i*m_thpitch));
+          ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialminus15.at(i),m_h_eSA_pt_LargeSpecialminus15.at(i),m_binmax,300,m_efficiency_xerr);
           ceff.SetConditionName(Form("L1EfficiencySmall_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eoff_pt_Small.at(i),m_h_eL1_pt_Small.at(i),m_binmax,300,m_efficiency_xerr);
@@ -860,6 +984,31 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eL1_pt_SmallSpecial.clear();
      m_h_eSA_pt_SmallSpecial.clear();
      m_h_offphivsSAphims.clear();
+     m_h_off_ptvsSA_resptplusLS11.clear();
+     m_h_off_ptvsSA_resptplusLS15.clear();
+     m_h_off_ptvsSA_resptplusLSplus11.clear();
+     m_h_off_ptvsSA_resptplusLSplus15.clear();
+     m_h_off_ptvsSA_resptplusLSminus11.clear();
+     m_h_off_ptvsSA_resptplusLSminus15.clear();
+     m_h_off_ptvsSA_resptminusLS11.clear();
+     m_h_off_ptvsSA_resptminusLS15.clear();
+     m_h_off_ptvsSA_resptminusLSplus11.clear();
+     m_h_off_ptvsSA_resptminusLSplus15.clear();
+     m_h_off_ptvsSA_resptminusLSminus11.clear();
+     m_h_off_ptvsSA_resptminusLSminus15.clear();
+     m_h_eL1_pt_LargeSpecial11.clear();
+     m_h_eSA_pt_LargeSpecial11.clear();
+     m_h_eL1_pt_LargeSpecial15.clear();
+     m_h_eSA_pt_LargeSpecial15.clear();
+     m_h_eL1_pt_LargeSpecialplus11.clear();
+     m_h_eSA_pt_LargeSpecialplus11.clear();
+     m_h_eL1_pt_LargeSpecialplus15.clear();
+     m_h_eSA_pt_LargeSpecialplus15.clear();
+     m_h_eL1_pt_LargeSpecialminus11.clear();
+     m_h_eSA_pt_LargeSpecialminus11.clear();
+     m_h_eL1_pt_LargeSpecialminus15.clear();
+     m_h_eSA_pt_LargeSpecialminus15.clear();
+
      m_mes_name->clear();
      m_pEFTAG_pass->clear();
      m_pL1_pt->clear();
