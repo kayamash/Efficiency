@@ -524,10 +524,7 @@ void Efficiency::Execute(Int_t ev){
                     if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus0.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                     m_h_SA_respt0.at(i)->Fill(resSA_pt);
                     m_h_eSA_pt_Large.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                    if(i == 0){
-                         m_h_saphims_LargeSpecial->Fill(pSA_phims);
-                         m_h_saroiphi_LargeSpecial->Fill(pSA_roiphi);
-                    }
+                    m_h_offphivsSA_respt0.at(i)->Fill(m_poff_phi,resSA_pt);
                     m_countLarge.at(i)++;
                     break;
                case 1:
@@ -535,6 +532,11 @@ void Efficiency::Execute(Int_t ev){
                     if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                     m_h_SA_respt1.at(i)->Fill(resSA_pt);
                     m_h_eSA_pt_LargeSpecial.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                    m_h_offphivsSA_respt1.at(i)->Fill(m_poff_phi,resSA_pt);
+                    if(i == 0){
+                         m_h_saphims_LargeSpecial->Fill(pSA_phims);
+                         m_h_saroiphi_LargeSpecial->Fill(pSA_roiphi);
+                    }
                     m_countLargeSpecial.at(i)++;
                     break;
                case 2:
@@ -542,6 +544,7 @@ void Efficiency::Execute(Int_t ev){
                     if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus2.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                     m_h_SA_respt2.at(i)->Fill(resSA_pt);
                     m_h_eSA_pt_Small.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                    m_h_offphivsSA_respt2.at(i)->Fill(m_poff_phi,resSA_pt);
                     m_countSmall.at(i)++;
                     break;
                case 3:
@@ -549,6 +552,7 @@ void Efficiency::Execute(Int_t ev){
                     if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==-1)m_h_off_ptvsSA_resptminus3.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                     m_h_SA_respt3.at(i)->Fill(resSA_pt);
                     m_h_eSA_pt_SmallSpecial.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                    m_h_offphivsSA_respt3.at(i)->Fill(m_poff_phi,resSA_pt);
                     m_countSmallSpecial.at(i)++;
                     break;
                default:
