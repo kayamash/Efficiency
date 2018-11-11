@@ -1,6 +1,6 @@
 #!/bin/bash
 run="root -l -b -q efficiencyloop.cpp++"
-bsub="bsub -q 4h -o ~/log/outnewClacnoselection.log -e ~/log/errnewCalnocselection.log "
+bsub="bsub -q 4h -o ./out.log -e ./err.log "
 clean="rm efficiencyloop_*"
 eval $bsub$run
 eval $clean
