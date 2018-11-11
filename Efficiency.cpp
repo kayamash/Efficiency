@@ -908,10 +908,6 @@ void Efficiency::Finalize(TFile *tf1){
 	  m_h_eCB_pt.at(i)->Write();
 	  m_h_eEF_pt.at(i)->Write();
 	  m_h_eoff_eta.at(i)->Write();
-	  m_h_eL1_eta.at(i)->Write();
-	  m_h_eSA_eta.at(i)->Write();
-	  m_h_eCB_eta.at(i)->Write();
-	  m_h_eEF_eta.at(i)->Write();
 	  m_h_eoff_pt_barrel.at(i)->Write();
 	  m_h_eL1_pt_barrel.at(i)->Write();
 	  m_h_eSA_pt_barrel.at(i)->Write();
@@ -943,9 +939,6 @@ void Efficiency::Finalize(TFile *tf1){
 	  m_h_eoff_pt_SmallSpecial.at(i)->Write();
 	  m_h_eL1_pt_SmallSpecial.at(i)->Write();
 	  m_h_eSA_pt_SmallSpecial.at(i)->Write();
-	  m_h_eff_poff_etaphi.at(i)->Write();
-	  m_h_eff_pL1_etaphi.at(i)->Write();
-	  m_h_eff_pSA_etaphi.at(i)->Write();
 
          cout<<i*m_thpitch<<"      "<<m_countLarge.at(i)<<"      "<<m_countLargeSpecial.at(i)<<"      "<<m_countSmall.at(i)<<"      "<<m_countSmallSpecial.at(i)<<endl;
      }
