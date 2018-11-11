@@ -76,8 +76,6 @@ void CalcEfficiency::DrawEfficiency(TH1D *h1,TH1D *h2,Double_t max,Int_t nbin,Do
   tg1->Draw("P");
   tg1->SetName(m_name.c_str());
   tg1->Write();
-  h1->Write();
-  h2->Write();
   eff_x.clear();
   eff_x_err.clear();
   eff_y.clear();
@@ -111,8 +109,6 @@ void CalcEfficiency::DrawEfficiencyeta(TH1D *h1,TH1D *h2){
   frame->SetTitle(m_title.c_str());
   tg1->Draw("P");
   tg1->SetName(m_name.c_str());
-  h1->Write();
-  h2->Write();
   tg1->Write();
   eff_x.clear();
   eff_x_err.clear();
@@ -141,8 +137,6 @@ void CalcEfficiency::DrawEfficiency2D(TH2F *h1,TH2F *h2){
 	h3->GetYaxis()->SetTitleOffset(m_yoffset);
 	h3->SetStats(0);
 	h3->Draw("colz");
-  h1->Write();
-  h2->Write();
 	h3->Write();
 	delete h3;
 	delete c1;

@@ -23,16 +23,17 @@
 #include <TBranch.h>
 #include "Efficiency.cpp"
 
-//const string trigger = "mu26ivm";
-const string trigger = "data18mu26ivm";
+const string trigger = "mu26ivm";
+//const string trigger = "data18mu26ivm";
 //const string trigger = "mu4";
 //const string inputfilename = "~/dataset/efficiencysample2.root";
 //const string inputfilename = "/gpfs/fs6001/kayamash/efficiency_output/mc16_13TeVZmumu070.root";
 //const string inputfilename = "/gpfs/fs6001/kayamash/dataset/Zmumu300540_hadd.root";
 //const string inputfilelist = "/home/kayamash/list/data16_grid.list";
-const string inputfilelist = "/home/kayamash/list/newCalc.list";
-//const string inputfilelist = "/home/kayamash/list/nonmerge.list";
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/L1MU15plot.root";
+//const string inputfilelist = "/home/kayamash/list/newCalc.list";
+//const string inputfilelist = "/home/kayamash/list/Zmumu364214_div1new.list";
+const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.list";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/data18haddL1MU15plot.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/comparison/oldplot.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
@@ -54,12 +55,12 @@ void efficiencyloop(){
 		tr1->Add(str.c_str());
 	}
 	
+	if(!tr1)cout<<"tree failed"<<endl;
 	cout<<"Initialize"<<endl;
 	eff.Init(tr1,trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,thpitch);
 	cout<<tr1->GetEntries()<<endl;
 	cout<<"Execute"<<endl;
 	for(Int_t event = 0;event < tr1->GetEntries(); event++){
-	//for(Int_t event = 0;event < 100000; event++){
 		eff.Execute(event);
 	}
 	cout<<"Finalize"<<endl;
