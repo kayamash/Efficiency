@@ -455,7 +455,7 @@ void Efficiency::Execute(Int_t ev){
           tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
           tEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_eta,2) + pow(m_tEF_phi - m_toff_phi,2) );
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
-          if(!Cut_tagprobe(pEFTAG_pass))return;
+          //if(!Cut_tagprobe(pEFTAG_pass))return;
           //offline
           if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
           m_h_poff_pt.at(i)->Fill(m_poff_pt*0.001);
