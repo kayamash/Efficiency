@@ -32,7 +32,6 @@ const string trigger = "mu26ivm";
 const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.list";
 const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/data18selectionplot2.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/plot3.root";
-//const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/comparison/oldplot.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
 const Int_t nhist = 8;
@@ -41,7 +40,6 @@ const Int_t thpitch = 4;
 //main function
 void efficiencyloop(){
 	Efficiency eff;
-	
 	std::ofstream ofs("LargeSpecialEvent.dat");
 	ofs.close();
 
@@ -52,7 +50,7 @@ void efficiencyloop(){
 	while(getline(ifs,str)){
 		tr1->Add(str.c_str());
 	}
-	
+
 	if(!tr1)cout<<"tree failed"<<endl;
 	cout<<"Initialize"<<endl;
 	eff.Init(tr1,trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,thpitch);
