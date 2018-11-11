@@ -105,6 +105,7 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      m_pSA_phims = 0;
      m_pSA_roiphi = 0;
 
+
      //active only need branch 
      tChain->SetBranchStatus("*",0);
      tChain->SetBranchStatus("mes_name",1);
@@ -339,6 +340,12 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
           m_countLargeSpecial.push_back(0);
           m_countSmall.push_back(0);
           m_countSmallSpecial.push_back(0);
+          m_countfirst.push_back(0);
+          m_countoffline.push_back(0);
+          m_countL1.push_back(0);
+          m_countSA.push_back(0);
+          m_countCB.push_back(0);
+          m_countEF.push_back(0);
      }
 }
 
@@ -452,12 +459,14 @@ void Efficiency::Execute(Int_t ev){
                     pSA_roiphi = m_pSA_roiphi->at(method);
                }
           }
+          m_countfirst.at(i)++;
           tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
           tEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_eta,2) + pow(m_tEF_phi - m_toff_phi,2) );
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
-          //if(!Cut_tagprobe(pEFTAG_pass))return;
+          if(!Cut_tagprobe(pEFTAG_pass))return;
           //offline
           if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
+          m_countoffline.at(i)++;
           m_h_poff_pt.at(i)->Fill(m_poff_pt*0.001);
           m_h_eoff_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           if(std::fabs(m_poff_pt*0.001) > 40)m_h_eoff_eta.at(i)->Fill(m_poff_eta);
@@ -486,6 +495,7 @@ void Efficiency::Execute(Int_t ev){
 
           //L1
           if(!Cut_L1(pL1_pass))return;
+          m_countL1.at(i)++;
           Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
           pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
 
@@ -538,6 +548,7 @@ void Efficiency::Execute(Int_t ev){
 
           //SA
           if(!Cut_SA(pSA_pass,pSA_pt,i*m_thpitch))return;
+          m_countSA.at(i)++;
           Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
           pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
           Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
@@ -659,6 +670,7 @@ void Efficiency::Execute(Int_t ev){
 
           //CB
           if(!Cut_CB(pCB_pass))return;
+          m_countCB.at(i)++;
           Double_t textCB_dR = TMath::Sqrt(pow(m_tCB_eta - m_toff_exteta,2) + pow(m_tCB_phi - m_toff_extphi,2));
           pextCB_dR = TMath::Sqrt(pow(pCB_eta - m_poff_exteta,2) + pow(pCB_phi - m_poff_extphi,2));
           Double_t resCB_pt = std::fabs(m_poff_pt)/std::fabs(pCB_pt) - 1.0;
@@ -677,6 +689,7 @@ void Efficiency::Execute(Int_t ev){
 
           //EF
           if(!Cut_EF(pEF_pass))return;
+          m_countEF.at(i)++;
           Double_t textEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_exteta,2) + pow(m_tEF_phi - m_toff_extphi,2));
           pextEF_dR = TMath::Sqrt(pow(pEF_eta - m_poff_exteta,2) + pow(pEF_phi - m_poff_extphi,2));
           Double_t resEF_pt = std::fabs(m_poff_pt)/std::fabs(pEF_pt) - 1.0;
@@ -941,6 +954,7 @@ void Efficiency::Finalize(TFile *tf1){
 	  m_h_eSA_pt_SmallSpecial.at(i)->Write();
 
          cout<<i*m_thpitch<<"      "<<m_countLarge.at(i)<<"      "<<m_countLargeSpecial.at(i)<<"      "<<m_countSmall.at(i)<<"      "<<m_countSmallSpecial.at(i)<<endl;
+         cout<<m_countfirst.at(i)<<"   "<<m_countoffline.at(i)<<"   "<<m_countL1.at(i)<<"   "<<m_countSA.at(i)<<m_countCB.at(i)<<m_countEF.at(i)<<endl;
      }
      
      delete m_h_offphi_LargeSpecial;
@@ -1074,4 +1088,10 @@ void Efficiency::Finalize(TFile *tf1){
      m_countLargeSpecial.clear();
      m_countSmall.clear();
      m_countSmallSpecial.clear();
+     m_countfirst.clear();
+     m_countoffline.clear();
+     m_countL1.clear();
+     m_countSA.clear();
+     m_countCB.clear();
+     m_countEF.clear();
 }

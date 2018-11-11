@@ -279,6 +279,12 @@ class Efficiency
   vector<Int_t> m_countLargeSpecial;
   vector<Int_t> m_countSmall;
   vector<Int_t> m_countSmallSpecial;
+  vector<Int_t> m_countfirst;
+  vector<Int_t> m_countoffline;
+  vector<Int_t> m_countL1;
+  vector<Int_t> m_countSA;
+  vector<Int_t> m_countCB;
+  vector<Int_t> m_countEF;
   Int_t m_count;
 
 public:
