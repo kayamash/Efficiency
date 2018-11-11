@@ -101,10 +101,14 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      m_sumReqdRL1 = 0;
      m_sumReqdREF = 0;
      m_tp_dR = 0;
-     m_count = 0;
      m_pSA_phims = 0;
      m_pSA_roiphi = 0;
-
+     m_countall = 0;
+     m_countoff = 0;
+     m_countL1 = 0;
+     m_countSA = 0;
+     m_countCB = 0;
+     m_countEF = 0;
 
      //active only need branch 
      tChain->SetBranchStatus("*",0);
@@ -340,12 +344,6 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
           m_countLargeSpecial.push_back(0);
           m_countSmall.push_back(0);
           m_countSmallSpecial.push_back(0);
-          m_countfirst.push_back(0);
-          m_countoffline.push_back(0);
-          m_countL1.push_back(0);
-          m_countSA.push_back(0);
-          m_countCB.push_back(0);
-          m_countEF.push_back(0);
      }
 }
 
@@ -359,7 +357,6 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
 
 bool Efficiency::Cut_tagprobe(Int_t pass){
      if(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && m_sumReqdREF < m_tp_dR && pass > -1){
-          m_count++;
           return kTRUE;
      }else{
           return kFALSE;
@@ -368,7 +365,8 @@ bool Efficiency::Cut_tagprobe(Int_t pass){
 
 bool Efficiency::Cut_L1(Int_t pass){
   if(pass > -1){
-          return kTRUE;
+          m_countL1++;
+	  return kTRUE;
      }else{
           return kFALSE;
      }
@@ -376,6 +374,7 @@ bool Efficiency::Cut_L1(Int_t pass){
 
 bool Efficiency::Cut_SA(Int_t pass,Double_t pt,Double_t th){
      if(pass == 1 && std::fabs(pt) > th){
+ 	  m_countSA++;
           return kTRUE;
      }else{
           return kFALSE;
@@ -384,6 +383,7 @@ bool Efficiency::Cut_SA(Int_t pass,Double_t pt,Double_t th){
 
 bool Efficiency::Cut_CB(Int_t pass){
      if(pass == 1){
+	  m_countCB++;
           return kTRUE;
      }else{
           return kFALSE;
@@ -392,6 +392,7 @@ bool Efficiency::Cut_CB(Int_t pass){
 
 bool Efficiency::Cut_EF(Int_t pass){
      if(pass == 1){
+	  m_countEF++;
           return kTRUE;
      }else{
           return kFALSE;
@@ -459,12 +460,13 @@ void Efficiency::Execute(Int_t ev){
                     pSA_roiphi = m_pSA_roiphi->at(method);
                }
           }
-          m_countfirst.at(i)++;
+	  m_countall++;
           tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
           tEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_eta,2) + pow(m_tEF_phi - m_toff_phi,2) );
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
           if(!Cut_tagprobe(pEFTAG_pass))return;
-          //offline
+          m_countoff++;
+	   //offline
           if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
           m_countoffline.at(i)++;
           m_h_poff_pt.at(i)->Fill(m_poff_pt*0.001);
@@ -495,7 +497,7 @@ void Efficiency::Execute(Int_t ev){
 
           //L1
           if(!Cut_L1(pL1_pass))return;
-          m_countL1.at(i)++;
+          m_countL1++;
           Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
           pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
 
@@ -548,7 +550,7 @@ void Efficiency::Execute(Int_t ev){
 
           //SA
           if(!Cut_SA(pSA_pass,pSA_pt,i*m_thpitch))return;
-          m_countSA.at(i)++;
+          m_countSA++;
           Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
           pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
           Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
@@ -670,7 +672,7 @@ void Efficiency::Execute(Int_t ev){
 
           //CB
           if(!Cut_CB(pCB_pass))return;
-          m_countCB.at(i)++;
+          m_countCB++;
           Double_t textCB_dR = TMath::Sqrt(pow(m_tCB_eta - m_toff_exteta,2) + pow(m_tCB_phi - m_toff_extphi,2));
           pextCB_dR = TMath::Sqrt(pow(pCB_eta - m_poff_exteta,2) + pow(pCB_phi - m_poff_extphi,2));
           Double_t resCB_pt = std::fabs(m_poff_pt)/std::fabs(pCB_pt) - 1.0;
@@ -689,7 +691,7 @@ void Efficiency::Execute(Int_t ev){
 
           //EF
           if(!Cut_EF(pEF_pass))return;
-          m_countEF.at(i)++;
+          m_countEF++;
           Double_t textEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_exteta,2) + pow(m_tEF_phi - m_toff_extphi,2));
           pextEF_dR = TMath::Sqrt(pow(pEF_eta - m_poff_exteta,2) + pow(pEF_phi - m_poff_extphi,2));
           Double_t resEF_pt = std::fabs(m_poff_pt)/std::fabs(pEF_pt) - 1.0;
@@ -915,6 +917,9 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetCondition("L1 Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
           ceff.DrawEfficiency2D(m_h_eff_poff_etaphi.at(i),m_h_eff_pL1_etaphi.at(i));
+
+	  cout<<m_countall<<"   "<<m_countoff<<"   "<<m_countL1<<"   "<<m_countSA<<"   "<<m_countCB<<"   "<<m_counEF<<endl;
+
 	  m_h_eoff_pt.at(i)->Write();
 	  m_h_eL1_pt.at(i)->Write();
 	  m_h_eSA_pt.at(i)->Write();

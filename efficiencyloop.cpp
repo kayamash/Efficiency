@@ -56,7 +56,8 @@ void efficiencyloop(){
 	eff.Init(tr1,trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,thpitch);
 	cout<<tr1->GetEntries()<<endl;
 	cout<<"Execute"<<endl;
-	for(Int_t event = 0;event < tr1->GetEntries(); event++){
+	//for(Int_t event = 0;event < tr1->GetEntries(); event++){
+	for(Int_t event = 0;event < 100000; event++){
 		eff.Execute(event);
 	}
 	cout<<"Finalize"<<endl;

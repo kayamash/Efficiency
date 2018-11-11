@@ -279,13 +279,12 @@ class Efficiency
   vector<Int_t> m_countLargeSpecial;
   vector<Int_t> m_countSmall;
   vector<Int_t> m_countSmallSpecial;
-  vector<Int_t> m_countfirst;
-  vector<Int_t> m_countoffline;
-  vector<Int_t> m_countL1;
-  vector<Int_t> m_countSA;
-  vector<Int_t> m_countCB;
-  vector<Int_t> m_countEF;
-  Int_t m_count;
+  Int_t m_countall;
+  Int_t m_countoff;
+  Int_t m_countL1;
+  Int_t m_countSA;
+  Int_t m_countCB;
+  Int_t m_countEF;
 
 public:
   void Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th);
