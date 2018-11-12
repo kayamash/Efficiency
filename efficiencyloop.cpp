@@ -23,14 +23,15 @@
 #include <TBranch.h>
 #include "Efficiency.cpp"
 
-const string trigger = "mu26ivm";
-//const string trigger = "data18mu26ivm";
+//const string trigger = "mu26ivm";
+const string trigger = "data18mu26ivm";
 //const string trigger = "mu4";
 //const string inputfilename = "~/dataset/efficiencysample2.root";
 //const string inputfilename = "/gpfs/fs6001/kayamash/efficiency_output/mc16_13TeVZmumu070.root";
 //const string inputfilelist = "/home/kayamash/efflist/Zmumu300540_hadd.list";
-const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.list";
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/data18dev_kayamash.root";
+//const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.list";
+const string inputfilelist = "/home/kayamash/efflist/newCalcdata18.list";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/data18newmu26ivm.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/plot3.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
@@ -56,8 +57,8 @@ void efficiencyloop(){
 	eff.Init(tr1,trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,thpitch);
 	cout<<tr1->GetEntries()<<endl;
 	cout<<"Execute"<<endl;
-	//for(Int_t event = 0;event < tr1->GetEntries(); event++){
-	for(Int_t event = 0;event < 100000; event++){
+	for(Int_t event = 0;event < tr1->GetEntries(); event++){
+	//for(Int_t event = 0;event < 100000; event++){
 		eff.Execute(event);
 	}
 	cout<<"Finalize"<<endl;
