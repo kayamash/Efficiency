@@ -35,7 +35,7 @@ const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/plot3.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
-const Int_t nhist = 8;
+const Int_t nhist = 1;
 const Int_t thpitch = 4;
 
 //main function
