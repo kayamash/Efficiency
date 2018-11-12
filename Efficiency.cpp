@@ -614,14 +614,14 @@ void Efficiency::Execute(Int_t ev){
                                              if(pSA_roiphi > -0.8){
                                                   m_h_off_ptvsSA_resptplusLSplus15.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                                                   m_h_SA_resptplus15.at(i)->Fill(resSA_pt);
-                                                  m_h_offetavsSA_resptLS15+.at(i)->Fill(m_poff_eta,resSA_pt);
+                                                  m_h_offetavsSA_resptLSplus15.at(i)->Fill(m_poff_eta,resSA_pt);
                                                   if(std::fabs(m_poff_pt*0.001) > 30.0 && std::fabs(m_poff_pt*0.001) < 50.0){
                                                        m_h_highoffetavsSA_resptLSplus15.at(i)->Fill(m_poff_eta,resSA_pt);
                                                        m_h_highoffphivsSA_resptLSplus15.at(i)->Fill(m_poff_phi,resSA_pt);
                                                   }
                                              }else{
                                                   m_h_off_ptvsSA_resptplusLSminus15.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                                                  m_h_offetavsSA_resptLS15-.at(i)->Fill(m_poff_eta,resSA_pt);
+                                                  m_h_offetavsSA_resptLSminus15.at(i)->Fill(m_poff_eta,resSA_pt);
                                                   m_h_SA_resptminus15.at(i)->Fill(resSA_pt);
                                                   if(std::fabs(m_poff_pt*0.001) > 30.0 && std::fabs(m_poff_pt*0.001) < 50.0){
                                                        m_h_highoffetavsSA_resptLSminus15.at(i)->Fill(m_poff_eta,resSA_pt);
@@ -633,7 +633,7 @@ void Efficiency::Execute(Int_t ev){
                                              m_h_off_ptvsSA_resptplusLS11.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                                              if(pSA_roiphi > -2.4){
                                                   m_h_off_ptvsSA_resptplusLSplus11.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                                                  m_h_offetavsSA_resptLS11+.at(i)->Fill(m_poff_eta,resSA_pt);
+                                                  m_h_offetavsSA_resptLSplus11.at(i)->Fill(m_poff_eta,resSA_pt);
                                                   m_h_SA_resptplus11.at(i)->Fill(resSA_pt);
                                                   if(std::fabs(m_poff_pt*0.001) > 30.0 && std::fabs(m_poff_pt*0.001) < 50.0){
                                                        m_h_highoffetavsSA_resptLSplus11.at(i)->Fill(m_poff_eta,resSA_pt);
@@ -641,7 +641,7 @@ void Efficiency::Execute(Int_t ev){
                                                   }
                                              }else{
                                                   m_h_off_ptvsSA_resptplusLSminus11.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
-                                                  m_h_offetavsSA_resptLS11-.at(i)->Fill(m_poff_eta,resSA_pt);
+                                                  m_h_offetavsSA_resptLSminus11.at(i)->Fill(m_poff_eta,resSA_pt);
                                                   m_h_SA_resptminus11.at(i)->Fill(resSA_pt);
                                                   if(std::fabs(m_poff_pt*0.001) > 30.0 && std::fabs(m_poff_pt*0.001) < 50.0){
                                                        m_h_highoffetavsSA_resptLSminus11.at(i)->Fill(m_poff_eta,resSA_pt);
@@ -1147,11 +1147,6 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eL1_pt_LargeSpecialminus15.clear();
      m_h_eSA_pt_LargeSpecialminus15.clear();
      m_h_offphivsSA_respt.clear();
-     m_h_offetavsSA_respt0->clear();
-     m_h_offetavsSA_respt1->clear();
-     m_h_offetavsSA_respt2->clear();
-     m_h_offetavsSA_respt3->clear();
-
 
      m_mes_name->clear();
      m_pEFTAG_pass->clear();
