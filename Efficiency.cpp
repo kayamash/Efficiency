@@ -109,6 +109,7 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      m_countSA = 0;
      m_countCB = 0;
      m_countEF = 0;
+     m_count = 0;
 
      //active only need branch 
      tChain->SetBranchStatus("*",0);
@@ -401,7 +402,8 @@ bool Efficiency::Cut_EF(Int_t pass){
 
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
-     for(Int_t i = 0;i <= m_nhist;i++){
+     for(Int_t i = 0;i <= m_nhist;i++){     
+          m_count++;
           Double_t pextL1_dR = 1; 
           Double_t pextSA_dR = 1; 
           Double_t pextCB_dR = 1; 
@@ -468,7 +470,7 @@ void Efficiency::Execute(Int_t ev){
           m_countoff++;
 	   //offline
           if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
-          m_countoffline.at(i)++;
+          m_countoff++;
           m_h_poff_pt.at(i)->Fill(m_poff_pt*0.001);
           m_h_eoff_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           if(std::fabs(m_poff_pt*0.001) > 40)m_h_eoff_eta.at(i)->Fill(m_poff_eta);
@@ -713,7 +715,6 @@ void Efficiency::Execute(Int_t ev){
 void Efficiency::Finalize(TFile *tf1){
      CalcEfficiency ceff;
      tf1->cd();
-     cout<<m_count<<endl;
      cout<<"ptSAth   nLarge   nLargeS   nSmall   nSmallS"<<endl;
      //SetCondition
      //title,file title,yoffset,top margin,bottom margin,left margin,right margin
@@ -918,7 +919,6 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
           ceff.DrawEfficiency2D(m_h_eff_poff_etaphi.at(i),m_h_eff_pL1_etaphi.at(i));
 
-	  cout<<m_countall<<"   "<<m_countoff<<"   "<<m_countL1<<"   "<<m_countSA<<"   "<<m_countCB<<"   "<<m_counEF<<endl;
 
 	  m_h_eoff_pt.at(i)->Write();
 	  m_h_eL1_pt.at(i)->Write();
@@ -959,9 +959,10 @@ void Efficiency::Finalize(TFile *tf1){
 	  m_h_eSA_pt_SmallSpecial.at(i)->Write();
 
          cout<<i*m_thpitch<<"      "<<m_countLarge.at(i)<<"      "<<m_countLargeSpecial.at(i)<<"      "<<m_countSmall.at(i)<<"      "<<m_countSmallSpecial.at(i)<<endl;
-         cout<<m_countfirst.at(i)<<"   "<<m_countoffline.at(i)<<"   "<<m_countL1.at(i)<<"   "<<m_countSA.at(i)<<m_countCB.at(i)<<m_countEF.at(i)<<endl;
      }
      
+     cout<<m_count<<"   "<<m_countall<<"   "<<m_countoff<<"   "<<m_countL1<<"   "<<m_countSA<<"   "<<m_countCB<<"   "<<m_countEF<<endl;
+    
      delete m_h_offphi_LargeSpecial;
      delete m_h_saphims_LargeSpecial;
      delete m_h_saroiphi_LargeSpecial;
@@ -1093,10 +1094,4 @@ void Efficiency::Finalize(TFile *tf1){
      m_countLargeSpecial.clear();
      m_countSmall.clear();
      m_countSmallSpecial.clear();
-     m_countfirst.clear();
-     m_countoffline.clear();
-     m_countL1.clear();
-     m_countSA.clear();
-     m_countCB.clear();
-     m_countEF.clear();
 }
