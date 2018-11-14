@@ -96,6 +96,13 @@ class Efficiency
   std::vector<Int_t> *m_pEF_pass;
   std::vector<Int_t> *m_pEFTAG_pass;
 
+  std::vector<std::vector<float> > *m_pSA_rpcX;
+  std::vector<std::vector<float> > *m_pSA_rpcY;
+  std::vector<std::vector<float> > *m_pSA_mdtZ;
+  std::vector<std::vector<float> > *m_pSA_mdtR;
+  std::vector<std::vector<float> > *m_pSA_mdtPhi;
+
+
   TBranch *b_tag_pt;
   TBranch *b_tag_eta;
   TBranch *b_tag_exteta;
@@ -157,6 +164,11 @@ class Efficiency
   TBranch *b_sumReqdRL1;
   TBranch *b_sumReqdREF;
   TBranch *b_tp_dR;
+  TBranch *b_pSA_rpcX;
+  TBranch *b_pSA_rpcY;
+  TBranch *b_pSA_mdtZ;
+  TBranch *b_pSA_mdtR;
+  TBranch *b_pSA_mdtPhi;
 
   //histgram
   vector<TH1D*> m_h_poff_pt;
@@ -270,6 +282,21 @@ class Efficiency
   vector<TH2F*> m_h_off_ptvsSA_resptminusLSminus11;
   vector<TH2F*> m_h_off_ptvsSA_resptminusLSplus15;
   vector<TH2F*> m_h_off_ptvsSA_resptminusLSminus15;
+
+  vector<TH2F*> m_h_rpchitXY;
+  vector<TH2F*> m_h_rpchitXYLS;
+  vector<TH2F*> m_h_rpchitXYLSplus11;
+  vector<TH2F*> m_h_rpchitXYLSminus11;
+  vector<TH2F*> m_h_rpchitXYLSplus15;
+  vector<TH2F*> m_h_rpchitXYLSminus15;
+  vector<TH2F*> m_h_mdthitZR;
+  vector<TH2F*> m_h_mdthitZRLS;
+  vector<TH2F*> m_h_mdthitZRLSplus11;
+  vector<TH2F*> m_h_mdthitZRLSminus11;
+  vector<TH2F*> m_h_mdthitZRLSplus15;
+  vector<TH2F*> m_h_mdthitZRLSminus15;
+  vector<TH2F*> m_h_mdtavephivsSA_resptLSplus15;
+
   //
   vector<TH2F*> m_h_offetavsSA_respt0;//
   vector<TH2F*> m_h_offetavsSA_respt1;//
@@ -301,13 +328,6 @@ class Efficiency
   vector<Int_t> m_countLargeSpecial;
   vector<Int_t> m_countSmall;
   vector<Int_t> m_countSmallSpecial;
-  Int_t m_countall;
-  Int_t m_countoff;
-  Int_t m_countL1;
-  Int_t m_countSA;
-  Int_t m_countCB;
-  Int_t m_countEF;
-  Int_t m_count;
 
 public:
   void Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th);

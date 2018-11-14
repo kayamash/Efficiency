@@ -30,7 +30,7 @@
 void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th){
      if(tree){
      	tChain = tree;
-    	m_nbin_phi = np;
+    	     m_nbin_phi = np;
      	m_nbin_eta = ne;
      	m_phi_max = mp;
      	m_eta_max = me;
@@ -103,13 +103,11 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      	m_tp_dR = 0;
      	m_pSA_phims = 0;
      	m_pSA_roiphi = 0;
-     	m_countall = 0;
-     	m_countoff = 0;
-     	m_countL1 = 0;
-     	m_countSA = 0;
-     	m_countCB = 0;
-     	m_countEF = 0;
-     	m_count = 0;
+          m_pSA_rpcX = 0;
+          m_pSA_rpcY = 0;
+          m_pSA_mdtZ = 0;
+          m_pSA_mdtR = 0;
+          m_pSA_mdtPhi = 0;
 
      	//active only need branch 
      	tChain->SetBranchStatus("*",0);
@@ -174,8 +172,14 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      	tChain->SetBranchStatus("sumReqdRL1",1);
      	tChain->SetBranchStatus("sumReqdREF",1);
      	tChain->SetBranchStatus("tp_dR",1);
+          tChain->SetBranchStatus("probe_mesSA_rpcHitX",1);
+          tChain->SetBranchStatus("probe_mesSA_rpcHitY",1);
+          tChain->SetBranchStatus("probe_mesSA_mdtHitZ",1);
+          tChain->SetBranchStatus("probe_mesSA_mdtHitR",1);
+          tChain->SetBranchStatus("probe_mesSA_mdtHitPhi",1);
+
      	//setting each branch address
-    	tChain->SetBranchAddress("mes_name",&m_mes_name,&b_mes_name);
+    	     tChain->SetBranchAddress("mes_name",&m_mes_name,&b_mes_name);
      	tChain->SetBranchAddress("sumReqdRL1",&m_sumReqdRL1,&b_sumReqdRL1);
      	tChain->SetBranchAddress("sumReqdREF",&m_sumReqdREF,&b_sumReqdREF);
      	tChain->SetBranchAddress("tag_pt",&m_toff_pt,&b_tag_pt);
@@ -236,6 +240,11 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      	tChain->SetBranchAddress("probe_mesEF_pass",&m_pEF_pass,&b_pEF_pass);
      	tChain->SetBranchAddress("probe_mesEF_dR",&m_pEF_dR,&b_pEF_dR);
      	tChain->SetBranchAddress("probe_mesEFTAG_pass",&m_pEFTAG_pass,&b_pEFTAG_pass);
+          tChain->SetBranchAddress("probe_mesSA_rpcHitX",&m_pSA_rpcX,&b_pSA_rpcX);
+          tChain->SetBranchAddress("probe_mesSA_rpcHitY",&m_pSA_rpcY,&b_pSA_rpcY);
+          tChain->SetBranchAddress("probe_mesSA_mdtHitZ",&m_pSA_mdtZ,&b_pSA_mdtZ);
+          tChain->SetBranchAddress("probe_mesSA_mdtHitR",&m_pSA_mdtR,&b_pSA_mdtR);
+          tChain->SetBranchAddress("probe_mesSA_mdtHitPhi",&m_pSA_mdtPhi,&b_pSA_mdtPhi);
 
      	//define each histgram
      	m_h_offphi_LargeSpecial = new TH1D("h_offphi_LargeSpecial_0GeV","offline phi;offline phi;Entries",600,-3.0,3.0);
@@ -244,12 +253,12 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
           m_h_saroiphi_SmallSpecial = new TH1D("h_saroiphi_SmallSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
      	for(Int_t i = 0;i <= m_nhist;i++){
      		m_h_poff_pt.push_back(new TH1D(Form("h_poff_pt_%dGeV",i*m_thpitch),"probe offline pt;offline pt[GeV];Entries",150,0,150));
-        	m_h_pL1_pt.push_back(new TH1D(Form("h_pL1_pt_%dGeV",i*m_thpitch),"probe L1 pt;L1 pt[GeV];Entries",150,0,150));
-        	m_h_pSA_pt.push_back(new TH1D(Form("h_pSA_pt_%dGeV",i*m_thpitch),"probe L2MuonSA pt;L2MuonSA pt[GeV];Entries",150,0,150)); 
-        	m_h_pCB_pt.push_back(new TH1D(Form("h_pCB_pt_%dGeV",i*m_thpitch),"probe muComb pt;muComb pt[GeV];Entries",150,0,150));
-        	m_h_pEF_pt.push_back(new TH1D(Form("h_pEF_pt_%dGeV",i*m_thpitch),"probe EventFilter pt;EventFilter pt[GeV];Entries",150,0,150));
-        	m_h_pL1_dR.push_back(new TH1D(Form("h_L1 dR_%dGeV",i*m_thpitch),"L1 dR;dR;Entries",1000,0,0.1));
-        	m_h_pSA_dR.push_back(new TH1D(Form("h_SA dR_%dGeV",i*m_thpitch),"L2MuonSA dR;dR;Entries",500,0,0.05));
+               m_h_pL1_pt.push_back(new TH1D(Form("h_pL1_pt_%dGeV",i*m_thpitch),"probe L1 pt;L1 pt[GeV];Entries",150,0,150));
+               m_h_pSA_pt.push_back(new TH1D(Form("h_pSA_pt_%dGeV",i*m_thpitch),"probe L2MuonSA pt;L2MuonSA pt[GeV];Entries",150,0,150)); 
+               m_h_pCB_pt.push_back(new TH1D(Form("h_pCB_pt_%dGeV",i*m_thpitch),"probe muComb pt;muComb pt[GeV];Entries",150,0,150));
+               m_h_pEF_pt.push_back(new TH1D(Form("h_pEF_pt_%dGeV",i*m_thpitch),"probe EventFilter pt;EventFilter pt[GeV];Entries",150,0,150));
+               m_h_pL1_dR.push_back(new TH1D(Form("h_L1 dR_%dGeV",i*m_thpitch),"L1 dR;dR;Entries",1000,0,0.1));
+               m_h_pSA_dR.push_back(new TH1D(Form("h_SA dR_%dGeV",i*m_thpitch),"L2MuonSA dR;dR;Entries",500,0,0.05));
           	m_h_pCB_dR.push_back(new TH1D(Form("h_CB dR_%dGeV",i*m_thpitch),"muComb dR;dR;Entries",200,0,0.002));
           	m_h_pEF_dR.push_back(new TH1D(Form("h_EF dR_%dGeV",i*m_thpitch),"EventFilter dR;dR;Entries",100,0,0.001));
           	m_h_textL1_dR.push_back(new TH1D(Form("h_textL1_dR_%dGeV",i*m_thpitch),"tag extL1 dR;dR;Entries",1000,0,0.1));
@@ -362,13 +371,26 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
                m_h_highoffphivsSA_resptLSminus11.push_back(new TH2F(Form("h_highoffphivsSA_resptLSminus11_%dGeV",i*m_thpitch),"LargeSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
                m_h_highoffphivsSA_resptLSplus15.push_back(new TH2F(Form("h_highoffphivsSA_resptLSplus15_%dGeV",i*m_thpitch),"LargeSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
                m_h_highoffphivsSA_resptLSminus15.push_back(new TH2F(Form("h_highoffphivsSA_resptLSminus15_%dGeV",i*m_thpitch),"LargeSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
+               m_h_rpchitXY.push_back(new TH2F(Form("h_rpchitXvsrpchitY_%dGeV",i*m_thpitch),"RPC hit distribution;RPC hit X[cm];RPC hit Y[cm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
+               m_h_rpchitXYLS.push_back(new TH2F(Form("h_rpchitXvsrpchitYLS_%dGeV",i*m_thpitch),"RPCLS hit distribution;RPC hit X[cm];RPC hit Y[cm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
+               m_h_rpchitXYLSplus11.push_back(new TH2F(Form("h_rpchitXvsrpchitYLSplus11_%dGeV",i*m_thpitch),"RPCLS hit distribution;RPC hit X[cm];RPC hit Y[cm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
+               m_h_rpchitXYLSminus11.push_back(new TH2F(Form("h_rpchitXvsrpchitYLSminus11_%dGeV",i*m_thpitch),"RPCLS hit distribution;RPC hit X[cm];RPC hit Y[cm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
+               m_h_rpchitXYLSplus15.push_back(new TH2F(Form("h_rpchitXvsrpchitYLSplus15_%dGeV",i*m_thpitch),"RPCLS hit distribution;RPC hit X[cm];RPC hit Y[cm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
+               m_h_rpchitXYLSminus15.push_back(new TH2F(Form("h_rpchitXvsrpchitYLSminus15_%dGeV",i*m_thpitch),"RPCLS hit distribution;RPC hit X[cm];RPC hit Y[cm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
+               m_h_mdthitZR.push_back(new TH2F(Form("h_mdthitZvsmdthitR_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit Z[cm];MDT hit R[cm]",5000,-25000.0,25000.0,5000,-25000.0,25000.0));
+               m_h_mdthitZRLS.push_back(new TH2F(Form("h_mdthitXvsmdthitRLS_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit Z[cm];MDT hit R[cm]",5000,-25000.0,25000.0,5000,-25000.0,25000.0));
+               m_h_mdthitZRLSplus11.push_back(new TH2F(Form("h_mdthitXvsmdthitYLSplus11_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit Z[cm];MDT hit R[cm]",5000,-25000.0,25000.0,5000,-25000.0,25000.0));
+               m_h_mdthitZRLSminus11.push_back(new TH2F(Form("h_mdthitXvsmdthitYLSminus11_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit Z[cm];MDT hit R[cm]",5000,-25000.0,10000.0,5000,-25000.0,25000.0));
+               m_h_mdthitZRLSplus15.push_back(new TH2F(Form("h_mdthitXvsmdthitYLSplus15_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit Z[cm];MDT hit R[cm]",5000,-25000.0,10000.0,5000,-25000.0,25000.0));
+               m_h_mdthitZRLSminus15.push_back(new TH2F(Form("h_mdthitXvsmdthitYLSminus15_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit Z[cm];MDT hit R[cm]",5000,-25000.0,10000.0,5000,-25000.0,25000.0));
+               m_h_mdtavephivsSA_resptLSplus15.push_back(new TH2F(Form("h_mdtavephivsSA_resptLSplus15_%dGeV",i*m_thpitch),"LargeSpecial;MDT average phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
 
                m_countLarge.push_back(0);
           	m_countLargeSpecial.push_back(0);
           	m_countSmall.push_back(0);
           	m_countSmallSpecial.push_back(0);
-		}
-     	}
+	    }
+     }
 }
 
  bool Efficiency::Dicision_barrel(Double_t eta){
@@ -389,16 +411,14 @@ bool Efficiency::Cut_tagprobe(Int_t pass){
 
 bool Efficiency::Cut_L1(Int_t pass){
   if(pass > -1){
-          m_countL1++;
 	  return kTRUE;
      }else{
-          return kFALSE;
+       return kFALSE;
      }
 }
 
 bool Efficiency::Cut_SA(Int_t pass,Double_t pt,Double_t th){
      if(pass == 1 && std::fabs(pt) > th){
- 	  m_countSA++;
           return kTRUE;
      }else{
           return kFALSE;
@@ -407,7 +427,6 @@ bool Efficiency::Cut_SA(Int_t pass,Double_t pt,Double_t th){
 
 bool Efficiency::Cut_CB(Int_t pass){
      if(pass == 1){
-	  m_countCB++;
           return kTRUE;
      }else{
           return kFALSE;
@@ -416,7 +435,6 @@ bool Efficiency::Cut_CB(Int_t pass){
 
 bool Efficiency::Cut_EF(Int_t pass){
      if(pass == 1){
-	  m_countEF++;
           return kTRUE;
      }else{
           return kFALSE;
@@ -426,7 +444,6 @@ bool Efficiency::Cut_EF(Int_t pass){
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
      for(Int_t i = 0;i <= m_nhist;i++){     
-          m_count++;
           Double_t pextL1_dR = 1; 
           Double_t pextSA_dR = 1; 
           Double_t pextCB_dR = 1; 
@@ -457,6 +474,11 @@ void Efficiency::Execute(Int_t ev){
           Double_t tEF_dR = 0;
           Int_t pEF_pass = 0;
           Int_t pEFTAG_pass = -1;
+          vectos<float> *pSA_rpcX = 0;
+          vectos<float> *pSA_rpcY = 0;
+          vectos<float> *pSA_rpcZ = 0;
+          vectos<float> *pSA_rpcR = 0;
+          vectos<float> *pSA_mdtPhi = 0;
           for(Int_t method = 0;method < 25;method++){
                if(m_mes_name->at(method) == m_method_name){
                     pL1_pt = m_pL1_pt->at(method);
@@ -483,14 +505,17 @@ void Efficiency::Execute(Int_t ev){
                     pSA_sAddress = m_pSA_sAddress->at(method);
                     pSA_phims = m_pSA_phims->at(method);
                     pSA_roiphi = m_pSA_roiphi->at(method);
+                    pSA_rpcX = m_pSA_rpcX->at(method);
+                    pSA_rpcY = m_pSA_rpcY->at(method);
+                    pSA_mdtZ = m_pSA_mdtZ->at(method);
+                    pSA_mdtR = m_pSA_mdtR->at(method);
+                    pSA_mdtPhi = m_pSA_mdtPhi->at(method);
                }
           }
-          m_countall++;
           tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
           tEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_eta,2) + pow(m_tEF_phi - m_toff_phi,2) );
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
           if(Cut_tagprobe(pEFTAG_pass)){
-               m_countoff++;
 	          //offline
                if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
                m_countoff++;
@@ -522,7 +547,6 @@ void Efficiency::Execute(Int_t ev){
 
                //L1
                if(Cut_L1(pL1_pass)){
-                    m_countL1++;
                     Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
                     pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
 
@@ -575,7 +599,6 @@ void Efficiency::Execute(Int_t ev){
 
                     //SA
                     if(Cut_SA(pSA_pass,pSA_pt,i*m_thpitch)){
-                         m_countSA++;
                          Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
                          pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
                          Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
@@ -608,6 +631,12 @@ void Efficiency::Execute(Int_t ev){
                                    m_countLarge.at(i)++;
                                    break;
                               case 1:
+                                   for(Int_t size = 0;size < pSA_rpcX->size();size++){
+                                       m_h_rpchitXYLS.at(i)->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
+                                   }
+                                   for(Int_t size = 0;size < pSA_mdtZ->size();size++){
+                                       m_h_mdthitZRLS.at(i)->Fill(pSA_mdtZ->at(size),pSA_mdtR->at(size));
+                                   }
                                    if(m_probe_charge*m_poff_eta/std::fabs(m_poff_eta)==1){
                                         m_h_off_ptvsSA_resptplus1.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                                         if(pSA_roiphi < -0.6 && pSA_roiphi > -1.0){//15
@@ -675,24 +704,49 @@ void Efficiency::Execute(Int_t ev){
                                    m_h_offphivsSA_respt1.at(i)->Fill(m_poff_phi,resSA_pt);
                                    m_h_offetavsSA_respt1.at(i)->Fill(m_poff_eta,resSA_pt);
                                    if(i == 0){
-                                        m_h_saphims_LargeSpecial->Fill(pSA_phims);
-                                        m_h_saroiphi_LargeSpecial->Fill(pSA_roiphi);
+                                        m_h_saphims_LargeSpecial.at(i)->Fill(pSA_phims);
+                                        m_h_saroiphi_LargeSpecial.at(i)->Fill(pSA_roiphi);
                                    }
 
                                    if(pSA_roiphi < -0.6 && pSA_roiphi > -1.0){//15
                                         m_h_eSA_pt_LargeSpecial15.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                         if(pSA_roiphi > -0.8){
                                              m_h_eSA_pt_LargeSpecialplus15.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                                             for(Int_t size = 0;size < pSA_rpcX->size();size++){
+                                                  m_h_rpchitXYplus15.at(i)->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
+                                             }
+                                             for(Int_t size = 0;size < pSA_mdtZ->size();size++){
+                                                  m_h_mdthitZRplus15.at(i)->Fill(pSA_mdtZ->at(size),pSA_mdtR->at(size));
+                                             }
+                                              m_h_mdtavephivsSA_resptLSplus15.at(i)->Fill(std::accumulate(pSA_mdtPhi->begin(),pSA_mdtPhi->end(),0)/pSA_mdtPhi->size(),resSA_pt);
                                         }else{
                                              m_h_eSA_pt_LargeSpecialminus15.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                                             for(Int_t size = 0;size < pSA_rpcX->size();size++){
+                                                  m_h_rpchitXYminus15.at(i)->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
+                                             }
+                                             for(Int_t size = 0;size < pSA_mdtZ->size();size++){
+                                                  m_h_mdthitZRminus15.at(i)->Fill(pSA_mdtZ->at(size),pSA_mdtR->at(size));
+                                             }
                                         }
                                    }
                                    if(pSA_roiphi < -2.0 && pSA_roiphi > -2.6){//11
                                         m_h_eSA_pt_LargeSpecial11.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                         if(pSA_roiphi > -2.4){
                                              m_h_eSA_pt_LargeSpecialplus11.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                                             for(Int_t size = 0;size < pSA_rpcX->size();size++){
+                                                  m_h_rpchitXYLSplus11.at(i)->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
+                                             }
+                                             for(Int_t size = 0;size < pSA_mdtZ->size();size++){
+                                                  m_h_mdthitZRLSplus11.at(i)->Fill(pSA_mdtZ->at(size),pSA_mdtR->at(size));
+                                             }
                                         }else{
                                              m_h_eSA_pt_LargeSpecialminus11.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                                             for(Int_t size = 0;size < pSA_rpcX->size();size++){
+                                                  m_h_rpchitXYLSminus11.at(i)->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
+                                             }
+                                             for(Int_t size = 0;size < pSA_mdtZ->size();size++){
+                                                  m_h_mdthitZRLSminus11.at(i)->Fill(pSA_mdtZ->at(size),pSA_mdtR->at(size));
+                                             }
                                         }
                                    }
                                    m_countLargeSpecial.at(i)++;
@@ -722,12 +776,17 @@ void Efficiency::Execute(Int_t ev){
                          if(static_cast<Int_t>(pSA_sAddress) == 0 || static_cast<Int_t>(pSA_sAddress) == 1 || static_cast<Int_t>(pSA_sAddress) == 2 || static_cast<Int_t>(pSA_sAddress) == 3){
                               m_h_offphivsSA_sAddress.at(i)->Fill(pSA_phims,pSA_sAddress);
                               m_h_offphivsSA_respt.at(i)->Fill(m_poff_phi,resSA_pt);
+                              for(Int_t size = 0;size < pSA_rpcX->size();size++){
+                                   m_h_rpchitXY->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
+                              }
+                              for(Int_t size = 0;size < pSA_MDTZ->size();size++){
+                                   m_h_mdthitZR->Fill(pSA_mdtZ->at(size),pSA_mdtR->at(size));
+                              }
                          }
                          m_h_offphivsSAphims.at(i)->Fill(m_poff_phi,pSA_phims);
 
                          //CB
                          if(Cut_CB(pCB_pass)){
-                              m_countCB++;
                               Double_t textCB_dR = TMath::Sqrt(pow(m_tCB_eta - m_toff_exteta,2) + pow(m_tCB_phi - m_toff_extphi,2));
                               pextCB_dR = TMath::Sqrt(pow(pCB_eta - m_poff_exteta,2) + pow(pCB_phi - m_poff_extphi,2));
                               Double_t resCB_pt = std::fabs(m_poff_pt)/std::fabs(pCB_pt) - 1.0;
@@ -746,7 +805,6 @@ void Efficiency::Execute(Int_t ev){
 
                               //EF
                               if(Cut_EF(pEF_pass)){
-                                   m_countEF++;
                                    Double_t textEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_exteta,2) + pow(m_tEF_phi - m_toff_extphi,2));
                                    pextEF_dR = TMath::Sqrt(pow(pEF_eta - m_poff_exteta,2) + pow(pEF_phi - m_poff_extphi,2));
                                    Double_t resEF_pt = std::fabs(m_poff_pt)/std::fabs(pEF_pt) - 1.0;
@@ -1038,13 +1096,15 @@ void Efficiency::Finalize(TFile *tf1){
        m_h_highoffphivsSA_resptLSminus11.at(i)->Write();
        m_h_highoffphivsSA_resptLSplus15.at(i)->Write();
        m_h_highoffphivsSA_resptLSminus15.at(i)->Write();
-
+       m_h_rpchitXY.at(i)->Write();
+       m_h_rpchitXYLS.at(i)->Write();
+       m_h_rpchitXYLSplus11.at(i)->Write();
+       m_h_rpchitXYLSminu11.at(i)->Write();
+       
 
          cout<<i*m_thpitch<<"      "<<m_countLarge.at(i)<<"      "<<m_countLargeSpecial.at(i)<<"      "<<m_countSmall.at(i)<<"      "<<m_countSmallSpecial.at(i)<<endl;
      }
      
-     cout<<m_count<<"   "<<m_countall<<"   "<<m_countoff<<"   "<<m_countL1<<"   "<<m_countSA<<"   "<<m_countCB<<"   "<<m_countEF<<endl;
-    
      delete m_h_offphi_LargeSpecial;
      delete m_h_saphims_LargeSpecial;
      delete m_h_saroiphi_LargeSpecial;
