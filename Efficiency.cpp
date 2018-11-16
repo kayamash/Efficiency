@@ -1658,11 +1658,11 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_off_ptvsSA_resptLargeSpecialplus15out.clear();
           m_h_off_ptvsSA_resptLargeSpecialplus15in.clear();
           m_h_off_ptvsSA_resptLargeSpecialplus11out.clear();
-          m_h_off_ptvsSA_resptLargeSpecialplus11inv();
+          m_h_off_ptvsSA_resptLargeSpecialplus11in.clear();
           m_h_off_ptvsSA_resptLargeSpecialminus15out.clear();
           m_h_off_ptvsSA_resptLargeSpecialminus15in.clear();
-          m_h_off_ptvsSA_resptplusLargeSpecialminus11out.clear();
-          m_h_off_ptvsSA_resptplusLargeSpecialminus11in.clear();
+          m_h_off_ptvsSA_resptLargeSpecialminus11out.clear();
+          m_h_off_ptvsSA_resptLargeSpecialminus11in.clear();
           m_h_offetavsSA_resptLargeplus.clear();
           m_h_offetavsSA_resptLargeSpecialplus.clear();
           m_h_offetavsSA_resptSmallplus.clear();
