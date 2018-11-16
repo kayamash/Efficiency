@@ -518,7 +518,6 @@ bool Efficiency::Cut_EF(Int_t pass){
 
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
-     cout<<ev<<endl;
      for(Int_t i = 0;i <= m_nhist;i++){
           Double_t pextL1_dR = 1; 
           Double_t pextSA_dR = 1; 
@@ -629,7 +628,6 @@ void Efficiency::Execute(Int_t ev){
 
                //L1
                if(Cut_L1(pL1_pass)){
-                    cout<<"L1"<<endl;
                     Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
                     pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
 
