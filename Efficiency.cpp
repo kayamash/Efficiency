@@ -746,7 +746,7 @@ void Efficiency::Execute(Int_t ev){
 
                               case 1:
                                    //rpc,mdthitXY
-                                   for(unsigned Int_t rpc = 0;rpc < pSA_rpcX->size();rpc++){
+                                   for(Int_t rpc = 0;rpc < static_cast<signed Int_t>(pSA_rpcX->size());rpc++){
                                         m_h_rpchitXYLargeSpecial.at(i)->Fill(pSA_rpcX->at(rpc),pSA_rpcY->at(rpc));
                                    }
                                    for(Int_t mdt = 0;mdt < pSA_mdtZ->size();mdt++){
