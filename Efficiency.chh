@@ -360,7 +360,23 @@ class Efficiency
   vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialminus11in;
   vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialminus15out;
   vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialminus15in;
-  vector<TH2F*> 
+  vector<TH2F*> m_h_etaIndexvsSA_respt;
+  vector<TH2F*> m_h_etaIndexvsSA_resptLargeplus;
+  vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialplus;
+  vector<TH2F*> m_h_etaIndexvsSA_resptSmallplus;
+  vector<TH2F*> m_h_etaIndexvsSA_resptSmallSpecialplus;
+  vector<TH2F*> m_h_etaIndexvsSA_resptLargeminus;
+  vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus;
+  vector<TH2F*> m_h_etaIndexvsSA_resptSmallminus;
+  vector<TH2F*> m_h_etaIndexvsSA_resptSmallSpecialminus;
+  vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialplus11out;
+  vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialplus11in;
+  vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialplus15out;
+  vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialplus15in;
+  vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus11out;
+  vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus11in;
+  vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus15out;
+  vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus15in;
 
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;
