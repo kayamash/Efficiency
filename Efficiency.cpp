@@ -342,7 +342,6 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
                m_h_eL1_pt_LargeSpecialplus15out.push_back(new TH1D(Form("h_eL1_ptLargeSpecialplus15out_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
                m_h_eSA_pt_LargeSpecialplus15in.push_back(new TH1D(Form("h_eSA_ptLargeSpecialplus15in_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
                m_h_eSA_pt_LargeSpecialplus15out.push_back(new TH1D(Form("h_eSA_ptLargeSpecialplus15out_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
-
                m_h_eoff_pt_LargeSpecialminus.push_back(new TH1D(Form("h_eoff_ptLargeSpecialminus_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
                m_h_eL1_pt_LargeSpecialminus.push_back(new TH1D(Form("h_eL1_ptLargeSpecialminus_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
                m_h_eSA_pt_LargeSpecialminus.push_back(new TH1D(Form("h_eSA_ptLargeSpecialminus_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
@@ -642,6 +641,7 @@ void Efficiency::Execute(Int_t ev){
                          m_h_eL1_eta.at(i)->Fill(m_poff_eta);
                     }
                     cout<<"test"<<endl;
+                    cout<<pSA_sAddress<<"   "<<pSA_roiphi<<endl;
                     switch(static_cast<Int_t>(pSA_sAddress)){
                          case 0:
                               if(m_poff_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_eL1_pt_Largeplus.at(i)->Fill(std::fabs(m_poff_pt*0.001));
@@ -663,6 +663,7 @@ void Efficiency::Execute(Int_t ev){
                                         if(pSA_roiphi > -2.4){
                                              m_h_eL1_pt_LargeSpecialplus11in.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                         }else{
+                                             cout<<m_h_eL1_pt_LargeSpecialplus11out.size()<<endl;
                                              m_h_eL1_pt_LargeSpecialplus11out.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                         }
                                    }
