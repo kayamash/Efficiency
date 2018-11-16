@@ -509,7 +509,7 @@ bool Efficiency::Cut_EF(Int_t pass){
 
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
-     for(Int_t i = 0;i <= m_nhist;i++){     
+     for(Int_t i = 0;i <= m_nhist;i++){
           Double_t pextL1_dR = 1; 
           Double_t pextSA_dR = 1; 
           Double_t pextCB_dR = 1; 
@@ -583,9 +583,9 @@ void Efficiency::Execute(Int_t ev){
           tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
           tEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_eta,2) + pow(m_tEF_phi - m_toff_phi,2) );
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
-          if(Cut_tagprobe(pEFTAG_pass)){
 
-	          //offline
+          //offline
+          if(Cut_tagprobe(pEFTAG_pass)){
                if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
                m_h_poff_pt.at(i)->Fill(m_poff_pt*0.001);
                m_h_eoff_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
@@ -893,8 +893,8 @@ void Efficiency::Execute(Int_t ev){
                                                   for(Int_t mdt = 0;mdt < pSA_mdtZ->size();mdt++){
                                                        m_h_mdthitXYLargeSpecialminus15in.at(i)->Fill(pSA_mdtR->at(mdt)*cos(pSA_mdtPhi->at(mdt)),pSA_mdtR->at(mdt)*sin(pSA_mdtPhi->at(mdt)));
                                                   }
-
                                              }
+                                        }
                                         if(pSA_roiphi < -2.0 && pSA_roiphi > -2.6){//11
                                              if(pSA_roiphi > -2.4){
                                                   m_h_off_ptvsSA_resptLargeSpecialminus11in.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
