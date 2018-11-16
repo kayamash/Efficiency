@@ -50,12 +50,15 @@ class Efficiency
   Double_t m_poff_phi;
   Double_t m_poff_extphi;
   Double_t m_poff_extinnphi;
-  Double_t m_probe_charge;
-  Double_t m_probe_d0;
-  Double_t m_probe_z0;
+  Double_t m_poff_charge;
+  Double_t m_poff_d0;
+  Double_t m_poff_z0;
+  Double_t m_tp_extdR;
+  Double_t m_tp_dR;
   Double_t m_tL1_pt;
   Double_t m_tL1_eta;
   Double_t m_tL1_phi;
+  Double_t m_sumReqdRL1;
   Double_t m_tSA_pt;
   Double_t m_tSA_eta;
   Double_t m_tSA_phi;
@@ -65,44 +68,42 @@ class Efficiency
   Double_t m_tEF_pt;
   Double_t m_tEF_eta;
   Double_t m_tEF_phi;
-  Double_t m_tp_extdR;
-  Double_t m_sumReqdRL1;
   Double_t m_sumReqdREF;
-  Double_t m_tp_dR;
 
   std::vector<std::string> *m_mes_name;
+  Int_t *m_tag_proc;
   std::vector<Double_t> *m_pL1_pt;
   std::vector<Double_t> *m_pL1_eta;
   std::vector<Double_t> *m_pL1_phi;
   std::vector<Double_t> *m_pL1_dR;
+  std::vector<Int_t> *m_pL1_pass;
   std::vector<Double_t> *m_pSA_pt;
   std::vector<Double_t> *m_pSA_eta;
   std::vector<Double_t> *m_pSA_phi;
   std::vector<Double_t> *m_pSA_dR;
   std::vector<Double_t> *m_pSA_sAddress;
+  std::vector<Double_t> *m_pSA_phims;
+  std::vector<float> *m_pSA_roiphi;
+  std::vector<Int_t> *m_pSA_pass;
+  std::vector<vector<float> > *m_pSA_rpcX;
+  std::vector<vector<float> > *m_pSA_rpcY;
+  std::vector<vector<float> > *m_pSA_mdtZ;
+  std::vector<vector<float> > *m_pSA_mdtR;
+  std::vector<vector<float> > *m_pSA_mdtPhi;
   std::vector<Double_t> *m_pCB_pt;
   std::vector<Double_t> *m_pCB_eta;
   std::vector<Double_t> *m_pCB_phi;
   std::vector<Double_t> *m_pCB_dR;
+  std::vector<Int_t> *m_pCB_pass;
   std::vector<Double_t> *m_pEF_pt;
   std::vector<Double_t> *m_pEF_eta;
   std::vector<Double_t> *m_pEF_phi;
   std::vector<Double_t> *m_pEF_dR;
-  std::vector<Double_t> *m_pSA_phims;
-  std::vector<float> *m_pSA_roiphi;
-  std::vector<Int_t> *m_pL1_pass;
-  std::vector<Int_t> *m_pSA_pass;
-  std::vector<Int_t> *m_pCB_pass;
   std::vector<Int_t> *m_pEF_pass;
   std::vector<Int_t> *m_pEFTAG_pass;
 
-  std::vector<std::vector<float> > *m_pSA_rpcX;
-  std::vector<std::vector<float> > *m_pSA_rpcY;
-  std::vector<std::vector<float> > *m_pSA_mdtZ;
-  std::vector<std::vector<float> > *m_pSA_mdtR;
-  std::vector<std::vector<float> > *m_pSA_mdtPhi;
-
-
+  TBranch *b_mes_name;
+  TBranch *b_tag_proc;
   TBranch *b_tag_pt;
   TBranch *b_tag_eta;
   TBranch *b_tag_exteta;
@@ -123,6 +124,8 @@ class Efficiency
   TBranch *b_probe_charge;
   TBranch *b_probe_d0;
   TBranch *b_probe_z0;
+  TBranch *b_tp_dR;
+  TBranch *b_tp_extdR;
   TBranch *b_tL1_pt;
   TBranch *b_tL1_eta;
   TBranch *b_tL1_phi;
@@ -135,11 +138,12 @@ class Efficiency
   TBranch *b_tEF_pt;
   TBranch *b_tEF_eta;
   TBranch *b_tEF_phi;
-  TBranch *b_mes_name;
   TBranch *b_pL1_pt;
   TBranch *b_pL1_eta;
   TBranch *b_pL1_phi;
   TBranch *b_pL1_dR;;
+  TBranch *b_pL1_pass;
+  TBranch *b_sumReqdRL1;
   TBranch *b_pSA_pt;
   TBranch *b_pSA_eta;
   TBranch *b_pSA_phi;
@@ -147,30 +151,27 @@ class Efficiency
   TBranch *b_pSA_sAddress;
   TBranch *b_pSA_phims;
   TBranch *b_pSA_roiphi;
-  TBranch *b_pCB_pt;
-  TBranch *b_pCB_eta;
-  TBranch *b_pCB_phi;
-  TBranch *b_pCB_dR;
-  TBranch *b_pEF_pt;
-  TBranch *b_pEF_eta;
-  TBranch *b_pEF_phi;
-  TBranch *b_pEF_dR;
-  TBranch *b_pL1_pass;
   TBranch *b_pSA_pass;
-  TBranch *b_pCB_pass;
-  TBranch *b_pEF_pass;
-  TBranch *b_pEFTAG_pass;
-  TBranch *b_tp_extdR;
-  TBranch *b_sumReqdRL1;
-  TBranch *b_sumReqdREF;
-  TBranch *b_tp_dR;
   TBranch *b_pSA_rpcX;
   TBranch *b_pSA_rpcY;
   TBranch *b_pSA_mdtZ;
   TBranch *b_pSA_mdtR;
   TBranch *b_pSA_mdtPhi;
+  TBranch *b_pCB_pt;
+  TBranch *b_pCB_eta;
+  TBranch *b_pCB_phi;
+  TBranch *b_pCB_dR;
+  TBranch *b_pCB_pass;
+  TBranch *b_pEF_pt;
+  TBranch *b_pEF_eta;
+  TBranch *b_pEF_phi;
+  TBranch *b_pEF_dR;
+  TBranch *b_sumReqdREF;
+  TBranch *b_pEF_pass;
+  TBranch *b_pEFTAG_pass;
 
   //histgram
+  //Standard
   vector<TH1D*> m_h_poff_pt;
   vector<TH1D*> m_h_pL1_pt;
   vector<TH1D*> m_h_pSA_pt;
@@ -188,9 +189,35 @@ class Efficiency
   vector<TH1D*> m_h_pextSA_dR;
   vector<TH1D*> m_h_pextCB_dR;
   vector<TH1D*> m_h_pextEF_dR;
-  vector<TH1D*> m_h_pSA_respt;
-  vector<TH1D*> m_h_pCB_respt;
-  vector<TH1D*> m_h_pEF_respt;
+  vector<TH2F*> m_h_poffvsSA_pt;
+  vector<TH2F*> m_h_offphivsSA_sAddress;
+  vector<TH2F*> m_h_offphivsSAphims;
+  TH1D *m_h_offphi_LargeSpecial;
+  TH1D *m_h_saphims_LargeSpecial;
+  TH1D *m_h_saroiphi_LargeSpecial;
+  TH1D *m_h_saroiphi_SmallSpecial;
+  vector<TH2F*> m_h_rpchitXY;
+  vector<TH2F*> m_h_rpchitXYLargeSpecial;
+  vector<TH2F*> m_h_rpchitXYLargeSpecialplus11out;
+  vector<TH2F*> m_h_rpchitXYLargeSpecialplus11in;
+  vector<TH2F*> m_h_rpchitXYLargeSpecialplus15out;
+  vector<TH2F*> m_h_rpchitXYLargeSpecialplus15in;
+  vector<TH2F*> m_h_rpchitXYLargeSpecialminus11out;
+  vector<TH2F*> m_h_rpchitXYLargeSpecialminus11in;
+  vector<TH2F*> m_h_rpchitXYLargeSpecialminus15out;
+  vector<TH2F*> m_h_rpchitXYLargeSpecialminus15in;
+  vector<TH2F*> m_h_mdthitXY;
+  vector<TH2F*> m_h_mdthitXYLargeSpecial;
+  vector<TH2F*> m_h_mdthitXYLargeSpecialplus11out;
+  vector<TH2F*> m_h_mdthitXYLargeSpecialplus11in;
+  vector<TH2F*> m_h_mdthitXYLargeSpecialplus15out;
+  vector<TH2F*> m_h_mdthitXYLargeSpecialplus15in;
+  vector<TH2F*> m_h_mdthitXYLargeSpecialminus11out;
+  vector<TH2F*> m_h_mdthitXYLargeSpecialminus11in;
+  vector<TH2F*> m_h_mdthitXYLargeSpecialminus15out;
+  vector<TH2F*> m_h_mdthitXYLargeSpecialminus15in;
+
+  //Efficiency
   vector<TH1D*> m_h_eoff_pt;
   vector<TH1D*> m_h_eL1_pt;
   vector<TH1D*> m_h_eSA_pt;
@@ -211,115 +238,133 @@ class Efficiency
   vector<TH1D*> m_h_eSA_pt_end;
   vector<TH1D*> m_h_eCB_pt_end;
   vector<TH1D*> m_h_eEF_pt_end;
-  vector<TH1D*> m_h_SA_respt0;
-  vector<TH1D*> m_h_SA_respt1;
-  vector<TH1D*> m_h_SA_respt2;
-  vector<TH1D*> m_h_SA_respt3;
-  vector<TH1D*> m_h_eoff_pt_Large;
-  vector<TH1D*> m_h_eL1_pt_Large;
-  vector<TH1D*> m_h_eSA_pt_Large;
-  vector<TH1D*> m_h_eoff_pt_LargeSpecial;
-  vector<TH1D*> m_h_eL1_pt_LargeSpecial;
-  vector<TH1D*> m_h_eSA_pt_LargeSpecial;
-  vector<TH1D*> m_h_SA_resptplus11;
-  vector<TH1D*> m_h_SA_resptminus11;
-  vector<TH1D*> m_h_SA_resptplus15;
-  vector<TH1D*> m_h_SA_resptminus15;
-  //
-  vector<TH1D*> m_h_eL1_pt_LargeSpecial11;//!
-  vector<TH1D*> m_h_eSA_pt_LargeSpecial11;//!
-  vector<TH1D*> m_h_eL1_pt_LargeSpecial15;//!
-  vector<TH1D*> m_h_eSA_pt_LargeSpecial15;//!
-  vector<TH1D*> m_h_eL1_pt_LargeSpecialplus11;//!
-  vector<TH1D*> m_h_eSA_pt_LargeSpecialplus11;//!
-  vector<TH1D*> m_h_eL1_pt_LargeSpecialminus11;//!
-  vector<TH1D*> m_h_eSA_pt_LargeSpecialminus11;//!
-  vector<TH1D*> m_h_eL1_pt_LargeSpecialplus15;//!
-  vector<TH1D*> m_h_eSA_pt_LargeSpecialplus15;//!
-  vector<TH1D*> m_h_eL1_pt_LargeSpecialminus15;//!
-  vector<TH1D*> m_h_eSA_pt_LargeSpecialminus15;//!
-  //
-  vector<TH1D*> m_h_eoff_pt_Small;
-  vector<TH1D*> m_h_eL1_pt_Small;
-  vector<TH1D*> m_h_eSA_pt_Small;
-  vector<TH1D*> m_h_eoff_pt_SmallSpecial;
-  vector<TH1D*> m_h_eL1_pt_SmallSpecial;
-  vector<TH1D*> m_h_eSA_pt_SmallSpecial;
-  TH1D *m_h_offphi_LargeSpecial;
-  TH1D *m_h_saphims_LargeSpecial;
-  TH1D *m_h_saroiphi_LargeSpecial;
-  TH1D *m_h_saroiphi_SmallSpecial;
-
+  vector<TH1D*> m_h_eoff_pt_Largeplus;
+  vector<TH1D*> m_h_eL1_pt_Largeplus;
+  vector<TH1D*> m_h_eSA_pt_Largeplus;
+  vector<TH1D*> m_h_eoff_pt_Largeminus;
+  vector<TH1D*> m_h_eL1_pt_Largeminus;
+  vector<TH1D*> m_h_eSA_pt_Largeminus;
+  vector<TH1D*> m_h_eoff_pt_LargeSpecialplus;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialplus;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialplus;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialplus11;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialplus11;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialplus15;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialplus15;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialplus11in;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialplus11in;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialplus11out;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialplus11out;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialplus15out;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialplus15out;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialplus15in;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialplus15in;
+  vector<TH1D*> m_h_eoff_pt_LargeSpecialminus;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialminus;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialminus;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialminus11;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialminus11;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialminus15;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialminus15;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialminus11in;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialminus11in;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialminus11out;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialminus11out;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialminus15out;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialminus15out;
+  vector<TH1D*> m_h_eL1_pt_LargeSpecialminus15in;
+  vector<TH1D*> m_h_eSA_pt_LargeSpecialminus15in;
+  vector<TH1D*> m_h_eoff_pt_Smallplus;
+  vector<TH1D*> m_h_eL1_pt_Smallplus;
+  vector<TH1D*> m_h_eSA_pt_Smallplus;
+  vector<TH1D*> m_h_eoff_pt_Smallminus;
+  vector<TH1D*> m_h_eL1_pt_Smallminus;
+  vector<TH1D*> m_h_eSA_pt_Smallminus;
+  vector<TH1D*> m_h_eoff_pt_SmallSpecialplus;
+  vector<TH1D*> m_h_eL1_pt_SmallSpecialplus;
+  vector<TH1D*> m_h_eSA_pt_SmallSpecialplus;
+  vector<TH1D*> m_h_eoff_pt_SmallSpecialminus;
+  vector<TH1D*> m_h_eL1_pt_SmallSpecialminus;
+  vector<TH1D*> m_h_eSA_pt_SmallSpecialminus;
   vector<TH2F*> m_h_eff_poff_etaphi;
   vector<TH2F*> m_h_eff_pL1_etaphi;
   vector<TH2F*> m_h_eff_pSA_etaphi;
-  vector<TH2F*> m_h_poffvsSA_pt;
-  vector<TH2F*> m_h_off_ptvsSA_resptplus0;
-  vector<TH2F*> m_h_off_ptvsSA_resptplus1;
-  vector<TH2F*> m_h_off_ptvsSA_resptplus2;
-  vector<TH2F*> m_h_off_ptvsSA_resptplus3;
-  vector<TH2F*> m_h_off_ptvsSA_resptminus0;
-  vector<TH2F*> m_h_off_ptvsSA_resptminus1;
-  vector<TH2F*> m_h_off_ptvsSA_resptminus2;
-  vector<TH2F*> m_h_off_ptvsSA_resptminus3;
-  vector<TH2F*> m_h_offphivsSA_sAddress;
-  vector<TH2F*> m_h_offphivsSA_respt;
-  vector<TH2F*> m_h_offphivsSA_respt0;
-  vector<TH2F*> m_h_offphivsSA_respt1;
-  vector<TH2F*> m_h_offphivsSA_respt2;
-  vector<TH2F*> m_h_offphivsSA_respt3;
-  vector<TH2F*> m_h_offphivsSAphims;
-  //
-  vector<TH2F*> m_h_off_ptvsSA_resptplusLS11;
-  vector<TH2F*> m_h_off_ptvsSA_resptplusLS15;
-  vector<TH2F*> m_h_off_ptvsSA_resptplusLSplus11;
-  vector<TH2F*> m_h_off_ptvsSA_resptplusLSminus11;
-  vector<TH2F*> m_h_off_ptvsSA_resptplusLSplus15;
-  vector<TH2F*> m_h_off_ptvsSA_resptplusLSminus15;
-  vector<TH2F*> m_h_off_ptvsSA_resptminusLS11;
-  vector<TH2F*> m_h_off_ptvsSA_resptminusLS15;
-  vector<TH2F*> m_h_off_ptvsSA_resptminusLSplus11;
-  vector<TH2F*> m_h_off_ptvsSA_resptminusLSminus11;
-  vector<TH2F*> m_h_off_ptvsSA_resptminusLSplus15;
-  vector<TH2F*> m_h_off_ptvsSA_resptminusLSminus15;
 
-  vector<TH2F*> m_h_rpchitXY;
-  vector<TH2F*> m_h_rpchitXYLS;
-  vector<TH2F*> m_h_rpchitXYLSplus11;
-  vector<TH2F*> m_h_rpchitXYLSminus11;
-  vector<TH2F*> m_h_rpchitXYLSplus15;
-  vector<TH2F*> m_h_rpchitXYLSminus15;
-  vector<TH2F*> m_h_mdthitZR;
-  vector<TH2F*> m_h_mdthitZRLS;
-  vector<TH2F*> m_h_mdthitZRLSplus11;
-  vector<TH2F*> m_h_mdthitZRLSminus11;
-  vector<TH2F*> m_h_mdthitZRLSplus15;
-  vector<TH2F*> m_h_mdthitZRLSminus15;
-  vector<TH2F*> m_h_mdtavephivsSA_resptLSplus15;
-
-  //
-  vector<TH2F*> m_h_offetavsSA_respt0;//
-  vector<TH2F*> m_h_offetavsSA_respt1;//
-  vector<TH2F*> m_h_offetavsSA_respt2;//
-  vector<TH2F*> m_h_offetavsSA_respt3;//
-  vector<TH2F*> m_h_offetavsSA_resptLSplus11;//
-  vector<TH2F*> m_h_offetavsSA_resptLSminus11;//
-  vector<TH2F*> m_h_offetavsSA_resptLSplus15;//
-  vector<TH2F*> m_h_offetavsSA_resptLSminus15;//
-  vector<TH2F*> m_h_highoffetavsSA_resptLSplus11;//
-  vector<TH2F*> m_h_highoffetavsSA_resptLSminus11;//
-  vector<TH2F*> m_h_highoffetavsSA_resptLSplus15;//
-  vector<TH2F*> m_h_highoffetavsSA_resptLSminus15;//
-  vector<TH2F*> m_h_highoffphivsSA_resptLSplus11;//
-  vector<TH2F*> m_h_highoffphivsSA_resptLSminus11;//
-  vector<TH2F*> m_h_highoffphivsSA_resptLSplus15;//
-  vector<TH2F*> m_h_highoffphivsSA_resptLSminus15;//
+  //Residual
+  vector<TH1D*> m_h_pSA_respt;
+  vector<TH1D*> m_h_pCB_respt;
+  vector<TH1D*> m_h_pEF_respt;
+  vector<TH1D*> m_h_SA_resptLargeplus;
+  vector<TH1D*> m_h_SA_resptLargeSpecialplus;
+  vector<TH1D*> m_h_SA_resptSmallplus;
+  vector<TH1D*> m_h_SA_resptSmallSpecialplus;
+  vector<TH1D*> m_h_SA_resptLargeminus;
+  vector<TH1D*> m_h_SA_resptLargeSpecialminus;
+  vector<TH1D*> m_h_SA_resptSmallminus;
+  vector<TH1D*> m_h_SA_resptSmallSpecialminus;
+  vector<TH1D*> m_h_SA_resptLargeSpecialplus11out;
+  vector<TH1D*> m_h_SA_resptLargeSpecialplus11in;
+  vector<TH1D*> m_h_SA_resptLargeSpecialplus15out;
+  vector<TH1D*> m_h_SA_resptLargeSpecialplus15in;
+  vector<TH1D*> m_h_SA_resptLargeSpecialminus11out;
+  vector<TH1D*> m_h_SA_resptLargeSpecialminus11in;
+  vector<TH1D*> m_h_SA_resptLargeSpecialminus15out;
+  vector<TH1D*> m_h_SA_resptLargeSpecialminus15in;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeplus;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialplus;
+  vector<TH2F*> m_h_off_ptvsSA_resptSmallplus;
+  vector<TH2F*> m_h_off_ptvsSA_resptSmallSpecialplus;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeminus;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialminus;
+  vector<TH2F*> m_h_off_ptvsSA_resptSmallminus;
+  vector<TH2F*> m_h_off_ptvsSA_resptSmallSpecialminus;
+  vector<TH2F*> m_h_offphivsSA_resptLargeplus;
+  vector<TH2F*> m_h_offphivsSA_resptLargeSpecialplus;
+  vector<TH2F*> m_h_offphivsSA_resptSmallplus;
+  vector<TH2F*> m_h_offphivsSA_resptSmallSpecialplus;
+  vector<TH2F*> m_h_offphivsSA_resptLargeminus;
+  vector<TH2F*> m_h_offphivsSA_resptLargeSpecialminus;
+  vector<TH2F*> m_h_offphivsSA_resptSmallminus;
+  vector<TH2F*> m_h_offphivsSA_resptSmallSpecialminus;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialplus15out;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialplus15in;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialplus11out;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialplus11in;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialminus15out;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialminus15in;
+  vector<TH2F*> m_h_off_ptvsSA_resptplusLargeSpecialminus11out;
+  vector<TH2F*> m_h_off_ptvsSA_resptplusLargeSpecialminus11in;
+  vector<TH2F*> m_h_offetavsSA_resptLargeplus;
+  vector<TH2F*> m_h_offetavsSA_resptLargeSpecialplus;
+  vector<TH2F*> m_h_offetavsSA_resptSmallplus;
+  vector<TH2F*> m_h_offetavsSA_resptSmallSpecialplus;
+  vector<TH2F*> m_h_offetavsSA_resptLargeminus;
+  vector<TH2F*> m_h_offetavsSA_resptLargeSpecialminus;
+  vector<TH2F*> m_h_offetavsSA_resptSmallminus;
+  vector<TH2F*> m_h_offetavsSA_resptSmallSpecialminus;
+  vector<TH2F*> m_h_offetavsSA_resptLargeSpecialplus11out;
+  vector<TH2F*> m_h_offetavsSA_resptLargeSpecialplus11in;
+  vector<TH2F*> m_h_offetavsSA_resptLargeSpecialplus15out;
+  vector<TH2F*> m_h_offetavsSA_resptLargeSpecialplus15in;
+  vector<TH2F*> m_h_offetavsSA_resptLargeSpecialminus11out;
+  vector<TH2F*> m_h_offetavsSA_resptLargeSpecialminus11in;
+  vector<TH2F*> m_h_offetavsSA_resptLargeSpecialminus15out;
+  vector<TH2F*> m_h_offetavsSA_resptLargeSpecialminus15in;
+  vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialplus11out;
+  vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialplus11in;
+  vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialplus15out;
+  vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialplus15in;
+  vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialminus11out;
+  vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialminus11in;
+  vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialminus15out;
+  vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialminus15in;
 
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;
   std::string m_method_name;
   Int_t m_nhist;
   Int_t m_thpitch;
+  Int_t m_proc;
 
   Double_t m_binmax;
   Double_t m_efficiency_xerr;
@@ -330,7 +375,7 @@ class Efficiency
   vector<Int_t> m_countSmallSpecial;
 
 public:
-  void Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th);
+  void Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th,Int_t proc);
   bool Dicision_barrel(Double_t eta);
   bool Cut_tagprobe(Int_t pass);
   bool Cut_L1(Int_t pass);
