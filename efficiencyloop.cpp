@@ -68,6 +68,7 @@ void efficiencyloop(){
 	for(Int_t event = 0;event < tr1->GetEntries(); event++){
 	//for(Int_t event = 0;event < 100000; event++){
 		eff.Execute(event);
+		cout<<event<<endl;
 	}
 	cout<<"Finalize"<<endl;
 	eff.Finalize(output_file);

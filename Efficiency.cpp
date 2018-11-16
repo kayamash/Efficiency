@@ -469,7 +469,6 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
 
 bool Efficiency::Cut_tagprobe(Int_t pass){
      if(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && m_sumReqdREF < m_tp_dR && pass > -1 && m_tag_proc == m_proc){
-          cout<<"pass tagand probe"<<endl;
           return kTRUE;
      }else{
           return kFALSE;
@@ -478,7 +477,6 @@ bool Efficiency::Cut_tagprobe(Int_t pass){
 
 bool Efficiency::Cut_L1(Int_t pass){
   if(pass > -1){
-     cout<<"pass L1"<<endl;
 	return kTRUE;
      }else{
      return kFALSE;
@@ -487,7 +485,6 @@ bool Efficiency::Cut_L1(Int_t pass){
 
 bool Efficiency::Cut_SA(Int_t pass,Double_t pt,Double_t th){
      if(pass == 1 && std::fabs(pt) > th){
-          cout<<"pass SA"<<endl;
           return kTRUE;
      }else{
           return kFALSE;
@@ -496,7 +493,6 @@ bool Efficiency::Cut_SA(Int_t pass,Double_t pt,Double_t th){
 
 bool Efficiency::Cut_CB(Int_t pass){
      if(pass == 1){
-          cout<<"pass CB"<<endl;
           return kTRUE;
      }else{
           return kFALSE;
@@ -505,7 +501,6 @@ bool Efficiency::Cut_CB(Int_t pass){
 
 bool Efficiency::Cut_EF(Int_t pass){
      if(pass == 1){
-          cout<<"pass EF"<<endl;
           return kTRUE;
      }else{
           return kFALSE;
