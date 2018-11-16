@@ -43,6 +43,7 @@ class Efficiency
   Double_t m_toff_extinnphi;
   Double_t m_tag_charge;
   Double_t m_tag_d0,m_tag_z0;
+  Double_t *m_probe_segment_etaIndex[10];
   Double_t m_poff_pt;
   Double_t m_poff_eta;
   Double_t m_poff_exteta;
@@ -124,6 +125,7 @@ class Efficiency
   TBranch *b_probe_charge;
   TBranch *b_probe_d0;
   TBranch *b_probe_z0;
+  TBranch *b_probe_segment_etaIndex;
   TBranch *b_tp_dR;
   TBranch *b_tp_extdR;
   TBranch *b_tL1_pt;
@@ -358,6 +360,7 @@ class Efficiency
   vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialminus11in;
   vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialminus15out;
   vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialminus15in;
+  vector<TH2F*> 
 
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;
