@@ -518,6 +518,7 @@ bool Efficiency::Cut_EF(Int_t pass){
 
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
+     cout<<ev<<endl;
      for(Int_t i = 0;i <= m_nhist;i++){
           Double_t pextL1_dR = 1; 
           Double_t pextSA_dR = 1; 
@@ -628,6 +629,7 @@ void Efficiency::Execute(Int_t ev){
 
                //L1
                if(Cut_L1(pL1_pass)){
+                    cout"L1"<<endl;
                     Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
                     pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
 
@@ -1002,11 +1004,9 @@ void Efficiency::Execute(Int_t ev){
 
                          if(static_cast<Int_t>(pSA_sAddress) == 0 || static_cast<Int_t>(pSA_sAddress) == 1 || static_cast<Int_t>(pSA_sAddress) == 2 || static_cast<Int_t>(pSA_sAddress) == 3){
                               m_h_offphivsSA_sAddress.at(i)->Fill(pSA_phims,pSA_sAddress);
-                              cout<<pSA_rpcX->size()<<endl;
                               for(Int_t size = 0;size < (signed int)pSA_rpcX->size();size++){
                                    m_h_rpchitXY.at(i)->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
                               }
-                              cout<<pSA_mdtZ->size()<<endl;
                               for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
                                    m_h_mdthitXY.at(i)->Fill(pSA_mdtR->at(size)*cos(pSA_mdtR->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtR->at(size)));
                               }
