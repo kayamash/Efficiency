@@ -71,7 +71,7 @@ class Efficiency
   Double_t m_sumReqdREF;
 
   std::vector<std::string> *m_mes_name;
-  Int_t *m_tag_proc;
+  Int_t m_tag_proc;
   std::vector<Double_t> *m_pL1_pt;
   std::vector<Double_t> *m_pL1_eta;
   std::vector<Double_t> *m_pL1_phi;
@@ -332,8 +332,8 @@ class Efficiency
   vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialplus11in;
   vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialminus15out;
   vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialminus15in;
-  vector<TH2F*> m_h_off_ptvsSA_resptplusLargeSpecialminus11out;
-  vector<TH2F*> m_h_off_ptvsSA_resptplusLargeSpecialminus11in;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialminus11out;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialminus11in;
   vector<TH2F*> m_h_offetavsSA_resptLargeplus;
   vector<TH2F*> m_h_offetavsSA_resptLargeSpecialplus;
   vector<TH2F*> m_h_offetavsSA_resptSmallplus;
