@@ -350,9 +350,14 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
                m_h_eL1_pt_LargeSpecialminus15.push_back(new TH1D(Form("h_eL1_ptLargeSpecialminus15_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
                m_h_eSA_pt_LargeSpecialminus15.push_back(new TH1D(Form("h_eSA_ptLargeSpecialminus15_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
                m_h_eL1_pt_LargeSpecialminus11in.push_back(new TH1D(Form("h_eL1_ptLargeSpecialminus11in_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
-               m_h_eSA_pt_LargeSpecialminus11out.push_back(new TH1D(Form("h_eSA_ptLargeSpecialminus11out_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+               m_h_eSA_pt_LargeSpecialminus11in.push_back(new TH1D(Form("h_eSA_ptLargeSpecialminus11in_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
                m_h_eL1_pt_LargeSpecialminus15in.push_back(new TH1D(Form("h_eL1_ptLargeSpecialminus15in_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+               m_h_eSA_pt_LargeSpecialminus15in.push_back(new TH1D(Form("h_eSA_ptLargeSpecialminus15in_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+               m_h_eL1_pt_LargeSpecialminus11out.push_back(new TH1D(Form("h_eL1_ptLargeSpecialminus11out_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+               m_h_eSA_pt_LargeSpecialminus11out.push_back(new TH1D(Form("h_eSA_ptLargeSpecialminus11out_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+               m_h_eL1_pt_LargeSpecialminus15out.push_back(new TH1D(Form("h_eL1_ptLargeSpecialminus15out_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
                m_h_eSA_pt_LargeSpecialminus15out.push_back(new TH1D(Form("h_eSA_ptLargeSpecialminus15out_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+
                m_h_eoff_pt_Smallplus.push_back(new TH1D(Form("h_eoff_ptSmallplus_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
                m_h_eL1_pt_Smallplus.push_back(new TH1D(Form("h_eL1_ptSmallplus_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
                m_h_eSA_pt_Smallplus.push_back(new TH1D(Form("h_eSA_ptSmallplus_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
