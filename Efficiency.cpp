@@ -645,8 +645,6 @@ void Efficiency::Execute(Int_t ev){
                          m_h_eff_pL1_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
                          m_h_eL1_eta.at(i)->Fill(m_poff_eta);
                     }
-                    cout<<"test"<<endl;
-                    cout<<pSA_sAddress<<"   "<<pSA_roiphi<<endl;
                     switch(static_cast<Int_t>(pSA_sAddress)){
                          case 0:
                               if(m_poff_charge*m_poff_eta/std::fabs(m_poff_eta)==1)m_h_eL1_pt_Largeplus.at(i)->Fill(std::fabs(m_poff_pt*0.001));
@@ -668,7 +666,6 @@ void Efficiency::Execute(Int_t ev){
                                         if(pSA_roiphi > -2.4){
                                              m_h_eL1_pt_LargeSpecialplus11in.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                         }else{
-                                             cout<<m_h_eL1_pt_LargeSpecialplus11out.size()<<endl;
                                              m_h_eL1_pt_LargeSpecialplus11out.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                         }
                                    }
