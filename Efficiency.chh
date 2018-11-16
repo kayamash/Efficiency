@@ -85,11 +85,11 @@ class Efficiency
   std::vector<Double_t> *m_pSA_phims;
   std::vector<float> *m_pSA_roiphi;
   std::vector<Int_t> *m_pSA_pass;
-  std::vector<vector<float> > *m_pSA_rpcX;
-  std::vector<vector<float> > *m_pSA_rpcY;
-  std::vector<vector<float> > *m_pSA_mdtZ;
-  std::vector<vector<float> > *m_pSA_mdtR;
-  std::vector<vector<float> > *m_pSA_mdtPhi;
+  std::vector<vector<float>> *m_pSA_rpcX;
+  std::vector<vector<float>> *m_pSA_rpcY;
+  std::vector<vector<float>> *m_pSA_mdtZ;
+  std::vector<vector<float>> *m_pSA_mdtR;
+  std::vector<vector<float>> *m_pSA_mdtPhi;
   std::vector<Double_t> *m_pCB_pt;
   std::vector<Double_t> *m_pCB_eta;
   std::vector<Double_t> *m_pCB_phi;
