@@ -754,8 +754,8 @@ void Efficiency::Execute(Int_t ev){
                                    }
 
                                    if(i == 0){
-                                   m_h_saphims_LargeSpecial->Fill(pSA_phims);
-                                   m_h_saroiphi_LargeSpecial->Fill(pSA_roiphi);
+                                        m_h_saphims_LargeSpecial->Fill(pSA_phims);
+                                        m_h_saroiphi_LargeSpecial->Fill(pSA_roiphi);
                                    }
 
                                    if(m_poff_charge*m_poff_eta/std::fabs(m_poff_eta)==1){
@@ -844,10 +844,8 @@ void Efficiency::Execute(Int_t ev){
                                                   for(Int_t mdt = 0;mdt < pSA_mdtZ->size();mdt++){
                                                        m_h_mdthitXYLargeSpecialplus11out.at(i)->Fill(pSA_mdtR->at(mdt)*cos(pSA_mdtPhi->at(mdt)),pSA_mdtR->at(mdt)*sin(pSA_mdtPhi->at(mdt)));
                                                   }
-
                                              }
                                         }
-
                                    if(m_poff_charge*m_poff_eta/std::fabs(m_poff_eta)==-1){
                                         m_h_eSA_pt_LargeSpecialminus.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                         m_h_SA_resptLargeSpecialminus.at(i)->Fill(resSA_pt);
@@ -931,12 +929,10 @@ void Efficiency::Execute(Int_t ev){
                                                        m_h_rpchitXYLargeSpecialminus11out.at(i)->Fill(pSA_rpcX->at(rpc),pSA_rpcY->at(rpc));
                                                   }
                                                   for(Int_t mdt = 0;mdt < pSA_mdtZ->size();mdt++){
-                                                       m_h_mdthitXYLargeSpecialmius11out.at(i)->Fill(pSA_mdtR->at(mdt)*cos(pSA_mdtPhi->at(mdt)),pSA_mdtR->at(mdt)*sin(pSA_mdtPhi->at(mdt)));
+                                                       m_h_mdthitXYLargeSpecialminus11out.at(i)->Fill(pSA_mdtR->at(mdt)*cos(pSA_mdtPhi->at(mdt)),pSA_mdtR->at(mdt)*sin(pSA_mdtPhi->at(mdt)));
                                                   }
-
                                              }
                                         }
-
                                    m_countLargeSpecial.at(i)++;
                                    break;
 

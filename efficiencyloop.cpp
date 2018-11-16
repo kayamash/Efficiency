@@ -51,14 +51,14 @@ void efficiencyloop(){
 	
 	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
 	TChain *tr1 = new TChain("t_tap");
-	/*
+	
 	std::ifstream ifs(inputfilelist.c_str());
 	std::string str;
 	while(getline(ifs,str)){
 		tr1->Add(str.c_str());
 	}
-	*/
-	tr1->Add(inputfilename.c_str());
+	
+	//tr1->Add(inputfilename.c_str());
 
 	if(!tr1)cout<<"tree failed"<<endl;
 	cout<<"Initialize"<<endl;
