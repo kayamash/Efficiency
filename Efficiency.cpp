@@ -805,7 +805,6 @@ void Efficiency::Execute(Int_t ev){
                                                   for(Int_t mdt = 0;mdt < pSA_mdtZ->size();mdt++){
                                                        m_h_mdthitXYLargeSpecialplus15in.at(i)->Fill(pSA_mdtR->at(mdt)*cos(pSA_mdtPhi->at(mdt)),pSA_mdtR->at(mdt)*sin(pSA_mdtPhi->at(mdt)));
                                                   }
-
                                              }
                                         if(pSA_roiphi < -2.0 && pSA_roiphi > -2.6){//11
                                              if(pSA_roiphi > -2.4){
@@ -846,6 +845,8 @@ void Efficiency::Execute(Int_t ev){
                                                   }
                                              }
                                         }
+                                   }
+
                                    if(m_poff_charge*m_poff_eta/std::fabs(m_poff_eta)==-1){
                                         m_h_eSA_pt_LargeSpecialminus.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                         m_h_SA_resptLargeSpecialminus.at(i)->Fill(resSA_pt);
@@ -895,6 +896,7 @@ void Efficiency::Execute(Int_t ev){
                                                   }
                                              }
                                         }
+
                                         if(pSA_roiphi < -2.0 && pSA_roiphi > -2.6){//11
                                              if(pSA_roiphi > -2.4){
                                                   m_h_off_ptvsSA_resptLargeSpecialminus11in.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
@@ -933,6 +935,7 @@ void Efficiency::Execute(Int_t ev){
                                                   }
                                              }
                                         }
+                                   }
                                    m_countLargeSpecial.at(i)++;
                                    break;
 //9
@@ -1037,13 +1040,19 @@ void Efficiency::Execute(Int_t ev){
                                    }else{
                                         m_h_eEF_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                    }
-                              }
-                         }
-                    }
-               }
-          }
-     }
-}
+                              }//EF
+
+                         }//CB
+
+                    }//SA
+
+               }//L1
+
+          }//tag
+
+     }//for
+
+}//Exe
 
 void Efficiency::Finalize(TFile *tf1){
      CalcEfficiency ceff;
