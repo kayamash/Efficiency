@@ -43,7 +43,7 @@ class Efficiency
   Double_t m_toff_extinnphi;
   Double_t m_tag_charge;
   Double_t m_tag_d0,m_tag_z0;
-  Double_t *m_probe_segment_etaIndex[10];
+  Double_t m_probe_segment_etaIndex[10];
   Double_t m_poff_pt;
   Double_t m_poff_eta;
   Double_t m_poff_exteta;
