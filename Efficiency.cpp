@@ -584,8 +584,8 @@ void Efficiency::Execute(Int_t ev){
                     pSA_rpcX = &(m_pSA_rpcX->at(method));
                     pSA_rpcY = &(m_pSA_rpcY->at(method));
                     vector<float> buf_pSA_mdtZ;
-                    for(Int_t i = 0;i > m_pSA_mdtZ->at(method).size();i++){
-                         buf_pSA_mdtZ.push_back(m_pSA_mdtZ->at(method).at(i));
+                    for(Int_t j = 0;j > m_pSA_mdtZ->at(method).size();j++){
+                         buf_pSA_mdtZ.push_back(m_pSA_mdtZ->at(method).at(j));
                     }
                     pSA_mdtZ = &(buf_pSA_mdtZ);
                     
@@ -815,8 +815,8 @@ void Efficiency::Execute(Int_t ev){
                                                   for(Int_t rpc = 0;rpc < (signed int)pSA_rpcX->size();rpc++){
                                                        m_h_rpchitXYLargeSpecialplus15in.at(i)->Fill(pSA_rpcX->at(rpc),pSA_rpcY->at(rpc));
                                                   }
-                                                  for(Int_t mdt = 0;mdt < (signed int)pSA_mdtZ.size();mdt++){
-                                                       m_h_mdthitXYLargeSpecialplus15in.at(i)->Fill(pSA_mdtR.at(mdt)*cos(pSA_mdtPhi.at(mdt)),pSA_mdtR.at(mdt)*sin(pSA_mdtPhi.at(mdt)));
+                                                  for(Int_t mdt = 0;mdt < (signed int)pSA_mdtZ->size();mdt++){
+                                                       m_h_mdthitXYLargeSpecialplus15in.at(i)->Fill(pSA_mdtR->at(mdt)*cos(pSA_mdtPhi->at(mdt)),pSA_mdtR->at(mdt)*sin(pSA_mdtPhi->at(mdt)));
                                                   }
                                              }
                                         }
@@ -837,7 +837,7 @@ void Efficiency::Execute(Int_t ev){
                                                        m_h_rpchitXYLargeSpecialplus11in.at(i)->Fill(pSA_rpcX->at(rpc),pSA_rpcY->at(rpc));
                                                   }
                                                   for(Int_t mdt = 0;mdt < (signed int)pSA_mdtZ->size();mdt++){
-                                                       m_h_mdthitXYLargeSpecialplus11in.at(i)->Fill(pSA_mdtR.at(mdt)*cos(pSA_mdtPhi.at(mdt)),pSA_mdtR.at(mdt)*sin(pSA_mdtPhi.at(mdt)));
+                                                       m_h_mdthitXYLargeSpecialplus11in.at(i)->Fill(pSA_mdtR->at(mdt)*cos(pSA_mdtPhi->at(mdt)),pSA_mdtR->at(mdt)*sin(pSA_mdtPhi->at(mdt)));
                                                   }
 
                                              }else{
@@ -905,8 +905,8 @@ void Efficiency::Execute(Int_t ev){
                                                   for(Int_t rpc = 0;rpc < (signed int)pSA_rpcX->size();rpc++){
                                                        m_h_rpchitXYLargeSpecialminus15in.at(i)->Fill(pSA_rpcX->at(rpc),pSA_rpcY->at(rpc));
                                                   }
-                                                  for(Int_t mdt = 0;mdt < (signed int)pSA_mdtZ.size();mdt++){
-                                                       m_h_mdthitXYLargeSpecialminus15in.at(i)->Fill(pSA_mdtR.at(mdt)*cos(pSA_mdtPhi.at(mdt)),pSA_mdtR.at(mdt)*sin(pSA_mdtPhi.at(mdt)));
+                                                  for(Int_t mdt = 0;mdt < (signed int)pSA_mdtZ->size();mdt++){
+                                                       m_h_mdthitXYLargeSpecialminus15in.at(i)->Fill(pSA_mdtR->at(mdt)*cos(pSA_mdtPhi->at(mdt)),pSA_mdtR->at(mdt)*sin(pSA_mdtPhi->at(mdt)));
                                                   }
                                              }
                                         }
@@ -944,8 +944,8 @@ void Efficiency::Execute(Int_t ev){
                                                   for(Int_t rpc = 0;rpc < (signed int)pSA_rpcX->size();rpc++){
                                                        m_h_rpchitXYLargeSpecialminus11out.at(i)->Fill(pSA_rpcX->at(rpc),pSA_rpcY->at(rpc));
                                                   }
-                                                  for(Int_t mdt = 0;mdt < (signed int)pSA_mdtZ.size();mdt++){
-                                                       m_h_mdthitXYLargeSpecialminus11out.at(i)->Fill(pSA_mdtR.at(mdt)*cos(pSA_mdtPhi.at(mdt)),pSA_mdtR.at(mdt)*sin(pSA_mdtPhi.at(mdt)));
+                                                  for(Int_t mdt = 0;mdt < (signed int)pSA_mdtZ->size();mdt++){
+                                                       m_h_mdthitXYLargeSpecialminus11out.at(i)->Fill(pSA_mdtR->at(mdt)*cos(pSA_mdtPhi->at(mdt)),pSA_mdtR->at(mdt)*sin(pSA_mdtPhi->at(mdt)));
                                                   }
                                              }
                                         }
@@ -1010,8 +1010,8 @@ void Efficiency::Execute(Int_t ev){
                               for(Int_t size = 0;size < (signed int)pSA_rpcX->size();size++){
                                    m_h_rpchitXY.at(i)->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
                               }
-                              for(Int_t size = 0;size < (signed int)pSA_mdtZ.size();size++){
-                                   m_h_mdthitXY.at(i)->Fill(pSA_mdtR.at(size)*cos(pSA_mdtR.at(size)),pSA_mdtR.at(size)*sin(pSA_mdtR.at(size)));
+                              for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
+                                   m_h_mdthitXY.at(i)->Fill(pSA_mdtR->at(size)*cos(pSA_mdtR->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtR->at(size)));
                               }
                               for(Int_t index = 0;index < 10;index++){
                                    if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_respt.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
