@@ -584,8 +584,9 @@ void Efficiency::Execute(Int_t ev){
                     pSA_rpcX = &(m_pSA_rpcX->at(method));
                     pSA_rpcY = &(m_pSA_rpcY->at(method));
                     vector<float> buf_pSA_mdtZ;
-                    for(Int_t j = 0;j > m_pSA_mdtZ->at(method).size();j++){
+                    for(Int_t j = 0;j > (signed int)m_pSA_mdtZ->at(method).size();j++){
                          buf_pSA_mdtZ.push_back(m_pSA_mdtZ->at(method).at(j));
+                         cout<<m_pSA_mdtZ->at(method).at(j)<<endl;
                     }
                     pSA_mdtZ = &(buf_pSA_mdtZ);
                     
