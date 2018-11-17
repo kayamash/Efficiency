@@ -538,9 +538,9 @@ void Efficiency::Execute(Int_t ev){
           float pSA_roiphi = -99999;
           vector<float> *pSA_rpcX = 0;
           vector<float> *pSA_rpcY = 0;
-          vector<float> pSA_mdtZ = 0;
-          vector<float> pSA_mdtR = 0;
-          vector<float> pSA_mdtPhi = 0;
+          vector<float> pSA_mdtZ;
+          vector<float> pSA_mdtR;
+          vector<float> pSA_mdtPhi;
           Double_t pCB_pt = -99999;
           Double_t pCB_eta = 0;
           Double_t pCB_phi = 0;
