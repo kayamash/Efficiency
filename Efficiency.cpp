@@ -608,11 +608,9 @@ void Efficiency::Execute(Int_t ev){
                          cout<<m_pSA_mdtZ->at(method).at(j)<<endl;
                     }
                     pSA_mdtZ = &(buf_pSA_mdtZ);*/
-		    cout<<m_pSA_mdtZ->size()<<endl;
                     pSA_mdtZ = &(m_pSA_mdtZ->at(method));
                     pSA_mdtR = &(m_pSA_mdtR->at(method));
                     pSA_mdtPhi = &(m_pSA_mdtPhi->at(method));
-		    cout<<pSA_mdtZ->size()<<endl;
                }
           }
 
