@@ -352,6 +352,24 @@ class Efficiency
   vector<TH2F*> m_h_offetavsSA_resptLargeSpecialminus11in;
   vector<TH2F*> m_h_offetavsSA_resptLargeSpecialminus15out;
   vector<TH2F*> m_h_offetavsSA_resptLargeSpecialminus15in;
+
+  vector<TH2F*> m_h_mdtetavsSA_resptLargeplus;
+  vector<TH2F*> m_h_mdtetavsSA_resptLargeSpecialplus;
+  vector<TH2F*> m_h_mdtetavsSA_resptSmallplus;
+  vector<TH2F*> m_h_mdtetavsSA_resptSmallSpecialplus;
+  vector<TH2F*> m_h_mdtetavsSA_resptLargeminus;
+  vector<TH2F*> m_h_mdtetavsSA_resptLargeSpecialminus;
+  vector<TH2F*> m_h_mdtetavsSA_resptSmallminus;
+  vector<TH2F*> m_h_mdtetavsSA_resptSmallSpecialminus;
+  vector<TH2F*> m_h_mdtetavsSA_resptLargeSpecialplus11out;
+  vector<TH2F*> m_h_mdtetavsSA_resptLargeSpecialplus11in;
+  vector<TH2F*> m_h_mdtetavsSA_resptLargeSpecialplus15out;
+  vector<TH2F*> m_h_mdtetavsSA_resptLargeSpecialplus15in;
+  vector<TH2F*> m_h_mdtetavsSA_resptLargeSpecialminus11out;
+  vector<TH2F*> m_h_mdtetavsSA_resptLargeSpecialminus11in;
+  vector<TH2F*> m_h_mdtetavsSA_resptLargeSpecialminus15out;
+  vector<TH2F*> m_h_mdtetavsSA_resptLargeSpecialminus15in;
+
   vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialplus11out;
   vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialplus11in;
   vector<TH2F*> m_h_highoffetavsSA_resptLargeSpecialplus15out;
