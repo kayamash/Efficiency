@@ -585,8 +585,8 @@ void Efficiency::Execute(Int_t ev){
                     pSA_rpcY = &(m_pSA_rpcY->at(method));
                     pSA_mdtZ = &(m_pSA_mdtZ->at(method));
                     for(Int_t sz = 0; sz > m_pSA_mdtZ->size();sz++){
-                         for(Int_t sz2 = 0;sz2 > m_pSA_mdtZ->at(sz)->size();sz2++){
-                              cout<<m_pSAmdtZ->at(sz)->at(sz2)<<endl;
+                         for(Int_t sz2 = 0;sz2 > m_pSA_mdtZ->at(sz).size();sz2++){
+                              cout<<m_pSAmdtZ->at(sz).at(sz2)<<endl;
                          }
                     }
                     pSA_mdtR = &(m_pSA_mdtR->at(method));
