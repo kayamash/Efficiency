@@ -738,7 +738,7 @@ void Efficiency::Execute(Int_t ev){
                          Double_t buf_pSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_eta,2) + pow(pSA_phi - m_poff_phi,2));
                          Double_t buf_eta = 0;
                          for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
-                              buf_eta += -Log((sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) - pSA_mdtZ->at(size))/(sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) + pow(pSA_mdtZ->at(size),2)))/2.0;
+                              buf_eta += -TMath::Log((sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) - pSA_mdtZ->at(size))/(sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) + pow(pSA_mdtZ->at(size),2)))/2.0;
                          }
                          Double_t ave_mdteta = buf_eta/static_cast<Double_t>(pSA_mdtZ->size());
 
