@@ -538,9 +538,9 @@ void Efficiency::Execute(Int_t ev){
           float pSA_roiphi = -99999;
           vector<float> *pSA_rpcX = 0;
           vector<float> *pSA_rpcY = 0;
-          vector<float> pSA_mdtZ;
-          vector<float> pSA_mdtR;
-          vector<float> pSA_mdtPhi;
+          vector<float> *pSA_mdtZ = 0;
+          vector<float> *pSA_mdtR = 0;
+          vector<float> *pSA_mdtPhi = 0;
           Double_t pCB_pt = -99999;
           Double_t pCB_eta = 0;
           Double_t pCB_phi = 0;
@@ -583,12 +583,12 @@ void Efficiency::Execute(Int_t ev){
                     pSA_roiphi = m_pSA_roiphi->at(method);
                     pSA_rpcX = &(m_pSA_rpcX->at(method));
                     pSA_rpcY = &(m_pSA_rpcY->at(method));
-                    pSA_mdtZ = &(m_pSA_mdtZ->at(method));
-                    for(Int_t sz = 0; sz > m_pSA_mdtZ->size();sz++){
-                         for(Int_t sz2 = 0;sz2 > m_pSA_mdtZ->at(sz).size();sz2++){
-                              cout<<m_pSA_mdtZ->at(sz).at(sz2)<<endl;
-                         }
+                    vector<float> buf_pSA_mdtZ;
+                    for(Int_t i = 0;i > m_pSA_mdtZ->at(method).size();i++){
+                         buf_pSA_mdtZ.push_back(m_pSA_mdtZ->at(method).at(i));
                     }
+                    pSA_mdtZ = &(buf_pSA_mdtZ);
+                    
                     pSA_mdtR = &(m_pSA_mdtR->at(method));
                     pSA_mdtPhi = &(m_pSA_mdtPhi->at(method));
                }
@@ -762,7 +762,7 @@ void Efficiency::Execute(Int_t ev){
                                    for(Int_t rpc = 0;rpc < (signed int)pSA_rpcX->size();rpc++){
                                         m_h_rpchitXYLargeSpecial.at(i)->Fill(pSA_rpcX->at(rpc),pSA_rpcY->at(rpc));
                                    }
-                                   for(Int_t mdt = 0;mdt < (signed int)pSA_mdtZ.size();mdt++){
+                                   for(Int_t mdt = 0;mdt < (signed int)pSA_mdtZ->size();mdt++){
                                         m_h_mdthitXYLargeSpecial.at(i)->Fill(pSA_mdtR->at(mdt)*cos(pSA_mdtPhi->at(mdt)),pSA_mdtR->at(mdt)*sin(pSA_mdtPhi->at(mdt)));
                                    }
 
@@ -797,8 +797,8 @@ void Efficiency::Execute(Int_t ev){
                                                   for(Int_t rpc = 0;rpc < (signed int)pSA_rpcX->size();rpc++){
                                                        m_h_rpchitXYLargeSpecialplus15out.at(i)->Fill(pSA_rpcX->at(rpc),pSA_rpcY->at(rpc));
                                                   }
-                                                  for(Int_t mdt = 0;mdt < (signed int)pSA_mdtZ.size();mdt++){
-                                                       m_h_mdthitXYLargeSpecialplus15out.at(i)->Fill(pSA_mdtR.at(mdt)*cos(pSA_mdtPhi.at(mdt)),pSA_mdtR.at(mdt)*sin(pSA_mdtPhi.at(mdt)));
+                                                  for(Int_t mdt = 0;mdt < (signed int)pSA_mdtZ->size();mdt++){
+                                                       m_h_mdthitXYLargeSpecialplus15out.at(i)->Fill(pSA_mdtR->at(mdt)*cos(pSA_mdtPhi->at(mdt)),pSA_mdtR->at(mdt)*sin(pSA_mdtPhi->at(mdt)));
                                                   }
 
                                              }else{
@@ -836,7 +836,7 @@ void Efficiency::Execute(Int_t ev){
                                                   for(Int_t rpc = 0;rpc < (signed int)pSA_rpcX->size();rpc++){
                                                        m_h_rpchitXYLargeSpecialplus11in.at(i)->Fill(pSA_rpcX->at(rpc),pSA_rpcY->at(rpc));
                                                   }
-                                                  for(Int_t mdt = 0;mdt < (signed int)pSA_mdtZ.size();mdt++){
+                                                  for(Int_t mdt = 0;mdt < (signed int)pSA_mdtZ->size();mdt++){
                                                        m_h_mdthitXYLargeSpecialplus11in.at(i)->Fill(pSA_mdtR.at(mdt)*cos(pSA_mdtPhi.at(mdt)),pSA_mdtR.at(mdt)*sin(pSA_mdtPhi.at(mdt)));
                                                   }
 
