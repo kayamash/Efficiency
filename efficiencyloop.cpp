@@ -23,8 +23,8 @@
 #include <TBranch.h>
 #include "Efficiency.cpp"
 
-//const string trigger = "mu26ivm";
-const string trigger = "data18mu26ivm";
+const string trigger = "mu26ivm";
+//const string trigger = "data18mu26ivm";
 //const string trigger = "mu4";
 //Jpsitap == 1,Ztap == 3
 Int_t proc = 3;
@@ -33,10 +33,10 @@ Int_t proc = 3;
 //const string inputfilename = "/gpfs/fs6001/tsakai/sample2.root";
 //const string inputfilename = "/gpfs/fs6001/kayamash/efficiency_output/mc16_13TeVZmumu070.root";
 //const string inputfilelist = "/home/kayamash/efflist/Zmumu300540_hadd.list";
-//const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.list";
-const string inputfilelist = "/home/kayamash/efflist/newCalcdata18.list";
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/newCalcdata18mu26ivm0.root";
-//const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/plot3.root";
+const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.list";
+//const string inputfilelist = "/home/kayamash/efflist/newCalcdata18.list";
+//const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/newCalcdata18mu26ivm0.root";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/newdata18_physics_Main_Ztap.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/output/mu4/plot3.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
