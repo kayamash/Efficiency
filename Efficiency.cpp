@@ -414,14 +414,14 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
                m_h_offphivsSA_resptLargeSpecialminus.push_back(new TH2F(Form("h_offphivsSA_resptLargeSpecialminus_%dGeV",i*m_thpitch),"LargeSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
                m_h_offphivsSA_resptSmallminus.push_back(new TH2F(Form("h_offphivsSA_resptSmallminus_%dGeV",i*m_thpitch),"Small;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
                m_h_offphivsSA_resptSmallSpecialminus.push_back(new TH2F(Form("h_offphivsSA_resptSmallSpecialminus_%dGeV",i*m_thpitch),"SmallSpecial;offline phi;SApt residual",140,-3.5,3.5,300,-2.0,1.0));
-               m_h_off_ptvsSA_resptLargeSpecialplus11out.push_back(new TH2F(Form("h_off_ptvsSA_resptLargeSpecialplus11out_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+               m_h_off_ptvsSA_resptLargeSpecialplus11out.push_back(new TH2F(Form("h_off_ptvsSA_resptLargeSpcialplus11out_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
                m_h_off_ptvsSA_resptLargeSpecialplus15out.push_back(new TH2F(Form("h_off_ptvsSA_resptLargeSpecialplus15out_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
-               m_h_off_ptvsSA_resptLargeSpecialplus11in.push_back(new TH2F(Form("h_off_ptvsSA_resptLargeSpecialplus11in_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
-               m_h_off_ptvsSA_resptLargeSpecialplus15in.push_back(new TH2F(Form("h_off_ptvsSA_resptLargeSpecialplus15in_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
-               m_h_off_ptvsSA_resptLargeSpecialminus11out.push_back(new TH2F(Form("h_off_ptvsSA_resptLargeSpecialminus11out_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+               m_h_off_ptvsSA_resptLargeSpecialplus11in.push_back(new TH2F(Form("h_off_ptvsSA_resptplusLargeSpecialplus11in_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+               m_h_off_ptvsSA_resptLargeSpecialplus15in.push_back(new TH2F(Form("h_off_ptvsSA_resptplusLargeSpecialplus15in_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+               m_h_off_ptvsSA_resptLargeSpecialminus11out.push_back(new TH2F(Form("h_off_ptvsSA_resptLargeSpcialminus11out_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
                m_h_off_ptvsSA_resptLargeSpecialminus15out.push_back(new TH2F(Form("h_off_ptvsSA_resptLargeSpecialminus15out_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
-               m_h_off_ptvsSA_resptLargeSpecialminus11in.push_back(new TH2F(Form("h_off_ptvsSA_resptLargeSpecialminus11in_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
-               m_h_off_ptvsSA_resptLargeSpecialminus15in.push_back(new TH2F(Form("h_off_ptvsSA_resptLargeSpecialminus15in_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+               m_h_off_ptvsSA_resptLargeSpecialminus11in.push_back(new TH2F(Form("h_off_ptvsSA_resptplusLargeSpecialminus11in_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+               m_h_off_ptvsSA_resptLargeSpecialminus15in.push_back(new TH2F(Form("h_off_ptvsSA_resptplusLargeSpecialminus15in_%dGeV",i*m_thpitch),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
                m_h_offetavsSA_resptLargeplus.push_back(new TH2F(Form("h_offetavsSA_resptLargeplus_%dGeV",i*m_thpitch),"Large;offline eta;SApt residual",100,-2.5,2.5,300,-2.0,1.0));
                m_h_offetavsSA_resptLargeSpecialplus.push_back(new TH2F(Form("h_offetavsSA_resptLargeSpecialplus_%dGeV",i*m_thpitch),"LargeSpecial;offline eta;SApt residual",100,-2.5,2.5,300,-2.0,1.0));
                m_h_offetavsSA_resptSmallplus.push_back(new TH2F(Form("h_offetavsSA_resptSmallplus_%dGeV",i*m_thpitch),"Small;offline eta;SApt residual",100,-2.5,2.5,300,-2.0,1.0));
@@ -839,7 +839,6 @@ void Efficiency::Execute(Int_t ev){
                                                   m_h_SA_resptLargeSpecialplus15in.at(i)->Fill(resSA_pt);
                                                   m_h_offetavsSA_resptLargeSpecialplus15in.at(i)->Fill(m_poff_eta,resSA_pt);
                                                   m_h_mdtetavsSA_resptLargeSpecialplus15in.at(i)->Fill(ave_mdteta,resSA_pt);
-                                                  m_h_eSA_pt_LargeSpecialplus15in.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                                   for(Int_t index = 0;index < 10;index++){
                                                       if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus15in.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                                   }
@@ -935,7 +934,6 @@ void Efficiency::Execute(Int_t ev){
                                                   m_h_SA_resptLargeSpecialminus15in.at(i)->Fill(resSA_pt);
                                                   m_h_offetavsSA_resptLargeSpecialminus15in.at(i)->Fill(m_poff_eta,resSA_pt);
                                                   m_h_mdtetavsSA_resptLargeSpecialminus15in.at(i)->Fill(ave_mdteta,resSA_pt);
-                                                  m_h_eSA_pt_LargeSpecialminus15in.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                                   for(Int_t index = 0;index < 10;index++){
                                                       if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus15in.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                                   }
