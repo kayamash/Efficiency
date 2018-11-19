@@ -33,12 +33,12 @@ Int_t proc = 3;
 //const string inputfilename = "/gpfs/fs6001/tsakai/sample2.root";
 //const string inputfilename = "/gpfs/fs6001/kayamash/efficiency_output/mc16_13TeVZmumu070.root";
 //const string inputfilelist = "/home/kayamash/efflist/Zmumu300540_hadd.list";
-//const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.list";
+const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.list";
 //const string inputfilelist = "/home/kayamash/efflist/Calcdata18.list";
-const string inputfilelist = "/home/kayamash/efflist/newmc16345099.list"; 
+//const string inputfilelist = "/home/kayamash/efflist/newmc16345099.list"; 
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/Calcdata18mu26ivm0.root";
-//const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/newdata18_physics_Main_Ztap.root";
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/newmc16345099.root";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/newdata18_physics_Main_Ztap.root";
+//const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/newmc16345099.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
 const Int_t nhist = 1;
@@ -68,6 +68,7 @@ void efficiencyloop(){
 	cout<<"Execute"<<endl;
 	for(Int_t event = 0;event < tr1->GetEntries(); event++){
 	//for(Int_t event = 0;event < 100000; event++){
+		cout<<event<<endl;
 		eff.Execute(event);
 	}
 	cout<<"Finalize"<<endl;
