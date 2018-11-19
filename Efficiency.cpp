@@ -1366,10 +1366,10 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
           ceff.DrawEfficiency2D(m_h_eff_poff_etaphi.at(i),m_h_eff_pL1_etaphi.at(i));
 
-          m_g_rpchitXY = new TGraph(m_vec_rpcx.size(),&(m_vec_rpcx.at(0)),&(m_vec_rpcy.at(0)));
-          m_g_mdthitXY = new TGraph(m_vec_mdtx.size(),&(m_vec_mdtx.at(0)),&(m_vec_mdty.at(0)));
-          m_g_rpchitXY->SetTitle("g_rpchitxy");
-          m_g_mdthitXY->SetTitle("g_mdthitxy");
+          TGraph *g_rpchitXY = new TGraph(m_vec_rpcx.size(),&(m_vec_rpcx.at(0)),&(m_vec_rpcy.at(0)));
+          TGraph *g_mdthitXY = new TGraph(m_vec_mdtx.size(),&(m_vec_mdtx.at(0)),&(m_vec_mdty.at(0)));
+          g_rpchitXY->SetTitle("g_rpchitxy");
+          g_mdthitXY->SetTitle("g_mdthitxy");
 
           m_h_poff_pt.at(i)->Write();
           m_h_pL1_pt.at(i)->Write();
@@ -1411,8 +1411,8 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_mdthitXYLargeSpecialminus11in.at(i)->Write();
           m_h_mdthitXYLargeSpecialminus15out.at(i)->Write();
           m_h_mdthitXYLargeSpecialminus15in.at(i)->Write();
-          m_g_rpchitXY->Write();
-          m_g_mdthitXY->Write();
+          g_rpchitXY->Write();
+          g_mdthitXY->Write();
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
           m_h_eSA_pt.at(i)->Write();

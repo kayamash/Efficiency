@@ -218,8 +218,8 @@ class Efficiency
   vector<TH2F*> m_h_mdthitXYLargeSpecialminus11in;
   vector<TH2F*> m_h_mdthitXYLargeSpecialminus15out;
   vector<TH2F*> m_h_mdthitXYLargeSpecialminus15in;
-  TGraph* m_g_rpchitXY;
-  TGraph* m_g_mdthitXY;
+  //TGraph* m_g_rpchitXY;
+  //TGraph* m_g_mdthitXY;
 
   //Efficiency
   vector<TH1D*> m_h_eoff_pt;
