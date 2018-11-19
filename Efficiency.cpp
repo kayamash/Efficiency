@@ -303,6 +303,8 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
                m_h_mdthitXYLargeSpecialminus11in.push_back(new TH2F(Form("h_mdthitXvsmdthitYLargeSpecialminus11in_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit X[cm];MDT hit Y[cm]",5000,-25000.0,10000.0,5000,-25000.0,25000.0));
                m_h_mdthitXYLargeSpecialminus15out.push_back(new TH2F(Form("h_mdthitXvsmdthitYLargeSpecialminus15out_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit X[cm];MDT hit Y[cm]",5000,-25000.0,10000.0,5000,-25000.0,25000.0));
                m_h_mdthitXYLargeSpecialminus15in.push_back(new TH2F(Form("h_mdthitXvsmdthitYLargeSpecialminus15in_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit X[cm];MDT hit Y[cm]",5000,-25000.0,10000.0,5000,-25000.0,25000.0));
+               m_h_mdthitZR.push_back(new TH2F(Form("h_mdthitZvsmdthitR_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit Z[mm];MDT hit R[mm]",5000,-25000.0,25000.0,1500,0.0,15000.0));
+
 
                //Efficiency
           	m_h_eoff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
@@ -1058,6 +1060,7 @@ void Efficiency::Execute(Int_t ev){
                               }
                               for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
                                    m_h_mdthitXY.at(i)->Fill(pSA_mdtR->at(size)*cos(pSA_mdtR->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtR->at(size)));
+                                   m_h_mdthitZR.at(i)->Fill(pSA_mdtZ->at(size),pSA_mdtR->at(size));
                                    m_vec_mdtx.push_back(pSA_mdtR->at(size)*cos(pSA_mdtR->at(size)));
                                    m_vec_mdty.push_back(pSA_mdtR->at(size)*sin(pSA_mdtR->at(size)));
                               }
@@ -1413,6 +1416,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_mdthitXYLargeSpecialminus15in.at(i)->Write();
           g_rpchitXY->Write();
           g_mdthitXY->Write();
+          m_h_mdthitZR.at(i)->Write();
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
           m_h_eSA_pt.at(i)->Write();
@@ -1632,6 +1636,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_mdthitXYLargeSpecialminus11in.clear();
           m_h_mdthitXYLargeSpecialminus15out.clear();
           m_h_mdthitXYLargeSpecialminus15in.clear();
+          m_h_mdthitZR.clear();
           m_h_eoff_pt.clear();
           m_h_eL1_pt.clear();
           m_h_eSA_pt.clear();
