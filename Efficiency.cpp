@@ -110,6 +110,10 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      	m_pEF_pass = 0;
      	m_pEFTAG_pass = 0;
      	m_sumReqdREF = 0;
+          m_vec_rpcx = 0;
+          m_vec_rpcy = 0;
+          m_vec_mdtx = 0;
+          m_vec_mdty = 0;
 
      	//active only need branch 
      	tChain->SetBranchStatus("*",0);
@@ -1049,9 +1053,13 @@ void Efficiency::Execute(Int_t ev){
                               m_h_offphivsSA_sAddress.at(i)->Fill(pSA_phims,pSA_sAddress);
                               for(Int_t size = 0;size < (signed int)pSA_rpcX->size();size++){
                                    m_h_rpchitXY.at(i)->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
+                                   m_vec_rpcx.push_back(pSA_rpcX->at(size));
+                                   m_vec_rpcy.push_back(pSA_rpcY->at(size));
                               }
                               for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
                                    m_h_mdthitXY.at(i)->Fill(pSA_mdtR->at(size)*cos(pSA_mdtR->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtR->at(size)));
+                                   m_vec_mdtx.push_back(pSA_mdtR->at(size)*cos(pSA_mdtR->at(size)));
+                                   m_vec_mdty.push_back(pSA_mdtR->at(size)*sin(pSA_mdtR->at(size)));
                               }
                               for(Int_t index = 0;index < 10;index++){
                                    if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_respt.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
@@ -1358,6 +1366,9 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
           ceff.DrawEfficiency2D(m_h_eff_poff_etaphi.at(i),m_h_eff_pL1_etaphi.at(i));
 
+          m_g_rpchitXY = new TGraph("g_rpcXY",m_vec_rpcx.size(),&(m_vec_rpcx.at(0),&(m_vec_rpcy.at(0));
+          m_g_mdthitXY = new TGraph("g_mdtXY",m_vec_mdtx.size(),&(m_vec_mdtx.at(0),&(m_vec_mdty.at(0));
+
           m_h_poff_pt.at(i)->Write();
           m_h_pL1_pt.at(i)->Write();
           m_h_pSA_pt.at(i)->Write();
@@ -1398,6 +1409,8 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_mdthitXYLargeSpecialminus11in.at(i)->Write();
           m_h_mdthitXYLargeSpecialminus15out.at(i)->Write();
           m_h_mdthitXYLargeSpecialminus15in.at(i)->Write();
+          m_g_rpchitXY->Write();
+          m_g_mdthitXY->Write();
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
           m_h_eSA_pt.at(i)->Write();
