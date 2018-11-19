@@ -201,8 +201,8 @@ class Efficiency
   vector<TH2F*> m_h_rpchitXY;
   vector<TH2F*> m_h_mdthitXY;
   vector<TH2F*> m_h_mdthitZR;
-  //TGraph* m_g_rpchitXY;
-  //TGraph* m_g_mdthitXY;
+  vector<TGraph*> m_g_rpchitXY;
+  vector<TGraph*> m_g_mdthitXY;
 
   //Efficiency
   vector<TH1D*> m_h_eoff_pt;
@@ -395,10 +395,6 @@ class Efficiency
   vector<Int_t> m_countLargeSpecial;
   vector<Int_t> m_countSmall;
   vector<Int_t> m_countSmallSpecial;
-  vector<Double_t> m_vec_rpcx;
-  vector<Double_t> m_vec_rpcy;
-  vector<Double_t> m_vec_mdtx;
-  vector<Double_t> m_vec_mdty;
 
 public:
   void Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th,Int_t proc);
