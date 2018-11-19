@@ -1291,8 +1291,8 @@ void Efficiency::Finalize(TFile *tf1){
 
           TGraph *g_rpchitXY = new TGraph(m_vec_rpcx.size(),&(m_vec_rpcx.at(0)),&(m_vec_rpcy.at(0)));
           TGraph *g_mdthitXY = new TGraph(m_vec_mdtx.size(),&(m_vec_mdtx.at(0)),&(m_vec_mdty.at(0)));
-          g_rpchitXY->SetTitle("g_rpchitxy");
-          g_mdthitXY->SetTitle("g_mdthitxy");
+          g_rpchitXY->SetName("g_rpchitxy");
+          g_mdthitXY->SetName("g_mdthitxy");
 
           m_h_poff_pt.at(i)->Write();
           m_h_pL1_pt.at(i)->Write();
