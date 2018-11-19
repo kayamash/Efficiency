@@ -110,10 +110,10 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      	m_pEF_pass = 0;
      	m_pEFTAG_pass = 0;
      	m_sumReqdREF = 0;
-          m_vec_rpcx = 0;
-          m_vec_rpcy = 0;
-          m_vec_mdtx = 0;
-          m_vec_mdty = 0;
+          //m_vec_rpcx = 0;
+          //m_vec_rpcy = 0;
+          //m_vec_mdtx = 0;
+          //m_vec_mdty = 0;
 
      	//active only need branch 
      	tChain->SetBranchStatus("*",0);
@@ -1366,8 +1366,8 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
           ceff.DrawEfficiency2D(m_h_eff_poff_etaphi.at(i),m_h_eff_pL1_etaphi.at(i));
 
-          m_g_rpchitXY = new TGraph("g_rpcXY",m_vec_rpcx.size(),&(m_vec_rpcx.at(0),&(m_vec_rpcy.at(0));
-          m_g_mdthitXY = new TGraph("g_mdtXY",m_vec_mdtx.size(),&(m_vec_mdtx.at(0),&(m_vec_mdty.at(0));
+          m_g_rpchitXY = new TGraph("g_rpcXY",m_vec_rpcx.size(),&(m_vec_rpcx.at(0),&(m_vec_rpcy.at(0)));
+          m_g_mdthitXY = new TGraph("g_mdtXY",m_vec_mdtx.size(),&(m_vec_mdtx.at(0),&(m_vec_mdty.at(0)));
 
           m_h_poff_pt.at(i)->Write();
           m_h_pL1_pt.at(i)->Write();
