@@ -93,12 +93,23 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      	m_pSA_sAddress = 0;
           m_pSA_rpcX = 0;
           m_pSA_rpcY = 0;
+          m_pSA_rpcZ = 0;
+          m_pSA_rpcR = 0;
           m_pSA_mdtZ = 0;
           m_pSA_mdtR = 0;
           m_pSA_mdtPhi = 0;
           m_pSA_phims = 0;
+          m_pSA_phibe = 0;
           m_pSA_roiphi = 0;
-     	m_pCB_pt = 0;
+          m_pSA_superpointZ_BI = 0;
+          m_pSA_superpointZ_BM = 0;
+          m_pSA_superpointZ_BO = 0;
+          m_pSA_superpointZ_BME = 0;
+     	m_pSA_superpointR_BI = 0;
+          m_pSA_superpointR_BM = 0;
+          m_pSA_superpointR_BO = 0;
+          m_pSA_superpointR_BME = 0;
+          m_pCB_pt = 0;
      	m_pCB_eta = 0;
      	m_pCB_phi = 0;
      	m_pCB_dR = 0;
@@ -163,12 +174,23 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      	tChain->SetBranchStatus("probe_mesSA_dR",1);
      	tChain->SetBranchStatus("probe_mesSA_sAddress",1);
      	tChain->SetBranchStatus("probe_mesSA_phims",1);
+          tChain->SetBranchStatus("probe_mesSA_phibe",1);
      	tChain->SetBranchStatus("probe_mesSA_roiPhi",1);
           tChain->SetBranchStatus("probe_mesSA_rpcHitX",1);
           tChain->SetBranchStatus("probe_mesSA_rpcHitY",1);
+          tChain->SetBranchStatus("probe_mesSA_rpcHitZ",1);
+          tChain->SetBranchStatus("probe_mesSA_rpcHitR",1);
           tChain->SetBranchStatus("probe_mesSA_mdtHitZ",1);
           tChain->SetBranchStatus("probe_mesSA_mdtHitR",1);
           tChain->SetBranchStatus("probe_mesSA_mdtHitPhi",1);
+          tChain->SetBranchStatus("probe_mesSA_superPointZ_BI",1);
+          tChain->SetBranchStatus("probe_mesSA_superPointZ_BM",1);
+          tChain->SetBranchStatus("probe_mesSA_superPointZ_BO",1);
+          tChain->SetBranchStatus("probe_mesSA_superPointZ_BME",1);
+          tChain->SetBranchStatus("probe_mesSA_superPointR_BI",1);
+          tChain->SetBranchStatus("probe_mesSA_superPointR_BM",1);
+          tChain->SetBranchStatus("probe_mesSA_superPointR_BO",1);
+          tChain->SetBranchStatus("probe_mesSA_superPointR_BME",1);
      	tChain->SetBranchStatus("probe_mesCB_pt",1);
      	tChain->SetBranchStatus("probe_mesCB_eta",1);
      	tChain->SetBranchStatus("probe_mesCB_phi",1);  
@@ -234,11 +256,22 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      	tChain->SetBranchAddress("probe_mesSA_sAddress",&m_pSA_sAddress,&b_pSA_sAddress);
           tChain->SetBranchAddress("probe_mesSA_rpcHitX",&m_pSA_rpcX,&b_pSA_rpcX);
           tChain->SetBranchAddress("probe_mesSA_rpcHitY",&m_pSA_rpcY,&b_pSA_rpcY);
+          tChain->SetBranchAddress("probe_mesSA_rpcHitZ",&m_pSA_rpcZ,&b_pSA_rpcZ);
+          tChain->SetBranchAddress("probe_mesSA_rpcHitR",&m_pSA_rpcR,&b_pSA_rpcR);
           tChain->SetBranchAddress("probe_mesSA_mdtHitZ",&m_pSA_mdtZ,&b_pSA_mdtZ);
           tChain->SetBranchAddress("probe_mesSA_mdtHitR",&m_pSA_mdtR,&b_pSA_mdtR);
           tChain->SetBranchAddress("probe_mesSA_mdtHitPhi",&m_pSA_mdtPhi,&b_pSA_mdtPhi);
           tChain->SetBranchAddress("probe_mesSA_phims",&m_pSA_phims,&b_pSA_phims);
+          tChain->SetBranchAddress("probe_mesSA_phibe",&m_pSA_phibe,&b_pSA_phibe);
           tChain->SetBranchAddress("probe_mesSA_roiPhi",&m_pSA_roiphi,&b_pSA_roiphi);
+          tChain->SetBranchAddress("probe_mesSA_superPointZ_BI",&m_pSA_superpointZ_BI,&b_pSA_superpointZ_BI);
+          tChain->SetBranchAddress("probe_mesSA_superPointZ_BM",&m_pSA_superpointZ_BM,&b_pSA_superpointZ_BM);
+          tChain->SetBranchAddress("probe_mesSA_superPointZ_BO",&m_pSA_superpointZ_BO,&b_pSA_superpointZ_BO);
+          tChain->SetBranchAddress("probe_mesSA_superPointZ_BME",&m_pSA_superpointZ_BME,&b_pSA_superpointZ_BME);
+          tChain->SetBranchAddress("probe_mesSA_superPointR_BI",&m_pSA_superpointR_BI,&b_pSA_superpointR_BI);
+          tChain->SetBranchAddress("probe_mesSA_superPointR_BM",&m_pSA_superpointR_BM,&b_pSA_superpointR_BM);
+          tChain->SetBranchAddress("probe_mesSA_superPointR_BO",&m_pSA_superpointR_BO,&b_pSA_superpointR_BO);
+          tChain->SetBranchAddress("probe_mesSA_superPointR_BME",&m_pSA_superpointR_BME,&b_pSA_superpointR_BME);
      	tChain->SetBranchAddress("probe_mesCB_pt",&m_pCB_pt,&b_pCB_pt);
      	tChain->SetBranchAddress("probe_mesCB_eta",&m_pCB_eta,&b_pCB_eta);
      	tChain->SetBranchAddress("probe_mesCB_phi",&m_pCB_phi,&b_pCB_phi);
@@ -279,9 +312,13 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
                m_h_poffvsSA_pt.push_back(new TH2F(Form("h_poffvsSA_pt_%dGeV",i*m_thpitch),"probe offline pt vs probe L2MuonSA pt@mu26ivm;probe offline pt[GeV];probe L2MuonSA pt[GeV]",150,0,150,150,0,150));
                m_h_offphivsSA_sAddress.push_back(new TH2F(Form("h_offphivsSA_sAddress_%dGeV",i*m_thpitch),"offline phi vs sAddress;offline phi;sAddress",140,-3.5,3.5,4,0.0,4.0));
                m_h_offphivsSAphims.push_back(new TH2F(Form("h_offphivsSAphims_%dGeV",i*m_thpitch),"offphi vs phims;offline phi;L2MuonSA phims",140,-3.5,3.5,140,-3.5,3.5));
-               m_h_rpchitXY.push_back(new TH2F(Form("h_rpchitXvsrpchitY_%dGeV",i*m_thpitch),"RPC hit distribution;RPC hit X[cm];RPC hit Y[cm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
-               m_h_mdthitXY.push_back(new TH2F(Form("h_mdthitXvsmdthitY_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit X[cm];MDT hit Y[cm]",5000,-25000.0,25000.0,5000,-25000.0,25000.0));
+               m_h_rpchitXY.push_back(new TH2F(Form("h_rpchitXvsrpchitY_%dGeV",i*m_thpitch),"RPC hit distribution;RPC hit X[mm];RPC hit Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
+               m_h_rpchitZR.push_back(new TH2F(Form("h_rpchitZvsrpchitR_%dGeV",i*m_thpitch),"RPC hit distribution;RPC hit Z[mm];RPC hit R[mm]",5000,-25000.0,25000.0,1500,0.0,15000.0));
+               m_h_mdthitXY.push_back(new TH2F(Form("h_mdthitXvsmdthitY_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit X[mm];MDT hit Y[mm]",5000,-25000.0,25000.0,5000,-25000.0,25000.0));
                m_h_mdthitZR.push_back(new TH2F(Form("h_mdthitZvsmdthitR_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit Z[mm];MDT hit R[mm]",5000,-25000.0,25000.0,1500,0.0,15000.0));
+               m_h_pSAphivspSAphims.push_back(new TH2F(Form("h_pSAphivspSAphims_%dGeV",i*m_thpitch),"SA phi vs SA phims",140,-3.5,3.5,140,-3.5,3.5));
+               m_h_pSAphivspSAphibe.push_back(new TH2F(Form("h_pSAphivspSAphibe_%dGeV",i*m_thpitch),"SA phi vs SA phibe",140,-3.5,3.5,140,-3.5,3.5));
+               m_h_mdtSPXY.push_back(new TH2F(Form("h_mdtSPXY_%dGeV",i*m_thpitch),"Barrel SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
                m_g_rpchitXY.push_back(new TGraph(0));
                m_g_mdthitXY.push_back(new TGraph(0));
 
@@ -538,12 +575,23 @@ void Efficiency::Execute(Int_t ev){
           Int_t pSA_pass = 0;
           Double_t pSA_sAddress = -1;
           Double_t pSA_phims = -99999;
+          Double_t pSA_phibe = -99999;
           float pSA_roiphi = -99999;
           vector<float> *pSA_rpcX = 0;
           vector<float> *pSA_rpcY = 0;
+          vector<float> *pSA_rpcZ = 0;
+          vector<float> *pSA_rpcR = 0;
           vector<float> *pSA_mdtZ = 0;
           vector<float> *pSA_mdtR = 0;
           vector<float> *pSA_mdtPhi = 0;
+          Double_t pSA_superpointZ_BI = -99999;
+          Double_t pSA_superpointZ_BM = -99999;
+          Double_t pSA_superpointZ_BO = -99999;
+          Double_t pSA_superpointZ_BME = -99999;
+          Double_t pSA_superpointR_BI = -99999;
+          Double_t pSA_superpointR_BM = -99999;
+          Double_t pSA_superpointR_BO = -99999;
+          Double_t pSA_superpointR_BME = -99999;
           Double_t pCB_pt = -99999;
           Double_t pCB_eta = 0;
           Double_t pCB_phi = 0;
@@ -583,12 +631,23 @@ void Efficiency::Execute(Int_t ev){
                     pEFTAG_pass = m_pEFTAG_pass->at(method);
                     pSA_sAddress = m_pSA_sAddress->at(method);
                     pSA_phims = m_pSA_phims->at(method);
+                    pSA_phibe = m_pSA_phibe->at(method);
                     pSA_roiphi = m_pSA_roiphi->at(method);
                     pSA_rpcX = &(m_pSA_rpcX->at(method));
                     pSA_rpcY = &(m_pSA_rpcY->at(method));
+                    pSA_rpcZ = &(m_pSA_rpcZ->at(method));
+                    pSA_rpcR = &(m_pSA_rpcR->at(method));
                     pSA_mdtZ = &(m_pSA_mdtZ->at(method));
                     pSA_mdtR = &(m_pSA_mdtR->at(method));
                     pSA_mdtPhi = &(m_pSA_mdtPhi->at(method));
+                    pSA_superpointZ_BI = m_pSA_superpointZ_BI->at(method);
+                    pSA_superpointZ_BM = m_pSA_superpointZ_BM->at(method);
+                    pSA_superpointZ_BO = m_pSA_superpointZ_BO->at(method);
+                    pSA_superpointZ_BME = m_pSA_superpointZ_BME->at(method);
+                    pSA_superpointR_BI = m_pSA_superpointR_BI->at(method);
+                    pSA_superpointR_BM = m_pSA_superpointR_BM->at(method);
+                    pSA_superpointR_BO = m_pSA_superpointR_BO->at(method);
+                    pSA_superpointR_BME = m_pSA_superpointR_BME->at(method);
                }
           }
 
@@ -725,6 +784,8 @@ void Efficiency::Execute(Int_t ev){
                          m_h_pextSA_dR.at(i)->Fill(pextSA_dR);
                          m_h_eSA_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                          m_h_pSA_respt.at(i)->Fill(resSA_pt);
+                         m_h_pSAphivspSAphims.at(i)->Fill(pSA_phi,pSA_phims);
+                         m_h_pSAphivspSAphibe.at(i)->Fill(pSA_phi,pSA_phibe);
                          if(Dicision_barrel(m_poff_eta)){
                               m_h_eSA_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                          }else{
@@ -966,6 +1027,9 @@ void Efficiency::Execute(Int_t ev){
                               for(Int_t size = 0;size < (signed int)pSA_rpcX->size();size++){
                                    m_h_rpchitXY.at(i)->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
                                    if(m_g_rpchitXY.at(i)->GetN() <= 1000000)m_g_rpchitXY.at(i)->SetPoint(m_g_rpchitXY.at(i)->GetN(),pSA_rpcX->at(size),pSA_rpcY->at(size));
+                              }
+                              for(Int_t size = 0;size < (signed int)pSA_rpcZ->size();size++){
+                                   m_h_rpcZR.at(i)->Fill(pSA_rpcZ->at(size),pSA_rpcR->at(size));
                               }
                               for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
                                    m_h_mdthitXY.at(i)->Fill(pSA_mdtR->at(size)*cos(pSA_mdtPhi->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtPhi->at(size)));

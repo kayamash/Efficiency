@@ -84,13 +84,24 @@ class Efficiency
   std::vector<Double_t> *m_pSA_dR;
   std::vector<Double_t> *m_pSA_sAddress;
   std::vector<Double_t> *m_pSA_phims;
+  std::vector<Double_t> *m_pSA_phibe;
   std::vector<float> *m_pSA_roiphi;
   std::vector<Int_t> *m_pSA_pass;
   std::vector<vector<float>> *m_pSA_rpcX;
   std::vector<vector<float>> *m_pSA_rpcY;
+  std::vector<vector<float>> *m_pSA_rpcZ;
+  std::vector<vector<float>> *m_pSA_rpcR;
   std::vector<vector<float>> *m_pSA_mdtZ;
   std::vector<vector<float>> *m_pSA_mdtR;
   std::vector<vector<float>> *m_pSA_mdtPhi;
+  std::vector<Double_t> *m_pSA_superpointZ_BI;
+  std::vector<Double_t> *m_pSA_superpointZ_BM;
+  std::vector<Double_t> *m_pSA_superpointZ_BO;
+  std::vector<Double_t> *m_pSA_superpointZ_BME;
+  std::vector<Double_t> *m_pSA_superpointR_BI;
+  std::vector<Double_t> *m_pSA_superpointR_BM;
+  std::vector<Double_t> *m_pSA_superpointR_BO;
+  std::vector<Double_t> *m_pSA_superpointR_BME;
   std::vector<Double_t> *m_pCB_pt;
   std::vector<Double_t> *m_pCB_eta;
   std::vector<Double_t> *m_pCB_phi;
@@ -165,6 +176,11 @@ class Efficiency
   TBranch *b_pSA_superpointZ_BI;
   TBranch *b_pSA_superpointZ_BM;
   TBranch *b_pSA_superpointZ_BO;
+  TBranch *b_pSA_superpointZ_BME;
+  TBranch *b_pSA_superpointR_BI;
+  TBranch *b_pSA_superpointR_BM;
+  TBranch *b_pSA_superpointR_BO;
+  TBranch *b_pSA_superpointR_BME;
   TBranch *b_pCB_pt;
   TBranch *b_pCB_eta;
   TBranch *b_pCB_phi;
@@ -205,13 +221,13 @@ class Efficiency
   TH1D *m_h_saroiphi_LargeSpecial;
   TH1D *m_h_saroiphi_SmallSpecial;
   vector<TH2F*> m_h_rpchitXY;
-  vector<TH2F*> m_h_rpchitZR;
+  vector<TH2F*> m_h_rpchitZR;//
   vector<TH2F*> m_h_mdthitXY;
   vector<TH2F*> m_h_mdthitZR;
   vector<TGraph*> m_g_rpchitXY;
   vector<TGraph*> m_g_mdthitXY;
-  vector<TH2F*> m_h_pSAphivspSAphims;
-  vector<TH2F*> m_h_pSAphivspSAphibe;
+  vector<TH2F*> m_h_pSAphivspSAphims;//
+  vector<TH2F*> m_h_pSAphivspSAphibe;//
   vector<TH2F*> m_h_mdtSPXY;
 
   //Efficiency
