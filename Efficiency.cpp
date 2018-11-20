@@ -318,7 +318,11 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
                m_h_mdthitZR.push_back(new TH2F(Form("h_mdthitZvsmdthitR_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit Z[mm];MDT hit R[mm]",5000,-25000.0,25000.0,1500,0.0,15000.0));
                m_h_pSAphivspSAphims.push_back(new TH2F(Form("h_pSAphivspSAphims_%dGeV",i*m_thpitch),"SA phi vs SA phims",140,-3.5,3.5,140,-3.5,3.5));
                m_h_pSAphivspSAphibe.push_back(new TH2F(Form("h_pSAphivspSAphibe_%dGeV",i*m_thpitch),"SA phi vs SA phibe",140,-3.5,3.5,140,-3.5,3.5));
-               m_h_mdtSPXY.push_back(new TH2F(Form("h_mdtSPXY_%dGeV",i*m_thpitch),"Barrel SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
+               m_h_mdtSPXY_BI.push_back(new TH2F(Form("h_mdtSPXY_BI_%dGeV",i*m_thpitch),"BI SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
+               m_h_mdtSPXY_BM.push_back(new TH2F(Form("h_mdtSPXY_BM_%dGeV",i*m_thpitch),"BM SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
+               m_h_mdtSPXY_BO.push_back(new TH2F(Form("h_mdtSPXY_BO_%dGeV",i*m_thpitch),"BO SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
+               m_h_mdtSPXY_BME.push_back(new TH2F(Form("h_mdtSPXY_BME_%dGeV",i*m_thpitch),"BME SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
+               m_h_avemdteta.push_back(new TH1D(Form("h_avemdteta_%dGeV",i*m_thpitch),"MDT Averge Eta;MDT Averge Eta;Entries",200,-10.0,10));
                m_g_rpchitXY.push_back(new TGraph(0));
                m_g_mdthitXY.push_back(new TGraph(0));
 
@@ -482,14 +486,14 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
                m_h_highoffetavsSA_resptLargeSpecialminus15out.push_back(new TH2F(Form("h_highoffetavsSA_resptLargeSpecialminus15out_%dGeV",i*m_thpitch),"LargeSpecial;offline eta;SApt residual",100,-2.5,2.5,300,-2.0,1.0));
                m_h_highoffetavsSA_resptLargeSpecialminus11in.push_back(new TH2F(Form("h_highoffetavsSA_resptLargeSpecial,minus11in_%dGeV",i*m_thpitch),"LargeSpecial;offline eta;SApt residual",100,-2.5,2.5,300,-2.0,1.0));
                m_h_highoffetavsSA_resptLargeSpecialminus15in.push_back(new TH2F(Form("h_highoffetavsSA_resptLargeSpecialminus15in_%dGeV",i*m_thpitch),"LargeSpecial;offline eta;SApt residual",100,-2.5,2.5,300,-2.0,1.0));
-               m_h_etaIndexvsSA_respt.push_back(new TH2F(Form("h_etaIndexvsSA_respt_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
-               m_h_etaIndexvsSA_resptLargeplus.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeplus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
-               m_h_etaIndexvsSA_resptLargeSpecialplus.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialplus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
-               m_h_etaIndexvsSA_resptSmallplus.push_back(new TH2F(Form("h_etaIndexvsSA_resptSmallplus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
-               m_h_etaIndexvsSA_resptSmallSpecialplus.push_back(new TH2F(Form("h_etaIndexvsSA_resptSmallSpecialplus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
-               m_h_etaIndexvsSA_resptLargeminus.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeminus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
-               m_h_etaIndexvsSA_resptLargeSpecialminus.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialminus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
-               m_h_etaIndexvsSA_resptSmallminus.push_back(new TH2F(Form("h_etaIndexvsSA_resptSmallminus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
+               m_h_etaIndexvsSA_respt.push_back(new TH2F(Form("h_etaIndexvsSA_respt_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,30,-2.0,1.0));
+               m_h_etaIndexvsSA_resptLargeplus.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeplus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,30,-2.0,1.0));
+               m_h_etaIndexvsSA_resptLargeSpecialplus.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialplus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,30,-2.0,1.0));
+               m_h_etaIndexvsSA_resptSmallplus.push_back(new TH2F(Form("h_etaIndexvsSA_resptSmallplus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,30,-2.0,1.0));
+               m_h_etaIndexvsSA_resptSmallSpecialplus.push_back(new TH2F(Form("h_etaIndexvsSA_resptSmallSpecialplus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,30,-2.0,1.0));
+               m_h_etaIndexvsSA_resptLargeminus.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeminus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,30,-2.0,1.0));
+               m_h_etaIndexvsSA_resptLargeSpecialminus.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialminus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,30,-2.0,1.0));
+               m_h_etaIndexvsSA_resptSmallminus.push_back(new TH2F(Form("h_etaIndexvsSA_resptSmallminus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,30,-2.0,1.0));
                m_h_etaIndexvsSA_resptSmallSpecialminus.push_back(new TH2F(Form("h_etaIndexvsSA_resptSmallSpecialminus_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
                m_h_etaIndexvsSA_resptLargeSpecialplus11out.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialplus11out_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
                m_h_etaIndexvsSA_resptLargeSpecialplus11in.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialplus11in_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
@@ -777,6 +781,7 @@ void Efficiency::Execute(Int_t ev){
                          }
                          Double_t ave_mdteta = buf_eta/static_cast<Double_t>(pSA_mdtZ->size());
                          cout<<"ave_mdteta   "<<ave_mdteta<<endl;
+                         m_h_avemdteta.at(i)->Fill(ave_mdteta);
 
                          m_h_pSA_pt.at(i)->Fill(std::fabs(pSA_pt));
                          m_h_pSA_dR.at(i)->Fill(buf_pSA_dR);
@@ -1035,6 +1040,10 @@ void Efficiency::Execute(Int_t ev){
                                    m_h_mdthitXY.at(i)->Fill(pSA_mdtR->at(size)*cos(pSA_mdtPhi->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtPhi->at(size)));
                                    m_h_mdthitZR.at(i)->Fill(pSA_mdtZ->at(size),pSA_mdtR->at(size));
                                    if(m_g_mdthitXY.at(i)->GetN() <= 1000000)m_g_mdthitXY.at(i)->SetPoint(m_g_mdthitXY.at(i)->GetN(),pSA_mdtR->at(size)*cos(pSA_mdtPhi->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtPhi->at(size)));
+                                   m_h_mdtSPXY_BI.at(i)->Fill(pSA_superpointR_BI->at(size)*cos(pSA_roiphi),pSA_superpointR_BI->at(size)*sin(pSA_roiphi));
+                                   m_h_mdtSPXY_BM.at(i)->Fill(pSA_superpointR_BM->at(size)*cos(pSA_roiphi),pSA_superpointR_BM->at(size)*sin(pSA_roiphi));
+                                   m_h_mdtSPXY_BO.at(i)->Fill(pSA_superpointR_BO->at(size)*cos(pSA_roiphi),pSA_superpointR_BO->at(size)*sin(pSA_roiphi));
+                                   m_h_mdtSPXY_BME.at(i)->Fill(pSA_superpointR_BME->at(size)*cos(pSA_roiphi),pSA_superpointR_BME->at(size)*sin(pSA_roiphi));
                               }
                               for(Int_t index = 0;index < 10;index++){
                                    if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_respt.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
@@ -1281,7 +1290,11 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_mdthitZR.at(i)->Write();
           m_h_pSAphivspSAphims.at(i)->Write();
           m_h_pSAphivspSAphibe.at(i)->Write();
-          m_h_mdtSPXY.at(i)->Write();
+          m_h_mdtSPXY_BI.at(i)->Write();
+          m_h_mdtSPXY_BM.at(i)->Write();
+          m_h_mdtSPXY_BO.at(i)->Write();
+          m_h_mdtSPXY_BME.at(i)->Write();
+          m_h_avemdteta.at(i)->Write();
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
           m_h_eSA_pt.at(i)->Write();
@@ -1490,6 +1503,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_pSAphivspSAphims.clear();
           m_h_pSAphivspSAphibe.clear();
           m_h_mdtSPXY.clear();
+          m_h_avemdtetaclear();
           m_h_eoff_pt.clear();
           m_h_eL1_pt.clear();
           m_h_eSA_pt.clear();

@@ -181,6 +181,7 @@ class Efficiency
   TBranch *b_pSA_superpointR_BM;
   TBranch *b_pSA_superpointR_BO;
   TBranch *b_pSA_superpointR_BME;
+
   TBranch *b_pCB_pt;
   TBranch *b_pCB_eta;
   TBranch *b_pCB_phi;
@@ -228,7 +229,11 @@ class Efficiency
   vector<TGraph*> m_g_mdthitXY;
   vector<TH2F*> m_h_pSAphivspSAphims;//
   vector<TH2F*> m_h_pSAphivspSAphibe;//
-  vector<TH2F*> m_h_mdtSPXY;
+  vector<TH2F*> m_h_mdtSPXY_BI;
+  vector<TH2F*> m_h_mdtSPXY_BM;
+  vector<TH2F*> m_h_mdtSPXY_BO;
+  vector<TH2F*> m_h_mdtSPXY_BME;
+  vector<TH1D*> m_h_avemdteta;//
 
   //Efficiency
   vector<TH1D*> m_h_eoff_pt;
