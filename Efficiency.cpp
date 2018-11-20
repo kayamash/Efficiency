@@ -1029,21 +1029,21 @@ void Efficiency::Execute(Int_t ev){
 
                          if(static_cast<Int_t>(pSA_sAddress) == 0 || static_cast<Int_t>(pSA_sAddress) == 1 || static_cast<Int_t>(pSA_sAddress) == 2 || static_cast<Int_t>(pSA_sAddress) == 3){
                               m_h_offphivsSA_sAddress.at(i)->Fill(pSA_phims,pSA_sAddress);
+                              m_h_mdtSPXY_BI.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                              m_h_mdtSPXY_BM.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                              m_h_mdtSPXY_BO.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                              m_h_mdtSPXY_BME.at(i)->Fill(pSA_superpointR_BME*cos(pSA_roiphi),pSA_superpointR_BME*sin(pSA_roiphi));
                               for(Int_t size = 0;size < (signed int)pSA_rpcX->size();size++){
                                    m_h_rpchitXY.at(i)->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
                                    if(m_g_rpchitXY.at(i)->GetN() <= 1000000)m_g_rpchitXY.at(i)->SetPoint(m_g_rpchitXY.at(i)->GetN(),pSA_rpcX->at(size),pSA_rpcY->at(size));
                               }
                               for(Int_t size = 0;size < (signed int)pSA_rpcZ->size();size++){
-                                   m_h_rpcZR.at(i)->Fill(pSA_rpcZ->at(size),pSA_rpcR->at(size));
+                                   m_h_rpchitZR.at(i)->Fill(pSA_rpcZ->at(size),pSA_rpcR->at(size));
                               }
                               for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
                                    m_h_mdthitXY.at(i)->Fill(pSA_mdtR->at(size)*cos(pSA_mdtPhi->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtPhi->at(size)));
                                    m_h_mdthitZR.at(i)->Fill(pSA_mdtZ->at(size),pSA_mdtR->at(size));
                                    if(m_g_mdthitXY.at(i)->GetN() <= 1000000)m_g_mdthitXY.at(i)->SetPoint(m_g_mdthitXY.at(i)->GetN(),pSA_mdtR->at(size)*cos(pSA_mdtPhi->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtPhi->at(size)));
-                                   m_h_mdtSPXY_BI.at(i)->Fill(pSA_superpointR_BI->at(size)*cos(pSA_roiphi),pSA_superpointR_BI->at(size)*sin(pSA_roiphi));
-                                   m_h_mdtSPXY_BM.at(i)->Fill(pSA_superpointR_BM->at(size)*cos(pSA_roiphi),pSA_superpointR_BM->at(size)*sin(pSA_roiphi));
-                                   m_h_mdtSPXY_BO.at(i)->Fill(pSA_superpointR_BO->at(size)*cos(pSA_roiphi),pSA_superpointR_BO->at(size)*sin(pSA_roiphi));
-                                   m_h_mdtSPXY_BME.at(i)->Fill(pSA_superpointR_BME->at(size)*cos(pSA_roiphi),pSA_superpointR_BME->at(size)*sin(pSA_roiphi));
                               }
                               for(Int_t index = 0;index < 10;index++){
                                    if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_respt.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
@@ -1502,8 +1502,11 @@ void Efficiency::Finalize(TFile *tf1){
           m_g_mdthitXY.clear();
           m_h_pSAphivspSAphims.clear();
           m_h_pSAphivspSAphibe.clear();
-          m_h_mdtSPXY.clear();
-          m_h_avemdtetaclear();
+          m_h_mdtSPXY_BI.clear();
+          m_h_mdtSPXY_BM.clear();
+          m_h_mdtSPXY_BO.clear();
+          m_h_mdtSPXY_BME.clear();
+          m_h_avemdteta.clear();
           m_h_eoff_pt.clear();
           m_h_eL1_pt.clear();
           m_h_eSA_pt.clear();
