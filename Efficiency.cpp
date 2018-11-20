@@ -968,12 +968,12 @@ void Efficiency::Execute(Int_t ev){
                               m_h_offphivsSA_sAddress.at(i)->Fill(pSA_phims,pSA_sAddress);
                               for(Int_t size = 0;size < (signed int)pSA_rpcX->size();size++){
                                    m_h_rpchitXY.at(i)->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
-                                   if(m_g_rpchitXY.at(i)->GetN() >= 1000000)m_g_rpchitXY.at(i)->SetPoint(m_g_rpchitXY.at(i)->GetN(),pSA_rpcX->at(size),pSA_rpcY->at(size));
+                                   if(m_g_rpchitXY.at(i)->GetN() <= 1000000)m_g_rpchitXY.at(i)->SetPoint(m_g_rpchitXY.at(i)->GetN(),pSA_rpcX->at(size),pSA_rpcY->at(size));
                               }
                               for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
                                    m_h_mdthitXY.at(i)->Fill(pSA_mdtR->at(size)*cos(pSA_mdtPhi->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtPhi->at(size)));
                                    m_h_mdthitZR.at(i)->Fill(pSA_mdtZ->at(size),pSA_mdtR->at(size));
-                                   if(m_g_mdthitXY.at(i)->GetN() >= 1000000)m_g_mdthitXY.at(i)->SetPoint(m_g_mdthitXY.at(i)->GetN(),pSA_mdtR->at(size)*cos(pSA_mdtPhi->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtPhi->at(size)));
+                                   if(m_g_mdthitXY.at(i)->GetN() <= 1000000)m_g_mdthitXY.at(i)->SetPoint(m_g_mdthitXY.at(i)->GetN(),pSA_mdtR->at(size)*cos(pSA_mdtPhi->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtPhi->at(size)));
                               }
                               for(Int_t index = 0;index < 10;index++){
                                    if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_respt.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
