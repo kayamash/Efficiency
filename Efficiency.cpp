@@ -110,10 +110,6 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
      	m_pEF_pass = 0;
      	m_pEFTAG_pass = 0;
      	m_sumReqdREF = 0;
-          //m_vec_rpcx = 0;
-          //m_vec_rpcy = 0;
-          //m_vec_mdtx = 0;
-          //m_vec_mdty = 0;
 
      	//active only need branch 
      	tChain->SetBranchStatus("*",0);
@@ -721,6 +717,7 @@ void Efficiency::Execute(Int_t ev){
                               buf_eta += -TMath::Log((sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) - pSA_mdtZ->at(size))/(sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) + pow(pSA_mdtZ->at(size),2)))/2.0;
                          }
                          Double_t ave_mdteta = buf_eta/static_cast<Double_t>(pSA_mdtZ->size());
+                         cout<<"ave_mdteta   "<<ave_mdteta<<endl;
 
                          m_h_pSA_pt.at(i)->Fill(std::fabs(pSA_pt));
                          m_h_pSA_dR.at(i)->Fill(buf_pSA_dR);
@@ -1213,10 +1210,14 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_offphivsSA_sAddress.at(i)->Write();
           m_h_offphivsSAphims.at(i)->Write();
           m_h_rpchitXY.at(i)->Write();
+          m_h_rpchitZR.at(i)->Write();
           m_h_mdthitXY.at(i)->Write();
           m_g_rpchitXY.at(i)->Write();
           m_g_mdthitXY.at(i)->Write();
           m_h_mdthitZR.at(i)->Write();
+          m_h_pSAphivspSAphims.at(i)->Write();
+          m_h_pSAphivspSAphibe.at(i)->Write();
+          m_h_mdtSPXY.at(i)->Write();
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
           m_h_eSA_pt.at(i)->Write();
@@ -1417,10 +1418,14 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_offphivsSA_sAddress.clear();
           m_h_offphivsSAphims.clear();
           m_h_rpchitXY.clear();
+          m_h_rpchitZR.clear();
           m_h_mdthitXY.clear();
           m_h_mdthitZR.clear();
           m_g_rpchitXY.clear();
           m_g_mdthitXY.clear();
+          m_h_pSAphivspSAphims.clear();
+          m_h_pSAphivspSAphibe.clear();
+          m_h_mdtSPXY.clear();
           m_h_eoff_pt.clear();
           m_h_eL1_pt.clear();
           m_h_eSA_pt.clear();

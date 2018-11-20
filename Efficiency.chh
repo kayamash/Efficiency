@@ -152,13 +152,19 @@ class Efficiency
   TBranch *b_pSA_dR;
   TBranch *b_pSA_sAddress;
   TBranch *b_pSA_phims;
+  TBranch *b_pSA_phibe;
   TBranch *b_pSA_roiphi;
   TBranch *b_pSA_pass;
   TBranch *b_pSA_rpcX;
   TBranch *b_pSA_rpcY;
+  TBranch *b_pSA_rpcZ;
+  TBranch *b_pSA_rpcR;
   TBranch *b_pSA_mdtZ;
   TBranch *b_pSA_mdtR;
   TBranch *b_pSA_mdtPhi;
+  TBranch *b_pSA_superpointZ_BI;
+  TBranch *b_pSA_superpointZ_BM;
+  TBranch *b_pSA_superpointZ_BO;
   TBranch *b_pCB_pt;
   TBranch *b_pCB_eta;
   TBranch *b_pCB_phi;
@@ -199,10 +205,14 @@ class Efficiency
   TH1D *m_h_saroiphi_LargeSpecial;
   TH1D *m_h_saroiphi_SmallSpecial;
   vector<TH2F*> m_h_rpchitXY;
+  vector<TH2F*> m_h_rpchitZR;
   vector<TH2F*> m_h_mdthitXY;
   vector<TH2F*> m_h_mdthitZR;
   vector<TGraph*> m_g_rpchitXY;
   vector<TGraph*> m_g_mdthitXY;
+  vector<TH2F*> m_h_pSAphivspSAphims;
+  vector<TH2F*> m_h_pSAphivspSAphibe;
+  vector<TH2F*> m_h_mdtSPXY;
 
   //Efficiency
   vector<TH1D*> m_h_eoff_pt;
