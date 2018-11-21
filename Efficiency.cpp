@@ -325,6 +325,10 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
                m_h_avemdteta.push_back(new TH1D(Form("h_avemdteta_%dGeV",i*m_thpitch),"MDT Averge Eta;MDT Averge Eta;Entries",200,-10.0,10));
                m_g_rpchitXY.push_back(new TGraph(0));
                m_g_mdthitXY.push_back(new TGraph(0));
+               //m_h_etaIndexout.push_back(new TH1D(Form("h_etaIndexout_%dGeV",i*m_thpitch),"etaIndexout;etaIndex;Entries",17,-8.5,8.5,100000,0,100000));
+               //m_h_etaIndexin.push_back(new TH1D(Form("h_etaIndexin_%dGeV",i*m_thpitch),"etaIndexout;etaIndex;Entries",17,-8.5,8.5,100000,0,100000));
+               m_h_mdtSPX_BI.push_back(new TH1D(Form("h_mdtSPX_BI_%dGeV",i*m_thpitch),"mdtSPX_BI;mdtSPX_BI;Entries",3000,-6000.0,-3000.0));
+               m_h_mdtSPY_BI.push_back(new TH1D(Form("h_mdtSPY_BI_%dGeV",i*m_thpitch),"mdtSPY_BI;mdtSPY_BI;Entries",3000,-6000.0,-3000.0));
 
                //Efficiency
           	m_h_eoff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
@@ -875,6 +879,8 @@ void Efficiency::Execute(Int_t ev){
                                              }
                                         }
                                         if(pSA_roiphi < -2.0 && pSA_roiphi > -2.6){//11
+                                             m_h_mdtSPX_BI.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi));
+                                             m_h_mdtSPY_BI.at(i)->Fill(pSA_superpointR_BI*sin(pSA_roiphi));
                                              if(pSA_roiphi > -2.4){
                                                   m_h_off_ptvsSA_resptLargeSpecialplus11in.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                                                   m_h_SA_resptLargeSpecialplus11in.at(i)->Fill(resSA_pt);
@@ -1033,6 +1039,8 @@ void Efficiency::Execute(Int_t ev){
                               m_h_mdtSPXY_BM.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
                               m_h_mdtSPXY_BO.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
                               m_h_mdtSPXY_BME.at(i)->Fill(pSA_superpointR_BME*cos(pSA_roiphi),pSA_superpointR_BME*sin(pSA_roiphi));
+                              //if(pSA_superpointR_BI*cos(pSA_roiphi) < -4500 && 5200 pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi))m_h_etaIndexout->Fill(m_probe_segment_etaIndex);
+                              //if(pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi))m_h_etaIndexin->Fill(m_probe_segment_etaIndex);
                               for(Int_t size = 0;size < (signed int)pSA_rpcX->size();size++){
                                    m_h_rpchitXY.at(i)->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
                                    if(m_g_rpchitXY.at(i)->GetN() <= 1000000)m_g_rpchitXY.at(i)->SetPoint(m_g_rpchitXY.at(i)->GetN(),pSA_rpcX->at(size),pSA_rpcY->at(size));
@@ -1295,6 +1303,10 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_mdtSPXY_BO.at(i)->Write();
           m_h_mdtSPXY_BME.at(i)->Write();
           m_h_avemdteta.at(i)->Write();
+          //m_h_etaIndexout.at(i)->Write();
+          //m_h_etaIndexin.at(i)->Write();
+          m_h_mdtSPX_BI.at(i)->Write();
+          m_h_mdtSPY_BI.at(i)->Write();
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
           m_h_eSA_pt.at(i)->Write();
@@ -1507,6 +1519,10 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_mdtSPXY_BO.clear();
           m_h_mdtSPXY_BME.clear();
           m_h_avemdteta.clear();
+          //m_h_etaIndexout.clear();
+          //m_h_etaIndexin.clear();
+          m_h_mdtSPX_BI.clear();
+          m_h_mdtSPY_BI.clear();
           m_h_eoff_pt.clear();
           m_h_eL1_pt.clear();
           m_h_eSA_pt.clear();

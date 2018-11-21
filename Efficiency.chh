@@ -234,6 +234,10 @@ class Efficiency
   vector<TH2F*> m_h_mdtSPXY_BO;
   vector<TH2F*> m_h_mdtSPXY_BME;
   vector<TH1D*> m_h_avemdteta;//
+  vector<TH1D*> m_h_mdtSPX_BI;
+  vector<TH1D*> m_h_mdtSPY_BI;
+  //vector<TH1D*> m_h_etaIndexout;
+  //vector<TH1D*> m_h_etaIndexin;
 
   //Efficiency
   vector<TH1D*> m_h_eoff_pt;
