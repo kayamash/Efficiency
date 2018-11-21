@@ -432,8 +432,9 @@ class Efficiency
   vector<Int_t> m_countSmallSpecial;
 
 public:
-  Efficiency(Int_t nh){
+  Efficiency(Int_t nh,TTree *tree){
       cout<<"1"<<endl; 
+      tChain = tree;
       m_tag_proc = 0;
       m_toff_pt = 0;
       m_toff_eta = 0;
@@ -909,7 +910,7 @@ public:
         }
      }
 
-  void Init(TTree *tree,std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th,Int_t proc);
+  void Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th,Int_t proc);
   bool Dicision_barrel(Double_t eta);
   bool Cut_tagprobe(Int_t pass);
   bool Cut_L1(Int_t pass);

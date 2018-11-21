@@ -45,12 +45,6 @@ const Int_t thpitch = 4;
 //main function
 void efficiencyloop(){
 	cout<<"start!"<<endl;
-	Efficiency *eff = new Efficiency(nhist);
-	cout<<"start!"<<endl;
-	std::ofstream ofs("LargeSpecialEvent.dat");
-	ofs.close();
-	
-	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
 	TChain *tr1 = new TChain("t_tap");
 	
 	std::ifstream ifs(inputfilelist.c_str());
@@ -62,8 +56,15 @@ void efficiencyloop(){
 	//tr1->Add(inputfilename.c_str());
 
 	if(!tr1)cout<<"tree failed"<<endl;
+	Efficiency *eff = new Efficiency(nhist,tr1);
+	cout<<"start!"<<endl;
+	std::ofstream ofs("LargeSpecialEvent.dat");
+	ofs.close();
+	
+	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
+
 	cout<<"Initialize"<<endl;
-	eff->Init(tr1,trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,thpitch,proc);
+	eff->Init(trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,thpitch,proc);
 	cout<<tr1->GetEntries()<<endl;
 	cout<<"Execute"<<endl;
 	for(Int_t event = 0;event < tr1->GetEntries(); event++){
