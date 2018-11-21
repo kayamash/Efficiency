@@ -61,6 +61,7 @@ bool Efficiency::Cut_tagprobe(Int_t pass){
 
 bool Efficiency::Cut_L1(Int_t pass){
   if(pass > -1){
+	cout<<"L1 passed"<<endl;
 	return kTRUE;
      }else{
      return kFALSE;
@@ -69,6 +70,7 @@ bool Efficiency::Cut_L1(Int_t pass){
 
 bool Efficiency::Cut_SA(Int_t pass,Double_t pt,Double_t th){
      if(pass == 1 && std::fabs(pt) > th){
+	cout<<"SA passed"<<endl;
           return kTRUE;
      }else{
           return kFALSE;
@@ -77,6 +79,7 @@ bool Efficiency::Cut_SA(Int_t pass,Double_t pt,Double_t th){
 
 bool Efficiency::Cut_CB(Int_t pass){
      if(pass == 1){
+	cout<<"CB passed"<<endl;
           return kTRUE;
      }else{
           return kFALSE;
@@ -85,6 +88,7 @@ bool Efficiency::Cut_CB(Int_t pass){
 
 bool Efficiency::Cut_EF(Int_t pass){
      if(pass == 1){
+	cout<<"EF passed"<<endl;
           return kTRUE;
      }else{
           return kFALSE;
@@ -92,9 +96,10 @@ bool Efficiency::Cut_EF(Int_t pass){
 }
 
 void Efficiency::Execute(Int_t ev){
+     cout<<"Execute"<<endl;
      tChain->GetEntry(ev);
      for(Int_t i = 0;i <= m_nhist;i++){
-          Double_t pextL1_dR = 1; 
+	  Double_t pextL1_dR = 1; 
           Double_t pextSA_dR = 1; 
           Double_t pextCB_dR = 1; 
           Double_t pextEF_dR = 1; 
@@ -143,7 +148,8 @@ void Efficiency::Execute(Int_t ev){
           
           for(Int_t method = 0;method < 25;method++){
                if(m_mes_name->at(method) == m_method_name){
-                    pL1_pt = m_pL1_pt->at(method);
+                    cout<<method<<endl;
+		    pL1_pt = m_pL1_pt->at(method);
                     pSA_pt = m_pSA_pt->at(method);
                     pCB_pt = m_pCB_pt->at(method);
                     pEF_pt = m_pEF_pt->at(method);
@@ -189,9 +195,10 @@ void Efficiency::Execute(Int_t ev){
           tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
           tEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_eta,2) + pow(m_tEF_phi - m_toff_phi,2) );
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
-
+	  cout<<"all!"<<endl;
           //offline
           if(Cut_tagprobe(pEFTAG_pass)){
+	       cout<<"pass offline"<<endl;
                if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
                m_h_poff_pt.at(i)->Fill(m_poff_pt*0.001);
                m_h_eoff_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));

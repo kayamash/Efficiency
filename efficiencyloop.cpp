@@ -23,8 +23,8 @@
 #include <TBranch.h>
 #include "Efficiency.cpp"
 
-//const string trigger = "mu26ivm";
-const string trigger = "data18mu26ivm";
+const string trigger = "mu26ivm";
+//const string trigger = "data18mu26ivm";
 //const string trigger = "mu4";
 //Jpsitap == 1,Ztap == 3
 Int_t proc = 3;
@@ -56,15 +56,14 @@ void efficiencyloop(){
 	//tr1->Add(inputfilename.c_str());
 
 	if(!tr1)cout<<"tree failed"<<endl;
-	Efficiency *eff = new Efficiency(nhist,tr1);
-	cout<<"start!"<<endl;
+	Efficiency *eff = new Efficiency(nhist,thpitch,tr1);
 	std::ofstream ofs("LargeSpecialEvent.dat");
 	ofs.close();
 	
 	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
 
 	cout<<"Initialize"<<endl;
-	eff->Init(trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,thpitch,proc);
+	eff->Init(trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,proc);
 	cout<<tr1->GetEntries()<<endl;
 	cout<<"Execute"<<endl;
 	for(Int_t event = 0;event < tr1->GetEntries(); event++){

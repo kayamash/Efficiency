@@ -432,9 +432,9 @@ class Efficiency
   vector<Int_t> m_countSmallSpecial;
 
 public:
-  Efficiency(Int_t nh,TTree *tree){
-      cout<<"1"<<endl; 
+  Efficiency(Int_t nh,Int_t th,TTree *tree){
       tChain = tree;
+      m_thpitch = th
       m_tag_proc = 0;
       m_toff_pt = 0;
       m_toff_eta = 0;
@@ -514,7 +514,6 @@ public:
       m_pEFTAG_pass = 0;
       m_sumReqdREF = 0;
 
-      cout<<"1"<<endl; 
       //active only need branch 
       tChain->SetBranchStatus("*",0);
       tChain->SetBranchStatus("mes_name",1);
@@ -597,7 +596,6 @@ public:
       tChain->SetBranchStatus("sumReqdREF",1);
       tChain->SetBranchStatus("probe_mesEFTAG_pass",1);
 
-      cout<<"1"<<endl; 
       //setting each branch address
       tChain->SetBranchAddress("mes_name",&m_mes_name,&b_mes_name);
       tChain->SetBranchAddress("tag_proc",&m_tag_proc,&b_tag_proc);
@@ -679,7 +677,6 @@ public:
       tChain->SetBranchAddress("sumReqdREF",&m_sumReqdREF,&b_sumReqdREF);
       tChain->SetBranchAddress("probe_mesEFTAG_pass",&m_pEFTAG_pass,&b_pEFTAG_pass);
 
-      cout<<"1"<<endl; 
       //define each histgram
       m_h_offphi_LargeSpecial = new TH1D("h_offphi_LargeSpecial_0GeV","offline phi;offline phi;Entries",600,-3.0,3.0);
       m_h_saphims_LargeSpecial = new TH1D("h_saphims_LargeSpecial_0GeV","L2MuonSA phi;L2MuonSA phims;Entries",600,-3.0,3.0);
@@ -910,7 +907,7 @@ public:
         }
      }
 
-  void Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th,Int_t proc);
+  void Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,Int_t proc);
   bool Dicision_barrel(Double_t eta);
   bool Cut_tagprobe(Int_t pass);
   bool Cut_L1(Int_t pass);
