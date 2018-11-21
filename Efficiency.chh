@@ -434,7 +434,7 @@ class Efficiency
 public:
   Efficiency(Int_t nh,Int_t th,TTree *tree){
       tChain = tree;
-      m_thpitch = th
+      m_thpitch = th;
       m_tag_proc = 0;
       m_toff_pt = 0;
       m_toff_eta = 0;
