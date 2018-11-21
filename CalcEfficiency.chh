@@ -48,8 +48,6 @@ class CalcEfficiency{
 
   public:
 
-    void DrawHist1D(TH1D *h1);
-    void DrawHist2D(TH2F *h1);
     void DrawEfficiency(TH1D *h1,TH1D *h2,Double_t max,Int_t nbin,Double_t err);
     void DrawEfficiencyeta(TH1D *h1,TH1D *h2);
     void DrawEfficiency2D(TH2F *h1,TH2F *h2);

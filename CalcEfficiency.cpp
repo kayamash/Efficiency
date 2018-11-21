@@ -26,30 +26,6 @@
 #include <TROOT.h>
 #include <TChain.h>
 
-void CalcEfficiency::DrawHist1D(TH1D *h1){
-	TCanvas *c1 = new TCanvas("c1","c1",1600,900);
-	gStyle->SetTitleYOffset(m_yoffset);
-	if(m_title != "test")h1->SetTitle(m_title.c_str());
-	h1->SetFillColor(kRed);
-	h1->SetLineColor(kRed);
-	h1->Draw();
-	h1->Write();
-	delete c1;
-}
-
-void CalcEfficiency::DrawHist2D(TH2F *h1){
-	TCanvas *c1 = new TCanvas("c1","c1",1200,1200);
-	gStyle->SetPadTopMargin(m_topmargin);
-	gStyle->SetPadBottomMargin(m_bottommargin);
-	gStyle->SetPadLeftMargin(m_leftmargin);
-	gStyle->SetPadRightMargin(m_rightmargin);
-	h1->GetYaxis()->SetTitleOffset(m_yoffset);
-	h1->SetStats(0);
-	h1->Draw("colz");
-	h1->Write();
-	delete c1;
-}
-
 void CalcEfficiency::DrawEfficiency(TH1D *h1,TH1D *h2,Double_t max,Int_t nbin,Double_t err){
   TCanvas *c1 = new TCanvas("c1","c1",1600,900);
   gStyle->SetTitleYOffset(m_yoffset);

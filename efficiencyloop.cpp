@@ -44,7 +44,7 @@ const Int_t thpitch = 4;
 
 //main function
 void efficiencyloop(){
-	Efficiency eff;
+	Efficiency *eff = new Efficiency(nhist);
 	std::ofstream ofs("LargeSpecialEvent.dat");
 	ofs.close();
 	
@@ -61,16 +61,14 @@ void efficiencyloop(){
 
 	if(!tr1)cout<<"tree failed"<<endl;
 	cout<<"Initialize"<<endl;
-	eff.Init(tr1,trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,thpitch,proc);
+	eff->Init(tr1,trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,thpitch,proc);
 	cout<<tr1->GetEntries()<<endl;
 	cout<<"Execute"<<endl;
 	for(Int_t event = 0;event < tr1->GetEntries(); event++){
-	//for(Int_t event = 0;event < 100000; event++){
-		cout<<event<<endl;
-		eff.Execute(event);
+		eff->Execute(event);
 	}
 	cout<<"Finalize"<<endl;
-	eff.Finalize(output_file);
+	eff->Finalize(output_file);
 
 	delete output_file;
 	delete tr1;
