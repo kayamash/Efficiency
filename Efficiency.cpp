@@ -43,6 +43,7 @@ void Efficiency::Init(TTree *tree,std::string name,const Int_t np,const Int_t ne
     
      	//initialize
           m_reqL1dR = req;
+     }
 }
 
  bool Efficiency::Dicision_barrel(Double_t eta){
