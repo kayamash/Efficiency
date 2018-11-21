@@ -28,7 +28,6 @@
 #include "CalcEfficiency.cpp"
 
 void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,const Int_t th,Int_t proc){
-     if(tree){
     	     m_nbin_phi = np;
      	m_nbin_eta = ne;
      	m_phi_max = mp;
@@ -43,7 +42,6 @@ void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Doubl
      	//initialize
           m_reqL1dR = req;
      }
-}
 
  bool Efficiency::Dicision_barrel(Double_t eta){
      if(std::fabs(eta) <= 1.05){
