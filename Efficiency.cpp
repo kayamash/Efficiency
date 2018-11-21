@@ -36,7 +36,6 @@ void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Doubl
      	m_binmax = max;
      	m_efficiency_xerr = err;
      	m_nhist = nh;
-     	m_thpitch = th;
           m_proc = proc;
     
      	//initialize
