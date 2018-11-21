@@ -432,7 +432,7 @@ class Efficiency
   vector<Int_t> m_countSmallSpecial;
 
 public:
-  void Efficiency(Int_t nhist){
+  Efficiency(Int_t nhist){
       m_tag_proc = 0;
       m_toff_pt = 0;
       m_toff_eta = 0;
@@ -906,7 +906,7 @@ public:
      }
   }
 
-  void ~Efficiency(){
+  ~Efficiency(){
     m_h_saroiphi_LargeSpecial->Write();
     m_h_saroiphi_SmallSpecial->Write();
     m_h_saphims_LargeSpecial->Write();
