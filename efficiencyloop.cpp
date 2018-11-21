@@ -44,6 +44,7 @@ const Int_t thpitch = 4;
 
 //main function
 void efficiencyloop(){
+	cout<<"start!"<<endl;
 	Efficiency *eff = new Efficiency(nhist);
 	std::ofstream ofs("LargeSpecialEvent.dat");
 	ofs.close();
