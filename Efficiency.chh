@@ -904,7 +904,6 @@ public:
               m_countSmallSpecial.push_back(0);
         }
      }
-  }
 
   ~Efficiency(){
     m_h_saroiphi_LargeSpecial->Write();
