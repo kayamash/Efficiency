@@ -578,6 +578,42 @@ void Efficiency::Execute(Int_t ev){
                               m_h_mdtSPXY_BME.at(i)->Fill(pSA_superpointR_BME*cos(pSA_roiphi),pSA_superpointR_BME*sin(pSA_roiphi));
                               //if(pSA_superpointR_BI*cos(pSA_roiphi) < -4500 && 5200 pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi))m_h_etaIndexout->Fill(m_probe_segment_etaIndex);
                               //if(pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi))m_h_etaIndexin->Fill(m_probe_segment_etaIndex);
+                              for(Int_t index = 0;index < 10;index++){
+                                   switch(fabs(m_probe_segment_etaIndex[index])){
+                                        case 1:
+                                             m_h_mdtSPXY_etaIndex1.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndex1.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndex1.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             break;
+                                        case 2:
+                                             m_h_mdtSPXY_etaIndex2.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndex2.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndex2.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             break;
+                                        case 3:
+                                             m_h_mdtSPXY_etaIndex3.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndex3.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndex3.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             break;
+                                        case 4:
+                                             m_h_mdtSPXY_etaIndex4.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndex4.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndex4.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             break;
+                                        case 5:
+                                             m_h_mdtSPXY_etaIndex5.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndex5.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndex5.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             break;
+                                        case 6:
+                                             m_h_mdtSPXY_etaIndex6.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndex6.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndex6.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             break;
+                                        default:
+                                             break;
+                                   }
+                              }
                               for(Int_t size = 0;size < (signed int)pSA_rpcX->size();size++){
                                    m_h_rpchitXY.at(i)->Fill(pSA_rpcX->at(size),pSA_rpcY->at(size));
                                    if(m_g_rpchitXY.at(i)->GetN() <= 1000000)m_g_rpchitXY.at(i)->SetPoint(m_g_rpchitXY.at(i)->GetN(),pSA_rpcX->at(size),pSA_rpcY->at(size));
@@ -844,6 +880,12 @@ void Efficiency::Finalize(TFile *tf1){
         //m_h_etaIndexin.at(i)->Write();
         m_h_mdtSPX_BI.at(i)->Write();
         m_h_mdtSPY_BI.at(i)->Write();
+        m_h_mdtSPXY_etaIndex1.at(i)
+        m_h_mdtSPXY_etaIndex2.at(i)
+        m_h_mdtSPXY_etaIndex3.at(i)
+        m_h_mdtSPXY_etaIndex4.at(i)
+        m_h_mdtSPXY_etaIndex5.at(i)
+        m_h_mdtSPXY_etaIndex6.at(i)
         m_h_eoff_pt.at(i)->Write();
         m_h_eL1_pt.at(i)->Write();
         m_h_eSA_pt.at(i)->Write();
