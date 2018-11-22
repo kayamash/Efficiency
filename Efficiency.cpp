@@ -579,7 +579,7 @@ void Efficiency::Execute(Int_t ev){
                               //if(pSA_superpointR_BI*cos(pSA_roiphi) < -4500 && 5200 pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi))m_h_etaIndexout->Fill(m_probe_segment_etaIndex);
                               //if(pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi))m_h_etaIndexin->Fill(m_probe_segment_etaIndex);
                               for(Int_t index = 0;index < 10;index++){
-                                   switch(fabs(m_probe_segment_etaIndex[index])){
+                                   switch(fabs(static_cast<Int_t>(m_probe_segment_etaIndex[index]))){
                                         case 1:
                                              m_h_mdtSPXY_etaIndex1.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
                                              m_h_mdtSPXY_etaIndex1.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
@@ -880,12 +880,12 @@ void Efficiency::Finalize(TFile *tf1){
         //m_h_etaIndexin.at(i)->Write();
         m_h_mdtSPX_BI.at(i)->Write();
         m_h_mdtSPY_BI.at(i)->Write();
-        m_h_mdtSPXY_etaIndex1.at(i)
-        m_h_mdtSPXY_etaIndex2.at(i)
-        m_h_mdtSPXY_etaIndex3.at(i)
-        m_h_mdtSPXY_etaIndex4.at(i)
-        m_h_mdtSPXY_etaIndex5.at(i)
-        m_h_mdtSPXY_etaIndex6.at(i)
+        m_h_mdtSPXY_etaIndex1.at(i)->Write();
+        m_h_mdtSPXY_etaIndex2.at(i)->Write();
+        m_h_mdtSPXY_etaIndex3.at(i)->Write();
+        m_h_mdtSPXY_etaIndex4.at(i)->Write();
+        m_h_mdtSPXY_etaIndex5.at(i)->Write();
+        m_h_mdtSPXY_etaIndex6.at(i)->Write();
         m_h_eoff_pt.at(i)->Write();
         m_h_eL1_pt.at(i)->Write();
         m_h_eSA_pt.at(i)->Write();
