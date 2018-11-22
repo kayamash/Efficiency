@@ -735,11 +735,11 @@ public:
               m_h_mdtSPXY_etaIndex6.push_back(new TH2F(Form("h_mdtSPXY_etaIndex6_%dGeV",i*m_thpitch),"SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
 
               //Efficiency
-              m_h_e2ff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
-              m_h_e31_pt.push_back(new TH1D(Form("h_eL1_pt_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
-              m_h_e4A_pt.push_back(new TH1D(Form("h_eSA_pt_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
-              m_h_e5B_pt.push_back(new TH1D(Form("h_eCB_pt_%dGeV",i*m_thpitch),"mesCB_pt;CB pt[GeV];Entries",300,-0.25,149.75));
-              m_h_e6F_pt.push_back(new TH1D(Form("h_eEF_pt_%dGeV",i*m_thpitch),"mesEF_pt;EF pt[GeV];Entries",300,-0.25,149.75));
+              m_h_eoff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
+              m_h_eL1_pt.push_back(new TH1D(Form("h_eL1_pt_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
+              m_h_eSA_pt.push_back(new TH1D(Form("h_eSA_pt_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
+              m_h_eCB_pt.push_back(new TH1D(Form("h_eCB_pt_%dGeV",i*m_thpitch),"mesCB_pt;CB pt[GeV];Entries",300,-0.25,149.75));
+              m_h_eEF_pt.push_back(new TH1D(Form("h_eEF_pt_%dGeV",i*m_thpitch),"mesEF_pt;EF pt[GeV];Entries",300,-0.25,149.75));
               m_h_eoff_eta.push_back(new TH1D(Form("h_eoff_eta_%dGeV",i*m_thpitch),"off eta;off eta;Entries",50,-2.5,2.5));
               m_h_eL1_eta.push_back(new TH1D(Form("h_eL1_eta_%dGeV",i*m_thpitch),"L1 eta;L1 eta;Entries",50,-2.5,2.5));
               m_h_eSA_eta.push_back(new TH1D(Form("h_eSA_eta_%dGeV",i*m_thpitch),"SA eta;SA eta;Entries",50,-2.5,2.5));
@@ -971,6 +971,12 @@ public:
       //delete  m_h_etaIndexin.at(i);
       delete  m_h_mdtSPX_BI.at(i);
       delete  m_h_mdtSPY_BI.at(i);
+      delete  m_h_mdtSPXY_etaIndex1.at(i);
+      delete  m_h_mdtSPXY_etaIndex2.at(i);
+      delete  m_h_mdtSPXY_etaIndex3.at(i);
+      delete  m_h_mdtSPXY_etaIndex4.at(i);
+      delete  m_h_mdtSPXY_etaIndex5.at(i);
+      delete  m_h_mdtSPXY_etaIndex6.at(i);
       delete  m_h_eoff_pt.at(i);
       delete  m_h_eL1_pt.at(i);
       delete  m_h_eSA_pt.at(i);
