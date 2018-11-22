@@ -579,7 +579,7 @@ void Efficiency::Execute(Int_t ev){
                               //if(pSA_superpointR_BI*cos(pSA_roiphi) < -4500 && 5200 pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi))m_h_etaIndexout->Fill(m_probe_segment_etaIndex);
                               //if(pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi))m_h_etaIndexin->Fill(m_probe_segment_etaIndex);
                               for(Int_t index = 0;index < 10;index++){
-                                   unsigned Int_t buf_index = std::fabs(static_cast<Int_t>(m_probe_segment_etaIndex[index]));
+                                   Int_t buf_index = std::fabs(static_cast<Int_t>(m_probe_segment_etaIndex[index]));
                                    switch(buf_index){
                                         case 1:
                                              m_h_mdtSPXY_etaIndex1.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
