@@ -629,6 +629,7 @@ void Efficiency::Execute(Int_t ev){
                               }
                               for(Int_t index = 0;index < 10;index++){
                                    if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_respt.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                                   if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_probe_segmentXY.at(i)->Fill(m_probesegment_x[index],m_probesegment_y[index]);
                               }
                          }
                          m_h_offphivsSAphims.at(i)->Fill(m_poff_phi,pSA_phims);
@@ -887,6 +888,7 @@ void Efficiency::Finalize(TFile *tf1){
         m_h_mdtSPXY_etaIndex4.at(i)->Write();
         m_h_mdtSPXY_etaIndex5.at(i)->Write();
         m_h_mdtSPXY_etaIndex6.at(i)->Write();
+        m_h_segmentXY.at(i)->Write();
         m_h_eoff_pt.at(i)->Write();
         m_h_eL1_pt.at(i)->Write();
         m_h_eSA_pt.at(i)->Write();

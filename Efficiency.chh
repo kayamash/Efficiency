@@ -44,6 +44,8 @@ class Efficiency
   Double_t m_tag_charge;
   Double_t m_tag_d0,m_tag_z0;
   Double_t m_probe_segment_etaIndex[10];
+  Double_t m_probe_segment_x[10];
+  Double_t m_probe_segment_y[10];
   Double_t m_poff_pt;
   Double_t m_poff_eta;
   Double_t m_poff_exteta;
@@ -137,6 +139,8 @@ class Efficiency
   TBranch *b_probe_d0;
   TBranch *b_probe_z0;
   TBranch *b_probe_segment_etaIndex;
+  TBranch *b_probe_segment_x;
+  TBranch *b_probe_segment_y;
   TBranch *b_tp_dR;
   TBranch *b_tp_extdR;
   TBranch *b_tL1_pt;
@@ -244,6 +248,7 @@ class Efficiency
   vector<TH1D*> m_h_mdtSPY_BI;
   //vector<TH1D*> m_h_etaIndexout;
   //vector<TH1D*> m_h_etaIndexin;
+  vector<TH2F*> m_h_segmentXY;
 
   //Efficiency
   vector<TH1D*> m_h_eoff_pt;
@@ -545,6 +550,8 @@ public:
       tChain->SetBranchStatus("probe_d0",1);
       tChain->SetBranchStatus("probe_z0",1);
       tChain->SetBranchStatus("probe_segment_etaIndex",1);
+      tChain->SetBranchStatus("probe_segment_x",1);
+      tChain->SetBranchStatus("probe_segment_y",1);
       tChain->SetBranchStatus("tp_dR",1);
       tChain->SetBranchStatus("tp_extdR",1);
       tChain->SetBranchStatus("tag_L1_pt",1);
@@ -626,6 +633,8 @@ public:
       tChain->SetBranchAddress("probe_d0",&m_poff_d0,&b_probe_d0);
       tChain->SetBranchAddress("probe_z0",&m_poff_z0,&b_probe_z0);
       tChain->SetBranchAddress("probe_segment_etaIndex",m_probe_segment_etaIndex,&b_probe_segment_etaIndex);
+      tChain->SetBranchAddress("probe_segment_x",m_probe_segment_x,&b_probe_segment_x);
+      tChain->SetBranchAddress("probe_segment_y",m_probe_segment_y,&b_probe_segment_y);
       tChain->SetBranchAddress("tp_dR",&m_tp_dR,&b_tp_dR);
       tChain->SetBranchAddress("tp_extdR",&m_tp_extdR,&b_tp_extdR);
       tChain->SetBranchAddress("tag_L1_pt",&m_tL1_pt,&b_tL1_pt);
@@ -733,6 +742,7 @@ public:
               m_h_mdtSPXY_etaIndex4.push_back(new TH2F(Form("h_mdtSPXY_etaIndex4_%dGeV",i*m_thpitch),"SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_mdtSPXY_etaIndex5.push_back(new TH2F(Form("h_mdtSPXY_etaIndex5_%dGeV",i*m_thpitch),"SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_mdtSPXY_etaIndex6.push_back(new TH2F(Form("h_mdtSPXY_etaIndex6_%dGeV",i*m_thpitch),"SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
+              m_h_segmentXY.push_back(new TH2F(Form("h_segmentXY_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
 
               //Efficiency
               m_h_eoff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
@@ -977,6 +987,7 @@ public:
       delete  m_h_mdtSPXY_etaIndex4.at(i);
       delete  m_h_mdtSPXY_etaIndex5.at(i);
       delete  m_h_mdtSPXY_etaIndex6.at(i);
+      delete  m_h_segmentXY.at(i);
       delete  m_h_eoff_pt.at(i);
       delete  m_h_eL1_pt.at(i);
       delete  m_h_eSA_pt.at(i);
