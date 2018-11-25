@@ -91,7 +91,6 @@ bool Efficiency::Cut_EF(Int_t pass){
 }
 
 void Efficiency::Execute(Int_t ev){
-     cout<<"Execute"<<endl;
      tChain->GetEntry(ev);
      for(Int_t i = 0;i <= m_nhist;i++){
 	  Double_t pextL1_dR = 1; 
