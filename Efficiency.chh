@@ -249,6 +249,12 @@ class Efficiency
   //vector<TH1D*> m_h_etaIndexout;
   //vector<TH1D*> m_h_etaIndexin;
   vector<TH2F*> m_h_segmentXY;
+  vector<TH2F*> m_h_segmentXY_etaIndex1;
+  vector<TH2F*> m_h_segmentXY_etaIndex2;
+  vector<TH2F*> m_h_segmentXY_etaIndex3;
+  vector<TH2F*> m_h_segmentXY_etaIndex4;
+  vector<TH2F*> m_h_segmentXY_etaIndex5;
+  vector<TH2F*> m_h_segmentXY_etaIndex6;
 
   //Efficiency
   vector<TH1D*> m_h_eoff_pt;
@@ -743,6 +749,12 @@ public:
               m_h_mdtSPXY_etaIndex5.push_back(new TH2F(Form("h_mdtSPXY_etaIndex5_%dGeV",i*m_thpitch),"SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_mdtSPXY_etaIndex6.push_back(new TH2F(Form("h_mdtSPXY_etaIndex6_%dGeV",i*m_thpitch),"SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_segmentXY.push_back(new TH2F(Form("h_segmentXY_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
+              m_h_segmentXY_etaIndex1.push_back(new TH2F(Form("h_segmentXY_etaIndex1_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
+              m_h_segmentXY_etaIndex2.push_back(new TH2F(Form("h_segmentXY_etaIndex2_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
+              m_h_segmentXY_etaIndex3.push_back(new TH2F(Form("h_segmentXY_etaIndex3_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
+              m_h_segmentXY_etaIndex4.push_back(new TH2F(Form("h_segmentXY_etaIndex4_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
+              m_h_segmentXY_etaIndex5.push_back(new TH2F(Form("h_segmentXY_etaIndex5_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
+              m_h_segmentXY_etaIndex6.push_back(new TH2F(Form("h_segmentXY_etaIndex6_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
 
               //Efficiency
               m_h_eoff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
@@ -988,6 +1000,12 @@ public:
       delete  m_h_mdtSPXY_etaIndex5.at(i);
       delete  m_h_mdtSPXY_etaIndex6.at(i);
       delete  m_h_segmentXY.at(i);
+      delete  m_h_segmentXY_etaIndex1.at(i);
+      delete  m_h_segmentXY_etaIndex2.at(i);
+      delete  m_h_segmentXY_etaIndex3.at(i);
+      delete  m_h_segmentXY_etaIndex4.at(i);
+      delete  m_h_segmentXY_etaIndex5.at(i);
+      delete  m_h_segmentXY_etaIndex6.at(i);
       delete  m_h_eoff_pt.at(i);
       delete  m_h_eL1_pt.at(i);
       delete  m_h_eSA_pt.at(i);
