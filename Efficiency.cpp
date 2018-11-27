@@ -570,43 +570,79 @@ void Efficiency::Execute(Int_t ev){
                               //if(pSA_superpointR_BI*cos(pSA_roiphi) < -4500 && 5200 pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi))m_h_etaIndexout->Fill(m_probe_segment_etaIndex);
                               //if(pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi))m_h_etaIndexin->Fill(m_probe_segment_etaIndex);
                               for(Int_t index = 0;index < 10;index++){
-                                   Int_t buf_index = std::fabs(static_cast<Int_t>(m_probe_segment_etaIndex[index]));
+                                   Int_t buf_index = static_cast<Int_t>(m_probe_segment_etaIndex[index]);
                                    switch(buf_index){
+                                        case -6:
+                                             m_h_mdtSPXY_etaIndexminus6.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexminus6.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexminus6.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndexminus6.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
+                                             break;
+                                        case -5:
+                                             m_h_mdtSPXY_etaIndexminus5.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexminus5.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexminus5.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndexminus5.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
+                                             break;
+                                        case -4:
+                                             m_h_mdtSPXY_etaIndexminus4.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexminus4.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexminus4.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndexminus4.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
+                                             break;
+                                        case -3:
+                                             m_h_mdtSPXY_etaIndexminus3.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexminus3.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexminus3.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndexminus3.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
+                                             break;
+                                        case -2:
+                                             m_h_mdtSPXY_etaIndexminus2.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexminus2.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexminus2.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndexminus2.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
+                                             break;
+                                        case -1:
+                                             m_h_mdtSPXY_etaIndexminus1.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexminus1.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexminus1.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndexminus1.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
+                                             break;
                                         case 1:
-                                             m_h_mdtSPXY_etaIndex1.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
-                                             m_h_mdtSPXY_etaIndex1.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
-                                             m_h_mdtSPXY_etaIndex1.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
-                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndex1.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
+                                             m_h_mdtSPXY_etaIndexplus1.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexplus1.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexplus1.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndexplus1.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
                                              break;
                                         case 2:
-                                             m_h_mdtSPXY_etaIndex2.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
-                                             m_h_mdtSPXY_etaIndex2.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
-                                             m_h_mdtSPXY_etaIndex2.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
-                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndex2.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
+                                             m_h_mdtSPXY_etaIndexplus2.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexplus2.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexplus2.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndexplus2.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
                                              break;
                                         case 3:
-                                             m_h_mdtSPXY_etaIndex3.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
-                                             m_h_mdtSPXY_etaIndex3.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
-                                             m_h_mdtSPXY_etaIndex3.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
-                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndex3.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
+                                             m_h_mdtSPXY_etaIndexplus3.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexplus3.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexplus3.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndexplus3.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
                                              break;
                                         case 4:
-                                             m_h_mdtSPXY_etaIndex4.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
-                                             m_h_mdtSPXY_etaIndex4.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
-                                             m_h_mdtSPXY_etaIndex4.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
-                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndex4.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
+                                             m_h_mdtSPXY_etaIndexplus4.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexplus4.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexplus4.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndexplus4.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
                                              break;
                                         case 5:
-                                             m_h_mdtSPXY_etaIndex5.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
-                                             m_h_mdtSPXY_etaIndex5.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
-                                             m_h_mdtSPXY_etaIndex5.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
-                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndex5.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
+                                             m_h_mdtSPXY_etaIndexplus5.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexplus5.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexplus5.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndexplus5.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
                                              break;
                                         case 6:
-                                             m_h_mdtSPXY_etaIndex6.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
-                                             m_h_mdtSPXY_etaIndex6.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
-                                             m_h_mdtSPXY_etaIndex6.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
-                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndex6.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
+                                             m_h_mdtSPXY_etaIndexplus6.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexplus6.at(i)->Fill(pSA_superpointR_BM*cos(pSA_roiphi),pSA_superpointR_BM*sin(pSA_roiphi));
+                                             m_h_mdtSPXY_etaIndexplus6.at(i)->Fill(pSA_superpointR_BO*cos(pSA_roiphi),pSA_superpointR_BO*sin(pSA_roiphi));
+                                             if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY_etaIndexplus6.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
                                              break;
                                         default:
                                              break;
@@ -879,19 +915,31 @@ void Efficiency::Finalize(TFile *tf1){
         //m_h_etaIndexin.at(i)->Write();
         m_h_mdtSPX_BI.at(i)->Write();
         m_h_mdtSPY_BI.at(i)->Write();
-        m_h_mdtSPXY_etaIndex1.at(i)->Write();
-        m_h_mdtSPXY_etaIndex2.at(i)->Write();
-        m_h_mdtSPXY_etaIndex3.at(i)->Write();
-        m_h_mdtSPXY_etaIndex4.at(i)->Write();
-        m_h_mdtSPXY_etaIndex5.at(i)->Write();
-        m_h_mdtSPXY_etaIndex6.at(i)->Write();
+        m_h_mdtSPXY_etaIndexplus1.at(i)->Write();
+        m_h_mdtSPXY_etaIndexplus2.at(i)->Write();
+        m_h_mdtSPXY_etaIndexplus3.at(i)->Write();
+        m_h_mdtSPXY_etaIndexplus4.at(i)->Write();
+        m_h_mdtSPXY_etaIndexplus5.at(i)->Write();
+        m_h_mdtSPXY_etaIndexplus6.at(i)->Write();
+        m_h_mdtSPXY_etaIndexminus1.at(i)->Write();
+        m_h_mdtSPXY_etaIndexminus2.at(i)->Write();
+        m_h_mdtSPXY_etaIndexminus3.at(i)->Write();
+        m_h_mdtSPXY_etaIndexminus4.at(i)->Write();
+        m_h_mdtSPXY_etaIndexminus5.at(i)->Write();
+        m_h_mdtSPXY_etaIndexminus6.at(i)->Write();
         m_h_segmentXY.at(i)->Write();
-        m_h_segmentXY_etaIndex1.at(i)->Write();
-        m_h_segmentXY_etaIndex2.at(i)->Write();
-        m_h_segmentXY_etaIndex3.at(i)->Write();
-        m_h_segmentXY_etaIndex4.at(i)->Write();
-        m_h_segmentXY_etaIndex5.at(i)->Write();
-        m_h_segmentXY_etaIndex6.at(i)->Write();
+        m_h_segmentXY_etaIndexplus1.at(i)->Write();
+        m_h_segmentXY_etaIndexplus2.at(i)->Write();
+        m_h_segmentXY_etaIndexplus3.at(i)->Write();
+        m_h_segmentXY_etaIndexplus4.at(i)->Write();
+        m_h_segmentXY_etaIndexplus5.at(i)->Write();
+        m_h_segmentXY_etaIndexplus6.at(i)->Write();
+        m_h_segmentXY_etaIndexminus1.at(i)->Write();
+        m_h_segmentXY_etaIndexminus2.at(i)->Write();
+        m_h_segmentXY_etaIndexminus3.at(i)->Write();
+        m_h_segmentXY_etaIndexminus4.at(i)->Write();
+        m_h_segmentXY_etaIndexminus5.at(i)->Write();
+        m_h_segmentXY_etaIndexminus6.at(i)->Write();
         m_h_eoff_pt.at(i)->Write();
         m_h_eL1_pt.at(i)->Write();
         m_h_eSA_pt.at(i)->Write();
