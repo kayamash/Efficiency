@@ -46,6 +46,7 @@ class Efficiency
   Double_t m_probe_segment_etaIndex[10];
   Double_t m_probe_segment_x[10];
   Double_t m_probe_segment_y[10];
+  Double_t m_probe_segment_z[10];
   Double_t m_poff_pt;
   Double_t m_poff_eta;
   Double_t m_poff_exteta;
@@ -141,6 +142,7 @@ class Efficiency
   TBranch *b_probe_segment_etaIndex;
   TBranch *b_probe_segment_x;
   TBranch *b_probe_segment_y;
+  TBranch *b_probe_segment_z;
   TBranch *b_tp_dR;
   TBranch *b_tp_extdR;
   TBranch *b_tL1_pt;
@@ -249,17 +251,17 @@ class Efficiency
   vector<TH2F*> m_h_mdtSPXY_etaIndexminus4;
   vector<TH2F*> m_h_mdtSPXY_etaIndexminus5;
   vector<TH2F*> m_h_mdtSPXY_etaIndexminus6;
-  vector<TH2F*> m_h_mdtSPZR;
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus;
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus;
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus11out;
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus11in;
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus15out;
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus15in;
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus11out;
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus11in;
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus15out;
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus15in;
+  vector<TH2F*> m_h_mdtSPZR;//
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus;//
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus;//
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus11out;//
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus11in;//
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus15out;//
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus15in;//
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus11out;//
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus11in;//
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus15out;//
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus15in;//
   vector<TH1D*> m_h_avemdteta;//
   vector<TH1D*> m_h_mdtSPX_BI;
   vector<TH1D*> m_h_mdtSPY_BI;
@@ -278,17 +280,17 @@ class Efficiency
   vector<TH2F*> m_h_segmentXY_etaIndexminus4;
   vector<TH2F*> m_h_segmentXY_etaIndexminus5;
   vector<TH2F*> m_h_segmentXY_etaIndexminus6;
-  vector<TH2F*> m_h_segmentZR;
-  vector<TH2F*> m_h_segmentZR_LargeSpecialplus;
-  vector<TH2F*> m_h_segmentZR_LargeSpecialminus;
-  vector<TH2F*> m_h_segmentZR_LargeSpecialplus11out;
-  vector<TH2F*> m_h_segmentZR_LargeSpecialplus11in;
-  vector<TH2F*> m_h_segmentZR_LargeSpecialplus15out;
-  vector<TH2F*> m_h_segmentZR_LargeSpecialplus15in;
+  vector<TH2F*> m_h_segmentZR;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialminus;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus11out;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus11in;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus15out;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus15in;//
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus11out;
-  vector<TH2F*> m_h_segmentZR_LargeSpecialminus11in;
-  vector<TH2F*> m_h_segmentZR_LargeSpecialminus15out;
-  vector<TH2F*> m_h_segmentZR_LargeSpecialminus15in;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialminus11in;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialminus15out;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialminus15in;//
 
   //Efficiency
   vector<TH1D*> m_h_eoff_pt;
@@ -592,6 +594,7 @@ public:
       tChain->SetBranchStatus("probe_segment_etaIndex",1);
       tChain->SetBranchStatus("probe_segment_x",1);
       tChain->SetBranchStatus("probe_segment_y",1);
+      tChain->SetBranchStatus("probe_segment_z",1);
       tChain->SetBranchStatus("tp_dR",1);
       tChain->SetBranchStatus("tp_extdR",1);
       tChain->SetBranchStatus("tag_L1_pt",1);
@@ -675,6 +678,7 @@ public:
       tChain->SetBranchAddress("probe_segment_etaIndex",m_probe_segment_etaIndex,&b_probe_segment_etaIndex);
       tChain->SetBranchAddress("probe_segment_x",m_probe_segment_x,&b_probe_segment_x);
       tChain->SetBranchAddress("probe_segment_y",m_probe_segment_y,&b_probe_segment_y);
+      tChain->SetBranchAddress("probe_segment_z",m_probe_segment_z,&b_probe_segment_z);
       tChain->SetBranchAddress("tp_dR",&m_tp_dR,&b_tp_dR);
       tChain->SetBranchAddress("tp_extdR",&m_tp_extdR,&b_tp_extdR);
       tChain->SetBranchAddress("tag_L1_pt",&m_tL1_pt,&b_tL1_pt);
