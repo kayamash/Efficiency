@@ -203,7 +203,6 @@ class Efficiency
 
   //histgram
   //Standard
-  /*
   vector<TH1D*> m_h_poff_pt;
   vector<TH1D*> m_h_pL1_pt;
   vector<TH1D*> m_h_pSA_pt;
@@ -236,7 +235,6 @@ class Efficiency
   vector<TGraph*> m_g_mdthitXY;
   vector<TH2F*> m_h_pSAphivspSAphims;//
   vector<TH2F*> m_h_pSAphivspSAphibe;//
-  */
   vector<TH2F*> m_h_mdtSPXY_BI;
   vector<TH2F*> m_h_mdtSPXY_BM;
   vector<TH2F*> m_h_mdtSPXY_BO;
@@ -253,6 +251,7 @@ class Efficiency
   vector<TH2F*> m_h_mdtSPXY_etaIndexminus4;
   vector<TH2F*> m_h_mdtSPXY_etaIndexminus5;
   vector<TH2F*> m_h_mdtSPXY_etaIndexminus6;
+  /*
   vector<TH2F*> m_h_mdtSPZR;//
   vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus;//
   vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus;//
@@ -264,7 +263,8 @@ class Efficiency
   vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus11in;//
   vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus15out;//
   vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus15in;//
-  //vector<TH1D*> m_h_avemdteta;//
+  */
+  vector<TH1D*> m_h_avemdteta;//
   vector<TH1D*> m_h_mdtSPX_BI;
   vector<TH1D*> m_h_mdtSPY_BI;
   //vector<TH1D*> m_h_etaIndexout;
@@ -282,6 +282,7 @@ class Efficiency
   vector<TH2F*> m_h_segmentXY_etaIndexminus4;
   vector<TH2F*> m_h_segmentXY_etaIndexminus5;
   vector<TH2F*> m_h_segmentXY_etaIndexminus6;
+  /*
   vector<TH2F*> m_h_segmentZR;//
   vector<TH2F*> m_h_segmentZR_LargeSpecialplus;//
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus;//
@@ -290,12 +291,12 @@ class Efficiency
   vector<TH2F*> m_h_segmentZR_LargeSpecialplus15out;//
   vector<TH2F*> m_h_segmentZR_LargeSpecialplus15in;//
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus11out;
-  vector<TH2F*> m_h_segmentZR_LargeSpecialminus11in;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialminus11in;
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus15out;//
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus15in;//
+  */
 
   //Efficiency
-  /*
   vector<TH1D*> m_h_eoff_pt;
   vector<TH1D*> m_h_eL1_pt;
   vector<TH1D*> m_h_eSA_pt;
@@ -367,10 +368,8 @@ class Efficiency
   vector<TH2F*> m_h_eff_poff_etaphi;
   vector<TH2F*> m_h_eff_pL1_etaphi;
   vector<TH2F*> m_h_eff_pSA_etaphi;
-  */
 
   //Residual
-  /*
   vector<TH1D*> m_h_pSA_respt;
   vector<TH1D*> m_h_pCB_respt;
   vector<TH1D*> m_h_pEF_respt;
@@ -473,7 +472,6 @@ class Efficiency
   vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus11in;
   vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus15out;
   vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus15in;
-  */
 
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;
@@ -743,13 +741,12 @@ public:
       tChain->SetBranchAddress("probe_mesEFTAG_pass",&m_pEFTAG_pass,&b_pEFTAG_pass);
 
       //define each histgram
-      //m_h_offphi_LargeSpecial = new TH1D("h_offphi_LargeSpecial_0GeV","offline phi;offline phi;Entries",600,-3.0,3.0);
-      //m_h_saphims_LargeSpecial = new TH1D("h_saphims_LargeSpecial_0GeV","L2MuonSA phi;L2MuonSA phims;Entries",600,-3.0,3.0);
-      //m_h_saroiphi_LargeSpecial = new TH1D("h_saroiphi_LargeSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
-      //m_h_saroiphi_SmallSpecial = new TH1D("h_saroiphi_SmallSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
+      m_h_offphi_LargeSpecial = new TH1D("h_offphi_LargeSpecial_0GeV","offline phi;offline phi;Entries",600,-3.0,3.0);
+      m_h_saphims_LargeSpecial = new TH1D("h_saphims_LargeSpecial_0GeV","L2MuonSA phi;L2MuonSA phims;Entries",600,-3.0,3.0);
+      m_h_saroiphi_LargeSpecial = new TH1D("h_saroiphi_LargeSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
+      m_h_saroiphi_SmallSpecial = new TH1D("h_saroiphi_SmallSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
       for(Int_t i = 0;i <= nh;i++){
               //Standard
-              /*
 	            m_h_poff_pt.push_back(new TH1D(Form("h_poff_pt_%dGeV",i*m_thpitch),"probe offline pt;offline pt[GeV];Entries",150,0,150));
               m_h_pL1_pt.push_back(new TH1D(Form("h_pL1_pt_%dGeV",i*m_thpitch),"probe L1 pt;L1 pt[GeV];Entries",150,0,150));
               m_h_pSA_pt.push_back(new TH1D(Form("h_pSA_pt_%dGeV",i*m_thpitch),"probe L2MuonSA pt;L2MuonSA pt[GeV];Entries",150,0,150)); 
@@ -770,7 +767,6 @@ public:
               m_h_poffvsSA_pt.push_back(new TH2F(Form("h_poffvsSA_pt_%dGeV",i*m_thpitch),"probe offline pt vs probe L2MuonSA pt@mu26ivm;probe offline pt[GeV];probe L2MuonSA pt[GeV]",150,0,150,150,0,150));
               m_h_offphivsSA_sAddress.push_back(new TH2F(Form("h_offphivsSA_sAddress_%dGeV",i*m_thpitch),"offline phi vs sAddress;offline phi;sAddress",140,-3.5,3.5,4,0.0,4.0));
               m_h_offphivsSAphims.push_back(new TH2F(Form("h_offphivsSAphims_%dGeV",i*m_thpitch),"offphi vs phims;offline phi;L2MuonSA phims",140,-3.5,3.5,140,-3.5,3.5));
-
               m_h_rpchitXY.push_back(new TH2F(Form("h_rpchitXvsrpchitY_%dGeV",i*m_thpitch),"RPC hit distribution;RPC hit X[mm];RPC hit Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_rpchitZR.push_back(new TH2F(Form("h_rpchitZvsrpchitR_%dGeV",i*m_thpitch),"RPC hit distribution;RPC hit Z[mm];RPC hit R[mm]",5000,-25000.0,25000.0,1500,0.0,15000.0));
               m_h_mdthitXY.push_back(new TH2F(Form("h_mdthitXvsmdthitY_%dGeV",i*m_thpitch),"MDT hit distribution;MDT hit X[mm];MDT hit Y[mm]",5000,-25000.0,25000.0,5000,-25000.0,25000.0));
@@ -786,7 +782,6 @@ public:
               m_g_mdthitXY.push_back(new TGraph(0));
               //m_h_etaIndexout.push_back(new TH1D(Form("h_etaIndexout_%dGeV",i*m_thpitch),"etaIndexout;etaIndex;Entries",17,-8.5,8.5,100000,0,100000));
               //m_h_etaIndexin.push_back(new TH1D(Form("h_etaIndexin_%dGeV",i*m_thpitch),"etaIndexout;etaIndex;Entries",17,-8.5,8.5,100000,0,100000));
-              */
               m_h_mdtSPX_BI.push_back(new TH1D(Form("h_mdtSPX_BI_%dGeV",i*m_thpitch),"mdtSPX_BI;mdtSPX_BI;Entries",3000,-6000.0,-3000.0));
               m_h_mdtSPY_BI.push_back(new TH1D(Form("h_mdtSPY_BI_%dGeV",i*m_thpitch),"mdtSPY_BI;mdtSPY_BI;Entries",3000,-6000.0,-3000.0));
               m_h_mdtSPXY_etaIndexplus1.push_back(new TH2F(Form("h_mdtSPXY_etaIndexplus1_%dGeV",i*m_thpitch),"SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
@@ -814,6 +809,7 @@ public:
               m_h_segmentXY_etaIndexminus4.push_back(new TH2F(Form("h_segmentXY_etaIndexminus4_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
               m_h_segmentXY_etaIndexminus5.push_back(new TH2F(Form("h_segmentXY_etaIndexminus5_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
               m_h_segmentXY_etaIndexminus6.push_back(new TH2F(Form("h_segmentXY_etaIndexminus6_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
+              /*
               m_h_mdtSPZR.push_back(new TH2F(Form("h_mdtSPZR_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_mdtSPZR_LargeSpecialplus.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialplus_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_mdtSPZR_LargeSpecialminus.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialminus_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
@@ -836,9 +832,9 @@ public:
               m_h_segmentZR_LargeSpecialminus15out.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus15out_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_segmentZR_LargeSpecialminus11in.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus11in_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_segmentZR_LargeSpecialminus11out.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus11out_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              */
 
               //Efficiency
-              /*
               m_h_eoff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
               m_h_eL1_pt.push_back(new TH1D(Form("h_eL1_pt_%dGeV",i*m_thpitch),"mesL1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
               m_h_eSA_pt.push_back(new TH1D(Form("h_eSA_pt_%dGeV",i*m_thpitch),"mesSA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
@@ -911,10 +907,8 @@ public:
               m_h_eff_poff_etaphi.push_back(new TH2F(Form("h_eff_poff_etaphi_%dGeV",i*m_thpitch),"offlineeta vs offlinephi;offline eta;offline phi",80,-2.5,2.5,48,-3.0,3.0));
               m_h_eff_pL1_etaphi.push_back(new TH2F(Form("h_eff_pL1_etaphi_%dGeV",i*m_thpitch),"L1eta vs L1phi;L1 eta;L1 phi",80,-2.5,2.5,48,-3.0,3.0));
               m_h_eff_pSA_etaphi.push_back(new TH2F(Form("h_eff_pSA_etaphi_%dGeV",i*m_thpitch),"L2MuonSAeta vs L2MuonSAphi;L2MuonSA eta;L2MuonSA phi",80,-2.5,2.5,48,-3.0,3.0));
-              */
 
               //Residual
-              /*
               m_h_pSA_respt.push_back(new TH1D(Form("h_pSA_respt_%dGeV",i*m_thpitch),"probe L2MuonSA residual pt;residual pt;Entries",300,-1,1));
               m_h_pCB_respt.push_back(new TH1D(Form("h_pCB_respt_%dGeV",i*m_thpitch),"probe muComb residual pt;residual pt;Entries",640,-0.8,0.8));
               m_h_pEF_respt.push_back(new TH1D(Form("h_pEF_respt_%dGeV",i*m_thpitch),"probe EventFilter residual pt;residual pt;Entries",1800,-0.3,0.3));
@@ -1017,7 +1011,6 @@ public:
               m_h_etaIndexvsSA_resptLargeSpecialminus11in.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialminus11in_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
               m_h_etaIndexvsSA_resptLargeSpecialminus15out.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialminus15out_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
               m_h_etaIndexvsSA_resptLargeSpecialminus15in.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialminus15in_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
-              */
 
               m_countLarge.push_back(0);
               m_countLargeSpecial.push_back(0);
@@ -1037,11 +1030,10 @@ public:
   void Finalize(TFile *tf1);
   ~Efficiency(){
     //delete
-    //delete m_h_offphi_LargeSpecial;
-    //delete m_h_saphims_LargeSpecial;
-    //delete m_h_saroiphi_LargeSpecial;
+    delete m_h_offphi_LargeSpecial;
+    delete m_h_saphims_LargeSpecial;
+    delete m_h_saroiphi_LargeSpecial;
     for(Int_t i = 0;i <= m_nhist;i++){
-      /*
       delete  m_h_poff_pt.at(i);
       delete  m_h_pL1_pt.at(i);
       delete  m_h_pSA_pt.at(i);
@@ -1077,7 +1069,6 @@ public:
       delete  m_h_avemdteta.at(i);
       //delete  m_h_etaIndexout.at(i);
       //delete  m_h_etaIndexin.at(i);
-      */
       delete  m_h_mdtSPX_BI.at(i);
       delete  m_h_mdtSPY_BI.at(i);
       delete  m_h_mdtSPXY_etaIndexplus1.at(i);
@@ -1092,6 +1083,7 @@ public:
       delete  m_h_mdtSPXY_etaIndexminus4.at(i);
       delete  m_h_mdtSPXY_etaIndexminus5.at(i);
       delete  m_h_mdtSPXY_etaIndexminus6.at(i);
+      /*
       delete  m_h_mdtSPZR.at(i);
       delete  m_h_mdtSPZR_LargeSpecialplus.at(i);
       delete  m_h_mdtSPZR_LargeSpecialminus.at(i);
@@ -1127,7 +1119,7 @@ public:
       delete  m_h_segmentZR_LargeSpecialminus11in.at(i);
       delete  m_h_segmentZR_LargeSpecialminus15out.at(i);
       delete  m_h_segmentZR_LargeSpecialminus15in.at(i);
-      /*
+      */
       delete  m_h_eoff_pt.at(i);
       delete  m_h_eL1_pt.at(i);
       delete  m_h_eSA_pt.at(i);
@@ -1299,7 +1291,6 @@ public:
       delete  m_h_etaIndexvsSA_resptLargeSpecialminus11in.at(i);
       delete  m_h_etaIndexvsSA_resptLargeSpecialminus15out.at(i);
       delete  m_h_etaIndexvsSA_resptLargeSpecialminus15in.at(i);
-      */
     }
   }
 
