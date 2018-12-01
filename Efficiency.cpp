@@ -344,10 +344,10 @@ void Efficiency::Execute(Int_t ev){
                          m_h_offphivsSA_resptLargeplus.at(i)->Fill(m_poff_phi,resSA_pt);
                          m_h_offetavsSA_resptLargeplus.at(i)->Fill(m_poff_eta,resSA_pt);
                          m_h_mdtetavsSA_resptLargeplus.at(i)->Fill(ave_mdteta,resSA_pt);
-                         */
                          for(Int_t index = 0;index < 10;index++){
                               if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeplus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                          }
+                         */
                     }
                     if(m_poff_charge*m_poff_eta/std::fabs(m_poff_eta)==-1){
                          /*
@@ -357,10 +357,10 @@ void Efficiency::Execute(Int_t ev){
                          m_h_offphivsSA_resptLargeminus.at(i)->Fill(m_poff_phi,resSA_pt);
                          m_h_offetavsSA_resptLargeminus.at(i)->Fill(m_poff_eta,resSA_pt);
                          m_h_mdtetavsSA_resptLargeminus.at(i)->Fill(ave_mdteta,resSA_pt);
-                         */
                          for(Int_t index = 0;index < 10;index++){
                               if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeminus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                          }
+                         */
                     }
                     m_countLarge.at(i)++;
                     break;
@@ -382,7 +382,7 @@ void Efficiency::Execute(Int_t ev){
                          m_h_mdtetavsSA_resptLargeSpecialplus.at(i)->Fill(ave_mdteta,resSA_pt);
                          */
                          for(Int_t index = 0;index < 10;index++){
-                              if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                              //if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                               if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0 && m_probe_segment_z[index] != -88888.0)m_h_segmentZR_LargeSpecialplus.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2) + pow(m_probe_segment_z[index],2)));
                          }
                          m_h_mdtSPZR_LargeSpecialplus.at(i)->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
@@ -402,7 +402,7 @@ void Efficiency::Execute(Int_t ev){
                                    }
                                    */
                                    for(Int_t index = 0;index < 10;index++){
-                                        if(m_probe_segment_etaIndex[index] >= -8 && m_probe_segment_etaIndex[index] <= 8)m_h_etaIndexvsSA_resptLargeSpecialplus15out.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                                        //if(m_probe_segment_etaIndex[index] >= -8 && m_probe_segment_etaIndex[index] <= 8)m_h_etaIndexvsSA_resptLargeSpecialplus15out.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                         if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0 && m_probe_segment_z[index] != -88888.0)m_h_segmentZR_LargeSpecialplus15out.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2) + pow(m_probe_segment_z[index],2)));
                                    }
                                    m_h_mdtSPZR_LargeSpecialplus15out.at(i)->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
@@ -418,12 +418,14 @@ void Efficiency::Execute(Int_t ev){
                                    m_h_eSA_pt_LargeSpecialplus15in.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                    */
                                    for(Int_t index = 0;index < 10;index++){
-                                       if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus15in.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                                       //if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus15in.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                        if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0 && m_probe_segment_z[index] != -88888.0)m_h_segmentZR_LargeSpecialplus15in.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2) + pow(m_probe_segment_z[index],2)));
                                    }
+                                   /*
                                    if(std::fabs(m_poff_pt*0.001) > 30.0 && std::fabs(m_poff_pt*0.001) < 50.0){
                                         m_h_highoffetavsSA_resptLargeSpecialplus15in.at(i)->Fill(m_poff_eta,resSA_pt);
                                    }
+                                   */
                                    m_h_mdtSPZR_LargeSpecialplus15in.at(i)->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
                                    m_h_mdtSPZR_LargeSpecialplus15in.at(i)->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
                                    m_h_mdtSPZR_LargeSpecialplus15in.at(i)->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
@@ -441,7 +443,7 @@ void Efficiency::Execute(Int_t ev){
                                    m_h_eSA_pt_LargeSpecialplus11in.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                    */
                                    for(Int_t index = 0;index < 10;index++){
-                                        if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus11in.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                                        //if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus11in.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                         if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0 && m_probe_segment_z[index] != -88888.0)m_h_segmentZR_LargeSpecialplus11in.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2) + pow(m_probe_segment_z[index],2)));
                                    }
                                    /*
@@ -462,7 +464,7 @@ void Efficiency::Execute(Int_t ev){
                                    m_h_eSA_pt_LargeSpecialplus11out.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                    */
                                    for(Int_t index = 0;index < 10;index++){
-                                        if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus11out.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                                        //if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus11out.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                         if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0 && m_probe_segment_z[index] != -88888.0)m_h_segmentZR_LargeSpecialplus11out.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2) + pow(m_probe_segment_z[index],2)));
                                    }
                                    /*
@@ -487,7 +489,7 @@ void Efficiency::Execute(Int_t ev){
                          m_h_mdtetavsSA_resptLargeSpecialminus.at(i)->Fill(ave_mdteta,resSA_pt);
                          */
                          for(Int_t index = 0;index < 10;index++){
-                              if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                              //if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                               if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0 && m_probe_segment_z[index] != -88888.0)m_h_segmentZR_LargeSpecialminus.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2) + pow(m_probe_segment_z[index],2)));
                          }
                          m_h_mdtSPZR_LargeSpecialminus.at(i)->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
@@ -504,7 +506,7 @@ void Efficiency::Execute(Int_t ev){
                               m_h_eSA_pt_LargeSpecialminus15out.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                               */
                               for(Int_t index = 0;index < 10;index++){
-                                  if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus15out.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                                  //if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus15out.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                   if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0 && m_probe_segment_z[index] != -88888.0)m_h_segmentZR_LargeSpecialminus15out.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2) + pow(m_probe_segment_z[index],2)));
                               }
                               /*
@@ -524,7 +526,7 @@ void Efficiency::Execute(Int_t ev){
                               m_h_eSA_pt_LargeSpecialminus15in.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                               */
                               for(Int_t index = 0;index < 10;index++){
-                                   if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus15in.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                                   //if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus15in.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                    if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0 && m_probe_segment_z[index] != -88888.0)m_h_segmentZR_LargeSpecialminus15in.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2) + pow(m_probe_segment_z[index],2)));
                               }
                               /*
@@ -548,7 +550,7 @@ void Efficiency::Execute(Int_t ev){
                               m_h_eSA_pt_LargeSpecialminus11in.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                               */
                               for(Int_t index = 0;index < 10;index++){
-                                  if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus11in.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                                  //if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus11in.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                   if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0 && m_probe_segment_z[index] != -88888.0)m_h_segmentZR_LargeSpecialminus11in.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2) + pow(m_probe_segment_z[index],2)));
                               }
                               /*
@@ -568,7 +570,7 @@ void Efficiency::Execute(Int_t ev){
                               m_h_eSA_pt_LargeSpecialminus11out.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                               */
                               for(Int_t index = 0;index < 10;index++){
-                                  if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus11out.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                                  //if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus11out.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                   if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0 && m_probe_segment_z[index] != -88888.0)m_h_segmentZR_LargeSpecialminus11out.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2) + pow(m_probe_segment_z[index],2)));
                               }
                               /*
@@ -594,10 +596,10 @@ void Efficiency::Execute(Int_t ev){
                          m_h_offphivsSA_resptSmallplus.at(i)->Fill(m_poff_phi,resSA_pt);
                          m_h_offetavsSA_resptSmallplus.at(i)->Fill(m_poff_eta,resSA_pt);
                          m_h_mdtetavsSA_resptSmallplus.at(i)->Fill(ave_mdteta,resSA_pt);
-                         */
                          for(Int_t index = 0;index < 10;index++){
                               if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptSmallplus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                          }
+                         */
                     }
                     if(m_poff_charge*m_poff_eta/std::fabs(m_poff_eta)==-1){
                          /*
@@ -607,15 +609,15 @@ void Efficiency::Execute(Int_t ev){
                          m_h_offphivsSA_resptSmallminus.at(i)->Fill(m_poff_phi,resSA_pt);
                          m_h_offetavsSA_resptSmallminus.at(i)->Fill(m_poff_eta,resSA_pt);
                          m_h_mdtetavsSA_resptSmallminus.at(i)->Fill(ave_mdteta,resSA_pt);
-                         */
                          for(Int_t index = 0;index < 10;index++){
                               if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptSmallminus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                          }
+                         */
                     }
                     m_countSmall.at(i)++;
                     break;
                case 3:
-                    if(i == 0)m_h_saroiphi_SmallSpecial->Fill(pSA_roiphi);
+                    //if(i == 0)m_h_saroiphi_SmallSpecial->Fill(pSA_roiphi);
                     if(m_poff_charge*m_poff_eta/std::fabs(m_poff_eta)==1){
                          /*
                          m_h_off_ptvsSA_resptSmallSpecialplus.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
@@ -624,10 +626,10 @@ void Efficiency::Execute(Int_t ev){
                          m_h_offphivsSA_resptSmallSpecialplus.at(i)->Fill(m_poff_phi,resSA_pt);
                          m_h_offetavsSA_resptSmallSpecialplus.at(i)->Fill(m_poff_eta,resSA_pt);
                          m_h_mdtetavsSA_resptSmallSpecialplus.at(i)->Fill(ave_mdteta,resSA_pt);
-                         */
                          for(Int_t index = 0;index < 10;index++){
                               if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptSmallSpecialplus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                          }
+                         */
                     }
                     if(m_poff_charge*m_poff_eta/std::fabs(m_poff_eta)==-1){
                          /*
@@ -636,10 +638,10 @@ void Efficiency::Execute(Int_t ev){
                          m_h_eSA_pt_SmallSpecialminus.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                          m_h_offphivsSA_resptSmallSpecialminus.at(i)->Fill(m_poff_phi,resSA_pt);
                          m_h_offetavsSA_resptSmallSpecialminus.at(i)->Fill(m_poff_eta,resSA_pt);
-                         */
                          for(Int_t index = 0;index < 10;index++){
                               if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptSmallSpecialminus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                          }
+                         */
                     }
                     m_countSmallSpecial.at(i)++;
                     break;

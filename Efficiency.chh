@@ -743,10 +743,10 @@ public:
       tChain->SetBranchAddress("probe_mesEFTAG_pass",&m_pEFTAG_pass,&b_pEFTAG_pass);
 
       //define each histgram
-      m_h_offphi_LargeSpecial = new TH1D("h_offphi_LargeSpecial_0GeV","offline phi;offline phi;Entries",600,-3.0,3.0);
-      m_h_saphims_LargeSpecial = new TH1D("h_saphims_LargeSpecial_0GeV","L2MuonSA phi;L2MuonSA phims;Entries",600,-3.0,3.0);
-      m_h_saroiphi_LargeSpecial = new TH1D("h_saroiphi_LargeSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
-      m_h_saroiphi_SmallSpecial = new TH1D("h_saroiphi_SmallSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
+      //m_h_offphi_LargeSpecial = new TH1D("h_offphi_LargeSpecial_0GeV","offline phi;offline phi;Entries",600,-3.0,3.0);
+      //m_h_saphims_LargeSpecial = new TH1D("h_saphims_LargeSpecial_0GeV","L2MuonSA phi;L2MuonSA phims;Entries",600,-3.0,3.0);
+      //m_h_saroiphi_LargeSpecial = new TH1D("h_saroiphi_LargeSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
+      //m_h_saroiphi_SmallSpecial = new TH1D("h_saroiphi_SmallSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
       for(Int_t i = 0;i <= nh;i++){
               //Standard
               /*
@@ -1037,9 +1037,9 @@ public:
   void Finalize(TFile *tf1);
   ~Efficiency(){
     //delete
-    delete m_h_offphi_LargeSpecial;
-    delete m_h_saphims_LargeSpecial;
-    delete m_h_saroiphi_LargeSpecial;
+    //delete m_h_offphi_LargeSpecial;
+    //delete m_h_saphims_LargeSpecial;
+    //delete m_h_saroiphi_LargeSpecial;
     for(Int_t i = 0;i <= m_nhist;i++){
       /*
       delete  m_h_poff_pt.at(i);
