@@ -11,7 +11,7 @@ file9="gitadd.sh"
 file11="LargeSpecialEvent.dat"
 file12="setup_grid.sh"
 add="git add "
-message="add hist"
+message="bug fix"
 push="git push origin "
 
 eval $add$file1
