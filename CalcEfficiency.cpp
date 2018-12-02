@@ -74,8 +74,76 @@ void CalcEfficiency::DrawEfficiencyeta(TH1D *h1,TH1D *h2){
     if(buf_m != 0){
     eff_y.push_back(buf_n/buf_m);
     eff_y_err.push_back(sqrt(buf_n*(1 - buf_n/buf_m))/buf_m);
-    eff_x.push_back(static_cast<Double_t>(-2.5 + 0.1*i));
+    eff_x.push_back(static_cast<Double_t>(h1->GetBinCenter(i+1)));
     eff_x_err.push_back(0.05);
+   }
+  }
+
+  TGraphErrors *tg1 = new TGraphErrors(eff_x.size(),&(eff_x.at(0)),&(eff_y.at(0)),&(eff_x_err.at(0)),&(eff_y_err.at(0)));
+  tg1->SetMarkerStyle(20);
+  tg1->SetMarkerSize(1.0);
+  frame->SetTitle(m_title.c_str());
+  tg1->Draw("P");
+  tg1->SetName(m_name.c_str());
+  tg1->Write();
+  eff_x.clear();
+  eff_x_err.clear();
+  eff_y.clear();
+  eff_y_err.clear();
+  delete tg1;
+  delete c1; 
+}
+
+void CalcEfficiency::DrawEfficiencyphi(TH1D *h1,TH1D *h2){
+  TCanvas *c1 = new TCanvas("c1","c1",1600,900);
+  gStyle->SetTitleYOffset(m_yoffset);
+  TH1F *frame = gPad->DrawFrame(-2.5,0,2.5,1);
+  std::vector<Double_t> eff_x;
+  std::vector<Double_t> eff_y;
+  std::vector<Double_t> eff_x_err;
+  std::vector<Double_t> eff_y_err;
+  for(Int_t i = 0;i <= 48;i++){
+    Double_t buf_m = static_cast<Double_t>(h1->GetBinContent(i+1));
+    Double_t buf_n = static_cast<Double_t>(h2->GetBinContent(i+1));
+    if(buf_m != 0){
+    eff_y.push_back(buf_n/buf_m);
+    eff_y_err.push_back(sqrt(buf_n*(1 - buf_n/buf_m))/buf_m);
+    eff_x.push_back(static_cast<Double_t>(h1->GetBinCenter(i+1)));
+    eff_x_err.push_back(1.0/16.0);
+   }
+  }
+
+  TGraphErrors *tg1 = new TGraphErrors(eff_x.size(),&(eff_x.at(0)),&(eff_y.at(0)),&(eff_x_err.at(0)),&(eff_y_err.at(0)));
+  tg1->SetMarkerStyle(20);
+  tg1->SetMarkerSize(1.0);
+  frame->SetTitle(m_title.c_str());
+  tg1->Draw("P");
+  tg1->SetName(m_name.c_str());
+  tg1->Write();
+  eff_x.clear();
+  eff_x_err.clear();
+  eff_y.clear();
+  eff_y_err.clear();
+  delete tg1;
+  delete c1; 
+}
+
+void CalcEfficiency::DrawEfficiencypileup(TH1D *h1,TH1D *h2){
+  TCanvas *c1 = new TCanvas("c1","c1",1600,900);
+  gStyle->SetTitleYOffset(m_yoffset);
+  TH1F *frame = gPad->DrawFrame(-2.5,0,2.5,1);
+  std::vector<Double_t> eff_x;
+  std::vector<Double_t> eff_y;
+  std::vector<Double_t> eff_x_err;
+  std::vector<Double_t> eff_y_err;
+  for(Int_t i = 0;i <= 50;i++){
+    Double_t buf_m = static_cast<Double_t>(h1->GetBinContent(i+1));
+    Double_t buf_n = static_cast<Double_t>(h2->GetBinContent(i+1));
+    if(buf_m != 0){
+    eff_y.push_back(buf_n/buf_m);
+    eff_y_err.push_back(sqrt(buf_n*(1 - buf_n/buf_m))/buf_m);
+    eff_x.push_back(static_cast<Double_t>(h1->GetBinCenter(i+1)));
+    eff_x_err.push_back(0.5);
    }
   }
 

@@ -50,6 +50,8 @@ class CalcEfficiency{
 
     void DrawEfficiency(TH1D *h1,TH1D *h2,Double_t max,Int_t nbin,Double_t err);
     void DrawEfficiencyeta(TH1D *h1,TH1D *h2);
+    void DrawEfficiencyphi(TH1D *h1,TH1D *h2);
+    void DrawEfficiencypileup(TH1D *h1,TH1D *h2);
     void DrawEfficiency2D(TH2F *h1,TH2F *h2);
 
     void SetCondition(string title,Double_t offset,Double_t tmargin,Double_t bmargin,Double_t lmargin,Double_t rmargin);

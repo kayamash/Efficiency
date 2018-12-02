@@ -139,7 +139,6 @@ void Efficiency::Execute(Int_t ev){
           Double_t tEF_dR = 0;
           Int_t pEF_pass = 0;
           Int_t pEFTAG_pass = -1;
-          cout<<m_aipc<<endl;
           
           for(Int_t method = 0;method < 25;method++){
                if(m_mes_name->at(method) == m_method_name){
@@ -807,29 +806,29 @@ void Efficiency::Finalize(TFile *tf1){
 
           ceff.SetConditionName(Form("L1Efficiency_phi_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiencyeta(m_h_eoff_phi.at(i),m_h_eL1_phi.at(i));
+          ceff.DrawEfficiencyphi(m_h_eoff_phi.at(i),m_h_eL1_phi.at(i));
           ceff.SetConditionName(Form("SAEfficiency_phi_%dGeV",i*m_thpitch));
           ceff.SetCondition("L2MuonSA Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiencyeta(m_h_eL1_phi.at(i),m_h_eSA_phi.at(i));
+          ceff.DrawEfficiencyphi(m_h_eL1_phi.at(i),m_h_eSA_phi.at(i));
           ceff.SetConditionName(Form("CBEfficiency_phi_%dGeV",i*m_thpitch));
           ceff.SetCondition("muComb Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiencyeta(m_h_eSA_phi.at(i),m_h_eCB_phi.at(i));
+          ceff.DrawEfficiencyphi(m_h_eSA_phi.at(i),m_h_eCB_phi.at(i));
           ceff.SetConditionName(Form("EFEfficiency_phi_%dGeV",i*m_thpitch));
           ceff.SetCondition("EventFilter Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiencyeta(m_h_eCB_phi.at(i),m_h_eEF_phi.at(i));
+          ceff.DrawEfficiencyphi(m_h_eCB_phi.at(i),m_h_eEF_phi.at(i));
 
           ceff.SetConditionName(Form("L1Efficiency_pileup_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiencyeta(m_h_eoff_aipc.at(i),m_h_eL1_aipc.at(i));
+          ceff.DrawEfficiencypileup(m_h_eoff_aipc.at(i),m_h_eL1_aipc.at(i));
           ceff.SetConditionName(Form("SAEfficiency_pileup_%dGeV",i*m_thpitch));
           ceff.SetCondition("L2MuonSA Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiencyeta(m_h_eL1_aipc.at(i),m_h_eSA_aipc.at(i));
+          ceff.DrawEfficiencypileup(m_h_eL1_aipc.at(i),m_h_eSA_aipc.at(i));
           ceff.SetConditionName(Form("CBEfficiency_pileup_%dGeV",i*m_thpitch));
           ceff.SetCondition("muComb Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiencyeta(m_h_eSA_aipc.at(i),m_h_eCB_aipc.at(i));
+          ceff.DrawEfficiencypileup(m_h_eSA_aipc.at(i),m_h_eCB_aipc.at(i));
           ceff.SetConditionName(Form("EFEfficiency_pileup_%dGeV",i*m_thpitch));
           ceff.SetCondition("EventFilter Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiencyeta(m_h_eCB_aipc.at(i),m_h_eEF_aipc.at(i));
+          ceff.DrawEfficiencypileup(m_h_eCB_aipc.at(i),m_h_eEF_aipc.at(i));
 
           ceff.SetConditionName(Form("L1Efficiency_barrel_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
