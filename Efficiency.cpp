@@ -92,7 +92,7 @@ bool Efficiency::Cut_EF(Int_t pass){
 
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
-     for(Int_t i = 0;i <= m_nhist;i++){
+     for(Int_t i = 0;i < m_nhist;i++){
           Double_t pextL1_dR = 1; 
           Double_t pextSA_dR = 1; 
           Double_t pextCB_dR = 1; 
