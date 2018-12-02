@@ -1004,8 +1004,8 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_mdtSPXY_etaIndexminus5.at(i)->Write();
           m_h_mdtSPXY_etaIndexminus6.at(i)->Write();
           cout<<1<<endl;
-          cout<<m_h_mdtSPZR.size()<<endl;
           m_h_mdtSPZR.at(i)->Write();
+          cout<<1<<endl;
           /*
           m_h_mdtSPZR_LargeSpecialplus.at(i)->Write();
           m_h_mdtSPZR_LargeSpecialminus.at(i)->Write();
