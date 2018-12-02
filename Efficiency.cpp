@@ -139,6 +139,7 @@ void Efficiency::Execute(Int_t ev){
           Double_t tEF_dR = 0;
           Int_t pEF_pass = 0;
           Int_t pEFTAG_pass = -1;
+          cout<<m_aipc<<endl;
           
           for(Int_t method = 0;method < 25;method++){
                if(m_mes_name->at(method) == m_method_name){
