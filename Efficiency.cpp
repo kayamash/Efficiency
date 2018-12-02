@@ -92,7 +92,7 @@ bool Efficiency::Cut_EF(Int_t pass){
 
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
-     for(Int_t i = 0;i <= m_nhist;i++){
+     for(Int_t i = 0;i < m_nhist;i++){
           Double_t pextL1_dR = 1; 
           Double_t pextSA_dR = 1; 
           Double_t pextCB_dR = 1; 
@@ -776,7 +776,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_saphims_LargeSpecial->Write();
      m_h_offphi_LargeSpecial->Write();
 
-     for(Int_t i = 0;i <= m_nhist;i++){
+     for(Int_t i = 0;i < m_nhist;i++){
 
           //base,target
           ceff.SetConditionName(Form("L1Efficiency_%dGeV",i*m_thpitch));
@@ -1226,6 +1226,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_etaIndexvsSA_resptLargeSpecialminus15out.at(i)->Write();
           m_h_etaIndexvsSA_resptLargeSpecialminus15in.at(i)->Write();
 
+          cout<<m_countLarge.size()<<"  "<<m_countLargeSpecial.size()<<"  "<<m_countSmall.size()<<"  "<<m_countSmallSpecial.size()<<endl;
           if(m_countLarge.size() != 0 && m_countLargeSpecial.size() != 0 && m_countSmall.size() != 0 && m_countSmallSpecial.size() != 0)cout<<i*m_thpitch<<"      "<<m_countLarge.at(i)<<"      "<<m_countLargeSpecial.at(i)<<"      "<<m_countSmall.at(i)<<"      "<<m_countSmallSpecial.at(i)<<endl;
      }
 
