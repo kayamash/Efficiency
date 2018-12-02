@@ -34,6 +34,7 @@ class Efficiency
   private:
   //for tree
   TTree *tChain;
+  Float_t m_aipc;
   Double_t m_toff_pt;
   Double_t m_toff_eta;
   Double_t m_toff_exteta;
@@ -117,6 +118,7 @@ class Efficiency
   std::vector<Int_t> *m_pEF_pass;
   std::vector<Int_t> *m_pEFTAG_pass;
 
+  TBranch *b_aipc;
   TBranch *b_mes_name;
   TBranch *b_tag_proc;
   TBranch *b_tag_pt;
@@ -310,6 +312,11 @@ class Efficiency
   vector<TH1D*> m_h_eSA_phi;
   vector<TH1D*> m_h_eCB_phi;
   vector<TH1D*> m_h_eEF_phi;
+  vector<TH1D*> m_h_eoff_aipc;
+  vector<TH1D*> m_h_eL1_aipc;
+  vector<TH1D*> m_h_eSA_aipc;
+  vector<TH1D*> m_h_eCB_aipc;
+  vector<TH1D*> m_h_eEF_aipc;
   vector<TH1D*> m_h_eoff_pt_barrel;
   vector<TH1D*> m_h_eL1_pt_barrel;
   vector<TH1D*> m_h_eSA_pt_barrel;
@@ -577,6 +584,7 @@ public:
       //active only need branch 
       tChain->SetBranchStatus("*",0);
       tChain->SetBranchStatus("mes_name",1);
+      tChain->SetBranchStatus("AverageInteractionsPerCrossing",1);
       tChain->SetBranchStatus("tag_proc",1);
       tChain->SetBranchStatus("tag_pt",1);
       tChain->SetBranchStatus("tag_eta",1);
@@ -661,6 +669,7 @@ public:
 
       //setting each branch address
       tChain->SetBranchAddress("mes_name",&m_mes_name,&b_mes_name);
+      tChain->SetBranchAddress("AverageInteractionsPerCrossing",&m_aipc,&b_aipc);
       tChain->SetBranchAddress("tag_proc",&m_tag_proc,&b_tag_proc);
       tChain->SetBranchAddress("tag_pt",&m_toff_pt,&b_tag_pt);
       tChain->SetBranchAddress("tag_eta",&m_toff_eta,&b_tag_eta);
@@ -854,6 +863,11 @@ public:
               m_h_eSA_phi.push_back(new TH1D(Form("h_eSA_phi_%dGeV",i*m_thpitch),"SA phi;SA phi;Entries",48,-3.0,3.0));
               m_h_eCB_phi.push_back(new TH1D(Form("h_eCB_phi_%dGeV",i*m_thpitch),"CB phi;CB phi;Entries",48,-3.0,3.0));
               m_h_eEF_phi.push_back(new TH1D(Form("h_eEF_phi_%dGeV",i*m_thpitch),"EF phi;EF phi;Entries",48,-3.0,3.0));
+              m_h_eoff_aipc.push_back(new TH1D(Form("h_eoff_pileup_%dGeV",i*m_thpitch),"off pileup;pileup;Entries",50,-0.5,49.5));
+              m_h_eL1_aipc.push_back(new TH1D(Form("h_eL1_pileup_%dGeV",i*m_thpitch),"L1 pileup;pileup;Entries",50,-0.5,49.5));
+              m_h_eSA_aipc.push_back(new TH1D(Form("h_eSA_pileup_%dGeV",i*m_thpitch),"SA pileup;pileup;Entries",50,-0.5,49.5));
+              m_h_eCB_aipc.push_back(new TH1D(Form("h_eCB_pileup_%dGeV",i*m_thpitch),"CB pileup;pileup;Entries",50,-0.5,49.5));
+              m_h_eEF_aipc.push_back(new TH1D(Form("h_eEF_pileup_%dGeV",i*m_thpitch),"EF pileup;pileup;Entries",50,-0.5,49.5));
               m_h_eoff_pt_barrel.push_back(new TH1D(Form("h_eoff_pt_barrel_%dGeV",i*m_thpitch),"off_pt;off pt[GeV];Entries",300,-0.25,149.75));
               m_h_eL1_pt_barrel.push_back(new TH1D(Form("h_eL1_pt_barrel_%dGeV",i*m_thpitch),"L1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
               m_h_eSA_pt_barrel.push_back(new TH1D(Form("h_eSA_pt_barrel_%dGeV",i*m_thpitch),"SA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
@@ -1146,6 +1160,11 @@ public:
       delete  m_h_eSA_phi.at(i);
       delete  m_h_eCB_phi.at(i);
       delete  m_h_eEF_phi.at(i);
+      delete  m_h_eoff_aipc.at(i);
+      delete  m_h_eL1_aipc.at(i);
+      delete  m_h_eSA_aipc.at(i);
+      delete  m_h_eCB_aipc.at(i);
+      delete  m_h_eEF_aipc.at(i);
       delete  m_h_eoff_pt_barrel.at(i);
       delete  m_h_eL1_pt_barrel.at(i);
       delete  m_h_eSA_pt_barrel.at(i);

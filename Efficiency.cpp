@@ -197,6 +197,7 @@ void Efficiency::Execute(Int_t ev){
           if(std::fabs(m_poff_pt*0.001) > 5){
                m_h_eoff_eta.at(i)->Fill(m_poff_eta);
                m_h_eoff_phi.at(i)->Fill(m_poff_phi);
+               m_h_eoff_aipc.at(i)->Fill(m_aipc);
           }
           if(Dicision_barrel(m_poff_eta)){
                m_h_eoff_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
@@ -244,6 +245,7 @@ void Efficiency::Execute(Int_t ev){
                m_h_eff_pL1_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
                m_h_eL1_eta.at(i)->Fill(m_poff_eta);
                m_h_eL1_phi.at(i)->Fill(m_poff_phi);
+               m_h_eL1_aipc.at(i)->Fill(m_aipc);
           }
           switch(static_cast<Int_t>(pSA_sAddress)){
                case 0:
@@ -333,6 +335,7 @@ void Efficiency::Execute(Int_t ev){
                m_h_eff_pSA_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
                m_h_eSA_eta.at(i)->Fill(m_poff_eta);
                m_h_eSA_phi.at(i)->Fill(m_poff_phi);
+               m_h_eSA_aipc.at(i)->Fill(m_aipc);
           }
           m_h_poffvsSA_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001),std::fabs(pSA_pt));
                          
@@ -727,6 +730,7 @@ void Efficiency::Execute(Int_t ev){
           if(std::fabs(m_poff_pt*0.001) > 5){
                m_h_eCB_eta.at(i)->Fill(m_poff_eta);
                m_h_eCB_phi.at(i)->Fill(m_poff_phi);
+               m_h_eCB_aipc.at(i)->Fill(m_aipc);
           }
           m_h_pCB_respt.at(i)->Fill(resCB_pt);
           if(Dicision_barrel(m_poff_eta)){
@@ -749,6 +753,7 @@ void Efficiency::Execute(Int_t ev){
           if(std::fabs(m_poff_pt*0.001) > 5){
                m_h_eEF_eta.at(i)->Fill(m_poff_eta);
                m_h_eEF_phi.at(i)->Fill(m_poff_phi);
+               m_h_eEF_aipc.at(i)->Fill(m_aipc);
           }
           m_h_pEF_respt.at(i)->Fill(resEF_pt);
           if(Dicision_barrel(m_poff_eta)){
@@ -811,6 +816,19 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionName(Form("EFEfficiency_phi_%dGeV",i*m_thpitch));
           ceff.SetCondition("EventFilter Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiencyeta(m_h_eCB_phi.at(i),m_h_eEF_phi.at(i));
+
+          ceff.SetConditionName(Form("L1Efficiency_pileup_%dGeV",i*m_thpitch));
+          ceff.SetCondition("L1 Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiencyeta(m_h_eoff_aipc.at(i),m_h_eL1_aipc.at(i));
+          ceff.SetConditionName(Form("SAEfficiency_pileup_%dGeV",i*m_thpitch));
+          ceff.SetCondition("L2MuonSA Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiencyeta(m_h_eL1_aipc.at(i),m_h_eSA_aipc.at(i));
+          ceff.SetConditionName(Form("CBEfficiency_pileup_%dGeV",i*m_thpitch));
+          ceff.SetCondition("muComb Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiencyeta(m_h_eSA_aipc.at(i),m_h_eCB_aipc.at(i));
+          ceff.SetConditionName(Form("EFEfficiency_pileup_%dGeV",i*m_thpitch));
+          ceff.SetCondition("EventFilter Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiencyeta(m_h_eCB_aipc.at(i),m_h_eEF_aipc.at(i));
 
           ceff.SetConditionName(Form("L1Efficiency_barrel_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1039,6 +1057,11 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_eSA_phi.at(i)->Write();
           m_h_eCB_phi.at(i)->Write();
           m_h_eEF_phi.at(i)->Write();
+          m_h_eoff_aipc.at(i)->Write();
+          m_h_eL1_aipc.at(i)->Write();
+          m_h_eSA_aipc.at(i)->Write();
+          m_h_eCB_aipc.at(i)->Write();
+          m_h_eEF_aipc.at(i)->Write();
           m_h_eoff_pt_barrel.at(i)->Write();
           m_h_eL1_pt_barrel.at(i)->Write();
           m_h_eSA_pt_barrel.at(i)->Write();
