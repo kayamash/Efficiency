@@ -287,18 +287,18 @@ class Efficiency
   vector<TH2F*> m_h_segmentXY_etaIndexminus5;
   vector<TH2F*> m_h_segmentXY_etaIndexminus6;
 
-  vector<TH2F*> m_h_segZR;//
+  vector<TH2F*> m_h_segmentZR;//
   /*
-  vector<TH2F*> m_h_segZR_LargeSpecialplus;//
-  vector<TH2F*> m_h_segZR_LargeSpecialminus;//
-  vector<TH2F*> m_h_segZR_LargeSpecialplus11out;//
-  vector<TH2F*> m_h_segZR_LargeSpecialplus11in;//
-  vector<TH2F*> m_h_segZR_LargeSpecialplus15out;//
-  vector<TH2F*> m_h_segZR_LargeSpecialplus15in;//
-  vector<TH2F*> m_h_segZR_LargeSpecialminus11out;
-  vector<TH2F*> m_h_segZR_LargeSpecialminus11in;
-  vector<TH2F*> m_h_segZR_LargeSpecialminus15out;//
-  vector<TH2F*> m_h_segZR_LargeSpecialminus15in;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialminus;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus11out;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus11in;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus15out;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus15in;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialminus11out;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialminus11in;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialminus15out;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialminus15in;//
   */
 
   //Efficiency
@@ -844,19 +844,20 @@ public:
               m_h_mdtSPZR_LargeSpecialminus11out.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialminus11out_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               */
               cout<<3<<endl;
-              m_h_segZR.push_back(new TH2F(Form("h_segmentZR_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              //m_h_segmentZR.push_back(new TH2F(Form("h_segmentZR_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              //m_h_segmentZR.push_back(new TH2F(Form("h_segmentZR_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               cout<<4<<endl;
               /*
-              m_h_segZR_LargeSpecialplus.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
-              m_h_segZR_LargeSpecialminus.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
-              m_h_segZR_LargeSpecialplus15in.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus15in_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
-              m_h_segZR_LargeSpecialplus15out.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus15out_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
-              m_h_segZR_LargeSpecialplus11in.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus11in_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
-              m_h_segZR_LargeSpecialplus11out.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus11out_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
-              m_h_segZR_LargeSpecialminus15in.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus15in_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
-              m_h_segZR_LargeSpecialminus15out.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus15out_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
-              m_h_segZR_LargeSpecialminus11in.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus11in_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
-              m_h_segZR_LargeSpecialminus11out.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus11out_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              m_h_segmentZR_LargeSpecialplus.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              m_h_segmentZR_LargeSpecialminus.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              m_h_segmentZR_LargeSpecialplus15in.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus15in_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              m_h_segmentZR_LargeSpecialplus15out.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus15out_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              m_h_segmentZR_LargeSpecialplus11in.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus11in_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              m_h_segmentZR_LargeSpecialplus11out.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus11out_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              m_h_segmentZR_LargeSpecialminus15in.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus15in_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              m_h_segmentZR_LargeSpecialminus15out.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus15out_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              m_h_segmentZR_LargeSpecialminus11in.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus11in_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              m_h_segmentZR_LargeSpecialminus11out.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus11out_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               */
 
               //Efficiency
@@ -1119,7 +1120,7 @@ public:
       delete  m_h_mdtSPXY_etaIndexminus5.at(i);
       delete  m_h_mdtSPXY_etaIndexminus6.at(i);
       
-      delete  m_h_mdtSPZR.at(i);
+      //delete  m_h_mdtSPZR.at(i);
       /*
       delete  m_h_mdtSPZR_LargeSpecialplus.at(i);
       delete  m_h_mdtSPZR_LargeSpecialminus.at(i);
@@ -1147,18 +1148,18 @@ public:
       delete  m_h_segmentXY_etaIndexminus5.at(i);
       delete  m_h_segmentXY_etaIndexminus6.at(i);
 
-      delete  m_h_segZR.at(i);
+      delete  m_h_segmentZR.at(i);
       /*
-      delete  m_h_segZR_LargeSpecialplus.at(i);
-      delete  m_h_segZR_LargeSpecialminus.at(i);
-      delete  m_h_segZR_LargeSpecialplus11out.at(i);
-      delete  m_h_segZR_LargeSpecialplus11in.at(i);
-      delete  m_h_segZR_LargeSpecialplus15out.at(i);
-      delete  m_h_segZR_LargeSpecialplus15in.at(i);
-      delete  m_h_segZR_LargeSpecialminus11out.at(i);
-      delete  m_h_segZR_LargeSpecialminus11in.at(i);
-      delete  m_h_segZR_LargeSpecialminus15out.at(i);
-      delete  m_h_segZR_LargeSpecialminus15in.at(i);
+      delete  m_h_segmentZR_LargeSpecialplus.at(i);
+      delete  m_h_segmentZR_LargeSpecialminus.at(i);
+      delete  m_h_segmentZR_LargeSpecialplus11out.at(i);
+      delete  m_h_segmentZR_LargeSpecialplus11in.at(i);
+      delete  m_h_segmentZR_LargeSpecialplus15out.at(i);
+      delete  m_h_segmentZR_LargeSpecialplus15in.at(i);
+      delete  m_h_segmentZR_LargeSpecialminus11out.at(i);
+      delete  m_h_segmentZR_LargeSpecialminus11in.at(i);
+      delete  m_h_segmentZR_LargeSpecialminus15out.at(i);
+      delete  m_h_segmentZR_LargeSpecialminus15in.at(i);
       */
 
       delete  m_h_eoff_pt.at(i);
