@@ -844,6 +844,7 @@ public:
               m_h_mdtSPZR_LargeSpecialminus11out.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialminus11out_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               */
               cout<<3<<endl;
+              //m_h_segmentZR.push_back(new TH2F(Form("h_segmentZR_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_segmentZR.push_back(new TH2F(Form("h_segmentZR_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               cout<<4<<endl;
               /*
