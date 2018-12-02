@@ -305,6 +305,11 @@ class Efficiency
   vector<TH1D*> m_h_eSA_eta;
   vector<TH1D*> m_h_eCB_eta;
   vector<TH1D*> m_h_eEF_eta;
+  vector<TH1D*> m_h_eoff_phi;
+  vector<TH1D*> m_h_eL1_phi;
+  vector<TH1D*> m_h_eSA_phi;
+  vector<TH1D*> m_h_eCB_phi;
+  vector<TH1D*> m_h_eEF_phi;
   vector<TH1D*> m_h_eoff_pt_barrel;
   vector<TH1D*> m_h_eL1_pt_barrel;
   vector<TH1D*> m_h_eSA_pt_barrel;
@@ -819,7 +824,7 @@ public:
               m_h_mdtSPZR_LargeSpecialminus15out.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialminus15out_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_mdtSPZR_LargeSpecialminus11in.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialminus11in_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_mdtSPZR_LargeSpecialminus11out.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialminus11out_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
-              */
+              
               m_h_segmentZR.push_back(new TH2F(Form("h_mdtSPZR_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_segmentZR_LargeSpecialplus.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_segmentZR_LargeSpecialminus.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
@@ -831,6 +836,7 @@ public:
               m_h_segmentZR_LargeSpecialminus15out.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus15out_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_segmentZR_LargeSpecialminus11in.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus11in_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_segmentZR_LargeSpecialminus11out.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus11out_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              */
 
               //Efficiency
               m_h_eoff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
@@ -843,6 +849,11 @@ public:
               m_h_eSA_eta.push_back(new TH1D(Form("h_eSA_eta_%dGeV",i*m_thpitch),"SA eta;SA eta;Entries",50,-2.5,2.5));
               m_h_eCB_eta.push_back(new TH1D(Form("h_eCB_eta_%dGeV",i*m_thpitch),"CB eta;CB eta;Entries",50,-2.5,2.5));
               m_h_eEF_eta.push_back(new TH1D(Form("h_eEF_eta_%dGeV",i*m_thpitch),"EF eta;EF eta;Entries",50,-2.5,2.5));
+              m_h_eoff_phi.push_back(new TH1D(Form("h_eoff_phi_%dGeV",i*m_thpitch),"off eta;off eta;Entries",48,-3.0,3.0));
+              m_h_eL1_phi.push_back(new TH1D(Form("h_eL1_phi_%dGeV",i*m_thpitch),"L1 phi;L1 phi;Entries",48,-3.0,3.0));
+              m_h_eSA_phi.push_back(new TH1D(Form("h_eSA_phi_%dGeV",i*m_thpitch),"SA phi;SA phi;Entries",48,-3.0,3.0));
+              m_h_eCB_phi.push_back(new TH1D(Form("h_eCB_phi_%dGeV",i*m_thpitch),"CB phi;CB phi;Entries",48,-3.0,3.0));
+              m_h_eEF_phi.push_back(new TH1D(Form("h_eEF_phi_%dGeV",i*m_thpitch),"EF phi;EF phi;Entries",48,-3.0,3.0));
               m_h_eoff_pt_barrel.push_back(new TH1D(Form("h_eoff_pt_barrel_%dGeV",i*m_thpitch),"off_pt;off pt[GeV];Entries",300,-0.25,149.75));
               m_h_eL1_pt_barrel.push_back(new TH1D(Form("h_eL1_pt_barrel_%dGeV",i*m_thpitch),"L1_pt;L1 pt[GeV];Entries",300,-0.25,149.75));
               m_h_eSA_pt_barrel.push_back(new TH1D(Form("h_eSA_pt_barrel_%dGeV",i*m_thpitch),"SA_pt;SA pt[GeV];Entries",300,-0.25,149.75));
@@ -1107,6 +1118,7 @@ public:
       delete  m_h_segmentXY_etaIndexminus4.at(i);
       delete  m_h_segmentXY_etaIndexminus5.at(i);
       delete  m_h_segmentXY_etaIndexminus6.at(i);
+/*
       delete  m_h_segmentZR.at(i);
       delete  m_h_segmentZR_LargeSpecialplus.at(i);
       delete  m_h_segmentZR_LargeSpecialminus.at(i);
@@ -1118,6 +1130,7 @@ public:
       delete  m_h_segmentZR_LargeSpecialminus11in.at(i);
       delete  m_h_segmentZR_LargeSpecialminus15out.at(i);
       delete  m_h_segmentZR_LargeSpecialminus15in.at(i);
+*/
       delete  m_h_eoff_pt.at(i);
       delete  m_h_eL1_pt.at(i);
       delete  m_h_eSA_pt.at(i);
@@ -1128,6 +1141,11 @@ public:
       delete  m_h_eSA_eta.at(i);
       delete  m_h_eCB_eta.at(i);
       delete  m_h_eEF_eta.at(i);
+      delete  m_h_eoff_phi.at(i);
+      delete  m_h_eL1_phi.at(i);
+      delete  m_h_eSA_phi.at(i);
+      delete  m_h_eCB_phi.at(i);
+      delete  m_h_eEF_phi.at(i);
       delete  m_h_eoff_pt_barrel.at(i);
       delete  m_h_eL1_pt_barrel.at(i);
       delete  m_h_eSA_pt_barrel.at(i);

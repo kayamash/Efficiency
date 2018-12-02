@@ -31,9 +31,9 @@ Int_t proc = 3;
 
 //const string inputfilelist = "/home/kayamash/efflist/mc426336.list";
 //const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.list";
-const string inputfilelist = "/home/kayamash/efflist/Jpsi_noMdtCsm1ksample.list";
+const string inputfilelist = "/home/kayamash/efflist/Jpsi_noMdtCsm1k.list";
 //const string inputfilelist = "/home/kayamash/efflist/newmc16345099.list"; 
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/Jpsi_noMdtCsm1ksample.root";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/Jpsi_noMdtCsm1k.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/newdata18_physics_Main_Ztap.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/mc426336.root";
 const Int_t efficiency_maxenergy = 26;
