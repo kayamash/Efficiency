@@ -776,7 +776,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_saphims_LargeSpecial->Write();
      m_h_offphi_LargeSpecial->Write();
 
-     for(Int_t i = 0;i <= m_nhist;i++){
+     for(Int_t i = 0;i < m_nhist;i++){
 
           //base,target
           ceff.SetConditionName(Form("L1Efficiency_%dGeV",i*m_thpitch));
