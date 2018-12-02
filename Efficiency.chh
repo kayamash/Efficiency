@@ -253,8 +253,9 @@ class Efficiency
   vector<TH2F*> m_h_mdtSPXY_etaIndexminus4;
   vector<TH2F*> m_h_mdtSPXY_etaIndexminus5;
   vector<TH2F*> m_h_mdtSPXY_etaIndexminus6;
-  /*
+  
   vector<TH2F*> m_h_mdtSPZR;//
+  /*
   vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus;//
   vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus;//
   vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus11out;//
@@ -266,6 +267,7 @@ class Efficiency
   vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus15out;//
   vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus15in;//
   */
+  
   vector<TH1D*> m_h_avemdteta;//
   vector<TH1D*> m_h_mdtSPX_BI;
   vector<TH1D*> m_h_mdtSPY_BI;
@@ -284,7 +286,9 @@ class Efficiency
   vector<TH2F*> m_h_segmentXY_etaIndexminus4;
   vector<TH2F*> m_h_segmentXY_etaIndexminus5;
   vector<TH2F*> m_h_segmentXY_etaIndexminus6;
+
   vector<TH2F*> m_h_segmentZR;//
+  /*
   vector<TH2F*> m_h_segmentZR_LargeSpecialplus;//
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus;//
   vector<TH2F*> m_h_segmentZR_LargeSpecialplus11out;//
@@ -295,6 +299,7 @@ class Efficiency
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus11in;
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus15out;//
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus15in;//
+  */
 
   //Efficiency
   vector<TH1D*> m_h_eoff_pt;
@@ -821,8 +826,11 @@ public:
               m_h_segmentXY_etaIndexminus4.push_back(new TH2F(Form("h_segmentXY_etaIndexminus4_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
               m_h_segmentXY_etaIndexminus5.push_back(new TH2F(Form("h_segmentXY_etaIndexminus5_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
               m_h_segmentXY_etaIndexminus6.push_back(new TH2F(Form("h_segmentXY_etaIndexminus6_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              /*
+              
+
+              
               m_h_mdtSPZR.push_back(new TH2F(Form("h_mdtSPZR_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              /*
               m_h_mdtSPZR_LargeSpecialplus.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialplus_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_mdtSPZR_LargeSpecialminus.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialminus_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_mdtSPZR_LargeSpecialplus15in.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialplus15in_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
@@ -833,8 +841,10 @@ public:
               m_h_mdtSPZR_LargeSpecialminus15out.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialminus15out_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_mdtSPZR_LargeSpecialminus11in.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialminus11in_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_mdtSPZR_LargeSpecialminus11out.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialminus11out_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
-              
+              */
+
               m_h_segmentZR.push_back(new TH2F(Form("h_mdtSPZR_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
+              /*
               m_h_segmentZR_LargeSpecialplus.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_segmentZR_LargeSpecialminus.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
               m_h_segmentZR_LargeSpecialplus15in.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus15in_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",30000,-15000.0,15000.0,30000,-15000.0,15000.0));
@@ -1106,8 +1116,9 @@ public:
       delete  m_h_mdtSPXY_etaIndexminus4.at(i);
       delete  m_h_mdtSPXY_etaIndexminus5.at(i);
       delete  m_h_mdtSPXY_etaIndexminus6.at(i);
-      /*
+      
       delete  m_h_mdtSPZR.at(i);
+      /*
       delete  m_h_mdtSPZR_LargeSpecialplus.at(i);
       delete  m_h_mdtSPZR_LargeSpecialminus.at(i);
       delete  m_h_mdtSPZR_LargeSpecialplus11out.at(i);
@@ -1119,6 +1130,7 @@ public:
       delete  m_h_mdtSPZR_LargeSpecialminus15out.at(i);
       delete  m_h_mdtSPZR_LargeSpecialminus15in.at(i);
       */
+      
       delete  m_h_segmentXY.at(i);
       delete  m_h_segmentXY_etaIndexplus1.at(i);
       delete  m_h_segmentXY_etaIndexplus2.at(i);
@@ -1132,8 +1144,9 @@ public:
       delete  m_h_segmentXY_etaIndexminus4.at(i);
       delete  m_h_segmentXY_etaIndexminus5.at(i);
       delete  m_h_segmentXY_etaIndexminus6.at(i);
-/*
+
       delete  m_h_segmentZR.at(i);
+      /*
       delete  m_h_segmentZR_LargeSpecialplus.at(i);
       delete  m_h_segmentZR_LargeSpecialminus.at(i);
       delete  m_h_segmentZR_LargeSpecialplus11out.at(i);
@@ -1144,7 +1157,8 @@ public:
       delete  m_h_segmentZR_LargeSpecialminus11in.at(i);
       delete  m_h_segmentZR_LargeSpecialminus15out.at(i);
       delete  m_h_segmentZR_LargeSpecialminus15in.at(i);
-*/
+      */
+
       delete  m_h_eoff_pt.at(i);
       delete  m_h_eL1_pt.at(i);
       delete  m_h_eSA_pt.at(i);
