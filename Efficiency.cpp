@@ -1004,6 +1004,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_mdtSPXY_etaIndexminus5.at(i)->Write();
           m_h_mdtSPXY_etaIndexminus6.at(i)->Write();
           cout<<1<<endl;
+          cout<<m_h_mdtSPZR.size()<<endl;
           m_h_mdtSPZR.at(i)->Write();
           /*
           m_h_mdtSPZR_LargeSpecialplus.at(i)->Write();
@@ -1045,7 +1046,6 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_segmentZR_LargeSpecialminus15out.at(i)->Write();
           m_h_segmentZR_LargeSpecialminus15in.at(i)->Write();
           */
-          cout<<1<<endl;
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
           m_h_eSA_pt.at(i)->Write();
