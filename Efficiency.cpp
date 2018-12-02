@@ -193,7 +193,8 @@ void Efficiency::Execute(Int_t ev){
           if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
           m_h_poff_pt.at(i)->Fill(m_poff_pt*0.001);
           m_h_eoff_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-          if(std::fabs(m_poff_pt*0.001) > 40){
+          //if(std::fabs(m_poff_pt*0.001) > 40){
+          if(std::fabs(m_poff_pt*0.001) > 5){
                m_h_eoff_eta.at(i)->Fill(m_poff_eta);
                m_h_eoff_phi.at(i)->Fill(m_poff_phi);
           }
@@ -238,7 +239,8 @@ void Efficiency::Execute(Int_t ev){
           }else{
                m_h_eL1_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           }
-          if(std::fabs(m_poff_pt*0.001) > 40){
+          //if(std::fabs(m_poff_pt*0.001) > 40){
+          if(std::fabs(m_poff_pt*0.001) > 5){
                m_h_eff_pL1_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
                m_h_eL1_eta.at(i)->Fill(m_poff_eta);
                m_h_eL1_phi.at(i)->Fill(m_poff_phi);
@@ -326,7 +328,8 @@ void Efficiency::Execute(Int_t ev){
           }else{
                m_h_eSA_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           }
-          if(std::fabs(m_poff_pt*0.001) > 40){
+          //if(std::fabs(m_poff_pt*0.001) > 40){
+          if(std::fabs(m_poff_pt*0.001) > 5){
                m_h_eff_pSA_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
                m_h_eSA_eta.at(i)->Fill(m_poff_eta);
                m_h_eSA_phi.at(i)->Fill(m_poff_phi);
@@ -720,7 +723,8 @@ void Efficiency::Execute(Int_t ev){
           m_h_textCB_dR.at(i)->Fill(textCB_dR);
           m_h_pextCB_dR.at(i)->Fill(pextCB_dR);
           m_h_eCB_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-          if(std::fabs(m_poff_pt*0.001) > 40){
+          //if(std::fabs(m_poff_pt*0.001) > 40){
+          if(std::fabs(m_poff_pt*0.001) > 5){
                m_h_eCB_eta.at(i)->Fill(m_poff_eta);
                m_h_eCB_phi.at(i)->Fill(m_poff_phi);
           }
@@ -741,7 +745,8 @@ void Efficiency::Execute(Int_t ev){
           m_h_textEF_dR.at(i)->Fill(textEF_dR);
           m_h_pextEF_dR.at(i)->Fill(pextEF_dR);
           m_h_eEF_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-          if(std::fabs(m_poff_pt*0.001) > 40){
+          //if(std::fabs(m_poff_pt*0.001) > 40){
+          if(std::fabs(m_poff_pt*0.001) > 5){
                m_h_eEF_eta.at(i)->Fill(m_poff_eta);
                m_h_eEF_phi.at(i)->Fill(m_poff_phi);
           }
