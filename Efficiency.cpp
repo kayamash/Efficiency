@@ -375,8 +375,8 @@ void Efficiency::Execute(Int_t ev){
                          if(buf_BIsegmentR != 0){
                               m_h_segSP_diffR_LargeBI.at(i)->Fill(buf_BIsegmentR - pSA_superpointR_BI);
                               m_h_segSP_resR_LargeBI.at(i)->Fill(1.0/pSA_superpointR_BI - 1.0/buf_BIsegmentR);
-                              Int_t buf_index = static_cast<Int_t>(m_probe_segment_etaIndex[buf_etaindex]);
-                                        switch(fabs(buf_index)){
+                              Int_t buf_index = fabs(static_cast<Int_t>(m_probe_segment_etaIndex[buf_etaindex]));
+                                        switch(buf_index){
                                              case 1:
                                                   m_h_segSP_resR_LargeBIetaindex1.at(i)->Fill(1.0/pSA_superpointR_BI - 1.0/buf_BIsegmentR);
                                                   break;
@@ -502,8 +502,8 @@ void Efficiency::Execute(Int_t ev){
                                    if(buf_BIsegmentR != 0){
                                         m_h_segSP_diffR_LSBI.at(i)->Fill(buf_resR);
                                         m_h_segSP_resR_LSBI.at(i)->Fill(1.0/pSA_superpointR_BI - 1.0/buf_BIsegmentR);
-                                        Int_t buf_index = static_cast<Int_t>(m_probe_segment_etaIndex[buf_etaindex]);
-                                        switch(fabs(buf_index)){
+                                        Int_t buf_index = fabs(static_cast<Int_t>(m_probe_segment_etaIndex[buf_etaindex]));
+                                        switch(buf_index){
                                              case 1:
                                                   m_h_segSP_resR_LSBIetaindex1.at(i)->Fill(1.0/pSA_superpointR_BI - 1.0/buf_BIsegmentR);
                                                   break;
