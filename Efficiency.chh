@@ -297,6 +297,8 @@ class Efficiency
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus15out;//
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus15in;//
 
+  vector<TH1D*> m_h_numsegment;
+
   //Efficiency
   vector<TH1D*> m_h_eoff_pt;
   vector<TH1D*> m_h_eL1_pt;
@@ -846,6 +848,7 @@ public:
               m_h_segmentZR_LargeSpecialminus15out.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus15out_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
               m_h_segmentZR_LargeSpecialminus11in.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus11in_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
               m_h_segmentZR_LargeSpecialminus11out.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus11out_%dGeV",i*m_thpitch),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
+              m_h_numsegment.push_back(new TH1D(Form("h_numsegment_%dGeV",i*m_thpitch),"the number of segment;the number of segment;Entries",10,0,10));
 
               //Efficiency
               m_h_eoff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
@@ -1144,6 +1147,8 @@ public:
       delete  m_h_segmentZR_LargeSpecialminus11in.at(i);
       delete  m_h_segmentZR_LargeSpecialminus15out.at(i);
       delete  m_h_segmentZR_LargeSpecialminus15in.at(i);
+
+      delete m_h_numsegment.at(i);
 
       delete  m_h_eoff_pt.at(i);
       delete  m_h_eL1_pt.at(i);

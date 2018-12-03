@@ -708,11 +708,16 @@ void Efficiency::Execute(Int_t ev){
                     m_h_mdthitZR.at(i)->Fill(pSA_mdtZ->at(size),pSA_mdtR->at(size));
                     if(m_g_mdthitXY.at(i)->GetN() <= 1000000)m_g_mdthitXY.at(i)->SetPoint(m_g_mdthitXY.at(i)->GetN(),pSA_mdtR->at(size)*cos(pSA_mdtPhi->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtPhi->at(size)));
                }
+               Int_t buf_numsegment = 0;
                for(Int_t index = 0;index < 10;index++){
                     if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_respt.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                     if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0)m_h_segmentXY.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
-                    if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0 && m_probe_segment_z[index] != -88888.0)m_h_segmentZR.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
+                    if(m_probe_segment_x[index] != -88888.0 && m_probe_segment_y[index] != -88888.0 && m_probe_segment_z[index] != -88888.0){
+                         m_h_segmentZR.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
+                         buf_numsegment++;
+                    }
                }
+               m_h_numsegment.at(i)->Fill(buf_numsegment);
           }
           m_h_offphivsSAphims.at(i)->Fill(m_poff_phi,pSA_phims);
 
@@ -1038,6 +1043,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_segmentZR_LargeSpecialminus11in.at(i)->Write();
           m_h_segmentZR_LargeSpecialminus15out.at(i)->Write();
           m_h_segmentZR_LargeSpecialminus15in.at(i)->Write();
+          m_h_numsegment.at(i)->Write();
 
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
