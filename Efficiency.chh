@@ -490,6 +490,18 @@ class Efficiency
   vector<TH1D*> m_h_segSP_resR_LSBI;
   vector<TH1D*> m_h_segSP_diffR_LargeBI;
   vector<TH1D*> m_h_segSP_resR_LargeBI;
+  vector<TH1D*> m_h_segSP_resR_LSBIetaindex1;
+  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex1;
+  vector<TH1D*> m_h_segSP_resR_LSBIetaindex2;
+  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex2;
+  vector<TH1D*> m_h_segSP_resR_LSBIetaindex3;
+  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex3;
+  vector<TH1D*> m_h_segSP_resR_LSBIetaindex4;
+  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex4;
+  vector<TH1D*> m_h_segSP_resR_LSBIetaindex5;
+  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex5;
+  vector<TH1D*> m_h_segSP_resR_LSBIetaindex6;
+  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex6;
 
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;
@@ -1043,10 +1055,22 @@ public:
               m_h_etaIndexvsSA_resptLargeSpecialminus15out.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialminus15out_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
               m_h_etaIndexvsSA_resptLargeSpecialminus15in.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialminus15in_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
               
-              m_h_segSP_diffR_LSBI.push_back(new TH1D(Form("h_segSP_diffR_LSBI_%dGeV",i*m_thpitch),"segmentR - SP R;segmentR - SP R;Entries",200,-100.0,100.0));
-              m_h_segSP_resR_LSBI.push_back(new TH1D(Form("h_segSP_resR_LSBI_%dGeV",i*m_thpitch),"resR;resR;Entries",200,-1.0,1.0));
-              m_h_segSP_diffR_LargeBI.push_back(new TH1D(Form("h_segSP_diffR_LargeBI_%dGeV",i*m_thpitch),"segmentR - SP R;segmentR - SP R;Entries",200,-100.0,100.0));
-              m_h_segSP_resR_LargeBI.push_back(new TH1D(Form("h_segSP_resR_LargeBI_%dGeV",i*m_thpitch),"resR;resR;Entries",200,-1.0,1.0));
+              m_h_segSP_diffR_LSBI.push_back(new TH1D(Form("h_segSP_diffR_LSBI_%dGeV",i*m_thpitch),"segmentR - SP R;segmentR - SP R;Entries",4000,-1000.0,1000.0));
+              m_h_segSP_resR_LSBI.push_back(new TH1D(Form("h_segSP_resR_LSBI_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
+              m_h_segSP_diffR_LargeBI.push_back(new TH1D(Form("h_segSP_diffR_LargeBI_%dGeV",i*m_thpitch),"segmentR - SP R;segmentR - SP R;Entries",4000,-1000.0,1000.0));
+              m_h_segSP_resR_LargeBI.push_back(new TH1D(Form("h_segSP_resR_LargeBI_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
+              m_h_segSP_resR_LSBIetaindex1.push_back(new TH1D(Form("h_segSP_resR_LSBIetaindex1_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
+              m_h_segSP_resR_LargeBIetaindex1.push_back(new TH1D(Form("h_segSP_resR_LargeBIetaindex1_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
+              m_h_segSP_resR_LSBIetaindex2.push_back(new TH1D(Form("h_segSP_resR_LSBIetaindex2_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
+              m_h_segSP_resR_LargeBIetaindex2.push_back(new TH1D(Form("h_segSP_resR_LargeBIetaindex2_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
+              m_h_segSP_resR_LSBIetaindex3.push_back(new TH1D(Form("h_segSP_resR_LSBIetaindex3_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
+              m_h_segSP_resR_LargeBIetaindex3.push_back(new TH1D(Form("h_segSP_resR_LargeBIetaindex3_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
+              m_h_segSP_resR_LSBIetaindex4.push_back(new TH1D(Form("h_segSP_resR_LSBIetaindex4_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
+              m_h_segSP_resR_LargeBIetaindex4.push_back(new TH1D(Form("h_segSP_resR_LargeBIetaindex4_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
+              m_h_segSP_resR_LSBIetaindex5.push_back(new TH1D(Form("h_segSP_resR_LSBIetaindex5_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
+              m_h_segSP_resR_LargeBIetaindex5.push_back(new TH1D(Form("h_segSP_resR_LargeBIetaindex5_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
+              m_h_segSP_resR_LSBIetaindex6.push_back(new TH1D(Form("h_segSP_resR_LSBIetaindex6_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
+              m_h_segSP_resR_LargeBIetaindex6.push_back(new TH1D(Form("h_segSP_resR_LargeBIetaindex6_%dGeV",i*m_thpitch),"resR;resR;Entries",400,-1.0,1.0));
 
               m_countLarge.push_back(0);
               m_countLargeSpecial.push_back(0);
@@ -1346,6 +1370,18 @@ public:
       delete m_h_segSP_resR_LSBI.at(i);
       delete m_h_segSP_diffR_LargeBI.at(i);
       delete m_h_segSP_resR_LargeBI.at(i);
+      delete m_h_segSP_resR_LSBIetaindex1.at(i);
+      delete m_h_segSP_resR_LargeBIetaindex1.at(i);
+      delete m_h_segSP_resR_LSBIetaindex2.at(i);
+      delete m_h_segSP_resR_LargeBIetaindex2.at(i);
+      delete m_h_segSP_resR_LSBIetaindex3.at(i);
+      delete m_h_segSP_resR_LargeBIetaindex3.at(i);
+      delete m_h_segSP_resR_LSBIetaindex4.at(i);
+      delete m_h_segSP_resR_LargeBIetaindex4.at(i);
+      delete m_h_segSP_resR_LSBIetaindex5.at(i);
+      delete m_h_segSP_resR_LargeBIetaindex5.at(i);
+      delete m_h_segSP_resR_LSBIetaindex6.at(i);
+      delete m_h_segSP_resR_LargeBIetaindex6.at(i);
     }
   }
 
