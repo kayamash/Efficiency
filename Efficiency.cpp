@@ -361,19 +361,21 @@ void Efficiency::Execute(Int_t ev){
                          m_h_mdtetavsSA_resptLargeminus.at(i)->Fill(ave_mdteta,resSA_pt);
                          Double_t buf_BIsegmentR = 0;
                          Double_t buf_resR = 999999;
+                         Int_t buf_etaindex = 0;
                          for(Int_t index = 0;index < 10;index++){
                               if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeminus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                               if(sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) <= 5500){
                                    if(buf_resR >= sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2))){
                                         buf_BIsegmentR = sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2));
                                         buf_resR = buf_BIsegmentR - pSA_superpointR_BI;
+                                        buf_etaindex = index;
                                    }
                               }
                          }
                          if(buf_BIsegmentR != 0){
                               m_h_segSP_diffR_LargeBI.at(i)->Fill(buf_BIsegmentR - pSA_superpointR_BI);
                               m_h_segSP_resR_LargeBI.at(i)->Fill(1.0/pSA_superpointR_BI - 1.0/buf_BIsegmentR);
-                              Int_t buf_index = static_cast<Int_t>(m_probe_segment_etaIndex[index]);
+                              Int_t buf_index = static_cast<Int_t>(m_probe_segment_etaIndex[buf_etaindex]);
                                         switch(fabs(buf_index)){
                                              case 1:
                                                   m_h_segSP_resR_LargeBIetaindex1.at(i)->Fill(1.0/pSA_superpointR_BI - 1.0/buf_BIsegmentR);
@@ -485,6 +487,7 @@ void Efficiency::Execute(Int_t ev){
                                    m_h_eSA_pt_LargeSpecialplus11out.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                    Double_t buf_BIsegmentR = 0;
                                    Double_t buf_resR = 99999;
+                                   Int_t buf_etaindex = 0;
                                    for(Int_t index = 0;index < 10;index++){
                                         if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus11out.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                         if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_segmentZR_LargeSpecialplus11out.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
@@ -492,13 +495,14 @@ void Efficiency::Execute(Int_t ev){
                                              if(buf_resR >= sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) - pSA_superpointR_BI){
                                                   buf_BIsegmentR = sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2));
                                                   buf_resR = sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) - pSA_superpointR_BI;
+                                                  buf_etaindex = index;
                                              }
                                         }
                                    }
                                    if(buf_BIsegmentR != 0){
                                         m_h_segSP_diffR_LSBI.at(i)->Fill(buf_resR);
                                         m_h_segSP_resR_LSBI.at(i)->Fill(1.0/pSA_superpointR_BI - 1.0/buf_BIsegmentR);
-                                        Int_t buf_index = static_cast<Int_t>(m_probe_segment_etaIndex[index]);
+                                        Int_t buf_index = static_cast<Int_t>(m_probe_segment_etaIndex[buf_etaindex]);
                                         switch(fabs(buf_index)){
                                              case 1:
                                                   m_h_segSP_resR_LSBIetaindex1.at(i)->Fill(1.0/pSA_superpointR_BI - 1.0/buf_BIsegmentR);
