@@ -448,9 +448,17 @@ void Efficiency::Execute(Int_t ev){
                                    m_h_offetavsSA_resptLargeSpecialplus11out.at(i)->Fill(m_poff_eta,resSA_pt);
                                    m_h_mdtetavsSA_resptLargeSpecialplus11out.at(i)->Fill(ave_mdteta,resSA_pt);
                                    m_h_eSA_pt_LargeSpecialplus11out.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                                   Double_t buf_BIsegmentR = 0;
                                    for(Int_t index = 0;index < 10;index++){
                                         if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus11out.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                         if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_segmentZR_LargeSpecialplus11out.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
+                                        if(m_probe_segment_x[index] <= -3000.0 && m_probe_segment_x[index] >= -6000.0 && m_probe_segment_y[index] <= -2000.0 && m_probe_segment_y[index] >= -6000.0 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) <= 5500){
+                                             buf_BIsegmentR = sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2));
+                                        }
+                                   }
+                                   if(buf_BIsegmentR != 0){
+                                        m_h_segSP_diffR_LSBI.at(i)->Fill(buf_BIsegmentR - pSA_superpointR_BI);
+                                        m_h_segSP_resR_LSBI.at(i)->Fill(buf_BIsegmentR/pSA_superpointR_BI - 1.0);
                                    }
                                    if(std::fabs(m_poff_pt*0.001) > 30.0 && std::fabs(m_poff_pt*0.001) < 50.0){
                                         m_h_highoffetavsSA_resptLargeSpecialplus11out.at(i)->Fill(m_poff_eta,resSA_pt);
@@ -1226,6 +1234,9 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_etaIndexvsSA_resptLargeSpecialminus11in.at(i)->Write();
           m_h_etaIndexvsSA_resptLargeSpecialminus15out.at(i)->Write();
           m_h_etaIndexvsSA_resptLargeSpecialminus15in.at(i)->Write();
+
+          m_h_segSP_diffR_LSBI.at(i)->Write();
+          m_h_segSP_resR_LSBI.at(i)->Write();
 
           cout<<m_countLarge.size()<<"  "<<m_countLargeSpecial.size()<<"  "<<m_countSmall.size()<<"  "<<m_countSmallSpecial.size()<<endl;
           if(m_countLarge.size() != 0 && m_countLargeSpecial.size() != 0 && m_countSmall.size() != 0 && m_countSmallSpecial.size() != 0)cout<<i*m_thpitch<<"      "<<m_countLarge.at(i)<<"      "<<m_countLargeSpecial.at(i)<<"      "<<m_countSmall.at(i)<<"      "<<m_countSmallSpecial.at(i)<<endl;

@@ -486,6 +486,9 @@ class Efficiency
   vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus15out;
   vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus15in;
 
+  vector<TH1D*> m_h_segSP_diffR_LSBI;
+  vector<TH1D*> m_h_segSP_resR_LSBI;
+
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;
   std::string m_method_name;
@@ -1037,6 +1040,8 @@ public:
               m_h_etaIndexvsSA_resptLargeSpecialminus11in.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialminus11in_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
               m_h_etaIndexvsSA_resptLargeSpecialminus15out.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialminus15out_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
               m_h_etaIndexvsSA_resptLargeSpecialminus15in.push_back(new TH2F(Form("h_etaIndexvsSA_resptLargeSpecialminus15in_%dGeV",i*m_thpitch),"etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0));
+              m_h_segSP_diffR_LSBI.push_back(new TH1D(Form("h_segSP_diffR_LSBI_%dGeV",i*m_thpitch),"segmentR - SP R;segmentR - SP R;Entries",2000,-100.0,100.0));
+              m_h_segSP_resR_LSBI.push_back(new TH1D(Form("h_segSP_resR_LSBI_%dGeV",i*m_thpitch),"resR;resR;Entries",2000,-1.0,10.0));
 
               m_countLarge.push_back(0);
               m_countLargeSpecial.push_back(0);
@@ -1331,6 +1336,9 @@ public:
       delete  m_h_etaIndexvsSA_resptLargeSpecialminus11in.at(i);
       delete  m_h_etaIndexvsSA_resptLargeSpecialminus15out.at(i);
       delete  m_h_etaIndexvsSA_resptLargeSpecialminus15in.at(i);
+
+      delete m_h_segSP_diffR_LSBI.at(i);
+      delete m_h_segSP_resR_LSBI.at(i);
     }
   }
 
