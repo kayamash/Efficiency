@@ -254,17 +254,17 @@ class Efficiency
   vector<TH2F*> m_h_mdtSPXY_etaIndexminus5;
   vector<TH2F*> m_h_mdtSPXY_etaIndexminus6;
   
-  vector<TH2F*> m_h_mdtSPZR;//
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus;//
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus;//
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus11out;//
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus11in;//
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus15out;//
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus15in;//
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus11out;//
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus11in;//
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus15out;//
-  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus15in;//
+  vector<TH2F*> m_h_mdtSPZR;
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus;
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus;
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus11out;
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus11in;
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus15out;
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialplus15in;
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus11out;
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus11in;
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus15out;
+  vector<TH2F*> m_h_mdtSPZR_LargeSpecialminus15in;
   
   vector<TH1D*> m_h_avemdteta;//
   vector<TH1D*> m_h_mdtSPX_BI;
@@ -284,20 +284,20 @@ class Efficiency
   vector<TH2F*> m_h_segmentXY_etaIndexminus4;
   vector<TH2F*> m_h_segmentXY_etaIndexminus5;
   vector<TH2F*> m_h_segmentXY_etaIndexminus6;
-  vector<TH2F*> m_h_segmentXYfit;
-  vector<TH2F*> m_h_segmentXYnofit;
+  vector<TH2F*> m_h_segmentXYfit;//
+  vector<TH2F*> m_h_segmentXYnofit;//
 
-  vector<TH2F*> m_h_segmentZR;//
-  vector<TH2F*> m_h_segmentZR_LargeSpecialplus;//
-  vector<TH2F*> m_h_segmentZR_LargeSpecialminus;//
-  vector<TH2F*> m_h_segmentZR_LargeSpecialplus11out;//
-  vector<TH2F*> m_h_segmentZR_LargeSpecialplus11in;//
-  vector<TH2F*> m_h_segmentZR_LargeSpecialplus15out;//
-  vector<TH2F*> m_h_segmentZR_LargeSpecialplus15in;//
+  vector<TH2F*> m_h_segmentZR;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialminus;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus11out;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus11in;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus15out;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus15in;
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus11out;
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus11in;
-  vector<TH2F*> m_h_segmentZR_LargeSpecialminus15out;//
-  vector<TH2F*> m_h_segmentZR_LargeSpecialminus15in;//
+  vector<TH2F*> m_h_segmentZR_LargeSpecialminus15out;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialminus15in;
 
   vector<TH1D*> m_h_numsegment;
 
@@ -488,23 +488,38 @@ class Efficiency
   vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus15out;
   vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus15in;
 
-  vector<TH1D*> m_h_segSP_diffR_LSBI;
-  vector<TH1D*> m_h_segSP_resR_LSBI;
-  vector<TH1D*> m_h_segSP_diffR_LargeBI;
-  vector<TH1D*> m_h_segSP_resR_LargeBI;
-  vector<TH1D*> m_h_segSP_resR_LSBIetaindex1;
-  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex1;
-  vector<TH1D*> m_h_segSP_resR_LSBIetaindex2;
-  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex2;
-  vector<TH1D*> m_h_segSP_resR_LSBIetaindex3;
-  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex3;
-  vector<TH1D*> m_h_segSP_resR_LSBIetaindex4;
-  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex4;
-  vector<TH1D*> m_h_segSP_resR_LSBIetaindex5;
-  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex5;
-  vector<TH1D*> m_h_segSP_resR_LSBIetaindex6;
-  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex6;
-  vector<TH1D*> m_h_segSP_diffRnofit_LSBI;
+  vector<TH1D*> m_h_segSP_diffR_LSBI;//
+  vector<TH1D*> m_h_segSP_resR_LSBI;//
+  vector<TH1D*> m_h_segSP_diffR_LargeBI;//
+  vector<TH1D*> m_h_segSP_resR_LargeBI;//
+  vector<TH1D*> m_h_segSP_resR_LSBIetaindex1;//
+  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex1;//
+  vector<TH1D*> m_h_segSP_resR_LSBIetaindex2;//
+  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex2;//
+  vector<TH1D*> m_h_segSP_resR_LSBIetaindex3;//
+  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex3;//
+  vector<TH1D*> m_h_segSP_resR_LSBIetaindex4;//
+  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex4;//
+  vector<TH1D*> m_h_segSP_resR_LSBIetaindex5;//
+  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex5;//
+  vector<TH1D*> m_h_segSP_resR_LSBIetaindex6;//
+  vector<TH1D*> m_h_segSP_resR_LargeBIetaindex6;//
+  vector<TH1D*> m_h_segSP_diffR_LSBIetaindex1;//
+  vector<TH1D*> m_h_segSP_diffR_LargeBIetaindex1;//
+  vector<TH1D*> m_h_segSP_diffR_LSBIetaindex2;//
+  vector<TH1D*> m_h_segSP_diffR_LargeBIetaindex2;//
+  vector<TH1D*> m_h_segSP_diffR_LSBIetaindex3;//
+  vector<TH1D*> m_h_segSP_diffR_LargeBIetaindex3;//
+  vector<TH1D*> m_h_segSP_diffR_LSBIetaindex4;//
+  vector<TH1D*> m_h_segSP_diffR_LargeBIetaindex4;//
+  vector<TH1D*> m_h_segSP_diffR_LSBIetaindex5;//
+  vector<TH1D*> m_h_segSP_diffR_LargeBIetaindex5;//
+  vector<TH1D*> m_h_segSP_diffR_LSBIetaindex6;//
+  vector<TH1D*> m_h_segSP_diffR_LargeBIetaindex6;//
+  vector<TH1D*> m_h_segSP_diffRfit_LSBI;//
+  vector<TH1D*> m_h_segSP_diffRnofit_LSBI;//
+  vector<TH1D*> m_h_segSP_diffRfit_LargeBI;//
+  vector<TH1D*> m_h_segSP_diffRnofit_LargeBI;//
 
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;
@@ -1092,6 +1107,7 @@ public:
   bool Cut_CB(Int_t pass);
   bool Cut_EF(Int_t pass);
   bool Dicision_segmentBI();
+  bool Dicision_LSarea();
   void Execute(Int_t ev);
   void Finalize(TFile *tf1);
   ~Efficiency(){
