@@ -339,17 +339,22 @@ void Efficiency::Execute(Int_t ev){
           }
           m_h_poffvsSA_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001),std::fabs(pSA_pt));
                          
+          Double_t buf_BIsegmentR = 0;
+          Double_t buf_diffR = 99999;
+          Int_t buf_etaindex = 0;
+          Double_t buf_diffRnofit = 0;
+          Double_t buf_segmentfit_x = 0;
+          Double_t buf_segmentfit_y = 0;
+          Double_t buf_segmentnofit_x = 0;
+          Double_t buf_segmentnofit_y = 0;
           switch(static_cast<Int_t>(pSA_sAddress)){
                case 0:
-                    Double_t buf_BIsegmentR = 0;
-                    Double_t buf_resR = 999999;
-                    Int_t buf_etaindex = 0;
                     for(Int_t index = 0;index < 10;index++){
                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeminus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                          if(sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) <= 5500){
-                              if(buf_resR >= sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2))){
+                              if(buf_diffR >= sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2))){
                                    buf_BIsegmentR = sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2));
-                                   buf_resR = buf_BIsegmentR - pSA_superpointR_BI;
+                                   buf_diffR = buf_BIsegmentR - pSA_superpointR_BI;
                                    buf_etaindex = index;
                               }
                          }
@@ -408,14 +413,6 @@ void Efficiency::Execute(Int_t ev){
                          m_h_saphims_LargeSpecial->Fill(pSA_phims);
                          m_h_saroiphi_LargeSpecial->Fill(pSA_roiphi);
                     }
-                    Double_t buf_BIsegmentR = 0;
-                    Double_t buf_diffR = 99999;
-                    Int_t buf_etaindex = 0;
-                    Double_t buf_diffRnofit = 0;
-                    Double_t buf_segmentfit_x = 0;
-                    Double_t buf_segmentfit_y = 0;
-                    Double_t buf_segmentnofit_x = 0;
-                    Double_t buf_segmentnofit_y = 0;
                     for(Int_t index = 0;index < 10;index++){
                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus11out.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                          if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_segmentZR_LargeSpecialplus11out.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
