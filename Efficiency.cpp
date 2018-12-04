@@ -90,6 +90,10 @@ bool Efficiency::Cut_EF(Int_t pass){
      }
 }
 
+bool Efficiency::Dicision_segmentBI(){
+     
+}
+
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
      for(Int_t i = 0;i < m_nhist;i++){

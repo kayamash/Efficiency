@@ -1091,6 +1091,7 @@ public:
   bool Cut_SA(Int_t pass,Double_t pt,Double_t th);
   bool Cut_CB(Int_t pass);
   bool Cut_EF(Int_t pass);
+  bool Dicision_segmentBI();
   void Execute(Int_t ev);
   void Finalize(TFile *tf1);
   ~Efficiency(){
