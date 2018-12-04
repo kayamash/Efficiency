@@ -486,22 +486,40 @@ void Efficiency::Execute(Int_t ev){
                                    m_h_mdtetavsSA_resptLargeSpecialplus11out.at(i)->Fill(ave_mdteta,resSA_pt);
                                    m_h_eSA_pt_LargeSpecialplus11out.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                                    Double_t buf_BIsegmentR = 0;
-                                   Double_t buf_resR = 99999;
+                                   Double_t buf_diffR = 99999;
                                    Int_t buf_etaindex = 0;
+                                   Double_t buf_diffRnofit = 0;
+                                   Double_t buf_segmentfit_x = 0;
+                                   Double_t buf_segmentfit_y = 0;
+                                   Double_t buf_segmentnofit_x = 0;
+                                   Double_t buf_segmentnofit_y = 0;
                                    for(Int_t index = 0;index < 10;index++){
                                         if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus11out.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                         if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_segmentZR_LargeSpecialplus11out.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
                                         if(m_probe_segment_x[index] <= -3000.0 && m_probe_segment_x[index] >= -6000.0 && m_probe_segment_y[index] <= -2000.0 && m_probe_segment_y[index] >= -6000.0 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) <= 5500 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) >= 4900){
-                                             if(buf_resR >= sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) - pSA_superpointR_BI){
+                                             if(buf_diffR >= sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) - pSA_superpointR_BI){
                                                   buf_BIsegmentR = sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2));
-                                                  buf_resR = sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) - pSA_superpointR_BI;
+                                                  if(buf_diffR != 99999){
+                                                       buf_diffRnofit = buf_diffR;
+                                                       buf_segmentnofit_x = buf_segmentfit_x;
+                                                       buf_segmentnofit_y = buf_segmentfit_y;
+                                                       m_h_segSP_diffRnofit_LSBI.at(i)->FIll(buf_diffRnofit);
+                                                       m_h_segmentXYnofit.at(i)->FIll(buf_segmentnofit_x,buf_segmentnofit_y);
+                                                  }
+                                                  buf_diffR = sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) - pSA_superpointR_BI;
                                                   buf_etaindex = index;
+                                                  buf_segmentfit_x = m_probe_segment_x[index];
+                                                  buf_segmentfit_y = m_probe_segment_y[index];
+                                             }else{
+                                                  m_h_segSP_diffRnofit_LSBI.at(i)->FIll(sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) - pSA_superpointR_BI);
+                                                  m_h_segmentXYnofit.at(i)->FIll(m_probe_segment_x[index],m_probe_segment_y[index]);
                                              }
                                         }
                                    }
                                    if(buf_BIsegmentR != 0){
-                                        m_h_segSP_diffR_LSBI.at(i)->Fill(buf_resR);
+                                        m_h_segSP_diffR_LSBI.at(i)->Fill(buf_diffR);
                                         m_h_segSP_resR_LSBI.at(i)->Fill(1.0/pSA_superpointR_BI - 1.0/buf_BIsegmentR);
+                                        if(buf_segmentfit_y != 0)m_h_segmentXYfit.at(i)->Fill(buf_segmentfit_x,buf_segmentfit_y);
                                         Int_t buf_index = fabs(static_cast<Int_t>(m_probe_segment_etaIndex[buf_etaindex]));
                                         switch(buf_index){
                                              case 1:
@@ -1107,6 +1125,8 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_segmentXY_etaIndexminus4.at(i)->Write();
           m_h_segmentXY_etaIndexminus5.at(i)->Write();
           m_h_segmentXY_etaIndexminus6.at(i)->Write();
+          m_h_segmentXYfit.at(i)->Write();
+          m_h_segmentXYnofit.at(i)->Write();
           m_h_segmentZR.at(i)->Write();
           m_h_segmentZR_LargeSpecialplus.at(i)->Write();
           m_h_segmentZR_LargeSpecialminus.at(i)->Write();
@@ -1318,6 +1338,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_segSP_resR_LargeBIetaindex5.at(i)->Write();
           m_h_segSP_resR_LSBIetaindex6.at(i)->Write();
           m_h_segSP_resR_LargeBIetaindex6.at(i)->Write();
+          m_h_segSP_diffRnofit_LSBI.at(i)->Write();
 
           if(m_countLarge.size() != 0 && m_countLargeSpecial.size() != 0 && m_countSmall.size() != 0 && m_countSmallSpecial.size() != 0)cout<<i*m_thpitch<<"      "<<m_countLarge.at(i)<<"      "<<m_countLargeSpecial.at(i)<<"      "<<m_countSmall.at(i)<<"      "<<m_countSmallSpecial.at(i)<<endl;
      }
