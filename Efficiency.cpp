@@ -503,16 +503,16 @@ void Efficiency::Execute(Int_t ev){
                                                        buf_diffRnofit = buf_diffR;
                                                        buf_segmentnofit_x = buf_segmentfit_x;
                                                        buf_segmentnofit_y = buf_segmentfit_y;
-                                                       m_h_segSP_diffRnofit_LSBI.at(i)->FIll(buf_diffRnofit);
-                                                       m_h_segmentXYnofit.at(i)->FIll(buf_segmentnofit_x,buf_segmentnofit_y);
+                                                       m_h_segSP_diffRnofit_LSBI.at(i)->Fill(buf_diffRnofit);
+                                                       m_h_segmentXYnofit.at(i)->Fill(buf_segmentnofit_x,buf_segmentnofit_y);
                                                   }
                                                   buf_diffR = sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) - pSA_superpointR_BI;
                                                   buf_etaindex = index;
                                                   buf_segmentfit_x = m_probe_segment_x[index];
                                                   buf_segmentfit_y = m_probe_segment_y[index];
                                              }else{
-                                                  m_h_segSP_diffRnofit_LSBI.at(i)->FIll(sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) - pSA_superpointR_BI);
-                                                  m_h_segmentXYnofit.at(i)->FIll(m_probe_segment_x[index],m_probe_segment_y[index]);
+                                                  m_h_segSP_diffRnofit_LSBI.at(i)->Fill(sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) - pSA_superpointR_BI);
+                                                  m_h_segmentXYnofit.at(i)->Fill(m_probe_segment_x[index],m_probe_segment_y[index]);
                                              }
                                         }
                                    }
