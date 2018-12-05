@@ -96,6 +96,7 @@ bool Efficiency::MatchSegmentBI(Double_t (&segx)[10],Double_t (&segy)[10],Double
      }
      segpar[0] = 99999;
      Int_t num_matchBI = 0;
+     Double_t diffR = 9999;
 
      for(Int_t index = 0;index < 10;index++){
           if(sqrt(pow(segx[index],2) + pow(segy[index],2)) > 4900 && sqrt(pow(segx[index],2) + pow(segy[index],2)) < 5500){
@@ -109,6 +110,7 @@ bool Efficiency::MatchSegmentBI(Double_t (&segx)[10],Double_t (&segy)[10],Double
                     segpar[1] = etaindex[index];
                     segpar[2] = segx[index];
                     segpar[3] = segy[index];
+                    diffR = sqrt(pow(segx[index],2) + pow(segy[index],2)) - SPR_BI;
                }else{
                     h1->Fill(sqrt(pow(segx[index],2) + pow(segy[index],2)) - SPR_BI);
                     h2->Fill(segx[index],segy[index]);
@@ -537,7 +539,7 @@ void Efficiency::Execute(Int_t ev){
                               if(std::fabs(m_poff_pt*0.001) > 30.0 && std::fabs(m_poff_pt*0.001) < 50.0){
                                    m_h_highoffetavsSA_resptLargeSpecialplus11in.at(i)->Fill(m_poff_eta,resSA_pt);
                               }
-                              m_h_mdtSPZR_LargeSpecialplus11in.at(i)->Fill(pSA_superpointZ_BI,pSA_superpointR_BI)
+                              m_h_mdtSPZR_LargeSpecialplus11in.at(i)->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
                               m_h_mdtSPZR_LargeSpecialplus11in.at(i)->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
                               m_h_mdtSPZR_LargeSpecialplus11in.at(i)->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
                               break;

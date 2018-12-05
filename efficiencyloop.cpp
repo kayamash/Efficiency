@@ -34,7 +34,7 @@ const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.li
 //const string inputfilelist = "/home/kayamash/efflist/Jpsi_noMdtCsm1k.list";
 //const string inputfilelist = "/home/kayamash/efflist/newmc16345099.list"; 
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/Jpsi_noMdtCsm1k.root";
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/newdata18_physics_Main_Ztap.root";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/newdata18_physics_Main_Ztapsample.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/Zmumu364160.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
@@ -65,8 +65,8 @@ void efficiencyloop(){
 	eff->Init(trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,proc);
 	cout<<tr1->GetEntries()<<endl;
 	cout<<"Execute"<<endl;
-	for(Int_t event = 0;event < tr1->GetEntries(); event++){
-	//for(Int_t event = 0;event < 100000; event++){
+	//for(Int_t event = 0;event < tr1->GetEntries(); event++){
+	for(Int_t event = 0;event < 100000; event++){
 		eff->Execute(event);
 	}
 	cout<<"Finalize"<<endl;
