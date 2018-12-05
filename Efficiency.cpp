@@ -90,7 +90,7 @@ bool Efficiency::CutEF(Int_t pass){
      }
 }
 
-bool Efficiency::MatchSegmentBI(Double_t (&segx)[10],Double_t (&segy)[10],Double_t (&etaindex)[10],TH1D *h1,TH2F *h2,TH1D *h3,TH1D *h4,TH2F *h5,Double_t SPR_BI,Double_t *segpar){
+bool Efficiency::MatchSegmentBI(Double_t (&segx)[10],Double_t (&segy)[10],Double_t (&etaindex)[10],TH1D *h1,TH2F *h2,TH1D *h3,TH1D *h4,TH2F *h5,Double_t SPR_BI,Double_t (&segpar)[4]{
      for(Int_t i = 0;i < 4;i++){
           segpar[i] = 0;
      }
@@ -122,7 +122,6 @@ bool Efficiency::MatchSegmentBI(Double_t (&segx)[10],Double_t (&segy)[10],Double
           h4->Fill(segpar[0]);
           h5->Fill(segpar[2],segpar[3]);
      }
-
 }
 
 int Efficiency::DicisionArea(Double_t roiphi){
@@ -199,7 +198,7 @@ void Efficiency::Execute(Int_t ev){
           Double_t tEF_dR = 0;
           Int_t pEF_pass = 0;
           Int_t pEFTAG_pass = -1;
-          Double_t segment_parameter[4];
+          Double_t segment_parameter[] = {0,0,0,0};
           Int_t areanumber = 0;
 
           for(Int_t method = 0;method < 25;method++){
