@@ -928,6 +928,8 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetCondition("EventFilter Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiencypileup(m_h_eCB_aipc.at(i),m_h_eEF_aipc.at(i));
 
+          cout<<"barrel"<<endl;
+
           ceff.SetConditionName(Form("L1Efficiency_barrel_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eoff_pt_barrel.at(i),m_h_eL1_pt_barrel.at(i),m_binmax,300,m_efficiency_xerr);
@@ -952,6 +954,8 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionName(Form("EFEfficiency_end_%dGeV",i*m_thpitch));
           ceff.SetCondition("EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eCB_pt_end.at(i),m_h_eEF_pt_end.at(i),m_binmax,300,m_efficiency_xerr);
+
+          cout<<"eff plus"<<endl;
 
           ceff.SetConditionName(Form("L1EfficiencyLargeplus_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1013,6 +1017,8 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionName(Form("SAEfficiencyLargeSpecialminus15in_%dGeV",i*m_thpitch));
           ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialminus15in.at(i),m_h_eSA_pt_LargeSpecialminus15in.at(i),m_binmax,300,m_efficiency_xerr);
+
+          cout<<"eff small"<<endl;
 
           ceff.SetConditionName(Form("L1EfficiencySmallplus_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
