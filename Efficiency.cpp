@@ -143,7 +143,7 @@ int Efficiency::DicisionArea(Double_t roiphi){
           dicisionarea += 3;
      }else if(dicisionarea == 1){
           return 9;
-     }else if(dicisionarea == 5{
+     }else if(dicisionarea == 5){
           return 10;
      }
      return dicisionarea;
