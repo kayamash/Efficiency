@@ -513,11 +513,6 @@ class Efficiency
   Double_t m_binmax;
   Double_t m_efficiency_xerr;
 
-  vector<Int_t> m_countLarge;
-  vector<Int_t> m_countLargeSpecial;
-  vector<Int_t> m_countSmall;
-  vector<Int_t> m_countSmallSpecial;
-
 public:
   Efficiency(Int_t nh,Int_t th,TTree *tree){
       tChain = tree;
@@ -1070,10 +1065,6 @@ public:
               m_h_segSP_diffR_LSBIetaindex5.push_back(new TH1D(Form("h_segSP_diffR_LSBIetaindex5_%dGeV",i*m_thpitch),"segmentR - SP R;segmentR - SP R[mm];Entries",4000,-1000.0,1000.0));
               m_h_segSP_diffR_LSBIetaindex6.push_back(new TH1D(Form("h_segSP_diffR_LSBIetaindex6_%dGeV",i*m_thpitch),"segmentR - SP R;segmentR - SP R[mm];Entries",4000,-1000.0,1000.0));
 
-              m_countLarge.push_back(0);
-              m_countLargeSpecial.push_back(0);
-              m_countSmall.push_back(0);
-              m_countSmallSpecial.push_back(0);
         }
      }
 

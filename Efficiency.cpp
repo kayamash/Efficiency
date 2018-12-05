@@ -433,8 +433,6 @@ void Efficiency::Execute(Int_t ev){
                          m_h_offetavsSA_resptLargeminus.at(i)->Fill(m_poff_eta,resSA_pt);
                          m_h_mdtetavsSA_resptLargeminus.at(i)->Fill(ave_mdteta,resSA_pt);
                     }
-
-                    m_countLarge.at(i)++;
                     break;
                case 1:
                     if(i == 0){
@@ -671,7 +669,6 @@ void Efficiency::Execute(Int_t ev){
                               if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptSmallminus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                          }
                     }
-                    m_countSmall.at(i)++;
                     break;
                case 3:
                     if(i == 0)m_h_saroiphi_SmallSpecial->Fill(pSA_roiphi);
@@ -696,7 +693,6 @@ void Efficiency::Execute(Int_t ev){
                               if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptSmallSpecialminus.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                          }
                     }
-                    m_countSmallSpecial.at(i)++;
                     break;
                default:
                     break;
@@ -869,7 +865,6 @@ void Efficiency::Execute(Int_t ev){
 void Efficiency::Finalize(TFile *tf1){
      CalcEfficiency ceff;
      tf1->cd();
-     cout<<"ptSAth   nLarge   nLargeS   nSmall   nSmallS"<<endl;
      //SetCondition
      //title,file title,yoffset,top margin,bottom margin,left margin,right margin
      m_h_saroiphi_LargeSpecial->Write();
@@ -1055,6 +1050,8 @@ void Efficiency::Finalize(TFile *tf1){
           m_g_rpchitXY.at(i)->SetName(Form("g_rpchitxy_%dGeV",i*m_thpitch));
           m_g_mdthitXY.at(i)->SetName(Form("g_mdthitxy_%dGeV",i*m_thpitch));
 
+          cout<<"efficiency end"<<endl;
+
           m_h_poff_pt.at(i)->Write();
           m_h_pL1_pt.at(i)->Write();
           m_h_pSA_pt.at(i)->Write();
@@ -1145,6 +1142,8 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_num_segment_LSBI.at(i)->Write();
           m_h_num_segment_LargeBI.at(i)->Write();
 
+          cout<<"standard end"<<endl;
+
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
           m_h_eSA_pt.at(i)->Write();
@@ -1226,6 +1225,9 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_eff_poff_etaphi.at(i)->Write();
           m_h_eff_pL1_etaphi.at(i)->Write();
           m_h_eff_pSA_etaphi.at(i)->Write();
+
+          cout<<"eff end"<<endl;
+
           m_h_pSA_respt.at(i)->Write();
           m_h_pCB_respt.at(i)->Write();
           m_h_pEF_respt.at(i)->Write();
@@ -1327,6 +1329,8 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_etaIndexvsSA_resptLargeSpecialminus15out.at(i)->Write();
           m_h_etaIndexvsSA_resptLargeSpecialminus15in.at(i)->Write();
 
+          ccout<<"residual end"<<endl;
+
           m_h_segSP_diffRnomatch_LSBI.at(i)->Write();
           m_h_segSP_diffRmatch_LSBI.at(i)->Write();
           m_h_segSP_diffRnomatch_LargeBI.at(i)->Write();
@@ -1338,7 +1342,8 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_segSP_diffR_LSBIetaindex5.at(i)->Write();
           m_h_segSP_diffR_LSBIetaindex6.at(i)->Write();
 
-          if(m_countLarge.size() != 0 && m_countLargeSpecial.size() != 0 && m_countSmall.size() != 0 && m_countSmallSpecial.size() != 0)cout<<i*m_thpitch<<"      "<<m_countLarge.at(i)<<"      "<<m_countLargeSpecial.at(i)<<"      "<<m_countSmall.at(i)<<"      "<<m_countSmallSpecial.at(i)<<endl;
+          cout<<"diffR end"<<ndl;
+
      }
 
 }
