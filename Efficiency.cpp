@@ -90,7 +90,7 @@ bool Efficiency::CutEF(Int_t pass){
      }
 }
 
-bool Efficiency::MatchSegmentBI(Double_t (&segx)[10],Double_t (&segy)[10],Double_t (&etaindex)[10],TH1D *h1,TH2F *h2,TH1D *h3,TH1D *h4,TH2F *h5,Double_t SPR_BI,Double_t (&segpar)[4]{
+bool Efficiency::MatchSegmentBI(Double_t (&segx)[10],Double_t (&segy)[10],Double_t (&etaindex)[10],TH1D *h1,TH2F *h2,TH1D *h3,TH1D *h4,TH2F *h5,Double_t SPR_BI,Double_t (&segpar)[4]){
      for(Int_t i = 0;i < 4;i++){
           segpar[i] = 0;
      }
