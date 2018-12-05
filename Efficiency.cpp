@@ -143,7 +143,7 @@ int Efficiency::DicisionArea(Double_t roiphi){
           dicisionarea += 3;
      }else if(dicisionarea == 1){
           return 9;
-     }else if(dicisionarea == -1){
+     }else if(dicisionarea == 5{
           return 10;
      }
      return dicisionarea;
@@ -426,7 +426,6 @@ void Efficiency::Execute(Int_t ev){
                     }
 
                     if(areanumber == 10){//Qeta = -1
-                         cout<<"pass"<<endl;
                          m_h_off_ptvsSA_resptLargeminus.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                          m_h_SA_resptLargeminus.at(i)->Fill(resSA_pt);
                          m_h_eSA_pt_Largeminus.at(i)->Fill(std::fabs(m_poff_pt*0.001));
