@@ -131,7 +131,6 @@ int Efficiency::DicisionArea(Double_t roiphi){
      }else if(m_poff_charge*m_poff_eta/std::fabs(m_poff_eta) == -1){
           dicisionarea = 5;
      }else{
-          cout<<0<<endl;
           return 0;
      }
      if(roiphi >= -2.6 && roiphi < -2.4){
@@ -143,13 +142,10 @@ int Efficiency::DicisionArea(Double_t roiphi){
      }else if(roiphi >= -1.0 && roiphi < -0.8){
           dicisionarea += 3;
      }else if(dicisionarea == 1){
-          cout<<9<<endl;
           return 9;
      }else if(dicisionarea == -1){
-          cout<<10<<endl;
           return 10;
      }
-     cout<<dicisionarea<<endl;
      return dicisionarea;
 }
 
@@ -430,6 +426,7 @@ void Efficiency::Execute(Int_t ev){
                     }
 
                     if(areanumber == 10){//Qeta = -1
+                         cout<<"pass"<<endl;
                          m_h_off_ptvsSA_resptLargeminus.at(i)->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                          m_h_SA_resptLargeminus.at(i)->Fill(resSA_pt);
                          m_h_eSA_pt_Largeminus.at(i)->Fill(std::fabs(m_poff_pt*0.001));
@@ -1019,9 +1016,6 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionName(Form("SAEfficiencyLargeSpecialminus15in_%dGeV",i*m_thpitch));
           ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialminus15in.at(i),m_h_eSA_pt_LargeSpecialminus15in.at(i),m_binmax,300,m_efficiency_xerr);
-
-          cout<<"eff small"<<endl;
-
           ceff.SetConditionName(Form("L1EfficiencySmallplus_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eoff_pt_Smallplus.at(i),m_h_eL1_pt_Smallplus.at(i),m_binmax,300,m_efficiency_xerr);
