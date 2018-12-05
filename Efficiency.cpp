@@ -962,13 +962,10 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionName(Form("SAEfficiencyLargeSpecialplus_%dGeV",i*m_thpitch));
           ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialplus.at(i),m_h_eSA_pt_LargeSpecialplus.at(i),m_binmax,300,m_efficiency_xerr);
-          
-          cout<<"eff Large"<<endl;
 
           ceff.SetConditionName(Form("L1EfficiencyLargeminus_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eoff_pt_Largeminus.at(i),m_h_eL1_pt_Largeminus.at(i),m_binmax,300,m_efficiency_xerr);
-          cout<<1<<endl;
           ceff.SetConditionName(Form("SAEfficiencyLargeminus_%dGeV",i*m_thpitch));
           ceff.SetCondition("SA Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eL1_pt_Largeminus.at(i),m_h_eSA_pt_Largeminus.at(i),m_binmax,300,m_efficiency_xerr);
@@ -1052,8 +1049,6 @@ void Efficiency::Finalize(TFile *tf1){
 
           m_g_rpchitXY.at(i)->SetName(Form("g_rpchitxy_%dGeV",i*m_thpitch));
           m_g_mdthitXY.at(i)->SetName(Form("g_mdthitxy_%dGeV",i*m_thpitch));
-
-          cout<<"efficiency end"<<endl;
 
           m_h_poff_pt.at(i)->Write();
           m_h_pL1_pt.at(i)->Write();
@@ -1145,8 +1140,6 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_num_segment_LSBI.at(i)->Write();
           m_h_num_segment_LargeBI.at(i)->Write();
 
-          cout<<"standard end"<<endl;
-
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
           m_h_eSA_pt.at(i)->Write();
@@ -1228,8 +1221,6 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_eff_poff_etaphi.at(i)->Write();
           m_h_eff_pL1_etaphi.at(i)->Write();
           m_h_eff_pSA_etaphi.at(i)->Write();
-
-          cout<<"eff end"<<endl;
 
           m_h_pSA_respt.at(i)->Write();
           m_h_pCB_respt.at(i)->Write();
