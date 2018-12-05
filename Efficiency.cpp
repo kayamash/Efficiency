@@ -873,7 +873,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_offphi_LargeSpecial->Write();
 
      for(Int_t i = 0;i < m_nhist;i++){
-
+          cout<<m_nhist<<endl;
           //base,target
           ceff.SetConditionName(Form("L1Efficiency_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -899,6 +899,8 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionName(Form("EFEfficiency_eta_%dGeV",i*m_thpitch));
           ceff.SetCondition("EventFilter Efficiency;offline eta;Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiencyeta(m_h_eCB_eta.at(i),m_h_eEF_eta.at(i));
+
+          cout<<"effphi"<<endl;
 
           ceff.SetConditionName(Form("L1Efficiency_phi_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1329,7 +1331,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_etaIndexvsSA_resptLargeSpecialminus15out.at(i)->Write();
           m_h_etaIndexvsSA_resptLargeSpecialminus15in.at(i)->Write();
 
-          ccout<<"residual end"<<endl;
+          cout<<"residual end"<<endl;
 
           m_h_segSP_diffRnomatch_LSBI.at(i)->Write();
           m_h_segSP_diffRmatch_LSBI.at(i)->Write();
@@ -1342,7 +1344,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_segSP_diffR_LSBIetaindex5.at(i)->Write();
           m_h_segSP_diffR_LSBIetaindex6.at(i)->Write();
 
-          cout<<"diffR end"<<ndl;
+          cout<<"diffR end"<<endl;
 
      }
 
