@@ -873,7 +873,6 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_offphi_LargeSpecial->Write();
 
      for(Int_t i = 0;i < m_nhist;i++){
-          cout<<m_nhist<<endl;
           //base,target
           ceff.SetConditionName(Form("L1Efficiency_%dGeV",i*m_thpitch));
           ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
