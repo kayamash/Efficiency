@@ -99,7 +99,7 @@ void Efficiency::MatchSegmentBI(Double_t (&segx)[10],Double_t (&segy)[10],Double
      Double_t diffR = 9999;
 
      for(Int_t index = 0;index < 10;index++){
-          if(sqrt(pow(segx[index],2) + pow(segy[index],2)) > 4900 && sqrt(pow(segx[index],2) + pow(segy[index],2)) < 5500){
+          if(sqrt(pow(segx[index],2) + pow(segy[index],2)) > 4600 && sqrt(pow(segx[index],2) + pow(segy[index],2)) < 6500){
                num_matchBI++;
                if(diffR > sqrt(pow(segx[index],2) + pow(segy[index],2))){
                     if(segpar[0] != 99999){
@@ -119,7 +119,7 @@ void Efficiency::MatchSegmentBI(Double_t (&segx)[10],Double_t (&segy)[10],Double
      }
      h3->Fill(num_matchBI);
      if(segpar[0] != 99999){
-          h4->Fill(segpar[0]);
+          h4->Fill(segpar[0] - SPR_BI);
           h5->Fill(segpar[2],segpar[3]);
      }
 }

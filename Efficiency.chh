@@ -823,22 +823,22 @@ public:
               m_h_mdtSPXY_etaIndexminus4.push_back(new TH2F(Form("h_mdtSPXY_etaIndexminus4_%dGeV",i*m_thpitch),"SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_mdtSPXY_etaIndexminus5.push_back(new TH2F(Form("h_mdtSPXY_etaIndexminus5_%dGeV",i*m_thpitch),"SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_mdtSPXY_etaIndexminus6.push_back(new TH2F(Form("h_mdtSPXY_etaIndexminus6_%dGeV",i*m_thpitch),"SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
-              m_h_segmentXY.push_back(new TH2F(Form("h_segmentXY_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              m_h_segmentXY_etaIndexplus1.push_back(new TH2F(Form("h_segmentXY_etaIndexplus1_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              m_h_segmentXY_etaIndexplus2.push_back(new TH2F(Form("h_segmentXY_etaIndexplus2_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              m_h_segmentXY_etaIndexplus3.push_back(new TH2F(Form("h_segmentXY_etaIndexplus3_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              m_h_segmentXY_etaIndexplus4.push_back(new TH2F(Form("h_segmentXY_etaIndexplus4_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              m_h_segmentXY_etaIndexplus5.push_back(new TH2F(Form("h_segmentXY_etaIndexplus5_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              m_h_segmentXY_etaIndexplus6.push_back(new TH2F(Form("h_segmentXY_etaIndexplus6_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              m_h_segmentXY_etaIndexminus1.push_back(new TH2F(Form("h_segmentXY_etaIndexminus1_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              m_h_segmentXY_etaIndexminus2.push_back(new TH2F(Form("h_segmentXY_etaIndexminus2_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              m_h_segmentXY_etaIndexminus3.push_back(new TH2F(Form("h_segmentXY_etaIndexminus3_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              m_h_segmentXY_etaIndexminus4.push_back(new TH2F(Form("h_segmentXY_etaIndexminus4_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              m_h_segmentXY_etaIndexminus5.push_back(new TH2F(Form("h_segmentXY_etaIndexminus5_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              m_h_segmentXY_etaIndexminus6.push_back(new TH2F(Form("h_segmentXY_etaIndexminus6_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
+              m_h_segmentXY.push_back(new TH2F(Form("h_segmentXY_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
+              m_h_segmentXY_etaIndexplus1.push_back(new TH2F(Form("h_segmentXY_etaIndexplus1_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
+              m_h_segmentXY_etaIndexplus2.push_back(new TH2F(Form("h_segmentXY_etaIndexplus2_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
+              m_h_segmentXY_etaIndexplus3.push_back(new TH2F(Form("h_segmentXY_etaIndexplus3_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
+              m_h_segmentXY_etaIndexplus4.push_back(new TH2F(Form("h_segmentXY_etaIndexplus4_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
+              m_h_segmentXY_etaIndexplus5.push_back(new TH2F(Form("h_segmentXY_etaIndexplus5_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
+              m_h_segmentXY_etaIndexplus6.push_back(new TH2F(Form("h_segmentXY_etaIndexplus6_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
+              m_h_segmentXY_etaIndexminus1.push_back(new TH2F(Form("h_segmentXY_etaIndexminus1_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
+              m_h_segmentXY_etaIndexminus2.push_back(new TH2F(Form("h_segmentXY_etaIndexminus2_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
+              m_h_segmentXY_etaIndexminus3.push_back(new TH2F(Form("h_segmentXY_etaIndexminus3_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
+              m_h_segmentXY_etaIndexminus4.push_back(new TH2F(Form("h_segmentXY_etaIndexminus4_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
+              m_h_segmentXY_etaIndexminus5.push_back(new TH2F(Form("h_segmentXY_etaIndexminus5_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
+              m_h_segmentXY_etaIndexminus6.push_back(new TH2F(Form("h_segmentXY_etaIndexminus6_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
 
-              m_h_segmentXYmatch.push_back(new TH2F(Form("h_segmentXYmatch_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
-              m_h_segmentXYnomatch.push_back(new TH2F(Form("h_segmentXYnomatch_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",4000,-20000.0,20000.0,4000,-20000.0,20000.0));
+              m_h_segmentXYmatch.push_back(new TH2F(Form("h_segmentXYmatch_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.0,15000.0,3000,-15000.0,15000.0));
+              m_h_segmentXYnomatch.push_back(new TH2F(Form("h_segmentXYnomatch_%dGeV",i*m_thpitch),"segmentXY;segmentX;segmentY",3000,-15000.0,15000.0,3000,-15000.0,15000.0));
               
               m_h_mdtSPZR.push_back(new TH2F(Form("h_mdtSPZR_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
               m_h_mdtSPZR_LargeSpecialplus.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialplus_%dGeV",i*m_thpitch),"SP ZR;SP Z[mm];SP R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
