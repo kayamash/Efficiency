@@ -40,6 +40,7 @@ const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
 const Int_t nhist = 1;
 const Int_t thpitch = 4;
+const Int_t eventmode = 0;//eventmode = 0,full event scan eventmode = 1,sample event scan
 
 //main function
 void efficiencyloop(){
@@ -65,10 +66,17 @@ void efficiencyloop(){
 	eff->Init(trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,proc);
 	cout<<tr1->GetEntries()<<endl;
 	cout<<"Execute"<<endl;
-	//for(Int_t event = 0;event < tr1->GetEntries(); event++){
-	for(Int_t event = 0;event < 100000; event++){
-		eff->Execute(event);
+
+	if(eventmode == 0){
+		for(Int_t event = 0;event < tr1->GetEntries(); event++){
+			eff->Execute(event);
+		}
+	}else if(eventmode == 1){
+		for(Int_t event = 0;event < 100000; event++){
+			eff->Execute(event);
+		}
 	}
+	
 	cout<<"Finalize"<<endl;
 	eff->Finalize(output_file);
 
