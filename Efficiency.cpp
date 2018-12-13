@@ -716,7 +716,7 @@ void Efficiency::Execute(Int_t ev){
                for(Int_t index = 0;index < 10;index++){
                     Int_t buf_index = static_cast<Int_t>(m_probe_segment_etaIndex[index]);
                     Int_t ind = fabs(buf_index);
-                    if(fabs(buf_index) < 7 && buf_index != 0)buf_etanum[fabs(ind)]++;
+                    if(fabs(buf_index) < 7 && buf_index != 0)buf_etanum[ind]++;
                     switch(buf_index){
                          case -6:
                               m_h_mdtSPXY_etaIndexminus6.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
