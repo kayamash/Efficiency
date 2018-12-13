@@ -709,8 +709,13 @@ void Efficiency::Execute(Int_t ev){
                m_h_mdtSPZR.at(i)->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
                //if(pSA_superpointR_BI*cos(pSA_roiphi) < -4500 && 5200 pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi))m_h_etaIndexout->Fill(m_probe_segment_etaIndex);
                //if(pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*cos(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi) pSA_superpointR_BI*sin(pSA_roiphi))m_h_etaIndexin->Fill(m_probe_segment_etaIndex);
+               Int_t buf_etanum[6];
+               for(Int_t numnum = 0;numnum < 6;numnum++){
+                    buf_etanum[numnum] = -1;
+               }
                for(Int_t index = 0;index < 10;index++){
                     Int_t buf_index = static_cast<Int_t>(m_probe_segment_etaIndex[index]);
+                    if(fabs(buf_index) < 7 && buf_index != 0)buf_etanum[fabs(buf_index)]++;
                     switch(buf_index){
                          case -6:
                               m_h_mdtSPXY_etaIndexminus6.at(i)->Fill(pSA_superpointR_BI*cos(pSA_roiphi),pSA_superpointR_BI*sin(pSA_roiphi));
@@ -810,6 +815,9 @@ void Efficiency::Execute(Int_t ev){
                     }
                }
                m_h_numsegment.at(i)->Fill(buf_numsegment);
+               for(Int_t numnum = 0;numnum < 6;numnum++){
+                    if(buf_etanum[numnum] != -1)m_h_etaIndexvsnumsegment.at(i)->Fill(numnum,buf_etanum[numnum] + 1);
+               }
           }
           m_h_offphivsSAphims.at(i)->Fill(m_poff_phi,pSA_phims);
 
@@ -1138,6 +1146,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_numsegment.at(i)->Write();
           m_h_num_segment_LSBI.at(i)->Write();
           m_h_num_segment_LargeBI.at(i)->Write();
+          m_h_etaIndexvsnumsegment.at(i)->Write();
 
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();

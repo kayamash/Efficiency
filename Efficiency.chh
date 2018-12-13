@@ -302,7 +302,7 @@ class Efficiency
   vector<TH1D*> m_h_numsegment;
   vector<TH1D*> m_h_num_segment_LSBI;
   vector<TH1D*> m_h_num_segment_LargeBI;
-
+  vector<TH2F*> m_h_etaIndexvsnumsegment;
 
 
   //Efficiency
@@ -865,6 +865,7 @@ public:
               m_h_numsegment.push_back(new TH1D(Form("h_numsegment_%dGeV",i*m_thpitch),"the number of segment;the number of segment;Entries",10,0,10));
               m_h_num_segment_LSBI.push_back(new TH1D(Form("h_num_segment_LSBI_%dGeV",i*m_thpitch),"the number of segment;the number of segment;Entries",10,0,10));
               m_h_num_segment_LargeBI.push_back(new TH1D(Form("h_num_segment_LargeBI_%dGeV",i*m_thpitch),"the number of segment;the number of segment;Entries",10,0,10));
+              m_h_etaIndexvsnumsegment.push_back(new TH2F(Form("h_etaIndexvsnumsegment_%dGeV",i*m_thpitch),"etaIndex vs the number of segment;etaIndex;the number of segment",6,1,6,11,0,10));
 
               //Efficiency
               m_h_eoff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*m_thpitch),"mesoff_pt;offline pt[GeV];Entries",300,-0.25,149.75));
@@ -1178,6 +1179,7 @@ public:
       delete m_h_numsegment.at(i);
       delete m_h_num_segment_LSBI.at(i);
       delete m_h_num_segment_LargeBI.at(i);
+      delete m_h_etaIndexvsnumsegment.at(i);
 
       delete  m_h_eoff_pt.at(i);
       delete  m_h_eL1_pt.at(i);
