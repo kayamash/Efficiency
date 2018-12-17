@@ -512,7 +512,7 @@ class Efficiency
 
   Double_t m_binmax;
   Double_t m_efficiency_xerr;
-  Double_t m_thmin;
+  Int_t m_thmin;
 
 public:
   Efficiency(Int_t nh,Int_t th,Int_t min,TTree *tree){

@@ -1046,8 +1046,8 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
           ceff.DrawEfficiency2D(m_h_eff_poff_etaphi.at(i),m_h_eff_pL1_etaphi.at(i));
 
-          m_g_rpchitXY.at(i)->SetName(Form("g_rpchitxy_%dGeV",*m_thpitch + m_thmin));
-          m_g_mdthitXY.at(i)->SetName(Form("g_mdthitxy_%dGeV",*m_thpitch + m_thmin));
+          m_g_rpchitXY.at(i)->SetName(Form("g_rpchitxy_%dGeV",i*m_thpitch + m_thmin));
+          m_g_mdthitXY.at(i)->SetName(Form("g_mdthitxy_%dGeV",i*m_thpitch + m_thmin));
 
           m_h_poff_pt.at(i)->Write();
           m_h_pL1_pt.at(i)->Write();
