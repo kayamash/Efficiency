@@ -41,7 +41,7 @@ const Double_t efficiency_x_err = 0.25;
 const Int_t thmin = 20;
 const Int_t nhist = 1;
 const Int_t thpitch = 4;
-const Int_t eventmode = 0;//eventmode = 0,full scan eventmode = 1,sample scan
+const Int_t eventmode = 1;//eventmode = 0,full scan eventmode = 1,sample scan
 
 //main function
 void efficiencyloop(){
@@ -74,7 +74,7 @@ void efficiencyloop(){
 		nevent = 100000;
 	}
 	for(Int_t event = 0;event < nevent; event++){
-		cout<<event<<endl;
+		printf("%d\r",event);
 		eff->Execute(event);
 	}
 	cout<<"Finalize"<<endl;
