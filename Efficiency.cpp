@@ -874,7 +874,7 @@ void Efficiency::Finalize(TFile *tf1){
 
      for(Int_t i = 0;i < m_nhist;i ++){
           //base,target
-          ceff.SetConditionName(Form("L1Efficiency_%dGeV",i));
+          ceff.SetConditionName(Form("L1Efficiency_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eoff_pt.at(i),m_h_eL1_pt.at(i),m_binmax,300,m_efficiency_xerr);
           ceff.SetConditionName(Form("SAEfficiency_%dGeV",i*m_thpitch + m_thmin));
