@@ -774,7 +774,7 @@ public:
       m_h_saphims_LargeSpecial = new TH1D("h_saphims_LargeSpecial_0GeV","L2MuonSA phi;L2MuonSA phims;Entries",600,-3.0,3.0);
       m_h_saroiphi_LargeSpecial = new TH1D("h_saroiphi_LargeSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
       m_h_saroiphi_SmallSpecial = new TH1D("h_saroiphi_SmallSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
-      for(Int_t i = m_thmin;i < nh*m_thpitch;i += m_thpitch){
+      for(Int_t i = m_thmin;i < m_thmin + nh*m_thpitch;i += m_thpitch){
               //Standard
 	            m_h_poff_pt.push_back(new TH1D(Form("h_poff_pt_%dGeV",i),"probe offline pt;offline pt[GeV];Entries",150,0,150));
               m_h_pL1_pt.push_back(new TH1D(Form("h_pL1_pt_%dGeV",i),"probe L1 pt;L1 pt[GeV];Entries",150,0,150));

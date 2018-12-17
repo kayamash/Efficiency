@@ -34,13 +34,14 @@ const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.li
 //const string inputfilelist = "/home/kayamash/efflist/Jpsi_noMdtCsm1k.list";
 //const string inputfilelist = "/home/kayamash/efflist/newmc16345099.list"; 
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/Jpsi_noMdtCsm1k.root";
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/newdata18_physics_Main_Ztapsample.root";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/yamazakidata18_physics_Main_Ztap.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/Zmumu364160.root";
 const Int_t efficiency_maxenergy = 101;
 const Double_t efficiency_x_err = 0.25;
 const Int_t thmin = 20;
 const Int_t nhist = 1;
 const Int_t thpitch = 4;
+const Int_t eventmode = 0;//eventmode = 0,full scan eventmode = 1,sample scan
 
 //main function
 void efficiencyloop(){
@@ -66,8 +67,14 @@ void efficiencyloop(){
 	eff->Init(trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,proc);
 	cout<<tr1->GetEntries()<<endl;
 	cout<<"Execute"<<endl;
-	//for(Int_t event = 0;event < tr1->GetEntries(); event++){
-	for(Int_t event = 0;event < 100000; event++){
+	Int_t nevent = 0;
+	if(eventmode == 0){
+		nevent = tr1->GetEntries();
+	}else if(eventmode == 1){
+		nevent = 100000;
+	}
+	for(Int_t event = 0;event < nevent; event++){
+		cout<<event<<endl;
 		eff->Execute(event);
 	}
 	cout<<"Finalize"<<endl;
