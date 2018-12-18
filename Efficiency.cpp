@@ -371,7 +371,7 @@ void Efficiency::Execute(Int_t ev){
           }
 
           //SA
-          if(!CutSA(pSA_pass,pSA_pt,i))continue;
+          if(!CutSA(pSA_pass,pSA_pt,i*m_thpitch + m_thmin))continue;
           Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
           pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
           Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
