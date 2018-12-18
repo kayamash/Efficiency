@@ -74,7 +74,7 @@ void efficiencyloop(){
 		nevent = 100000;
 	}
 	for(Int_t event = 0;event < nevent; event++){
-		printf("%d\r",event);
+		if(event%10000 == 0)printf("%d\r",event);
 		eff->Execute(event);
 	}
 	cout<<"Finalize"<<endl;
