@@ -392,6 +392,12 @@ class Efficiency
   vector<TH1D*> m_h_pSA_respt;
   vector<TH1D*> m_h_pCB_respt;
   vector<TH1D*> m_h_pEF_respt;
+  vector<TH1D*> m_h_pSA_respt_barrel;
+  vector<TH1D*> m_h_pCB_respt_barrel;
+  vector<TH1D*> m_h_pEF_respt_barrel;
+  vector<TH1D*> m_h_pSA_respt_endcap;
+  vector<TH1D*> m_h_pCB_respt_endcap;
+  vector<TH1D*> m_h_pEF_respt_endcap;
   vector<TH1D*> m_h_SA_resptLargeplus;
   vector<TH1D*> m_h_SA_resptLargeSpecialplus;
   vector<TH1D*> m_h_SA_resptSmallplus;
@@ -956,6 +962,12 @@ public:
               m_h_pSA_respt.push_back(new TH1D(Form("h_pSA_respt_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",300,-1,1));
               m_h_pCB_respt.push_back(new TH1D(Form("h_pCB_respt_%dGeV",i*m_thpitch + m_thmin),"probe muComb residual pt;residual pt;Entries",640,-0.8,0.8));
               m_h_pEF_respt.push_back(new TH1D(Form("h_pEF_respt_%dGeV",i*m_thpitch + m_thmin),"probe EventFilter residual pt;residual pt;Entries",1800,-0.3,0.3));
+              m_h_pSA_respt_barrel.push_back(new TH1D(Form("h_pSA_respt_barrel_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",300,-1,1));
+              m_h_pCB_respt_barrel.push_back(new TH1D(Form("h_pCB_respt_barrel_%dGeV",i*m_thpitch + m_thmin),"probe muComb residual pt;residual pt;Entries",640,-0.8,0.8));
+              m_h_pEF_respt_barrel.push_back(new TH1D(Form("h_pEF_respt_barrel_%dGeV",i*m_thpitch + m_thmin),"probe EventFilter residual pt;residual pt;Entries",1800,-0.3,0.3));
+              m_h_pSA_respt_endcap.push_back(new TH1D(Form("h_pSA_respt_endcap_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",300,-1,1));
+              m_h_pCB_respt_endcap.push_back(new TH1D(Form("h_pCB_respt_endcap_%dGeV",i*m_thpitch + m_thmin),"probe muComb residual pt;residual pt;Entries",640,-0.8,0.8));
+              m_h_pEF_respt_endcap.push_back(new TH1D(Form("h_pEF_respt_endcap_%dGeV",i*m_thpitch + m_thmin),"probe EventFilter residual pt;residual pt;Entries",1800,-0.3,0.3));
               m_h_SA_resptLargeplus.push_back(new TH1D(Form("h_SA_resptLargeplus_%dGeV",i*m_thpitch + m_thmin),"SAresidualpt_Large;L2MuonSA residual pt;Entries",1000,-5.0,5.0));
               m_h_SA_resptLargeSpecialplus.push_back(new TH1D(Form("h_SA_resptLargeSpecialplus_%dGeV",i*m_thpitch + m_thmin),"SAresidualpt_LargeSpecial;L2MuonSA residual pt;Entries",1000,-5.0,5.0));
               m_h_SA_resptSmallplus.push_back(new TH1D(Form("h_SA_resptSmallplus_%dGeV",i*m_thpitch + m_thmin),"SAresidualpt_Small;L2MuonSA residual pt;Entries",1000,-5.0,5.0));

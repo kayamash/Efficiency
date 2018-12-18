@@ -394,8 +394,10 @@ void Efficiency::Execute(Int_t ev){
           
           if(DicisionBarrel(m_poff_eta)){
                m_h_eSA_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               m_h_pSA_respt_barrel.at(i)->Fill(resSA_pt);
           }else{
                m_h_eSA_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
           }
 
           if(std::fabs(m_poff_pt*0.001) > 40){//plateau cut
@@ -832,8 +834,10 @@ void Efficiency::Execute(Int_t ev){
           m_h_pCB_respt.at(i)->Fill(resCB_pt);
           if(DicisionBarrel(m_poff_eta)){
                m_h_eCB_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               m_h_pCB_respt_barrel.at(i)->Fill(resCB_pt);
           }else{
                m_h_eCB_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               m_h_pCB_respt_endcap.at(i)->Fill(resCB_pt);
           }
 
           //EF
@@ -855,8 +859,10 @@ void Efficiency::Execute(Int_t ev){
           m_h_pEF_respt.at(i)->Fill(resEF_pt);
           if(DicisionBarrel(m_poff_eta)){
                m_h_eEF_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               m_h_pEF_respt_barrel.at(i)->Fill(resEF_pt);
           }else{
                m_h_eEF_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               m_h_pEF_respt_endcap.at(i)->Fill(resEF_pt);
           }
      }//for
 
@@ -1224,6 +1230,12 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_pSA_respt.at(i)->Write();
           m_h_pCB_respt.at(i)->Write();
           m_h_pEF_respt.at(i)->Write();
+          m_h_pSA_respt_barrel.at(i)->Write();
+          m_h_pCB_respt_barrel.at(i)->Write();
+          m_h_pEF_respt_barrel.at(i)->Write();
+          m_h_pSA_respt_endcap.at(i)->Write();
+          m_h_pCB_respt_endcap.at(i)->Write();
+          m_h_pEF_respt_endcap.at(i)->Write();
           m_h_SA_resptLargeplus.at(i)->Write();
           m_h_SA_resptLargeSpecialplus.at(i)->Write();
           m_h_SA_resptSmallplus.at(i)->Write();
