@@ -193,8 +193,8 @@ void CalcEfficiency::DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *
   std::vector<Double_t> res_y;
   std::vector<Double_t> res_x_err;
   std::vector<Double_t> res_y_err;
-  TH1D hist[9] = {h1,h2,h3,h4,h5,h6,h7,h8,h9};
-  string title = type + Form("_%d"num*pitch * thmin);
+  TH1D hist[9] = {*h1,*h2,*h3,*h4,*h5,*h6,*h7,*h8,*h9};
+  string title = type + Form("_%d",num*pitch + thmin);
   for(Int_t i = 0;i < 9;i++){
     res_x.push_back((i + 1)*5.0);
     res_x_err.push_back(0);
@@ -203,7 +203,7 @@ void CalcEfficiency::DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *
     hist[i]->Fit("func","","",-0.2,0.2);
     res_y.push_back(f->GetParameter(1));
     res_y_err.push_back(f->GetParameter(2));
-    c1->SaveAs(title + Form("_%d.png",i));
+    c1->SaveAs((title + Form("_%d.png",i)).c_str());
     c1->Clear();
   }
   TGraphErrors *tg1 = new TGraphErrors(res_x.size(),&(res_x.at(0)),&(res_y.at(0)),&(res_x_err.at(0)),&(res_y_err.at(0)));
