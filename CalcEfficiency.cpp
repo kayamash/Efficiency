@@ -196,8 +196,8 @@ void CalcEfficiency::DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *
   TH1D hist[9] = {*h1,*h2,*h3,*h4,*h5,*h6,*h7,*h8,*h9};
   string title = type + Form("_%d",num*pitch + thmin);
   for(Int_t i = 0;i < 9;i++){
-    res_x.push_back((i + 1)*5.0);
-    res_x_err.push_back(0);
+    res_x.push_back((i + 1)*5.0 + 2.5);
+    res_x_err.push_back(2.5);
     hist[i].Draw();
     TF1 *f1 = new TF1("f1","gaus",-1.0,1.0);
     hist[i].Fit("f1","","",-0.1,0.1);
