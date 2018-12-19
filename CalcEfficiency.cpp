@@ -198,9 +198,9 @@ void CalcEfficiency::DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *
   for(Int_t i = 0;i < 9;i++){
     res_x.push_back((i + 1)*5.0);
     res_x_err.push_back(0);
-    hist[i]->Draw();
+    hist[i].Draw();
     TF1 *f = new TF1("func","[0]*exp(-0.5*((x-[1])/[2]^2)",-1.0,1.0);
-    hist[i]->Fit("func","","",-0.2,0.2);
+    hist[i].Fit("func","","",-0.2,0.2);
     res_y.push_back(f->GetParameter(1));
     res_y_err.push_back(f->GetParameter(2));
     c1->SaveAs((title + Form("_%d.png",i)).c_str());
