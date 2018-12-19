@@ -391,13 +391,90 @@ void Efficiency::Execute(Int_t ev){
           m_h_pSA_respt.at(i)->Fill(resSA_pt);
           m_h_pSAphivspSAphims.at(i)->Fill(pSA_phi,pSA_phims);
           m_h_pSAphivspSAphibe.at(i)->Fill(pSA_phi,pSA_phibe);
-          
+          Int_t region = -1;
+          if(std::fabs(m_poff_pt*0.001) > 5.0 && std::fabs(m_poff_pt*0.001) <= 10.0){
+               region = 0;
+          }else if(std::fabs(m_poff_pt*0.001) <= 15.0){
+               region = 1;
+          }else if(std::fabs(m_poff_pt*0.001) <= 20.0){
+               region = 2;
+          }else if(std::fabs(m_poff_pt*0.001) <= 25.0){
+               region = 3;
+          }else if(std::fabs(m_poff_pt*0.001) <= 30.0){
+               region = 4;
+          }else if(std::fabs(m_poff_pt*0.001) <= 35.0){
+               region = 5;
+          }else if(std::fabs(m_poff_pt*0.001) <= 40.0){
+               region = 6;
+          }else if(std::fabs(m_poff_pt*0.001) <= 45.0){
+               region = 7;
+          }else if(std::fabs(m_poff_pt*0.001) <= 50.0){
+               region = 8;
+          }
           if(DicisionBarrel(m_poff_eta)){
                m_h_eSA_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                m_h_pSA_respt_barrel.at(i)->Fill(resSA_pt);
+               switch(region){
+                    case 0:
+                         m_h_pSA_respt_barrel_5to10GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 1:
+                         m_h_pSA_respt_barrel_10to15GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 2:
+                         m_h_pSA_respt_barrel_15to20GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 3:
+                         m_h_pSA_respt_barrel_20to25GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 4:
+                         m_h_pSA_respt_barrel_25to30GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 5:
+                         m_h_pSA_respt_barrel_30to35GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 6:
+                         m_h_pSA_respt_barrel_35to40GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 7:
+                         m_h_pSA_respt_barrel_40to45GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 8:
+                         m_h_pSA_respt_barrel_45to50GeV.at(i)->Fill(resSA_pt);
+                         break;
+               }
           }else{
                m_h_eSA_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
+               switch(region){
+                    case 0:
+                         m_h_pSA_respt_endcap_5to10GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 1:
+                         m_h_pSA_respt_endcap_10to15GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 2:
+                         m_h_pSA_respt_endcap_15to20GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 3:
+                         m_h_pSA_respt_endcap_20to25GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 4:
+                         m_h_pSA_respt_endcap_25to30GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 5:
+                         m_h_pSA_respt_endcap_30to35GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 6:
+                         m_h_pSA_respt_endcap_35to40GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 7:
+                         m_h_pSA_respt_endcap_40to45GeV.at(i)->Fill(resSA_pt);
+                         break;
+                    case 8:
+                         m_h_pSA_respt_endcap_45to50GeV.at(i)->Fill(resSA_pt);
+                         break;
+               }
           }
 
           if(std::fabs(m_poff_pt*0.001) > 40){//plateau cut
@@ -882,16 +959,16 @@ void Efficiency::Finalize(TFile *tf1){
           //base,target
           ceff.SetConditionName(Form("L1Efficiency_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiency(m_h_eoff_pt.at(i),m_h_eL1_pt.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.DrawEfficiency(m_h_eoff_pt.at(i),m_h_eL1_pt.at(i),m_binmax,200,m_efficiency_xerr);
           ceff.SetConditionName(Form("SAEfficiency_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiency(m_h_eL1_pt.at(i),m_h_eSA_pt.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.DrawEfficiency(m_h_eL1_pt.at(i),m_h_eSA_pt.at(i),m_binmax,200,m_efficiency_xerr);
           ceff.SetConditionName(Form("CBEfficiency_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("muComb Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiency(m_h_eSA_pt.at(i),m_h_eCB_pt.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.DrawEfficiency(m_h_eSA_pt.at(i),m_h_eCB_pt.at(i),m_binmax,200,m_efficiency_xerr);
           ceff.SetConditionName(Form("EFEfficiency_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiency(m_h_eCB_pt.at(i),m_h_eEF_pt.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.DrawEfficiency(m_h_eCB_pt.at(i),m_h_eEF_pt.at(i),m_binmax,200,m_efficiency_xerr);
           ceff.SetConditionName(Form("L1Efficiency_eta_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("L1 Efficiency;offline eta;Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiencyeta(m_h_eoff_eta.at(i),m_h_eL1_eta.at(i));
@@ -1054,6 +1131,9 @@ void Efficiency::Finalize(TFile *tf1){
 
           m_g_rpchitXY.at(i)->SetName(Form("g_rpchitxy_%dGeV",i*m_thpitch + m_thmin));
           m_g_mdthitXY.at(i)->SetName(Form("g_mdthitxy_%dGeV",i*m_thpitch + m_thmin));
+
+          ceff.DrawResidualplot(m_h_pSA_respt_barrel_5to10GeV.at(i),m_h_pSA_respt_barrel_10to15GeV.at(i),m_h_pSA_respt_barrel_15to20GeV.at(i),m_h_pSA_respt_barrel_20to25GeV.at(i),m_h_pSA_respt_barrel_25to30GeV.at(i),m_h_pSA_respt_barrel_30to35GeV.at(i),m_h_pSA_respt_barrel_35to40GeV.at(i),m_h_pSA_respt_barrel_40to45GeV.at(i),m_h_pSA_respt_barrel_45to50GeV.at(i),"Barrel",i,m_thpitch,m_thmin);
+          ceff.DrawResidualplot(m_h_pSA_respt_endcap_5to10GeV.at(i),m_h_pSA_respt_endcap_10to15GeV.at(i),m_h_pSA_respt_endcap_15to20GeV.at(i),m_h_pSA_respt_endcap_20to25GeV.at(i),m_h_pSA_respt_endcap_25to30GeV.at(i),m_h_pSA_respt_endcap_30to35GeV.at(i),m_h_pSA_respt_endcap_35to40GeV.at(i),m_h_pSA_respt_endcap_40to45GeV.at(i),m_h_pSA_respt_endcap_45to50GeV.at(i),"Endcap",i,m_thpitch,m_thmin);
 
           m_h_poff_pt.at(i)->Write();
           m_h_pL1_pt.at(i)->Write();
@@ -1236,6 +1316,24 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_pSA_respt_endcap.at(i)->Write();
           m_h_pCB_respt_endcap.at(i)->Write();
           m_h_pEF_respt_endcap.at(i)->Write();
+          m_h_pSA_respt_barrel_5to10GeV.at(i)->Write();
+          m_h_pSA_respt_barrel_10to15GeV.at(i)->Write();
+          m_h_pSA_respt_barrel_15to20GeV.at(i)->Write();
+          m_h_pSA_respt_barrel_20to25GeV.at(i)->Write();
+          m_h_pSA_respt_barrel_25to30GeV.at(i)->Write();
+          m_h_pSA_respt_barrel_30to35GeV.at(i)->Write();
+          m_h_pSA_respt_barrel_35to40GeV.at(i)->Write();
+          m_h_pSA_respt_barrel_40to45GeV.at(i)->Write();
+          m_h_pSA_respt_barrel_45to50GeV.at(i)->Write();
+          m_h_pSA_respt_endcap_5to10GeV.at(i)->Write();
+          m_h_pSA_respt_endcap_10to15GeV.at(i)->Write();
+          m_h_pSA_respt_endcap_15to20GeV.at(i)->Write();
+          m_h_pSA_respt_endcap_20to25GeV.at(i)->Write();
+          m_h_pSA_respt_endcap_25to30GeV.at(i)->Write();
+          m_h_pSA_respt_endcap_30to35GeV.at(i)->Write();
+          m_h_pSA_respt_endcap_35to40GeV.at(i)->Write();
+          m_h_pSA_respt_endcap_40to45GeV.at(i)->Write();
+          m_h_pSA_respt_endcap_45to50GeV.at(i)->Write();
           m_h_SA_resptLargeplus.at(i)->Write();
           m_h_SA_resptLargeSpecialplus.at(i)->Write();
           m_h_SA_resptSmallplus.at(i)->Write();

@@ -47,7 +47,7 @@ void CalcEfficiency::DrawEfficiency(TH1D *h1,TH1D *h2,Double_t max,Int_t nbin,Do
 
   TGraphErrors *tg1 = new TGraphErrors(eff_x.size(),&(eff_x.at(0)),&(eff_y.at(0)),&(eff_x_err.at(0)),&(eff_y_err.at(0)));
   tg1->SetMarkerStyle(20);
-  tg1->SetMarkerSize(0.3);
+  tg1->SetMarkerSize(0.4);
   frame->SetTitle(m_title.c_str());
   tg1->Draw("P");
   tg1->SetName(m_name.c_str());
@@ -166,7 +166,7 @@ void CalcEfficiency::DrawEfficiency2D(TH2F *h1,TH2F *h2){
 	TCanvas *c1 = new TCanvas("c1","c1",1000,1000);
 	gStyle->SetTitleOffset(m_yoffset);
 	TH2F *h3 = new TH2F(m_name.c_str(),m_title.c_str(),m_nbineta,-1*m_etamax,m_etamax,m_nbinphi,-1*m_phimax,m_phimax);
-        gStyle->SetPalette(1);
+  gStyle->SetPalette(1);
 	for(Int_t i = 0;i < m_nbineta;i++){
 		for(Int_t j = 0;j < m_nbinphi;j++){
 			Double_t tmp_eff1 = h1->GetBinContent(i+1,j+1);
@@ -184,6 +184,40 @@ void CalcEfficiency::DrawEfficiency2D(TH2F *h1,TH2F *h2){
 	h3->Write();
 	delete h3;
 	delete c1;
+}
+
+void CalcEfficiency::DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *h5,TH1D *h6,TH1D *h7,TH1D *h8,TH1D *h9,string type,Int_t num,Int_t pitch,Int_t thmin){
+  TCanvas *c1 = new TCanvas("c1","c1",1600,900);
+  gStyle->SetTitleOffset(m_yoffset);
+  std::vector<Double_t> res_x;
+  std::vector<Double_t> res_y;
+  std::vector<Double_t> res_x_err;
+  std::vector<Double_t> res_y_err;
+  TH1D hist[9] = {h1,h2,h3,h4,h5,h6,h7,h8,h9};
+  string title = type + Form("_%d"num*pitch * thmin);
+  for(Int_t i = 0;i < 9;i++){
+    res_x.push_back((i + 1)*5.0);
+    res_x_err.push_back(0);
+    hist[i]->Draw();
+    TF1 *f = new TF1("func","[0]*exp(-0.5*((x-[1])/[2]^2)",-1.0,1.0);
+    hist[i]->Fit("func","","",-0.2,0.2);
+    res_y.push_back(f->GetParameter(1));
+    res_y_err.push_back(f->GetParameter(2));
+    c1->SaveAs(title + Form("_%d.png",i));
+    c1->Clear();
+  }
+  TGraphErrors *tg1 = new TGraphErrors(res_x.size(),&(res_x.at(0)),&(res_y.at(0)),&(res_x_err.at(0)),&(res_y_err.at(0)));
+  tg1->SetMarkerStyle(20);
+  tg1->SetMarkerSize(1.0);
+  tg1->Draw("ap");
+  tg1->SetName(title.c_str());
+  tg1->Write();
+  res_x.clear();
+  res_x_err.clear();
+  res_y.clear();
+  res_y_err.clear();
+  delete tg1;
+  delete c1;
 }
 
 void CalcEfficiency::SetCondition(string title,Double_t offset,Double_t tmargin,Double_t bmargin,Double_t lmargin,Double_t rmargin){
