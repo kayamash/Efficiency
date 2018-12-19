@@ -203,7 +203,7 @@ void CalcEfficiency::DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *
     hist[i].Fit("f1","","",-0.2,0.2);
     res_y.push_back(f1->GetParameter(1));
     res_y_err.push_back(f1->GetParameter(2));
-    c1->SaveAs((title + Form("_%d.png",i)).c_str());
+    c1->SaveAs(("~/plot/" + title + Form("_%d.png",i)).c_str());
     c1->Clear();
   }
   TGraphErrors *tg1 = new TGraphErrors(res_x.size(),&(res_x.at(0)),&(res_y.at(0)),&(res_x_err.at(0)),&(res_y_err.at(0)));
