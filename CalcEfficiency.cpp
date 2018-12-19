@@ -200,7 +200,7 @@ void CalcEfficiency::DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *
     res_x_err.push_back(0);
     hist[i].Draw();
     TF1 *f1 = new TF1("f1","gaus",-1.0,1.0);
-    hist[i].Fit("f1","","",-0.2,0.2);
+    hist[i].Fit("f1","","",-0.1,0.1);
     res_y.push_back(f1->GetParameter(1));
     res_y_err.push_back(f1->GetParameter(2));
     c1->SaveAs(("~/plot/" + title + Form("_%d.png",i)).c_str());
