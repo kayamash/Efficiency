@@ -412,9 +412,9 @@ void Efficiency::Execute(Int_t ev){
           areanumber = DicisionArea(pSA_roiphi);
 
           for(Int_t chnum = 0; chnum < 10; chnum++){
+               cout<<m_probe_segment_chamberIndex[chnum]<<endl;
                if(m_probe_segment_chamberIndex[chnum] == 1){
                     m_h_segmentXY_BIL.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
-                    cout<<"m_probe_segment_chamberIndex[chnum] == 1"<<endl;
                }
           }
 
