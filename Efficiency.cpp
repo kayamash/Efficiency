@@ -488,9 +488,9 @@ void Efficiency::Execute(Int_t ev){
                          
           areanumber = DicisionArea(pSA_roiphi);
 
-          for(Int_t chnum = 0; chnum < 10; chnum++){
+          /*for(Int_t chnum = 0; chnum < 10; chnum++){
                if(m_probe_segment_chamberIndex[chnum] == 1)m_h_segmentXY_BIL.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
-          }
+          }*/
 
           switch(static_cast<Int_t>(pSA_sAddress)){//switch Large ,LS , Small ,SS
                case 0:
@@ -1215,7 +1215,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_segmentXY_etaIndexminus4.at(i)->Write();
           m_h_segmentXY_etaIndexminus5.at(i)->Write();
           m_h_segmentXY_etaIndexminus6.at(i)->Write();
-          m_h_segmentXY_BIL.at(i)->Write();
+          //m_h_segmentXY_BIL.at(i)->Write();
           m_h_segmentZR.at(i)->Write();
           m_h_segmentZR_LargeSpecialplus.at(i)->Write();
           m_h_segmentZR_LargeSpecialminus.at(i)->Write();

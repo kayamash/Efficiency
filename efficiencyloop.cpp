@@ -36,10 +36,10 @@ const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.li
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/Jpsi_noMdtCsm1k.root";
 const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/data18_physics_Main_Ztap.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/Zmumu364160.root";
-const Int_t efficiency_maxenergy = 101;
+const Int_t efficiency_maxenergy = 61;
 const Double_t efficiency_x_err = 0.25;
 const Int_t thmin = 0;
-const Int_t nhist = 6;
+const Int_t nhist = 1;
 const Int_t thpitch = 5;
 const Int_t eventmode = 0;//eventmode = 0,full scan eventmode = 1,sample scan
 
