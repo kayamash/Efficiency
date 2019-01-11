@@ -720,7 +720,7 @@ public:
       tChain->SetBranchAddress("probe_d0",&m_poff_d0,&b_probe_d0);
       tChain->SetBranchAddress("probe_z0",&m_poff_z0,&b_probe_z0);
       tChain->SetBranchAddress("probe_segment_etaIndex",m_probe_segment_etaIndex,&b_probe_segment_etaIndex);
-      //tChain->SetBranchAddress("probe_segment_chamberIndex",m_probe_segment_chamberIndex,&b_probe_segment_chamberIndex);
+      tChain->SetBranchAddress("probe_segment_chamberIndex",m_probe_segment_chamberIndex,&b_probe_segment_chamberIndex);
       tChain->SetBranchAddress("probe_segment_x",m_probe_segment_x,&b_probe_segment_x);
       tChain->SetBranchAddress("probe_segment_y",m_probe_segment_y,&b_probe_segment_y);
       tChain->SetBranchAddress("probe_segment_z",m_probe_segment_z,&b_probe_segment_z);
