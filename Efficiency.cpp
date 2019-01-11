@@ -810,7 +810,6 @@ void Efficiency::Execute(Int_t ev){
                for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
                     m_h_mdthitXY.at(i)->Fill(pSA_mdtR->at(size)*cos(pSA_mdtPhi->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtPhi->at(size)));
                     m_h_mdthitZR.at(i)->Fill(pSA_mdtZ->at(size),pSA_mdtR->at(size));
-                    if(m_g_mdthitXY.at(i)->GetN() <= 1000000)m_g_mdthitXY.at(i)->SetPoint(m_g_mdthitXY.at(i)->GetN(),pSA_mdtR->at(size)*cos(pSA_mdtPhi->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtPhi->at(size)));
                }
                Int_t buf_numsegment = 0;
                for(Int_t index = 0;index < 10;index++){
