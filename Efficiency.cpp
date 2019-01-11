@@ -1215,7 +1215,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_segmentXY_etaIndexminus4.at(i)->Write();
           m_h_segmentXY_etaIndexminus5.at(i)->Write();
           m_h_segmentXY_etaIndexminus6.at(i)->Write();
-          //m_h_segmentXY_BIL.at(i)->Write();
+          m_h_segmentXY_BIL.at(i)->Write();
           m_h_segmentZR.at(i)->Write();
           m_h_segmentZR_LargeSpecialplus.at(i)->Write();
           m_h_segmentZR_LargeSpecialminus.at(i)->Write();
