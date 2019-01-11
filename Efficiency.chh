@@ -231,12 +231,8 @@ class Efficiency
   TH1D *m_h_saphims_LargeSpecial;
   TH1D *m_h_saroiphi_LargeSpecial;
   TH1D *m_h_saroiphi_SmallSpecial;
-  vector<TH2F*> m_h_rpchitXY;
-  vector<TH2F*> m_h_rpchitZR;
   vector<TH2F*> m_h_mdthitXY;
   vector<TH2F*> m_h_mdthitZR;
-  vector<TGraph*> m_g_rpchitXY;
-  vector<TGraph*> m_g_mdthitXY;
   vector<TH2F*> m_h_pSAphivspSAphims;
   vector<TH2F*> m_h_pSAphivspSAphibe;
   vector<TH2F*> m_h_mdtSPXY_BI;
@@ -301,12 +297,16 @@ class Efficiency
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus11in;
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus15out;
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus15in;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus11out_BIL;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus11in_BIL;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus15out_BIL;
+  vector<TH2F*> m_h_segmentZR_LargeSpecialplus15in_BIL;
 
   vector<TH1D*> m_h_numsegment;
   vector<TH1D*> m_h_num_segment_LSBI;
   vector<TH1D*> m_h_num_segment_LargeBI;
 
-
+  vector<TH1D*> m_h_mumhit;
 
   //Efficiency
   vector<TH1D*> m_h_eoff_pt;
@@ -401,24 +401,6 @@ class Efficiency
   vector<TH1D*> m_h_pSA_respt_endcap;
   vector<TH1D*> m_h_pCB_respt_endcap;
   vector<TH1D*> m_h_pEF_respt_endcap;
-  vector<TH1D*> m_h_pSA_respt_barrel_5to10GeV;
-  vector<TH1D*> m_h_pSA_respt_barrel_10to15GeV;
-  vector<TH1D*> m_h_pSA_respt_barrel_15to20GeV;
-  vector<TH1D*> m_h_pSA_respt_barrel_20to25GeV;
-  vector<TH1D*> m_h_pSA_respt_barrel_25to30GeV;
-  vector<TH1D*> m_h_pSA_respt_barrel_30to35GeV;
-  vector<TH1D*> m_h_pSA_respt_barrel_35to40GeV;
-  vector<TH1D*> m_h_pSA_respt_barrel_40to45GeV;
-  vector<TH1D*> m_h_pSA_respt_barrel_45to50GeV;
-  vector<TH1D*> m_h_pSA_respt_endcap_5to10GeV;
-  vector<TH1D*> m_h_pSA_respt_endcap_10to15GeV;
-  vector<TH1D*> m_h_pSA_respt_endcap_15to20GeV;
-  vector<TH1D*> m_h_pSA_respt_endcap_20to25GeV;
-  vector<TH1D*> m_h_pSA_respt_endcap_25to30GeV;
-  vector<TH1D*> m_h_pSA_respt_endcap_30to35GeV;
-  vector<TH1D*> m_h_pSA_respt_endcap_35to40GeV;
-  vector<TH1D*> m_h_pSA_respt_endcap_40to45GeV;
-  vector<TH1D*> m_h_pSA_respt_endcap_45to50GeV;
   vector<TH1D*> m_h_SA_resptLargeplus;
   vector<TH1D*> m_h_SA_resptLargeSpecialplus;
   vector<TH1D*> m_h_SA_resptSmallplus;
@@ -826,8 +808,6 @@ public:
               m_h_poffvsSA_pt.push_back(new TH2F(Form("h_poffvsSA_pt_%dGeV",i*m_thpitch + m_thmin),"probe offline pt vs probe L2MuonSA pt@mu26ivm;probe offline pt[GeV];probe L2MuonSA pt[GeV]",150,0,150,150,0,150));
               m_h_offphivsSA_sAddress.push_back(new TH2F(Form("h_offphivsSA_sAddress_%dGeV",i*m_thpitch + m_thmin),"offline phi vs sAddress;offline phi;sAddress",140,-3.5,3.5,4,0.0,4.0));
               m_h_offphivsSAphims.push_back(new TH2F(Form("h_offphivsSAphims_%dGeV",i*m_thpitch + m_thmin),"offphi vs phims;offline phi;L2MuonSA phims",140,-3.5,3.5,140,-3.5,3.5));
-              m_h_rpchitXY.push_back(new TH2F(Form("h_rpchitXvsrpchitY_%dGeV",i*m_thpitch + m_thmin),"RPC hit distribution;RPC hit X[mm];RPC hit Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
-              m_h_rpchitZR.push_back(new TH2F(Form("h_rpchitZvsrpchitR_%dGeV",i*m_thpitch + m_thmin),"RPC hit distribution;RPC hit Z[mm];RPC hit R[mm]",5000,-25000.0,25000.0,1500,0.0,15000.0));
               m_h_mdthitXY.push_back(new TH2F(Form("h_mdthitXvsmdthitY_%dGeV",i*m_thpitch + m_thmin),"MDT hit distribution;MDT hit X[mm];MDT hit Y[mm]",5000,-25000.0,25000.0,5000,-25000.0,25000.0));
               m_h_mdthitZR.push_back(new TH2F(Form("h_mdthitZvsmdthitR_%dGeV",i*m_thpitch + m_thmin),"MDT hit distribution;MDT hit Z[mm];MDT hit R[mm]",5000,-25000.0,25000.0,1500,0.0,15000.0));
               m_h_pSAphivspSAphims.push_back(new TH2F(Form("h_pSAphivspSAphims_%dGeV",i*m_thpitch + m_thmin),"SA phi vs SA phims",140,-3.5,3.5,140,-3.5,3.5));
@@ -837,8 +817,6 @@ public:
               m_h_mdtSPXY_BO.push_back(new TH2F(Form("h_mdtSPXY_BO_%dGeV",i*m_thpitch + m_thmin),"BO SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_mdtSPXY_BME.push_back(new TH2F(Form("h_mdtSPXY_BME_%dGeV",i*m_thpitch + m_thmin),"BME SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_avemdteta.push_back(new TH1D(Form("h_avemdteta_%dGeV",i*m_thpitch + m_thmin),"MDT Averge Eta;MDT Averge Eta;Entries",200,-10.0,10));
-              m_g_rpchitXY.push_back(new TGraph(0));
-              m_g_mdthitXY.push_back(new TGraph(0));
               //m_h_etaIndexout.push_back(new TH1D(Form("h_etaIndexout_%dGeV",i*m_thpitch + m_thmin),"etaIndexout;etaIndex;Entries",17,-8.5,8.5,100000,0,100000));
               //m_h_etaIndexin.push_back(new TH1D(Form("h_etaIndexin_%dGeV",i*m_thpitch + m_thmin),"etaIndexout;etaIndex;Entries",17,-8.5,8.5,100000,0,100000));
               m_h_mdtSPX_BI.push_back(new TH1D(Form("h_mdtSPX_BI_%dGeV",i*m_thpitch + m_thmin),"mdtSPX_BI;mdtSPX_BI;Entries",3000,-6000.0,-3000.0));
@@ -895,9 +873,15 @@ public:
               m_h_segmentZR_LargeSpecialminus15out.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus15out_%dGeV",i*m_thpitch + m_thmin),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
               m_h_segmentZR_LargeSpecialminus11in.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus11in_%dGeV",i*m_thpitch + m_thmin),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
               m_h_segmentZR_LargeSpecialminus11out.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus11out_%dGeV",i*m_thpitch + m_thmin),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
+              m_h_segmentZR_LargeSpecialplus15in_BIL.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus15inBIL_%dGeV",i*m_thpitch + m_thmin),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
+              m_h_segmentZR_LargeSpecialplus15out_BIL.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus15outBIL_%dGeV",i*m_thpitch + m_thmin),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
+              m_h_segmentZR_LargeSpecialplus11in_BIL.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus11inBIL_%dGeV",i*m_thpitch + m_thmin),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
+              m_h_segmentZR_LargeSpecialplus11out_BIL.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus11outBIL_%dGeV",i*m_thpitch + m_thmin),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
               m_h_numsegment.push_back(new TH1D(Form("h_numsegment_%dGeV",i*m_thpitch + m_thmin),"the number of segment;the number of segment;Entries",10,0,10));
               m_h_num_segment_LSBI.push_back(new TH1D(Form("h_num_segment_LSBI_%dGeV",i*m_thpitch + m_thmin),"the number of segment;the number of segment;Entries",10,0,10));
               m_h_num_segment_LargeBI.push_back(new TH1D(Form("h_num_segment_LargeBI_%dGeV",i*m_thpitch + m_thmin),"the number of segment;the number of segment;Entries",10,0,10));
+
+              m_h_mumhit.push_back(new TH1D(Form("h_numhit_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",1000,0,1000));
 
               //Efficiency
               m_h_eoff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*m_thpitch + m_thmin),"mesoff_pt;offline pt[GeV];Entries",200,-0.25,99.75));
@@ -993,24 +977,6 @@ public:
               m_h_pSA_respt_endcap.push_back(new TH1D(Form("h_pSA_respt_endcap_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",300,-1,1));
               m_h_pCB_respt_endcap.push_back(new TH1D(Form("h_pCB_respt_endcap_%dGeV",i*m_thpitch + m_thmin),"probe muComb residual pt;residual pt;Entries",640,-0.8,0.8));
               m_h_pEF_respt_endcap.push_back(new TH1D(Form("h_pEF_respt_endcap_%dGeV",i*m_thpitch + m_thmin),"probe EventFilter residual pt;residual pt;Entries",1800,-0.3,0.3));
-              m_h_pSA_respt_barrel_5to10GeV.push_back(new TH1D(Form("h_pSA_respt_barrel_5to10GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_barrel_10to15GeV.push_back(new TH1D(Form("h_pSA_respt_barrel_10to10GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_barrel_15to20GeV.push_back(new TH1D(Form("h_pSA_respt_barrel_15to15GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_barrel_20to25GeV.push_back(new TH1D(Form("h_pSA_respt_barrel_20to20GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_barrel_25to30GeV.push_back(new TH1D(Form("h_pSA_respt_barrel_25to25GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_barrel_30to35GeV.push_back(new TH1D(Form("h_pSA_respt_barrel_30to30GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_barrel_35to40GeV.push_back(new TH1D(Form("h_pSA_respt_barrel_35to35GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_barrel_40to45GeV.push_back(new TH1D(Form("h_pSA_respt_barrel_40to40GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_barrel_45to50GeV.push_back(new TH1D(Form("h_pSA_respt_barrel_45to45GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_endcap_5to10GeV.push_back(new TH1D(Form("h_pSA_respt_endcap_5to10GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_endcap_10to15GeV.push_back(new TH1D(Form("h_pSA_respt_endcap_10to10GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_endcap_15to20GeV.push_back(new TH1D(Form("h_pSA_respt_endcap_15to15GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_endcap_20to25GeV.push_back(new TH1D(Form("h_pSA_respt_endcap_20to20GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_endcap_25to30GeV.push_back(new TH1D(Form("h_pSA_respt_endcap_25to25GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_endcap_30to35GeV.push_back(new TH1D(Form("h_pSA_respt_endcap_30to30GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_endcap_35to40GeV.push_back(new TH1D(Form("h_pSA_respt_endcap_35to35GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_endcap_40to45GeV.push_back(new TH1D(Form("h_pSA_respt_endcap_40to40GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
-              m_h_pSA_respt_endcap_45to50GeV.push_back(new TH1D(Form("h_pSA_respt_endcap_45to45GeV_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",100,-1,1));
 
               m_h_SA_resptLargeplus.push_back(new TH1D(Form("h_SA_resptLargeplus_%dGeV",i*m_thpitch + m_thmin),"SAresidualpt_Large;L2MuonSA residual pt;Entries",1000,-5.0,5.0));
               m_h_SA_resptLargeSpecialplus.push_back(new TH1D(Form("h_SA_resptLargeSpecialplus_%dGeV",i*m_thpitch + m_thmin),"SAresidualpt_LargeSpecial;L2MuonSA residual pt;Entries",1000,-5.0,5.0));
@@ -1163,11 +1129,7 @@ public:
       delete  m_h_poffvsSA_pt.at(i);
       delete  m_h_offphivsSA_sAddress.at(i);
       delete  m_h_offphivsSAphims.at(i);
-      delete  m_h_rpchitXY.at(i);
-      delete  m_h_rpchitZR.at(i);
       delete  m_h_mdthitXY.at(i);
-      delete  m_g_rpchitXY.at(i);
-      delete  m_g_mdthitXY.at(i);
       delete  m_h_mdthitZR.at(i);
       delete  m_h_pSAphivspSAphims.at(i);
       delete  m_h_pSAphivspSAphibe.at(i);
@@ -1233,10 +1195,16 @@ public:
       delete  m_h_segmentZR_LargeSpecialminus11in.at(i);
       delete  m_h_segmentZR_LargeSpecialminus15out.at(i);
       delete  m_h_segmentZR_LargeSpecialminus15in.at(i);
+      delete  m_h_segmentZR_LargeSpecialplus15in_BIL.at(i);
+      delete  m_h_segmentZR_LargeSpecialplus15out_BIL.at(i);
+      delete  m_h_segmentZR_LargeSpecialplus11in_BIL.at(i);
+      delete  m_h_segmentZR_LargeSpecialplus11out_BIL.at(i);
 
-      delete m_h_numsegment.at(i);
-      delete m_h_num_segment_LSBI.at(i);
-      delete m_h_num_segment_LargeBI.at(i);
+      delete  m_h_numsegment.at(i);
+      delete  m_h_num_segment_LSBI.at(i);
+      delete  m_h_num_segment_LargeBI.at(i);
+
+      delete  m_h_mumhit.at(i);
 
       delete  m_h_eoff_pt.at(i);
       delete  m_h_eL1_pt.at(i);
@@ -1454,7 +1422,6 @@ public:
       delete  m_h_segSP_diffR_LSBIetaindex4.at(i);
       delete  m_h_segSP_diffR_LSBIetaindex5.at(i);
       delete  m_h_segSP_diffR_LSBIetaindex6.at(i);
-
     }
   }
 
