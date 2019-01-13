@@ -400,24 +400,24 @@ void Efficiency::Execute(Int_t ev){
                m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
           }
 
-          Int_t nummdtnormal = 0;
-          Int_t nummdtspecial = 0;
+          Int_t numnormal = 0;
+          Int_t numspecial = 0;
           if(pSA_sAddress == 1){
                for(Int_t mdthit = 0; mdthit < (signed int)pSA_mdtZ->size(); mdthit++){
                     m_h_mdtphi_LS.at(i)->Fill(pSA_mdtPhi->at(mdthit));
                     cout<<pSA_mdtR->at(mdthit)<<"   "<<pSA_mdtPhi->at(mdthit)<<endl;
-                    if(5800 < pSA_mdtR->at(mdthit) && pSA_mdtR->at(mdthit) < 6400)cout<<pSA_mdtR->at(mdthit)<<endl;
-                    if(5800 < pSA_mdtR->at(mdthit) && pSA_mdtR->at(mdthit) < 6400 && pSA_mdtPhi->at(mdthit) < -0.6 && pSA_mdtPhi->at(mdthit) > -0.8){
+                    if(4000 < pSA_mdtR->at(mdthit))cout<<pSA_mdtR->at(mdthit)<<endl;
+                    if(4000 < pSA_mdtR->at(mdthit) && pSA_mdtPhi->at(mdthit) < -0.6 && pSA_mdtPhi->at(mdthit) > -0.8){
                          cout<<"special"<<endl;
-                         nummdtspecial++;
+                         numspecial++;
                     }
-                    if(5800 < pSA_mdtR->at(mdthit) && pSA_mdtR->at(mdthit) < 6400 && pSA_mdtPhi->at(mdthit) < -0.8 && pSA_mdtPhi->at(mdthit) > -1.0){
+                    if(4000 < pSA_mdtR->at(mdthit) && pSA_mdtPhi->at(mdthit) < -0.8 && pSA_mdtPhi->at(mdthit) > -1.0){
                          cout<<"normal"<<endl;
-                         nummdtnormal++;
+                         numnormal++;
                     }
                }
-               if(nummdtnormal != 0)m_h_numhit_normal.at(i)->Fill(nummdtnormal);
-               if(nummdtspecial != 0)m_h_numhit_special.at(i)->Fill(nummdtspecial);
+               if(numnormal != 0)m_h_numhit_normal.at(i)->Fill(numnormal);
+               if(numspecial != 0)m_h_numhit_special.at(i)->Fill(numspecial);
           }
 
           if(std::fabs(m_poff_pt*0.001) > 40){//plateau cut
