@@ -400,9 +400,9 @@ void Efficiency::Execute(Int_t ev){
                m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
           }
 
-          if(pSA_sAddress == 1 &&){
-               for(Int_t mdthit = 0; mdthit < pSA_mdtZ.size(); mdthit++){
-                    m_h_mdtphi_LS.at(i)->Fill(pSA_mdtPhi.at(mdthit));
+          if(pSA_sAddress == 1){
+               for(Int_t mdthit = 0; mdthit < pSA_mdtZ->size(); mdthit++){
+                    m_h_mdtphi_LS.at(i)->Fill(pSA_mdtPhi->at(mdthit));
                     //if(4000 < pSA_mdtR.at(mdthit) && pSA_mdtR.at(mdthit) < 5000 && )
                }
           }
