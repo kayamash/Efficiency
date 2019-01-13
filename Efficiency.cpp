@@ -405,10 +405,10 @@ void Efficiency::Execute(Int_t ev){
                Int_t nummdtspecial = 0;
                for(Int_t mdthit = 0; mdthit < (signed int)pSA_mdtZ->size(); mdthit++){
                     m_h_mdtphi_LS.at(i)->Fill(pSA_mdtPhi->at(mdthit));
-                    if(4000 < pSA_mdtR.at(mdthit) && pSA_mdtR.at(mdthit) < 5000 && pSA_mdtPhi.at(mdthit) < -0.6 && pSA_mdtPhi.at(mdthit) > -0.8){
+                    if(4000 < pSA_mdtR->at(mdthit) && pSA_mdtR->at(mdthit) < 5000 && pSA_mdtPhi->at(mdthit) < -0.6 && pSA_mdtPhi->at(mdthit) > -0.8){
                          nummdtspecial++;
                     }
-                    if(4000 < pSA_mdtR.at(mdthit) && pSA_mdtR.at(mdthit) < 5000 && pSA_mdtPhi.at(mdthit) < -0.8 && pSA_mdtPhi.at(mdthit) > -1.0){
+                    if(4000 < pSA_mdtR->at(mdthit) && pSA_mdtR->at(mdthit) < 5000 && pSA_mdtPhi->at(mdthit) < -0.8 && pSA_mdtPhi->at(mdthit) > -1.0){
                          nummdtnormal++;
                     }
                }
