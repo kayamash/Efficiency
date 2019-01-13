@@ -405,11 +405,11 @@ void Efficiency::Execute(Int_t ev){
           if(pSA_sAddress == 1){
                for(Int_t mdthit = 0; mdthit < (signed int)pSA_mdtZ->size(); mdthit++){
                     m_h_mdtphi_LS.at(i)->Fill(pSA_mdtPhi->at(mdthit));
-                    if(4000 > pSA_mdtR->at(mdthit) && pSA_mdtPhi->at(mdthit) < -0.8 && pSA_mdtPhi->at(mdthit) > -1.0){
+                    if(4000 > pSA_mdtR->at(mdthit)){
                          cout<<"normal"<<endl;
                          numnormal++;
                     }
-                    if(4000 < pSA_mdtR->at(mdthit) && pSA_mdtPhi->at(mdthit) < -0.6 && pSA_mdtPhi->at(mdthit) > -0.8){
+                    if(4000 < pSA_mdtR->at(mdthit)){
                          cout<<"special"<<endl;
                          numspecial++;
                     }
@@ -1153,6 +1153,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_numhit_normal.at(i)->Write();
           m_h_numhit_special.at(i)->Write();
           m_h_mdtphi_LS.at(i)->Write();
+          m_h_mdtphi_LSBIL.at(i)->Write();
 
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
