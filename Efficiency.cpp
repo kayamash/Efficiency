@@ -400,23 +400,14 @@ void Efficiency::Execute(Int_t ev){
                m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
           }
 
-          Int_t numnormal = 0;
-          Int_t numspecial = 0;
           if(pSA_sAddress == 1){
                for(Int_t mdthit = 0; mdthit < (signed int)pSA_mdtZ->size(); mdthit++){
                     m_h_mdtphi_LS.at(i)->Fill(pSA_mdtPhi->at(mdthit));
-                    if(4000 > pSA_mdtR->at(mdthit)){
-                         cout<<"normal"<<endl;
-                         numnormal++;
-                    }
-                    if(4000 < pSA_mdtR->at(mdthit)){
-                         cout<<"special"<<endl;
-                         numspecial++;
-                    }
                }
-               cout<<numnormal<<"   "<<numspecial<<endl;
-               if(numnormal != 0)m_h_numhit_normal.at(i)->Fill(numnormal);
-               if(numspecial != 0)m_h_numhit_special.at(i)->Fill(numspecial);
+               if(pSA_superpointR_BI > 4000){
+                    if((pSA_roiphi > -1.0 && pSA_roiphi < -0.8) || (pSA_roiphi > -2.4 && pSA_roiphi < -2.0))m_h_numhit_normal.at(i)->Fill((signed int)pSA_mdtZ->size());
+                    if((pSA_roiphi > -0.8 && pSA_roiphi < -0.6) || (pSA_roiphi > -2.6 && pSA_roiphi < -2.4))m_h_numhit_special.at(i)->Fill((signed int)pSA_mdtZ->size());
+               }
           }
 
           if(std::fabs(m_poff_pt*0.001) > 40){//plateau cut
