@@ -382,7 +382,7 @@ void Efficiency::Execute(Int_t ev){
           }
           Double_t ave_mdteta = buf_eta/static_cast<Double_t>(pSA_mdtZ->size());
           m_h_avemdteta.at(i)->Fill(ave_mdteta);
-          m_h_mumhit.at(i)->Fill(pSA_mdtZ->size());
+          m_h_numhit.at(i)->Fill(pSA_mdtZ->size());
 
           m_h_pSA_pt.at(i)->Fill(std::fabs(pSA_pt));
           m_h_pSA_dR.at(i)->Fill(buf_pSA_dR);
@@ -401,10 +401,19 @@ void Efficiency::Execute(Int_t ev){
           }
 
           if(pSA_sAddress == 1){
+               Int_t nummdtnormal = 0;
+               Int_t nummdtspecial = 0;
                for(Int_t mdthit = 0; mdthit < (signed int)pSA_mdtZ->size(); mdthit++){
                     m_h_mdtphi_LS.at(i)->Fill(pSA_mdtPhi->at(mdthit));
-                    //if(4000 < pSA_mdtR.at(mdthit) && pSA_mdtR.at(mdthit) < 5000 && )
+                    if(4000 < pSA_mdtR.at(mdthit) && pSA_mdtR.at(mdthit) < 5000 && pSA_mdtPhi.at(mdthit) < -0.6 && pSA_mdtPhi.at(mdthit) > -0.8){
+                         nummdtspecial++;
+                    }
+                    if(4000 < pSA_mdtR.at(mdthit) && pSA_mdtR.at(mdthit) < 5000 && pSA_mdtPhi.at(mdthit) < -0.8 && pSA_mdtPhi.at(mdthit) > -1.0){
+                         nummdtnormal++;
+                    }
                }
+               if(nummdtnormal != 0)m_h_numhit_normal.at(i)->Fill(nummdtnormal);
+               if(nummdtspecial != 0)m_h_numhit_special.at(i)->Fill(nummdtspecial);
           }
 
           if(std::fabs(m_poff_pt*0.001) > 40){//plateau cut
@@ -1137,9 +1146,9 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_numsegment.at(i)->Write();
           m_h_num_segment_LSBI.at(i)->Write();
           m_h_num_segment_LargeBI.at(i)->Write();
-          m_h_mumhit.at(i)->Write();
-          //m_h_mumhit_normal.at(i)->Write();
-          //m_h_mumhit_special.at(i)->Write();
+          m_h_numhit.at(i)->Write();
+          m_h_numhit_normal.at(i)->Write();
+          m_h_numhit_special.at(i)->Write();
           m_h_mdtphi_LS.at(i)->Write();
 
           m_h_eoff_pt.at(i)->Write();
