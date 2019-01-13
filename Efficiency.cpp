@@ -405,7 +405,7 @@ void Efficiency::Execute(Int_t ev){
           if(pSA_sAddress == 1){
                for(Int_t mdthit = 0; mdthit < (signed int)pSA_mdtZ->size(); mdthit++){
                     m_h_mdtphi_LS.at(i)->Fill(pSA_mdtPhi->at(mdthit));
-                    if(4000 < pSA_mdtR->at(mdthit) && pSA_mdtPhi->at(mdthit) < -0.8 && pSA_mdtPhi->at(mdthit) > -1.0){
+                    if(4000 > pSA_mdtR->at(mdthit) && pSA_mdtPhi->at(mdthit) < -0.8 && pSA_mdtPhi->at(mdthit) > -1.0){
                          cout<<"normal"<<endl;
                          numnormal++;
                     }
