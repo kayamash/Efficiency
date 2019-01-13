@@ -400,6 +400,13 @@ void Efficiency::Execute(Int_t ev){
                m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
           }
 
+          if(pSA_sAddress == 1 &&){
+               for(Int_t mdthit = 0; mdthit < pSA_mdtZ.size(); mdthit++){
+                    m_h_mdtphi_LS.at(i)->Fill(pSA_mdtPhi.at(mdthit));
+                    //if(4000 < pSA_mdtR.at(mdthit) && pSA_mdtR.at(mdthit) < 5000 && )
+               }
+          }
+
           if(std::fabs(m_poff_pt*0.001) > 40){//plateau cut
           //if(std::fabs(m_poff_pt*0.001) > 8){
                m_h_eff_pSA_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
@@ -1131,6 +1138,9 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_num_segment_LSBI.at(i)->Write();
           m_h_num_segment_LargeBI.at(i)->Write();
           m_h_mumhit.at(i)->Write();
+          //m_h_mumhit_normal.at(i)->Write();
+          //m_h_mumhit_special.at(i)->Write();
+          m_h_mdtphi_LS.at(i)->Write();
 
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
