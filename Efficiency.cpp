@@ -411,8 +411,8 @@ void Efficiency::Execute(Int_t ev){
                     }
                }
           }
-          if(numnormal != 0)m_h_segmentXY_normal.at(i)->Fill(numnormal);
-          if(numspecial != 0)m_h_segmentXY_special.at(i)->Fill(numspecial);
+          if(numnormal != 0)m_h_numhit_normal.at(i)->Fill(numnormal);
+          if(numspecial != 0)m_h_numhit_special.at(i)->Fill(numspecial);
 
           if(std::fabs(m_poff_pt*0.001) > 40){//plateau cut
           //if(std::fabs(m_poff_pt*0.001) > 8){

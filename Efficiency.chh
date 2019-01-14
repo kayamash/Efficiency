@@ -285,8 +285,8 @@ class Efficiency
   vector<TH2F*> m_h_segmentXYmatch;//
   vector<TH2F*> m_h_segmentXYnomatch;//
   vector<TH2F*> m_h_segmentXY_BIL;
-  vector<TH1D*> m_h_segmentXY_normal;
-  vector<TH1D*> m_h_segmentXY_special;
+  vector<TH2F*> m_h_segmentXY_normal;
+  vector<TH2F*> m_h_segmentXY_special;
 
   vector<TH2F*> m_h_segmentZR;
   vector<TH2F*> m_h_segmentZR_BIL;
