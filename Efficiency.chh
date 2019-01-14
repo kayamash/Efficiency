@@ -313,6 +313,7 @@ class Efficiency
   vector<TH1D*> m_h_numhit_normal;
   vector<TH1D*> m_h_numhit_special;
   vector<TH1D*> m_h_mdtphi;
+  vector<TH1D*> m_h_mdtR;
   vector<TH1D*> m_h_mdtphi_LS;
   vector<TH1D*> m_h_mdtphi_LSBIL;
 
@@ -890,6 +891,7 @@ public:
               m_h_mdtphi.push_back(new TH1D(Form("h_mdtphi_%dGeV",i*m_thpitch + m_thmin),"mdt phi;mdt phi;Entries",600,-3.0,3.0));
               m_h_mdtphi_LS.push_back(new TH1D(Form("h_mdtphi_LS_%dGeV",i*m_thpitch + m_thmin),"mdt phi;mdt phi;Entries",600,-3.0,3.0));
               m_h_mdtphi_LSBIL.push_back(new TH1D(Form("h_mdtphi_LSBIL_%dGeV",i*m_thpitch + m_thmin),"mdt phi;mdt phi;Entries",600,-3.0,3.0));
+              m_h_mdtR.push_back(new TH1D(Form("h_mdtR_%dGeV",i*m_thpitch + m_thmin),"mdt R;mdt R;Entries",500,0,5000.));
 
               //Efficiency
               m_h_eoff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*m_thpitch + m_thmin),"mesoff_pt;offline pt[GeV];Entries",200,-0.25,99.75));
@@ -1213,6 +1215,7 @@ public:
       delete  m_h_mdtphi.at(i);
       delete  m_h_mdtphi_LS.at(i);
       delete  m_h_mdtphi_LSBIL.at(i);
+      delete  m_h_mdtR.at(i);
 
       delete  m_h_eoff_pt.at(i);
       delete  m_h_eL1_pt.at(i);

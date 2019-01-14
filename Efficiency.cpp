@@ -409,7 +409,8 @@ void Efficiency::Execute(Int_t ev){
           if(pSA_sAddress == 1){
                for(Int_t mdthit = 0; mdthit < (signed int)pSA_mdtZ->size(); mdthit++){
                     m_h_mdtphi_LS.at(i)->Fill(pSA_mdtPhi->at(mdthit));
-                    if(pSA_superpointR_BI > 4000){
+                    m_h_mdtR.at(i)->Fill(pSA_mdtR->at(mdthit));
+                    if(pSA_mdtR->at(mdthit) > 4000){
                          if((pSA_roiphi > -1.0 && pSA_roiphi < -0.8) || (pSA_roiphi > -2.4 && pSA_roiphi < -2.0))numnormal++;
                          if((pSA_roiphi > -0.8 && pSA_roiphi < -0.6) || (pSA_roiphi > -2.6 && pSA_roiphi < -2.4))numspecial++;
                     }
@@ -1156,6 +1157,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_mdtphi.at(i)->Write();
           m_h_mdtphi_LS.at(i)->Write();
           m_h_mdtphi_LSBIL.at(i)->Write();
+          m_h_mdtR.at(i)->Write();
 
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
