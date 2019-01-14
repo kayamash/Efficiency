@@ -422,7 +422,7 @@ void Efficiency::Execute(Int_t ev){
           if(pSA_sAddress == 1){
                for(Int_t index = 0;index < 10;index++){
                     if(m_probe_segment_chamberIndex[index] == 1 && m_probe_segment_x[index] > -4500 && m_probe_segment_x[index] < -3000 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000)m_h_numhit_offnormal.at(i)->Fill(pSA_mdtZ->size());
-                    if(m_probe_segment_chamberIndex[index] == 1 && m_probe_segment_x[index] < -4500 && m_probe_segment_x[index] > -5500 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000)m_h_numhit_offnormal.at(i)->Fill(pSA_mdtZ->size());
+                    if(m_probe_segment_chamberIndex[index] == 1 && m_probe_segment_x[index] < -4500 && m_probe_segment_x[index] > -5500 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000)m_h_numhit_offnspecial.at(i)->Fill(pSA_mdtZ->size());
                }
           }
 
