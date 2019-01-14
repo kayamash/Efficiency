@@ -400,15 +400,19 @@ void Efficiency::Execute(Int_t ev){
                m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
           }
 
+          Int_t numnormal = 0;
+          Int_t numspecial = 0;
           if(pSA_sAddress == 1){
                for(Int_t mdthit = 0; mdthit < (signed int)pSA_mdtZ->size(); mdthit++){
                     m_h_mdtphi_LS.at(i)->Fill(pSA_mdtPhi->at(mdthit));
-               }
-               if(pSA_superpointR_BI > 4000){
-                    if((pSA_roiphi > -1.0 && pSA_roiphi < -0.8) || (pSA_roiphi > -2.4 && pSA_roiphi < -2.0))m_h_numhit_normal.at(i)->Fill((signed int)pSA_mdtZ->size());
-                    if((pSA_roiphi > -0.8 && pSA_roiphi < -0.6) || (pSA_roiphi > -2.6 && pSA_roiphi < -2.4))m_h_numhit_special.at(i)->Fill((signed int)pSA_mdtZ->size());
+                    if(pSA_superpointR_BI > 4000){
+                         if((pSA_roiphi > -1.0 && pSA_roiphi < -0.8) || (pSA_roiphi > -2.4 && pSA_roiphi < -2.0))numnormal++;
+                         if((pSA_roiphi > -0.8 && pSA_roiphi < -0.6) || (pSA_roiphi > -2.6 && pSA_roiphi < -2.4))numspecial++;
+                    }
                }
           }
+          if(numnormal != 0)m_h_segmentXY_normal.at(i)->Fill(numnormal);
+          if(numspecial != 0)m_h_segmentXY_special.at(i)->Fill(numspecial);
 
           if(std::fabs(m_poff_pt*0.001) > 40){//plateau cut
           //if(std::fabs(m_poff_pt*0.001) > 8){
@@ -1121,6 +1125,8 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_segmentXY_etaIndexminus5.at(i)->Write();
           m_h_segmentXY_etaIndexminus6.at(i)->Write();
           m_h_segmentXY_BIL.at(i)->Write();
+          m_h_segmentXY_normal.at(i)->Write();
+          m_h_segmentXY_special.at(i)->Write();
           m_h_segmentZR.at(i)->Write();
           m_h_segmentZR_BIL.at(i)->Write();
           m_h_segmentZR_LargeSpecialplus.at(i)->Write();
