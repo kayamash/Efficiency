@@ -177,6 +177,7 @@ void Efficiency::Execute(Int_t ev){
           vector<float> *pSA_mdtZ = 0;
           vector<float> *pSA_mdtR = 0;
           vector<float> *pSA_mdtPhi = 0;
+          vector<Int_t> *pSA_mdthitChamber = 0;
           Double_t pSA_superpointZ_BI = -99999;
           Double_t pSA_superpointZ_BM = -99999;
           Double_t pSA_superpointZ_BO = -99999;
@@ -235,6 +236,7 @@ void Efficiency::Execute(Int_t ev){
                     pSA_mdtZ = &(m_pSA_mdtZ->at(method));
                     pSA_mdtR = &(m_pSA_mdtR->at(method));
                     pSA_mdtPhi = &(m_pSA_mdtPhi->at(method));
+                    pSA_mdthitChamber = &(m_pSA_mdthitChamber->at(method));
                     pSA_superpointZ_BI = m_pSA_superpointZ_BI->at(method);
                     pSA_superpointZ_BM = m_pSA_superpointZ_BM->at(method);
                     pSA_superpointZ_BO = m_pSA_superpointZ_BO->at(method);
@@ -372,6 +374,7 @@ void Efficiency::Execute(Int_t ev){
 
           //SA
           if(!CutSA(pSA_pass,pSA_pt,i*m_thpitch + m_thmin))continue;
+          m_h_countSA.at(i)->Fill(m_poff_eta);
           Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
           pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
           Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
@@ -422,7 +425,22 @@ void Efficiency::Execute(Int_t ev){
           if(pSA_sAddress == 1){
                for(Int_t index = 0;index < 10;index++){
                     if(m_probe_segment_chamberIndex[index] == 1 && m_probe_segment_x[index] > -4500 && m_probe_segment_x[index] < -3000 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000)m_h_numhit_offnormal.at(i)->Fill(pSA_mdtZ->size());
-                    if(m_probe_segment_chamberIndex[index] == 1 && m_probe_segment_x[index] < -4500 && m_probe_segment_x[index] > -5500 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000)m_h_numhit_offnspecial.at(i)->Fill(pSA_mdtZ->size());
+                    if(m_probe_segment_chamberIndex[index] == 1 && m_probe_segment_x[index] < -4500 && m_probe_segment_x[index] > -5500 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000)m_h_numhit_offspecial.at(i)->Fill(pSA_mdtZ->size());
+               }
+          }
+
+          if(pSA_sAddress == 1){
+               for(Int_t index = 0;index < 10;index++){
+                    if(m_probe_segment_chamberIndex[index] == 1 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000 && m_probe_segment_x[index] > -4500){
+                         m_h_nPrecisionHits_normal.at(i)->Fill(m_probe_segment_nPrecisionHits[index]);
+                         m_h_sector_normal.at(i)->Fill(m_probe_segment_sector[index]);
+                         m_h_etaIndex_normal.at(i)->Fill(m_probe_segment_etaIndex);
+                    }
+                    if(m_probe_segment_chamberIndex[index] == 1 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000 && m_probe_segment_x[index] < -4500){
+                         m_h_nPrecisionHits_special.at(i)->Fill(m_probe_segment_nPrecisionHits[index]);
+                         m_h_sector_special.at(i)->Fill(m_probe_segment_sector[index]);
+                         m_h_etaIndex_special.at(i)->Fill(m_probe_segment_etaIndex);
+                    }
                }
           }
 
@@ -439,6 +457,8 @@ void Efficiency::Execute(Int_t ev){
 
           for(Int_t chnum = 0; chnum < 10; chnum++){
                if(m_probe_segment_chamberIndex[chnum] == 1)m_h_segmentXY_BIL.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 3)m_h_segmentXY_BML.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+
           }
 
           switch(static_cast<Int_t>(pSA_sAddress)){//switch Large ,LS , Small ,SS
@@ -821,6 +841,7 @@ void Efficiency::Execute(Int_t ev){
                     if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0){
                          m_h_segmentZR.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
                          if(m_probe_segment_chamberIndex[index] == 1)m_h_segmentZR_BIL.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
+                         if(m_probe_segment_chamberIndex[index] == 3)m_h_segmentZR_BML.at(i)->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
                          buf_numsegment++;
                     }
                }
@@ -1093,6 +1114,8 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_mdtSPXY_BM.at(i)->Write();
           m_h_mdtSPXY_BO.at(i)->Write();
           m_h_mdtSPXY_BME.at(i)->Write();
+          m_h_countSA.at(i)->Write();
+          m_h_ChIndexvshitChamber.at(i)->Write();
           m_h_avemdteta.at(i)->Write();
           //m_h_etaIndexout.at(i)->Write();
           //m_h_etaIndexin.at(i)->Write();
@@ -1137,10 +1160,12 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_segmentXY_etaIndexminus5.at(i)->Write();
           m_h_segmentXY_etaIndexminus6.at(i)->Write();
           m_h_segmentXY_BIL.at(i)->Write();
+          m_h_segmentXY_BML.at(i)->Write();
           m_h_segmentXY_normal.at(i)->Write();
           m_h_segmentXY_special.at(i)->Write();
           m_h_segmentZR.at(i)->Write();
           m_h_segmentZR_BIL.at(i)->Write();
+          m_h_segmentZR_BML.at(i)->Write();
           m_h_segmentZR_LargeSpecialplus.at(i)->Write();
           m_h_segmentZR_LargeSpecialminus.at(i)->Write();
           m_h_segmentZR_LargeSpecialplus11out.at(i)->Write();
@@ -1161,6 +1186,12 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_numhit.at(i)->Write();
           m_h_numhit_normal.at(i)->Write();
           m_h_numhit_special.at(i)->Write();
+          m_h_nPrecisionHits_normal.at(i)->Write();
+          m_h_nPrecisionHits_special.at(i)->Write();
+          m_h_sector_normal.at(i)->Write();
+          m_h_sector_special.at(i)->Write();
+          m_h_etaIndex_normal.at(i)->Write();
+          m_h_etaIndex_special.at(i)->Write();
           m_h_numhit_offnormal.at(i)->Write();
           m_h_numhit_offspecial.at(i)->Write();
           m_h_mdtphi.at(i)->Write();

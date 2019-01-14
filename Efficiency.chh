@@ -49,6 +49,8 @@ class Efficiency
   Double_t m_probe_segment_x[10];
   Double_t m_probe_segment_y[10];
   Double_t m_probe_segment_z[10];
+  Double_t m_probe_segment_nPrecisionHits[10];
+  Double_t m_probe_segment_sector[10];
   Double_t m_poff_pt;
   Double_t m_poff_eta;
   Double_t m_poff_exteta;
@@ -99,6 +101,7 @@ class Efficiency
   std::vector<vector<float>> *m_pSA_mdtZ;
   std::vector<vector<float>> *m_pSA_mdtR;
   std::vector<vector<float>> *m_pSA_mdtPhi;
+  std::vector<vector<Int_t>> *m_pSA_mdthitChamber;
   std::vector<Double_t> *m_pSA_superpointZ_BI;
   std::vector<Double_t> *m_pSA_superpointZ_BM;
   std::vector<Double_t> *m_pSA_superpointZ_BO;
@@ -147,6 +150,8 @@ class Efficiency
   TBranch *b_probe_segment_x;
   TBranch *b_probe_segment_y;
   TBranch *b_probe_segment_z;
+  TBranch *b_probe_segment_nPrecisionHits;
+  TBranch *b_probe_segment_sector;
   TBranch *b_tp_dR;
   TBranch *b_tp_extdR;
   TBranch *b_tL1_pt;
@@ -183,6 +188,7 @@ class Efficiency
   TBranch *b_pSA_mdtZ;
   TBranch *b_pSA_mdtR;
   TBranch *b_pSA_mdtPhi;
+  TBranch *b_pSA_mdthitChamber;
   TBranch *b_pSA_superpointZ_BI;
   TBranch *b_pSA_superpointZ_BM;
   TBranch *b_pSA_superpointZ_BO;
@@ -231,10 +237,14 @@ class Efficiency
   TH1D *m_h_saphims_LargeSpecial;
   TH1D *m_h_saroiphi_LargeSpecial;
   TH1D *m_h_saroiphi_SmallSpecial;
-  vector<TH2F*> m_h_mdthitXY;
-  vector<TH2F*> m_h_mdthitZR;
   vector<TH2F*> m_h_pSAphivspSAphims;
   vector<TH2F*> m_h_pSAphivspSAphibe;
+  vector<TH1D*> m_h_countSA;
+  vector<TH2F*> m_h_ChIndexvshitChamber;
+
+  //SP,segment
+  vector<TH2F*> m_h_mdthitXY;
+  vector<TH2F*> m_h_mdthitZR;
   vector<TH2F*> m_h_mdtSPXY_BI;
   vector<TH2F*> m_h_mdtSPXY_BM;
   vector<TH2F*> m_h_mdtSPXY_BO;
@@ -285,11 +295,13 @@ class Efficiency
   vector<TH2F*> m_h_segmentXYmatch;//
   vector<TH2F*> m_h_segmentXYnomatch;//
   vector<TH2F*> m_h_segmentXY_BIL;
+  vector<TH2F*> m_h_segmentXY_BML;
   vector<TH2F*> m_h_segmentXY_normal;
   vector<TH2F*> m_h_segmentXY_special;
 
   vector<TH2F*> m_h_segmentZR;
   vector<TH2F*> m_h_segmentZR_BIL;
+  vector<TH2F*> m_h_segmentZR_BML;
   vector<TH2F*> m_h_segmentZR_LargeSpecialplus;
   vector<TH2F*> m_h_segmentZR_LargeSpecialminus;
   vector<TH2F*> m_h_segmentZR_LargeSpecialplus11out;
@@ -314,6 +326,12 @@ class Efficiency
   vector<TH1D*> m_h_numhit_special;
   vector<TH1D*> m_h_numhit_offnormal;
   vector<TH1D*> m_h_numhit_offspecial;
+  vector<TH1D*> m_h_nPrecisionHits_normal;
+  vector<TH1D*> m_h_nPrecisionHits_special;
+  vector<TH1D*> m_h_sector_normal;
+  vector<TH1D*> m_h_sector_special;
+  vector<TH1D*> m_h_etaIndex_normal;
+  vector<TH1D*> m_h_etaIndex_special;
   vector<TH1D*> m_h_mdtphi;
   vector<TH1D*> m_h_mdtR;
   vector<TH1D*> m_h_mdtphi_LS;
@@ -587,6 +605,7 @@ public:
       m_pSA_mdtZ = 0;
       m_pSA_mdtR = 0;
       m_pSA_mdtPhi = 0;
+      m_pSA_mdthitChamber = 0;
       m_pSA_phims = 0;
       m_pSA_phibe = 0;
       m_pSA_roiphi = 0;
@@ -641,6 +660,8 @@ public:
       tChain->SetBranchStatus("probe_segment_x",1);
       tChain->SetBranchStatus("probe_segment_y",1);
       tChain->SetBranchStatus("probe_segment_z",1);
+      tChain->SetBranchStatus("probe_segment_nPrecisionHits",1);
+      tChain->SetBranchStatus("probe_segment_sector",1);
       tChain->SetBranchStatus("tp_dR",1);
       tChain->SetBranchStatus("tp_extdR",1);
       tChain->SetBranchStatus("tag_L1_pt",1);
@@ -677,6 +698,7 @@ public:
       tChain->SetBranchStatus("probe_mesSA_mdtHitZ",1);
       tChain->SetBranchStatus("probe_mesSA_mdtHitR",1);
       tChain->SetBranchStatus("probe_mesSA_mdtHitPhi",1);
+      tChain->SetBranchStatus("probe_mesSA_mdtHitChamber",1);
       tChain->SetBranchStatus("probe_mesSA_superPointZ_BI",1);
       tChain->SetBranchStatus("probe_mesSA_superPointZ_BM",1);
       tChain->SetBranchStatus("probe_mesSA_superPointZ_BO",1);
@@ -727,6 +749,8 @@ public:
       tChain->SetBranchAddress("probe_segment_x",m_probe_segment_x,&b_probe_segment_x);
       tChain->SetBranchAddress("probe_segment_y",m_probe_segment_y,&b_probe_segment_y);
       tChain->SetBranchAddress("probe_segment_z",m_probe_segment_z,&b_probe_segment_z);
+      tChain->SetBranchAddress("probe_segment_nPrecisionHits",m_probe_segment_nPrecisionHits,&b_probe_segment_nPrecisionHits);
+      tChain->SetBranchAddress("probe_segment_sector",m_probe_segment_sector,&b_probe_segment_sector);
       tChain->SetBranchAddress("tp_dR",&m_tp_dR,&b_tp_dR);
       tChain->SetBranchAddress("tp_extdR",&m_tp_extdR,&b_tp_extdR);
       tChain->SetBranchAddress("tag_L1_pt",&m_tL1_pt,&b_tL1_pt);
@@ -760,6 +784,7 @@ public:
       tChain->SetBranchAddress("probe_mesSA_mdtHitZ",&m_pSA_mdtZ,&b_pSA_mdtZ);
       tChain->SetBranchAddress("probe_mesSA_mdtHitR",&m_pSA_mdtR,&b_pSA_mdtR);
       tChain->SetBranchAddress("probe_mesSA_mdtHitPhi",&m_pSA_mdtPhi,&b_pSA_mdtPhi);
+      tChain->SetBranchAddress("probe_mesSA_mdtHitChamber",&m_pSA_mdthitChamber,&b_pSA_mdthitChamber);
       tChain->SetBranchAddress("probe_mesSA_phims",&m_pSA_phims,&b_pSA_phims);
       tChain->SetBranchAddress("probe_mesSA_phibe",&m_pSA_phibe,&b_pSA_phibe);
       tChain->SetBranchAddress("probe_mesSA_roiPhi",&m_pSA_roiphi,&b_pSA_roiphi);
@@ -811,10 +836,14 @@ public:
               m_h_poffvsSA_pt.push_back(new TH2F(Form("h_poffvsSA_pt_%dGeV",i*m_thpitch + m_thmin),"probe offline pt vs probe L2MuonSA pt@mu26ivm;probe offline pt[GeV];probe L2MuonSA pt[GeV]",150,0,150,150,0,150));
               m_h_offphivsSA_sAddress.push_back(new TH2F(Form("h_offphivsSA_sAddress_%dGeV",i*m_thpitch + m_thmin),"offline phi vs sAddress;offline phi;sAddress",140,-3.5,3.5,4,0.0,4.0));
               m_h_offphivsSAphims.push_back(new TH2F(Form("h_offphivsSAphims_%dGeV",i*m_thpitch + m_thmin),"offphi vs phims;offline phi;L2MuonSA phims",140,-3.5,3.5,140,-3.5,3.5));
-              m_h_mdthitXY.push_back(new TH2F(Form("h_mdthitXvsmdthitY_%dGeV",i*m_thpitch + m_thmin),"MDT hit distribution;MDT hit X[mm];MDT hit Y[mm]",5000,-25000.0,25000.0,5000,-25000.0,25000.0));
-              m_h_mdthitZR.push_back(new TH2F(Form("h_mdthitZvsmdthitR_%dGeV",i*m_thpitch + m_thmin),"MDT hit distribution;MDT hit Z[mm];MDT hit R[mm]",5000,-25000.0,25000.0,1500,0.0,15000.0));
               m_h_pSAphivspSAphims.push_back(new TH2F(Form("h_pSAphivspSAphims_%dGeV",i*m_thpitch + m_thmin),"SA phi vs SA phims",140,-3.5,3.5,140,-3.5,3.5));
               m_h_pSAphivspSAphibe.push_back(new TH2F(Form("h_pSAphivspSAphibe_%dGeV",i*m_thpitch + m_thmin),"SA phi vs SA phibe",140,-3.5,3.5,140,-3.5,3.5));
+              m_h_countSA.push_back(new TH1D(Form("h_countSA_%dGeV",i*m_thpitch + m_thmin),"countSA;eta;count",100,-3.0,3.0));
+              m_h_ChIndexvshitChamber.push_back(new TH2F(Form("h_ChIndexvshitChamber_%dGeV",i*m_thpitch + m_thmin),"ChIndexvshitChamber;ChIndex;hitChamber",11,0,10,11,0,10));
+              //SP,segment
+
+              m_h_mdthitXY.push_back(new TH2F(Form("h_mdthitXvsmdthitY_%dGeV",i*m_thpitch + m_thmin),"MDT hit distribution;MDT hit X[mm];MDT hit Y[mm]",5000,-25000.0,25000.0,5000,-25000.0,25000.0));
+              m_h_mdthitZR.push_back(new TH2F(Form("h_mdthitZvsmdthitR_%dGeV",i*m_thpitch + m_thmin),"MDT hit distribution;MDT hit Z[mm];MDT hit R[mm]",5000,-25000.0,25000.0,1500,0.0,15000.0));
               m_h_mdtSPXY_BI.push_back(new TH2F(Form("h_mdtSPXY_BI_%dGeV",i*m_thpitch + m_thmin),"BI SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_mdtSPXY_BM.push_back(new TH2F(Form("h_mdtSPXY_BM_%dGeV",i*m_thpitch + m_thmin),"BM SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_mdtSPXY_BO.push_back(new TH2F(Form("h_mdtSPXY_BO_%dGeV",i*m_thpitch + m_thmin),"BO SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
@@ -850,6 +879,7 @@ public:
               m_h_segmentXY_etaIndexminus5.push_back(new TH2F(Form("h_segmentXY_etaIndexminus5_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
               m_h_segmentXY_etaIndexminus6.push_back(new TH2F(Form("h_segmentXY_etaIndexminus6_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
               m_h_segmentXY_BIL.push_back(new TH2F(Form("h_segmentXY_BIL_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_BML.push_back(new TH2F(Form("h_segmentXY_BML_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
               m_h_segmentXY_normal.push_back(new TH2F(Form("h_segmentXY_normal_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
               m_h_segmentXY_special.push_back(new TH2F(Form("h_segmentXY_special_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
 
@@ -869,6 +899,7 @@ public:
               m_h_mdtSPZR_LargeSpecialminus11out.push_back(new TH2F(Form("h_mdtSPZRLargeSpecialminus11out_%dGeV",i*m_thpitch + m_thmin),"SP ZR;SP Z[mm];SP R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
               m_h_segmentZR.push_back(new TH2F(Form("h_segmentZR_%dGeV",i*m_thpitch + m_thmin),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
               m_h_segmentZR_BIL.push_back(new TH2F(Form("h_segmentZR_BIL_%dGeV",i*m_thpitch + m_thmin),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
+              m_h_segmentZR_BML.push_back(new TH2F(Form("h_segmentZR_BML_%dGeV",i*m_thpitch + m_thmin),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
               m_h_segmentZR_LargeSpecialplus.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus_%dGeV",i*m_thpitch + m_thmin),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,.0,10000.0));
               m_h_segmentZR_LargeSpecialminus.push_back(new TH2F(Form("h_segmentZRLargeSpecialminus_%dGeV",i*m_thpitch + m_thmin),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
               m_h_segmentZR_LargeSpecialplus15in.push_back(new TH2F(Form("h_segmentZRLargeSpecialplus15in_%dGeV",i*m_thpitch + m_thmin),"segment ZR;segment Z[mm];segment R[mm]",2000,-10000.0,10000.0,2000,0,10000.0));
@@ -890,6 +921,12 @@ public:
               m_h_numhit.push_back(new TH1D(Form("h_numhit_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
               m_h_numhit_normal.push_back(new TH1D(Form("h_numhit_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
               m_h_numhit_special.push_back(new TH1D(Form("h_numhit_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
+              m_h_nPrecisionHits_normal.push_back(new TH1D(Form("h_nPrecisionHits_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
+              m_h_nPrecisionHits_special.push_back(new TH1D(Form("h_nPrecisionHits_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
+              m_h_sector_normal.push_back(new TH1D(Form("h_sector_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
+              m_h_sector_special.push_back(new TH1D(Form("h_sector_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
+              m_h_etaIndex_normal.push_back(new TH1D(Form("h_etaIndex_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
+              m_h_etaIndex_special.push_back(new TH1D(Form("h_etaIndex_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
               m_h_numhit_offnormal.push_back(new TH1D(Form("h_numhit_offnormal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
               m_h_numhit_offspecial.push_back(new TH1D(Form("h_numhit_offspecial_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
               m_h_mdtphi.push_back(new TH1D(Form("h_mdtphi_%dGeV",i*m_thpitch + m_thmin),"mdt phi;mdt phi;Entries",600,-3.0,3.0));
@@ -1135,10 +1172,12 @@ public:
       delete  m_h_poffvsSA_pt.at(i);
       delete  m_h_offphivsSA_sAddress.at(i);
       delete  m_h_offphivsSAphims.at(i);
-      delete  m_h_mdthitXY.at(i);
-      delete  m_h_mdthitZR.at(i);
       delete  m_h_pSAphivspSAphims.at(i);
       delete  m_h_pSAphivspSAphibe.at(i);
+      delete  m_h_countSA.at(i);
+      delete  m_h_ChIndexvshitChamber.at(i);
+      delete  m_h_mdthitXY.at(i);
+      delete  m_h_mdthitZR.at(i);
       delete  m_h_mdtSPXY_BI.at(i);
       delete  m_h_mdtSPXY_BM.at(i);
       delete  m_h_mdtSPXY_BO.at(i);
@@ -1189,11 +1228,13 @@ public:
       delete  m_h_segmentXYmatch.at(i);
       delete  m_h_segmentXYnomatch.at(i);
       delete  m_h_segmentXY_BIL.at(i);
+      delete  m_h_segmentXY_BML.at(i);
       delete  m_h_segmentXY_normal.at(i);
       delete  m_h_segmentXY_special.at(i);
 
       delete  m_h_segmentZR.at(i);
       delete  m_h_segmentZR_BIL.at(i);
+      delete  m_h_segmentZR_BML.at(i);
       delete  m_h_segmentZR_LargeSpecialplus.at(i);
       delete  m_h_segmentZR_LargeSpecialminus.at(i);
       delete  m_h_segmentZR_LargeSpecialplus11out.at(i);
@@ -1216,6 +1257,12 @@ public:
       delete  m_h_numhit.at(i);
       delete  m_h_numhit_normal.at(i);
       delete  m_h_numhit_special.at(i);
+      delete  m_h_nPrecisionHits_normal.at(i);
+      delete  m_h_nPrecisionHits_special.at(i);
+      delete  m_h_sector_normal.at(i);
+      delete  m_h_sector_special.at(i);
+      delete  m_h_etaIndex_normal.at(i);
+      delete  m_h_etaIndex_special.at(i);
       delete  m_h_numhit_offnormal.at(i);
       delete  m_h_numhit_offspecial.at(i);
       delete  m_h_mdtphi.at(i);
