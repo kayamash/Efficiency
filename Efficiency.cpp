@@ -434,12 +434,12 @@ void Efficiency::Execute(Int_t ev){
                     if(m_probe_segment_chamberIndex[index] == 1 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000 && m_probe_segment_x[index] > -4500){
                          m_h_nPrecisionHits_normal.at(i)->Fill(m_probe_segment_nPrecisionHits[index]);
                          m_h_sector_normal.at(i)->Fill(m_probe_segment_sector[index]);
-                         m_h_etaIndex_normal.at(i)->Fill(m_probe_segment_etaIndex);
+                         m_h_etaIndex_normal.at(i)->Fill(m_probe_segment_etaIndex[index]);
                     }
                     if(m_probe_segment_chamberIndex[index] == 1 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000 && m_probe_segment_x[index] < -4500){
                          m_h_nPrecisionHits_special.at(i)->Fill(m_probe_segment_nPrecisionHits[index]);
                          m_h_sector_special.at(i)->Fill(m_probe_segment_sector[index]);
-                         m_h_etaIndex_special.at(i)->Fill(m_probe_segment_etaIndex);
+                         m_h_etaIndex_special.at(i)->Fill(m_probe_segment_etaIndex[index]);
                     }
                }
           }
