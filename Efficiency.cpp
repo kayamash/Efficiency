@@ -400,6 +400,10 @@ void Efficiency::Execute(Int_t ev){
                m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
           }
 
+          for(Int_t mdthit = 0; mdthit < (signed int)pSA_mdtPhi->size(); mdthit++){
+               m_h_mdtPhi.at(i)->Fill(pSA_mdtPhi->at(mdthit));
+          }
+
           Int_t numnormal = 0;
           Int_t numspecial = 0;
           if(pSA_sAddress == 1){
@@ -1149,6 +1153,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_numhit.at(i)->Write();
           m_h_numhit_normal.at(i)->Write();
           m_h_numhit_special.at(i)->Write();
+          m_h_mdtphi.at(i)->Wirte();
           m_h_mdtphi_LS.at(i)->Write();
           m_h_mdtphi_LSBIL.at(i)->Write();
 

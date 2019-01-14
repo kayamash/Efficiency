@@ -312,6 +312,7 @@ class Efficiency
   vector<TH1D*> m_h_numhit;
   vector<TH1D*> m_h_numhit_normal;
   vector<TH1D*> m_h_numhit_special;
+  vector<TH1D*> m_h_mdtphi;
   vector<TH1D*> m_h_mdtphi_LS;
   vector<TH1D*> m_h_mdtphi_LSBIL;
 
@@ -886,6 +887,7 @@ public:
               m_h_numhit.push_back(new TH1D(Form("h_numhit_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
               m_h_numhit_normal.push_back(new TH1D(Form("h_numhit_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
               m_h_numhit_special.push_back(new TH1D(Form("h_numhit_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
+              m_h_mdtphi.push_back(new TH1D(Form("h_mdtphi_%dGeV",i*m_thpitch + m_thmin),"mdt phi;mdt phi;Entries",600,-3.0,3.0));
               m_h_mdtphi_LS.push_back(new TH1D(Form("h_mdtphi_LS_%dGeV",i*m_thpitch + m_thmin),"mdt phi;mdt phi;Entries",600,-3.0,3.0));
               m_h_mdtphi_LSBIL.push_back(new TH1D(Form("h_mdtphi_LSBIL_%dGeV",i*m_thpitch + m_thmin),"mdt phi;mdt phi;Entries",600,-3.0,3.0));
 
@@ -1208,6 +1210,7 @@ public:
       delete  m_h_numhit.at(i);
       delete  m_h_numhit_normal.at(i);
       delete  m_h_numhit_special.at(i);
+      delete  m_h_mdtphi.at(i);
       delete  m_h_mdtphi_LS.at(i);
       delete  m_h_mdtphi_LSBIL.at(i);
 
