@@ -419,6 +419,13 @@ void Efficiency::Execute(Int_t ev){
           if(numnormal != 0)m_h_numhit_normal.at(i)->Fill(numnormal);
           if(numspecial != 0)m_h_numhit_special.at(i)->Fill(numspecial);
 
+          if(pSA_sAddress == 1){
+               for(Int_t index = 0;index < 10;index++){
+                    if(m_probe_segment_chamberIndex[index] == 1 && m_probe_segment_x[index] > -4500 && m_probe_segment_x[index] < -3000 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000)m_h_numhit_offnormal.at(i)->Fill(pSA_mdtZ->size());
+                    if(m_probe_segment_chamberIndex[index] == 1 && m_probe_segment_x[index] < -4500 && m_probe_segment_x[index] > -5500 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000)m_h_numhit_offnormal.at(i)->Fill(pSA_mdtZ->size());
+               }
+          }
+
           if(std::fabs(m_poff_pt*0.001) > 40){//plateau cut
           //if(std::fabs(m_poff_pt*0.001) > 8){
                m_h_eff_pSA_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
@@ -1154,6 +1161,8 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_numhit.at(i)->Write();
           m_h_numhit_normal.at(i)->Write();
           m_h_numhit_special.at(i)->Write();
+          m_h_numhit_offnormal.at(i)->Write();
+          m_h_numhit_offspecial.at(i)->Write();
           m_h_mdtphi.at(i)->Write();
           m_h_mdtphi_LS.at(i)->Write();
           m_h_mdtphi_LSBIL.at(i)->Write();
