@@ -410,7 +410,7 @@ void Efficiency::Execute(Int_t ev){
                for(Int_t mdthit = 0; mdthit < (signed int)pSA_mdtZ->size(); mdthit++){
                     m_h_mdtphi_LS.at(i)->Fill(pSA_mdtPhi->at(mdthit));
                     m_h_mdtR.at(i)->Fill(pSA_mdtR->at(mdthit));
-                    if(pSA_mdtR->at(mdthit) > 4000){
+                    if(pSA_mdtR->at(mdthit) > 5400 && pSA_mdtR->at(mdthit) < 5600){
                          if((pSA_roiphi > -1.0 && pSA_roiphi < -0.8) || (pSA_roiphi > -2.4 && pSA_roiphi < -2.0))numnormal++;
                          if((pSA_roiphi > -0.8 && pSA_roiphi < -0.6) || (pSA_roiphi > -2.6 && pSA_roiphi < -2.4))numspecial++;
                     }
