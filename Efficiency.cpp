@@ -462,6 +462,18 @@ void Efficiency::Execute(Int_t ev){
                if(m_probe_segment_chamberIndex[chnum] == 3)m_h_segmentXY_BML.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
                if(m_probe_segment_chamberIndex[chnum] == 4)m_h_segmentXY_BOS.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
                if(m_probe_segment_chamberIndex[chnum] == 5)m_h_segmentXY_BOL.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 6)m_h_segmentXY_BEE.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 7)m_h_segmentXY_EIS.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 8)m_h_segmentXY_EIL.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 9)m_h_segmentXY_EMS.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 10)m_h_segmentXY_EML.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 11)m_h_segmentXY_EOS.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 12)m_h_segmentXY_EOL.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 13)m_h_segmentXY_EES.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 14)m_h_segmentXY_EEL.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 15)m_h_segmentXY_CSS.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 16)m_h_segmentXY_CSL.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == -1)m_h_segmentXY_unknown.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
 
           }
 
@@ -1169,6 +1181,18 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_segmentXY_BIS.at(i)->Write();
           m_h_segmentXY_BMS.at(i)->Write();
           m_h_segmentXY_BOS.at(i)->Write();
+          m_h_segmentXY_BEE.at(i)->Write();
+          m_h_segmentXY_EIL.at(i)->Write();
+          m_h_segmentXY_EML.at(i)->Write();
+          m_h_segmentXY_EOL.at(i)->Write();
+          m_h_segmentXY_EIS.at(i)->Write();
+          m_h_segmentXY_EMS.at(i)->Write();
+          m_h_segmentXY_EOS.at(i)->Write();
+          m_h_segmentXY_EES.at(i)->Write();
+          m_h_segmentXY_EEL.at(i)->Write();
+          m_h_segmentXY_CSS.at(i)->Write();
+          m_h_segmentXY_CSL.at(i)->Write();
+          m_h_segmentXY_unknown.at(i)->Write();
           m_h_segmentXY_normal.at(i)->Write();
           m_h_segmentXY_special.at(i)->Write();
           m_h_segmentZR.at(i)->Write();

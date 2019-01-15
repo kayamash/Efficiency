@@ -300,6 +300,18 @@ class Efficiency
   vector<TH2F*> m_h_segmentXY_BIS;
   vector<TH2F*> m_h_segmentXY_BMS;
   vector<TH2F*> m_h_segmentXY_BOS;
+  vector<TH2F*> m_h_segmentXY_BEE;
+  vector<TH2F*> m_h_segmentXY_EIL;
+  vector<TH2F*> m_h_segmentXY_EML;
+  vector<TH2F*> m_h_segmentXY_EOL;
+  vector<TH2F*> m_h_segmentXY_EIS;
+  vector<TH2F*> m_h_segmentXY_EMS;
+  vector<TH2F*> m_h_segmentXY_EOS;
+  vector<TH2F*> m_h_segmentXY_EES;
+  vector<TH2F*> m_h_segmentXY_EEL;
+  vector<TH2F*> m_h_segmentXY_CSS;
+  vector<TH2F*> m_h_segmentXY_CSL;
+  vector<TH2F*> m_h_segmentXY_unknown;
   vector<TH2F*> m_h_segmentXY_normal;
   vector<TH2F*> m_h_segmentXY_special;
 
@@ -888,6 +900,18 @@ public:
               m_h_segmentXY_BIS.push_back(new TH2F(Form("h_segmentXY_BIS_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
               m_h_segmentXY_BMS.push_back(new TH2F(Form("h_segmentXY_BMS_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
               m_h_segmentXY_BOS.push_back(new TH2F(Form("h_segmentXY_BOS_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_BEE.push_back(new TH2F(Form("h_segmentXY_BEE_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_EIL.push_back(new TH2F(Form("h_segmentXY_EIL_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_EML.push_back(new TH2F(Form("h_segmentXY_EML_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_EOL.push_back(new TH2F(Form("h_segmentXY_EOL_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_EIS.push_back(new TH2F(Form("h_segmentXY_EIS_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_EMS.push_back(new TH2F(Form("h_segmentXY_EMS_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_EOS.push_back(new TH2F(Form("h_segmentXY_EOS_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_EES.push_back(new TH2F(Form("h_segmentXY_EES_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_EEL.push_back(new TH2F(Form("h_segmentXY_EEL_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_CSS.push_back(new TH2F(Form("h_segmentXY_CSS_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_CSL.push_back(new TH2F(Form("h_segmentXY_CSL_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_unknown.push_back(new TH2F(Form("h_segmentXY_unknown_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
               m_h_segmentXY_normal.push_back(new TH2F(Form("h_segmentXY_normal_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
               m_h_segmentXY_special.push_back(new TH2F(Form("h_segmentXY_special_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
 
@@ -1241,6 +1265,18 @@ public:
       delete  m_h_segmentXY_BIS.at(i);
       delete  m_h_segmentXY_BMS.at(i);
       delete  m_h_segmentXY_BOS.at(i);
+      delete  m_h_segmentXY_BEE.at(i);
+      delete  m_h_segmentXY_EIL.at(i);
+      delete  m_h_segmentXY_EML.at(i);
+      delete  m_h_segmentXY_EOL.at(i);
+      delete  m_h_segmentXY_EIS.at(i);
+      delete  m_h_segmentXY_EMS.at(i);
+      delete  m_h_segmentXY_EOS.at(i);
+      delete  m_h_segmentXY_EES.at(i);
+      delete  m_h_segmentXY_EEL.at(i);
+      delete  m_h_segmentXY_CSS.at(i);
+      delete  m_h_segmentXY_CSL.at(i);
+      delete  m_h_segmentXY_noknown.at(i);
       delete  m_h_segmentXY_normal.at(i);
       delete  m_h_segmentXY_special.at(i);
 
