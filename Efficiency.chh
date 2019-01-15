@@ -296,6 +296,10 @@ class Efficiency
   vector<TH2F*> m_h_segmentXYnomatch;//
   vector<TH2F*> m_h_segmentXY_BIL;
   vector<TH2F*> m_h_segmentXY_BML;
+  vector<TH2F*> m_h_segmentXY_BOL;
+  vector<TH2F*> m_h_segmentXY_BIS;
+  vector<TH2F*> m_h_segmentXY_BMS;
+  vector<TH2F*> m_h_segmentXY_BOS;
   vector<TH2F*> m_h_segmentXY_normal;
   vector<TH2F*> m_h_segmentXY_special;
 
@@ -880,6 +884,10 @@ public:
               m_h_segmentXY_etaIndexminus6.push_back(new TH2F(Form("h_segmentXY_etaIndexminus6_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
               m_h_segmentXY_BIL.push_back(new TH2F(Form("h_segmentXY_BIL_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
               m_h_segmentXY_BML.push_back(new TH2F(Form("h_segmentXY_BML_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_BOL.push_back(new TH2F(Form("h_segmentXY_BOL_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_BIS.push_back(new TH2F(Form("h_segmentXY_BIS_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_BMS.push_back(new TH2F(Form("h_segmentXY_BMS_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_segmentXY_BOS.push_back(new TH2F(Form("h_segmentXY_BOS_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
               m_h_segmentXY_normal.push_back(new TH2F(Form("h_segmentXY_normal_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
               m_h_segmentXY_special.push_back(new TH2F(Form("h_segmentXY_special_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
 
@@ -923,8 +931,8 @@ public:
               m_h_numhit_special.push_back(new TH1D(Form("h_numhit_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
               m_h_nPrecisionHits_normal.push_back(new TH1D(Form("h_nPrecisionHits_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",21,-0.5,20.5));
               m_h_nPrecisionHits_special.push_back(new TH1D(Form("h_nPrecisionHits_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",21,-0.5,20.5));
-              m_h_sector_normal.push_back(new TH1D(Form("h_sector_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",21,-0.5,20.5));
-              m_h_sector_special.push_back(new TH1D(Form("h_sector_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",21,-0.5,20.5));
+              m_h_sector_normal.push_back(new TH1D(Form("h_sector_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",17,-0.5,16.5));
+              m_h_sector_special.push_back(new TH1D(Form("h_sector_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",17,-0.5,16.5));
               m_h_etaIndex_normal.push_back(new TH1D(Form("h_etaIndex_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",11,-0.5,10.5));
               m_h_etaIndex_special.push_back(new TH1D(Form("h_etaIndex_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",11,-0.5,10.5));
               m_h_numhit_offnormal.push_back(new TH1D(Form("h_numhit_offnormal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
@@ -1229,6 +1237,10 @@ public:
       delete  m_h_segmentXYnomatch.at(i);
       delete  m_h_segmentXY_BIL.at(i);
       delete  m_h_segmentXY_BML.at(i);
+      delete  m_h_segmentXY_BOL.at(i);
+      delete  m_h_segmentXY_BIS.at(i);
+      delete  m_h_segmentXY_BMS.at(i);
+      delete  m_h_segmentXY_BOS.at(i);
       delete  m_h_segmentXY_normal.at(i);
       delete  m_h_segmentXY_special.at(i);
 

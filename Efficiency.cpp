@@ -456,8 +456,12 @@ void Efficiency::Execute(Int_t ev){
           areanumber = DicisionArea(pSA_roiphi);
 
           for(Int_t chnum = 0; chnum < 10; chnum++){
+               if(m_probe_segment_chamberIndex[chnum] == 0)m_h_segmentXY_BIS.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
                if(m_probe_segment_chamberIndex[chnum] == 1)m_h_segmentXY_BIL.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 2)m_h_segmentXY_BMS.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
                if(m_probe_segment_chamberIndex[chnum] == 3)m_h_segmentXY_BML.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 4)m_h_segmentXY_BOS.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
+               if(m_probe_segment_chamberIndex[chnum] == 5)m_h_segmentXY_BOL.at(i)->Fill(m_probe_segment_x[chnum],m_probe_segment_y[chnum]);
 
           }
 
@@ -1161,6 +1165,10 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_segmentXY_etaIndexminus6.at(i)->Write();
           m_h_segmentXY_BIL.at(i)->Write();
           m_h_segmentXY_BML.at(i)->Write();
+          m_h_segmentXY_BOL.at(i)->Write();
+          m_h_segmentXY_BIS.at(i)->Write();
+          m_h_segmentXY_BMS.at(i)->Write();
+          m_h_segmentXY_BOS.at(i)->Write();
           m_h_segmentXY_normal.at(i)->Write();
           m_h_segmentXY_special.at(i)->Write();
           m_h_segmentZR.at(i)->Write();
