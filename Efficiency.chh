@@ -921,12 +921,12 @@ public:
               m_h_numhit.push_back(new TH1D(Form("h_numhit_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
               m_h_numhit_normal.push_back(new TH1D(Form("h_numhit_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
               m_h_numhit_special.push_back(new TH1D(Form("h_numhit_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
-              m_h_nPrecisionHits_normal.push_back(new TH1D(Form("h_nPrecisionHits_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",20,-0.5,20.5));
-              m_h_nPrecisionHits_special.push_back(new TH1D(Form("h_nPrecisionHits_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",20,-0.5,20.5));
-              m_h_sector_normal.push_back(new TH1D(Form("h_sector_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",20,-0.5,20.5));
-              m_h_sector_special.push_back(new TH1D(Form("h_sector_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",20,-0.5,20.5));
-              m_h_etaIndex_normal.push_back(new TH1D(Form("h_etaIndex_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",10,-0.5,10.5));
-              m_h_etaIndex_special.push_back(new TH1D(Form("h_etaIndex_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",10,-0.5,10.5));
+              m_h_nPrecisionHits_normal.push_back(new TH1D(Form("h_nPrecisionHits_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",21,-0.5,20.5));
+              m_h_nPrecisionHits_special.push_back(new TH1D(Form("h_nPrecisionHits_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",21,-0.5,20.5));
+              m_h_sector_normal.push_back(new TH1D(Form("h_sector_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",21,-0.5,20.5));
+              m_h_sector_special.push_back(new TH1D(Form("h_sector_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",21,-0.5,20.5));
+              m_h_etaIndex_normal.push_back(new TH1D(Form("h_etaIndex_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",11,-0.5,10.5));
+              m_h_etaIndex_special.push_back(new TH1D(Form("h_etaIndex_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",11,-0.5,10.5));
               m_h_numhit_offnormal.push_back(new TH1D(Form("h_numhit_offnormal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
               m_h_numhit_offspecial.push_back(new TH1D(Form("h_numhit_offspecial_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",100,-0.5,100.5));
               m_h_mdtphi.push_back(new TH1D(Form("h_mdtphi_%dGeV",i*m_thpitch + m_thmin),"mdt phi;mdt phi;Entries",600,-3.0,3.0));
