@@ -1276,7 +1276,7 @@ public:
       delete  m_h_segmentXY_EEL.at(i);
       delete  m_h_segmentXY_CSS.at(i);
       delete  m_h_segmentXY_CSL.at(i);
-      delete  m_h_segmentXY_noknown.at(i);
+      delete  m_h_segmentXY_unknown.at(i);
       delete  m_h_segmentXY_normal.at(i);
       delete  m_h_segmentXY_special.at(i);
 
