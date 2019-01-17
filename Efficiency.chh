@@ -944,22 +944,22 @@ public:
               m_h_offetaLargemidout_2station.push_back(new TH1D(Form("h_offetaLargemidout_2station_%dGeV",i*m_thpitch + m_thmin),"Large 2station;offline eta;Entries",20,-1.0,1.0));
               m_h_offetaSmallmidout_2station.push_back(new TH1D(Form("h_offetaSmallmidout_2station_%dGeV",i*m_thpitch + m_thmin),"Small 2station;offline eta;Entries",20,-1.0,1.0));
               //
-              m_h_offetaBIM_3station.push_back(new TH1D(Form("h_offetaBIM_2station_%dGeV",i*m_thpitch + m_thmin),"BIM 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaBIR_3station.push_back(new TH1D(Form("h_offetaBIR_2station_%dGeV",i*m_thpitch + m_thmin),"BIR 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaLarge_3station.push_back(new TH1D(Form("h_offetaLarge_2station_%dGeV",i*m_thpitch + m_thmin),"Large 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaSmall_3station.push_back(new TH1D(Form("h_offetaSmall_2station_%dGeV",i*m_thpitch + m_thmin),"Small 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaBIMinnmid_3station.push_back(new TH1D(Form("h_offetaBIMinnmid_2station_%dGeV",i*m_thpitch + m_thmin),"BIM 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaBIRinnmid_3station.push_back(new TH1D(Form("h_offetaBIRinnmid_2station_%dGeV",i*m_thpitch + m_thmin),"BIR 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaLargeinnmid_3station.push_back(new TH1D(Form("h_offetaLargeinnmid_2station_%dGeV",i*m_thpitch + m_thmin),"Large 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaSmallinnmid_3station.push_back(new TH1D(Form("h_offetaSmallinnmid_2station_%dGeV",i*m_thpitch + m_thmin),"Small 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaBIMinnout_3station.push_back(new TH1D(Form("h_offetaBIMinnout_2station_%dGeV",i*m_thpitch + m_thmin),"BIM 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaBIRinnout_3station.push_back(new TH1D(Form("h_offetaBIRinnout_2station_%dGeV",i*m_thpitch + m_thmin),"BIR 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaLargeinnout_3station.push_back(new TH1D(Form("h_offetaLargeinnout_2station_%dGeV",i*m_thpitch + m_thmin),"Large 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaSmallinnout_3station.push_back(new TH1D(Form("h_offetaSmallinnout_2station_%dGeV",i*m_thpitch + m_thmin),"Small 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaBIMmidout_3station.push_back(new TH1D(Form("h_offetaBIMmidout_2station_%dGeV",i*m_thpitch + m_thmin),"BIM 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaBIRmidout_3station.push_back(new TH1D(Form("h_offetaBIRmidout_2station_%dGeV",i*m_thpitch + m_thmin),"BIR 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaLargemidout_3station.push_back(new TH1D(Form("h_offetaLargemidout_2station_%dGeV",i*m_thpitch + m_thmin),"Large 3station;offline eta;Entries",20,-1.0,1.0));
-              m_h_offetaSmallmidout_3station.push_back(new TH1D(Form("h_offetaSmallmidout_2station_%dGeV",i*m_thpitch + m_thmin),"Small 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaBIM_3station.push_back(new TH1D(Form("h_offetaBIM_3station_%dGeV",i*m_thpitch + m_thmin),"BIM 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaBIR_3station.push_back(new TH1D(Form("h_offetaBIR_3station_%dGeV",i*m_thpitch + m_thmin),"BIR 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaLarge_3station.push_back(new TH1D(Form("h_offetaLarge_3station_%dGeV",i*m_thpitch + m_thmin),"Large 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaSmall_3station.push_back(new TH1D(Form("h_offetaSmall_3station_%dGeV",i*m_thpitch + m_thmin),"Small 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaBIMinnmid_3station.push_back(new TH1D(Form("h_offetaBIMinnmid_3station_%dGeV",i*m_thpitch + m_thmin),"BIM 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaBIRinnmid_3station.push_back(new TH1D(Form("h_offetaBIRinnmid_3station_%dGeV",i*m_thpitch + m_thmin),"BIR 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaLargeinnmid_3station.push_back(new TH1D(Form("h_offetaLargeinnmid_3station_%dGeV",i*m_thpitch + m_thmin),"Large 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaSmallinnmid_3station.push_back(new TH1D(Form("h_offetaSmallinnmid_3station_%dGeV",i*m_thpitch + m_thmin),"Small 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaBIMinnout_3station.push_back(new TH1D(Form("h_offetaBIMinnout_3station_%dGeV",i*m_thpitch + m_thmin),"BIM 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaBIRinnout_3station.push_back(new TH1D(Form("h_offetaBIRinnout_3station_%dGeV",i*m_thpitch + m_thmin),"BIR 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaLargeinnout_3station.push_back(new TH1D(Form("h_offetaLargeinnout_3station_%dGeV",i*m_thpitch + m_thmin),"Large 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaSmallinnout_3station.push_back(new TH1D(Form("h_offetaSmallinnout_3station_%dGeV",i*m_thpitch + m_thmin),"Small 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaBIMmidout_3station.push_back(new TH1D(Form("h_offetaBIMmidout_3station_%dGeV",i*m_thpitch + m_thmin),"BIM 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaBIRmidout_3station.push_back(new TH1D(Form("h_offetaBIRmidout_3station_%dGeV",i*m_thpitch + m_thmin),"BIR 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaLargemidout_3station.push_back(new TH1D(Form("h_offetaLargemidout_3station_%dGeV",i*m_thpitch + m_thmin),"Large 3station;offline eta;Entries",20,-1.0,1.0));
+              m_h_offetaSmallmidout_3station.push_back(new TH1D(Form("h_offetaSmallmidout_3station_%dGeV",i*m_thpitch + m_thmin),"Small 3station;offline eta;Entries",20,-1.0,1.0));
               //
 
               //SP,segment
