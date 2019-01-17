@@ -1,5 +1,5 @@
 #!/bin/bash
-branch="dev_kayamash"
+branch="dev_forlxatut"
 file1="efficiencyloop.cpp"
 file2="Efficiency.cpp"
 file3="Efficiency.chh"
@@ -8,10 +8,9 @@ file5="CalcEfficiency.chh"
 file7="run.sh"
 file8="bsub.sh"
 file9="gitadd.sh"
-file11="LargeSpecialEvent.dat"
-file12="setup_grid.sh"
+file10="scp.sh"
 add="git add "
-message="bug fix"
+message="change method"
 push="git push origin "
 
 eval $add$file1
@@ -22,8 +21,7 @@ eval $add$file5
 eval $add$file7
 eval $add$file8
 eval $add$file9
-eval $add$file11
-eval $add$file12
+eval $add$file10
 git commit -m "${message}"
 eval $push$branch
 
