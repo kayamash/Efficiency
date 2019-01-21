@@ -1,0 +1,48 @@
+#ifndef FILLTREE_CHH
+#define FILLTREE_CHH
+
+#include <TROOT.h>
+#include <TChain.h>
+#include <TFile.h>
+#include <TH1.h>
+#include <TH2.h>
+#include <TCanvas.h>
+#include <stdio.h>
+#include <math.h>
+#include <cmath>
+#include <iostream>
+#include <fstream>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <string>
+#include <sstream>
+#include <TF1.h>
+#include <TTree.h>
+#include <TStyle.h>
+#include <TText.h>
+#include <TGraphErrors.h>
+#include <TLegend.h>
+#include <vector>
+#include <TMath.h>
+#include <TBranch.h>
+#include <TObject.h>
+#include <TChain.h>
+
+class FillTree
+ {
+ 	private:
+ 		TFile *output_file;
+
+
+
+ 	public:
+ 		void Init(string output){}
+ 		void Fill(){}
+ 		~FillTree(){
+ 			a
+ 		}
+
+
+
+ };
+ #endif//FillTree_chh
