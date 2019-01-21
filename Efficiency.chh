@@ -212,15 +212,15 @@ class Efficiency
   TBranch *b_pEF_pass;
   TBranch *b_pEFTAG_pass;
 
-  Int_t m_nbin_eta,m_nbin_phi;
-  Double_t m_eta_max,m_phi_max,m_reqL1dR;
+  Double_t m_reqL1dR;
   std::string m_method_name;
   Int_t m_nthreshold;
   Int_t m_thpitch;
   Int_t m_proc;
-
   Double_t m_binmax;
   Int_t m_thmin;
+
+  
 
   FillTree m_ft;
 

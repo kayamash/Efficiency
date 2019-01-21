@@ -102,7 +102,6 @@ int Efficiency::DicisionArea(Double_t roiphi){
 
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
-     for(Int_t i = 0;i < m_nthreshold;i++){
           Double_t pextL1_dR = 1; 
           Double_t pextSA_dR = 1; 
           Double_t pextCB_dR = 1; 
@@ -202,35 +201,66 @@ void Efficiency::Execute(Int_t ev){
           tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
           tEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_eta,2) + pow(m_tEF_phi - m_toff_phi,2) );
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
-          //offline
+          //Tag and Probe
           if(!CutTagProbe(pEFTAG_pass))continue;
           //L1
-          if(!CutL1(pL1_pass))continue;
           Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
           pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
           //SA
-          if(!CutSA(pSA_pass,pSA_pt,i*m_thpitch + m_thmin))continue;
           Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
           pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
           Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
           Double_t buf_pSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_eta,2) + pow(pSA_phi - m_poff_phi,2));
           areanumber = DicisionArea(pSA_roiphi);
           //CB
-          if(!CutCB(pCB_pass))continue;
           Double_t textCB_dR = TMath::Sqrt(pow(m_tCB_eta - m_toff_exteta,2) + pow(m_tCB_phi - m_toff_extphi,2));
           pextCB_dR = TMath::Sqrt(pow(pCB_eta - m_poff_exteta,2) + pow(pCB_phi - m_poff_extphi,2));
           Double_t resCB_pt = std::fabs(m_poff_pt)/std::fabs(pCB_pt) - 1.0;
           //EF
-          if(!CutEF(pEF_pass))continue;
           Double_t textEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_exteta,2) + pow(m_tEF_phi - m_toff_extphi,2));
           pextEF_dR = TMath::Sqrt(pow(pEF_eta - m_poff_exteta,2) + pow(pEF_phi - m_poff_extphi,2));
           Double_t resEF_pt = std::fabs(m_poff_pt)/std::fabs(pEF_pt) - 1.0;
           DicisionBarrel(m_poff_eta);
 
+          std::vector<Int_t> v_L1pass;
+          std::vector<Int_t> v_SApass;
+          std::vector<Int_t> v_CBpass;
+          std::vector<Int_t> v_EFpass;
+          for(Int_t i = 0;i < m_nthreshold;i++){
+               v_L1pass.push_back(CutL1(pL1_pass));
+               v_SApass.push_back(CutSA(pSA_pass,pSA_pt,i*m_thpitch + m_thmin));
+               v_CBpass.push_back(CutCB(pCB_pass));
+               v_EFpass.push_back(CutEF(pEF_pass));
+          }
+          
+          vector<Double_t> v_offline_kinematic;//pt,eta,phi,charge
+          vector<Double_t> v_L1_kinematic;//pt,eta,phi,dR
+          vector<Double_t> v_SA_kinematic;//pt,eta,phi,dR,residual,roiphi
+          vector<Double_t> v_CB_kinematic;//pt,eta,phi,dR,residual
+          vector<Double_t> v_EF_kinematic;//pt,eta,phi,dR,residual
+          vector<Int_t> v_segment_etaIndex;
+          vector<Int_t> v_segment_chamberIndex;
+          vector<Int_t> v_segment_nPrecisionHits;
+          vector<Int_t> v_segment_Sector;
+          vector<Double_t> v_segment_x;
+          vector<Double_t> v_segment_y;
+          vector<Double_t> v_segment_z;
+          vector<Double_t> v_SP;//z BI,BM,BO,BME R BI,BM,BO,BME
+          vector<float> v_RPC_x;
+          vector<float> v_RPC_y;
+          vector<float> v_RPC_z;
+          vector<float> v_RPC_R;
+          vector<float> v_MDT_phi;
+          vector<float> v_MDT_z;
+          vector<float> v_MDT_R;
+          vector<Int_t> v_MDT_chamber;
+          vector<Int_t> v_information;//sAddress,areanumber,Qeta/|eta|,the number of stations
+
+
+
           m_ft.Fill();
 
 
-     }//for
 
 }//Execute
 

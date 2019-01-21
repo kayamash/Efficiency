@@ -28,7 +28,7 @@
 
 void FillTree::Init(string output){
 	output_file = new TFile(outputfilename.c_str(),"RECREATE");
-	output_file->
+	output_file->Branch();
 }
 
 void FillTree::Execute(){
