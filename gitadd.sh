@@ -10,7 +10,7 @@ file8="bsub.sh"
 file9="gitadd.sh"
 file10="scp.sh"
 add="git add "
-message="bug fix"
+message="Add new method"
 push="git push origin "
 
 eval $add$file1

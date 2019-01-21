@@ -34,7 +34,7 @@ const Int_t efficiency_maxenergy = 61;
 const Double_t efficiency_x_err = 0.25;
 const Int_t thmin = 0;
 const Int_t nhist = 1;
-const Int_t thpitch = 5;
+const Int_t thpitch = 4;
 const Int_t eventmode = 0;//eventmode = 0,full scan eventmode = 1,sample scan
 
 //main function

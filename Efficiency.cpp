@@ -107,10 +107,8 @@ int Efficiency::DicisionArea(Double_t roiphi){
           dicisionarea += 2;
      }else if(roiphi >= -1.0 && roiphi < -0.8){
           dicisionarea += 3;
-     }else if(dicisionarea == 1){
-          return 9;
-     }else if(dicisionarea == 5){
-          return 10;
+     }else{
+          return 0;
      }
      return dicisionarea;
 }
@@ -169,6 +167,7 @@ void Efficiency::Execute(Int_t ev){
           Int_t areanumber = 0;
           Int_t numSP = 0;
           Int_t patternSP = 0;//inner+middle=3,inner+outer=4,middle+outer=5
+          Double_t overphi = TMath::Pi();
 
           for(Int_t method = 0;method < 25;method++){
                if(m_mes_name->at(method) == m_method_name){
@@ -365,6 +364,10 @@ void Efficiency::Execute(Int_t ev){
                buf_eta += -TMath::Log((sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) - pSA_mdtZ->at(size))/(sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) + pow(pSA_mdtZ->at(size),2)))/2.0;
           }
           m_h_numhit.at(i)->Fill(pSA_mdtZ->size());
+          for(Int_t index = 0;index < 10;index++){
+               m_h_sectorvsphi.at(i)->Fill(m_probe_segment_sector[index],m_poff_phi);
+               m_h_indexvseta.at(i)->Fill(m_probe_segment_etaIndex[index],m_poff_eta);
+          }
 
           m_h_pSA_pt.at(i)->Fill(std::fabs(pSA_pt));
           m_h_pSA_dR.at(i)->Fill(buf_pSA_dR);
@@ -398,6 +401,27 @@ void Efficiency::Execute(Int_t ev){
                }
           }
 
+          overphi = m_poff_phi;
+          if(overphi < 0)overphi += 2.0*TMath::Pi();
+          if(pSA_sAddress == 0){
+               while(overphi > 3.0*TMath::Pi()/8.0)overphi -= TMath::Pi()/4.0;
+               if(overphi < TMath::Pi()/8.0)overphi += TMath::Pi()/4.0;
+          }
+          if(pSA_sAddress == 2){
+               while(overphi > TMath::Pi()/4.0)overphi -= TMath::Pi()/4.0;
+          }
+          if(pSA_sAddress == 0 || pSA_sAddress == 2)m_h_overphi.at(i)->Fill(overphi);
+          Int_t numeta = 0;
+          Int_t numphi = 0;
+          if(pSA_eta < 0)numeta = 8;
+          if(pSA_sAddress == 0)overphi -= TMath::Pi()/8.0;
+          numphi = overphi/TMath::Pi()*32.0 - fmod(overphi,TMath::Pi()/32.0);
+          //if((pSA_sAddress == 0 || pSA_sAddress == 2) && numphi > 15)cout<<"numphi= "<<numphi<<endl;
+          numeta += std::fabs(pSA_eta)/0.125 - fmod(std::fabs(pSA_eta),0.125);
+          //if((pSA_sAddress == 0 || pSA_sAddress == 2) && numeta > 7)cout<<"numeta= "<<numeta<<endl;
+          if(pSA_sAddress == 0 && std::fabs(pSA_eta) < 1.0)m_h_divideetaoverphi_resptLarge[numeta][numphi]->Fill(resSA_pt);
+          if(pSA_sAddress == 2 && std::fabs(pSA_eta) < 1.0)m_h_divideetaoverphi_resptSmall[numeta][numphi]->Fill(resSA_pt);
+
           if(std::fabs(m_poff_pt*0.001) > 40){//plateau cut
           //if(std::fabs(m_poff_pt*0.001) > 8){
                m_h_eff_pSA_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
@@ -424,73 +448,82 @@ void Efficiency::Execute(Int_t ev){
                }
           }
 
-          if(pSA_sAddress == 0){
+          if(pSA_sAddress == 0 && std::fabs(m_poff_phi) < TMath::Pi()/8.0){
                if(numSP == 2)m_h_offptLarge_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 2)m_h_offetaLarge_2station.at(i)->Fill(m_poff_eta);
                if(numSP == 3)m_h_offetaLarge_3station.at(i)->Fill(m_poff_eta);
                switch(patternSP){
                     case 3:
-                         if(numSP == 2)m_h_offptLargeinnmid_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_offetaLargeinnmid_2station.at(i)->Fill(m_poff_eta);
-                         if(numSP == 3)m_h_offetaLargeinnmid_3station.at(i)->Fill(m_poff_eta);
+                         if(numSP == 2){
+                              m_h_offptLargeinnmid_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_offetaLargeinnmid_2station.at(i)->Fill(m_poff_eta);
+                         }
                          break;
                     case 4:
-                         if(numSP == 2)m_h_offptLargeinnout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_offetaLargeinnout_2station.at(i)->Fill(m_poff_eta);
-                         if(numSP == 3)m_h_offetaLargeinnout_3station.at(i)->Fill(m_poff_eta);
+                         if(numSP == 2){
+                              m_h_offptLargeinnout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_offetaLargeinnout_2station.at(i)->Fill(m_poff_eta);
+                         }
                          break;
                     case 5:
-                         if(numSP == 2)m_h_offptLargemidout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_offetaLargemidout_2station.at(i)->Fill(m_poff_eta);
-                         if(numSP == 3)m_h_offetaLargemidout_3station.at(i)->Fill(m_poff_eta);
+                         if(numSP == 2){
+                              m_h_offptLargemidout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_offetaLargemidout_2station.at(i)->Fill(m_poff_eta);
+                         }
                          break;
                     default :
                          break;
                }
           }
-          if(pSA_sAddress == 2){
+          if(pSA_sAddress == 2 && m_poff_phi > 0 && m_poff_phi < TMath::Pi()/4.0){
                if(numSP == 2)m_h_offptSmall_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 2)m_h_offetaSmall_2station.at(i)->Fill(m_poff_eta);
                if(numSP == 3)m_h_offetaSmall_3station.at(i)->Fill(m_poff_eta);
                switch(patternSP){
                     case 3:
-                         if(numSP == 2)m_h_offptSmallinnmid_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_offetaSmallinnmid_2station.at(i)->Fill(m_poff_eta);
-                         if(numSP == 3)m_h_offetaSmallinnmid_3station.at(i)->Fill(m_poff_eta);
+                         if(numSP == 2){
+                              m_h_offptSmallinnmid_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_offetaSmallinnmid_2station.at(i)->Fill(m_poff_eta);
+                         }
                          break;
                     case 4:
-                         if(numSP == 2)m_h_offptSmallinnout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_offetaSmallinnout_2station.at(i)->Fill(m_poff_eta);
-                         if(numSP == 3)m_h_offetaSmallinnout_3station.at(i)->Fill(m_poff_eta);
+                         if(numSP == 2){
+                              m_h_offptSmallinnout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_offetaSmallinnout_2station.at(i)->Fill(m_poff_eta);
+                         }
                          break;
                     case 5:
-                         if(numSP == 2)m_h_offptSmallmidout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_offetaSmallmidout_2station.at(i)->Fill(m_poff_eta);
-                         if(numSP == 3)m_h_offetaSmallmidout_3station.at(i)->Fill(m_poff_eta);
+                         if(numSP == 2){
+                              m_h_offptSmallmidout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_offetaSmallmidout_2station.at(i)->Fill(m_poff_eta);
+                         }
                          break;
                     default :
                          break;
                }
           }
-          if(areanumber % 2 == 0){
+          if(areanumber % 2 == 0 && areanumber != 0){
                if(numSP == 2)m_h_offptBIR_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 2)m_h_offetaBIR_2station.at(i)->Fill(m_poff_eta);
                if(numSP == 3)m_h_offetaBIR_3station.at(i)->Fill(m_poff_eta);
                switch(patternSP){
                     case 3:
-                         if(numSP == 2)m_h_offptBIRinnmid_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_offetaBIRinnmid_2station.at(i)->Fill(m_poff_eta);
-                         if(numSP == 3)m_h_offetaBIRinnmid_3station.at(i)->Fill(m_poff_eta);
+                         if(numSP == 2){
+                              m_h_offptBIRinnmid_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_offetaBIRinnmid_2station.at(i)->Fill(m_poff_eta);
+                         }
                          break;
                     case 4:
-                         if(numSP == 2)m_h_offptBIRinnout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_offetaBIRinnout_2station.at(i)->Fill(m_poff_eta);
-                         if(numSP == 3)m_h_offetaBIRinnout_3station.at(i)->Fill(m_poff_eta);
+                         if(numSP == 2){
+                              m_h_offptBIRinnout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_offetaBIRinnout_2station.at(i)->Fill(m_poff_eta);
+                         }
                          break;
                     case 5:
-                         if(numSP == 2)m_h_offptBIRmidout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_offetaBIRmidout_2station.at(i)->Fill(m_poff_eta);
-                         if(numSP == 3)m_h_offetaBIRmidout_3station.at(i)->Fill(m_poff_eta);
+                         if(numSP == 2){
+                              m_h_offptBIRmidout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_offetaBIRmidout_2station.at(i)->Fill(m_poff_eta);
+                         }
                          break;
                     default :
                          break;
@@ -502,19 +535,22 @@ void Efficiency::Execute(Int_t ev){
                if(numSP == 3)m_h_offetaBIM_3station.at(i)->Fill(m_poff_eta);
                switch(patternSP){
                     case 3:
-                         if(numSP == 2)m_h_offptBIMinnmid_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_offetaBIMinnmid_2station.at(i)->Fill(m_poff_eta);
-                         if(numSP == 3)m_h_offetaBIMinnmid_3station.at(i)->Fill(m_poff_eta);
+                         if(numSP == 2){
+                              m_h_offptBIMinnmid_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_offetaBIMinnmid_2station.at(i)->Fill(m_poff_eta);
+                         }
                          break;
                     case 4:
-                         if(numSP == 2)m_h_offptBIMinnout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_offetaBIMinnout_2station.at(i)->Fill(m_poff_eta);
-                         if(numSP == 3)m_h_offetaBIMinnout_3station.at(i)->Fill(m_poff_eta);
+                         if(numSP == 2){
+                              m_h_offptBIMinnout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_offetaBIMinnout_2station.at(i)->Fill(m_poff_eta);
+                         }
                          break;
                     case 5:
-                         if(numSP == 2)m_h_offptBIMmidout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_offetaBIMmidout_2station.at(i)->Fill(m_poff_eta);
-                         if(numSP == 3)m_h_offetaBIMmidout_3station.at(i)->Fill(m_poff_eta);
+                         if(numSP == 2){
+                              m_h_offptBIMmidout_2station.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_offetaBIMmidout_2station.at(i)->Fill(m_poff_eta);
+                         }
                          break;
                     default :
                          break;
@@ -978,6 +1014,12 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_saroiphi_SmallSpecial->Write();
      m_h_saphims_LargeSpecial->Write();
      m_h_offphi_LargeSpecial->Write();
+     for(Int_t i = 0; i < 16;i++){
+          for(Int_t j = 0; j < 8;j++){
+               m_h_divideetaoverphi_resptLarge[i][j]->Write();
+               m_h_divideetaoverphi_resptSmall[i][j]->Write();
+          }
+     }
 
      for(Int_t i = 0;i < m_nhist;i ++){
           //base,target
@@ -1216,18 +1258,10 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_offetaBIR_3station.at(i)->Write();
           m_h_offetaLarge_3station.at(i)->Write();
           m_h_offetaSmall_3station.at(i)->Write();
-          m_h_offetaBIMinnmid_3station.at(i)->Write();
-          m_h_offetaBIRinnmid_3station.at(i)->Write();
-          m_h_offetaLargeinnmid_3station.at(i)->Write();
-          m_h_offetaSmallinnmid_3station.at(i)->Write();
-          m_h_offetaBIMinnout_3station.at(i)->Write();
-          m_h_offetaBIRinnout_3station.at(i)->Write();
-          m_h_offetaLargeinnout_3station.at(i)->Write();
-          m_h_offetaSmallinnout_3station.at(i)->Write();
-          m_h_offetaBIMmidout_3station.at(i)->Write();
-          m_h_offetaBIRmidout_3station.at(i)->Write();
-          m_h_offetaLargemidout_3station.at(i)->Write();
-          m_h_offetaSmallmidout_3station.at(i)->Write();
+
+          m_h_sectorvsphi.at(i)->Write();
+          m_h_indexvseta.at(i)->Write();
+          m_h_overphi.at(i)->Write();
 
           m_h_mdthitXY.at(i)->Write();
           m_h_mdthitZR.at(i)->Write();

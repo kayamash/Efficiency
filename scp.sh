@@ -1,2 +1,3 @@
-#1/bin/sh
+#!/bin/sh
 scp CalcEfficiency.* Efficiency.* efficiencyloop.* kayamash@lxatut01.cern.ch:/home/kayamash/code/Efficiency/
+#scp -r -o "ProxyCommand ssh kayamash@lxplus.cern.ch -W %h:%p" CalcEfficiency.* Efficiency.* efficiencyloop.* kayamash@lxatut01.cern.ch:/home/kayamash/code/Efficiency/ 
