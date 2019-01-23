@@ -286,6 +286,7 @@ class Efficiency
 
   //SP,segment
   vector<TH2F*> m_h_mdthitXY;
+  vector<TH2F*> m_h_rpchitXY;
   vector<TH2F*> m_h_mdthitZR;
   vector<TH2F*> m_h_mdtSPXY_BI;
   vector<TH2F*> m_h_mdtSPXY_BM;
@@ -389,6 +390,9 @@ class Efficiency
   vector<TH1D*> m_h_mdtphi_LSBIL;
   vector<TH1D*> m_h_numSP;
 
+  vector<TH2F*> m_h_BIRsegment;
+  vector<TH2F*> m_h_BIMsegment;
+
   //Efficiency
   vector<TH1D*> m_h_eoff_pt;
   vector<TH1D*> m_h_eL1_pt;
@@ -471,6 +475,8 @@ class Efficiency
   vector<TH2F*> m_h_eff_poff_etaphi;
   vector<TH2F*> m_h_eff_pL1_etaphi;
   vector<TH2F*> m_h_eff_pSA_etaphi;
+  vector<TH1D*> m_h_eL1_pt_LargewithoutBIM;
+  vector<TH1D*> m_h_eSA_pt_LargewithoutBIM;
 
   //Residual
   vector<TH1D*> m_h_pSA_respt;
@@ -543,6 +549,19 @@ class Efficiency
   vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialminus11out_3station;
   vector<TH2F*> m_h_off_ptvsSA_resptLargeSpecialminus11in_3station;
   //
+  vector<TH2F*> m_h_off_ptvsSA_resptBIMinnmid_2station;
+  vector<TH2F*> m_h_off_ptvsSA_resptBIRinnmid_2station;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeinnmid_2station;
+  vector<TH2F*> m_h_off_ptvsSA_resptSmallinnmid_2station;
+  vector<TH2F*> m_h_off_ptvsSA_resptBIMinnout_2station;
+  vector<TH2F*> m_h_off_ptvsSA_resptBIRinnout_2station;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargeinnout_2station;
+  vector<TH2F*> m_h_off_ptvsSA_resptSmallinnout_2station;
+  vector<TH2F*> m_h_off_ptvsSA_resptBIMmidout_2station;
+  vector<TH2F*> m_h_off_ptvsSA_resptBIRmidout_2station;
+  vector<TH2F*> m_h_off_ptvsSA_resptLargemidout_2station;
+  vector<TH2F*> m_h_off_ptvsSA_resptSmallmidout_2station;
+  //
   vector<TH2F*> m_h_offetavsSA_resptLargeplus;
   vector<TH2F*> m_h_offetavsSA_resptLargeSpecialplus;
   vector<TH2F*> m_h_offetavsSA_resptSmallplus;
@@ -598,6 +617,8 @@ class Efficiency
 
   TH1D* m_h_divideetaoverphi_resptLarge[16][8];
   TH1D* m_h_divideetaoverphi_resptSmall[16][8];
+  TH2F *m_h_segmentnumberBIM;
+  TH2F *m_h_segmentnumberBIR;
 
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;
@@ -879,6 +900,8 @@ public:
       m_h_saphims_LargeSpecial = new TH1D("h_saphims_LargeSpecial_0GeV","L2MuonSA phi;L2MuonSA phims;Entries",600,-3.0,3.0);
       m_h_saroiphi_LargeSpecial = new TH1D("h_saroiphi_LargeSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
       m_h_saroiphi_SmallSpecial = new TH1D("h_saroiphi_SmallSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
+      m_h_segmentnumberBIM = new TH2F("segmentnumberBIM","the number of segment;etaIndex;Sector number",6,0.5,6.5,2,-0.5,2.5);
+      m_h_segmentnumberBIR = new TH2F("segmentnumberBIR","the number of segment;etaIndex;Sector number",6,0.5,6.5,2,-0.5,2.5);
       for(Int_t i = 0; i < 16;i++){
           for(Int_t j = 0; j < 8;j++){
               m_h_divideetaoverphi_resptLarge[i][j] = new TH1D(Form("h_divideetaoverphi_resptLarge%d%d",i,j),"residual pt Large;residual pt;Entries",300,-1,1);
@@ -956,6 +979,7 @@ public:
               //SP,segment
 
               m_h_mdthitXY.push_back(new TH2F(Form("h_mdthitXvsmdthitY_%dGeV",i*m_thpitch + m_thmin),"MDT hit distribution;MDT hit X[mm];MDT hit Y[mm]",5000,-25000.0,25000.0,5000,-25000.0,25000.0));
+              m_h_rpchitXY.push_back(new TH2F(Form("h_rpchitXvsrpchitY_%dGeV",i*m_thpitch + m_thmin),"RPC hit distribution;RPC hit X[mm];RPC hit Y[mm]",5000,-25000.0,25000.0,5000,-25000.0,25000.0));
               m_h_mdthitZR.push_back(new TH2F(Form("h_mdthitZvsmdthitR_%dGeV",i*m_thpitch + m_thmin),"MDT hit distribution;MDT hit Z[mm];MDT hit R[mm]",5000,-25000.0,25000.0,1500,0.0,15000.0));
               m_h_mdtSPXY_BI.push_back(new TH2F(Form("h_mdtSPXY_BI_%dGeV",i*m_thpitch + m_thmin),"BI SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_mdtSPXY_BM.push_back(new TH2F(Form("h_mdtSPXY_BM_%dGeV",i*m_thpitch + m_thmin),"BM SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
@@ -1056,6 +1080,8 @@ public:
               m_h_mdtphi_LSBIL.push_back(new TH1D(Form("h_mdtphi_LSBIL_%dGeV",i*m_thpitch + m_thmin),"mdt phi;mdt phi;Entries",600,-3.0,3.0));
               m_h_mdtR.push_back(new TH1D(Form("h_mdtR_%dGeV",i*m_thpitch + m_thmin),"mdt R;mdt R;Entries",1000,0,10000.));
               m_h_numSP.push_back(new TH1D(Form("h_numSP_%dGeV",i*m_thpitch + m_thmin),"the number of SP;thenumber of SP;Entries",4,-0.5,3.5));
+              m_h_BIRsegment.push_back(new TH2F(Form("h_BIRsegment_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
+              m_h_BIMsegment.push_back(new TH2F(Form("h_BIMsegment_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.));
 
               //Efficiency
               m_h_eoff_pt.push_back(new TH1D(Form("h_eoff_pt_%dGeV",i*m_thpitch + m_thmin),"mesoff_pt;offline pt[GeV];Entries",200,-0.25,99.75));
@@ -1140,6 +1166,8 @@ public:
               m_h_eff_poff_etaphi.push_back(new TH2F(Form("h_eff_poff_etaphi_%dGeV",i*m_thpitch + m_thmin),"offlineeta vs offlinephi;offline eta;offline phi",80,-2.5,2.5,48,-3.0,3.0));
               m_h_eff_pL1_etaphi.push_back(new TH2F(Form("h_eff_pL1_etaphi_%dGeV",i*m_thpitch + m_thmin),"L1eta vs L1phi;L1 eta;L1 phi",80,-2.5,2.5,48,-3.0,3.0));
               m_h_eff_pSA_etaphi.push_back(new TH2F(Form("h_eff_pSA_etaphi_%dGeV",i*m_thpitch + m_thmin),"L2MuonSAeta vs L2MuonSAphi;L2MuonSA eta;L2MuonSA phi",80,-2.5,2.5,48,-3.0,3.0));
+              m_h_eL1_pt_LargewithoutBIM.push_back(new TH1D(Form("h_eL1_pt_LargewithoutBIM_%dGeV",i*m_thpitch + m_thmin),"mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75));
+              m_h_eSA_pt_LargewithoutBIM.push_back(new TH1D(Form("h_eSA_pt_LargewithoutBIM_%dGeV",i*m_thpitch + m_thmin),"mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75));
 
               //Residual
               m_h_pSA_respt.push_back(new TH1D(Form("h_pSA_respt_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",300,-1,1));
@@ -1212,6 +1240,19 @@ public:
               m_h_off_ptvsSA_resptLargeSpecialminus15out_3station.push_back(new TH2F(Form("h_off_ptvsSA_resptLargeSpecialminus15out_3station_%dGeV",i*m_thpitch + m_thmin),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
               m_h_off_ptvsSA_resptLargeSpecialminus11in_3station.push_back(new TH2F(Form("h_off_ptvsSA_resptplusLargeSpecialminus11in_3station_%dGeV",i*m_thpitch + m_thmin),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
               m_h_off_ptvsSA_resptLargeSpecialminus15in_3station.push_back(new TH2F(Form("h_off_ptvsSA_resptplusLargeSpecialminus15in_3station_%dGeV",i*m_thpitch + m_thmin),"LargeSpecial Qeta/|eta|=+1;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+              //
+              m_h_off_ptvsSA_resptBIMinnmid_2station.push_back(new TH2F(Form("h_off_ptvsSA_resptBIMinnmid_2station_%dGeV",i*m_thpitch + m_thmin),"BIM;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+              m_h_off_ptvsSA_resptBIRinnmid_2station.push_back(new TH2F(Form("h_off_ptvsSA_resptBIRinnmid_2station_%dGeV",i*m_thpitch + m_thmin),"BIR;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+              m_h_off_ptvsSA_resptLargeinnmid_2station.push_back(new TH2F(Form("h_off_ptvsSA_resptLargeinnmid_2station_%dGeV",i*m_thpitch + m_thmin),"Large;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+              m_h_off_ptvsSA_resptSmallinnmid_2station.push_back(new TH2F(Form("h_off_ptvsSA_resptSmallinnmid_2station_%dGeV",i*m_thpitch + m_thmin),"Small;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+              m_h_off_ptvsSA_resptBIMinnout_2station.push_back(new TH2F(Form("h_off_ptvsSA_resptBIMinnout_2station_%dGeV",i*m_thpitch + m_thmin),"BIM;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+              m_h_off_ptvsSA_resptBIRinnout_2station.push_back(new TH2F(Form("h_off_ptvsSA_resptBIRinnout_2station_%dGeV",i*m_thpitch + m_thmin),"BIR;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+              m_h_off_ptvsSA_resptLargeinnout_2station.push_back(new TH2F(Form("h_off_ptvsSA_resptLargeinnout_2station_%dGeV",i*m_thpitch + m_thmin),"Large;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+              m_h_off_ptvsSA_resptSmallinnout_2station.push_back(new TH2F(Form("h_off_ptvsSA_resptSmallinnout_2station_%dGeV",i*m_thpitch + m_thmin),"Small;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+              m_h_off_ptvsSA_resptBIMmidout_2station.push_back(new TH2F(Form("h_off_ptvsSA_resptBIMmidout_2station_%dGeV",i*m_thpitch + m_thmin),"BIM;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+              m_h_off_ptvsSA_resptBIRmidout_2station.push_back(new TH2F(Form("h_off_ptvsSA_resptBIRmidout_2station_%dGeV",i*m_thpitch + m_thmin),"BIR;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+              m_h_off_ptvsSA_resptLargemidout_2station.push_back(new TH2F(Form("h_off_ptvsSA_resptLargemidout_2station_%dGeV",i*m_thpitch + m_thmin),"Large;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
+              m_h_off_ptvsSA_resptSmallmidout_2station.push_back(new TH2F(Form("h_off_ptvsSA_resptSmallmidout_2station_%dGeV",i*m_thpitch + m_thmin),"Small;probe offline pt[GeV];SApt residual",35,0,70,40,-2.0,2.0));
               //
               m_h_offetavsSA_resptLargeplus.push_back(new TH2F(Form("h_offetavsSA_resptLargeplus_%dGeV",i*m_thpitch + m_thmin),"Large;offline eta;SApt residual",100,-2.5,2.5,300,-2.0,1.0));
               m_h_offetavsSA_resptLargeSpecialplus.push_back(new TH2F(Form("h_offetavsSA_resptLargeSpecialplus_%dGeV",i*m_thpitch + m_thmin),"LargeSpecial;offline eta;SApt residual",100,-2.5,2.5,300,-2.0,1.0));
@@ -1359,6 +1400,7 @@ public:
       delete  m_h_overphi.at(i);
 
       delete  m_h_mdthitXY.at(i);
+      delete  m_h_rpchitXY.at(i);
       delete  m_h_mdthitZR.at(i);
       delete  m_h_mdtSPXY_BI.at(i);
       delete  m_h_mdtSPXY_BM.at(i);
@@ -1461,6 +1503,8 @@ public:
       delete  m_h_mdtphi_LSBIL.at(i);
       delete  m_h_mdtR.at(i);
       delete  m_h_numSP.at(i);
+      delete  m_h_BIRsegment.at(i);
+      delete  m_h_BIMsegment.at(i);
 
       delete  m_h_eoff_pt.at(i);
       delete  m_h_eL1_pt.at(i);
@@ -1543,6 +1587,9 @@ public:
       delete  m_h_eff_poff_etaphi.at(i);
       delete  m_h_eff_pL1_etaphi.at(i);
       delete  m_h_eff_pSA_etaphi.at(i);
+      delete  m_h_eL1_pt_LargewithoutBIM.at(i);
+      delete  m_h_eSA_pt_LargewithoutBIM.at(i);
+
       delete  m_h_pSA_respt.at(i);
       delete  m_h_pCB_respt.at(i);
       delete  m_h_pEF_respt.at(i);
@@ -1613,6 +1660,19 @@ public:
       delete  m_h_off_ptvsSA_resptLargeSpecialminus11out_3station.at(i);
       delete  m_h_off_ptvsSA_resptLargeSpecialminus11in_3station.at(i);
       //
+      delete  m_h_off_ptvsSA_resptBIMinnmid_2station.at(i);
+      delete  m_h_off_ptvsSA_resptBIRinnmid_2station.at(i);
+      delete  m_h_off_ptvsSA_resptLargeinnmid_2station.at(i);
+      delete  m_h_off_ptvsSA_resptSmallinnmid_2station.at(i);
+      delete  m_h_off_ptvsSA_resptBIMinnout_2station.at(i);
+      delete  m_h_off_ptvsSA_resptBIRinnout_2station.at(i);
+      delete  m_h_off_ptvsSA_resptLargeinnout_2station.at(i);
+      delete  m_h_off_ptvsSA_resptSmallinnout_2station.at(i);
+      delete  m_h_off_ptvsSA_resptBIMmidout_2station.at(i);
+      delete  m_h_off_ptvsSA_resptBIRmidout_2station.at(i);
+      delete  m_h_off_ptvsSA_resptLargemidout_2station.at(i);
+      delete  m_h_off_ptvsSA_resptSmallmidout_2station.at(i);
+      //
       delete  m_h_offetavsSA_resptLargeplus.at(i);
       delete  m_h_offetavsSA_resptLargeSpecialplus.at(i);
       delete  m_h_offetavsSA_resptSmallplus.at(i);
@@ -1664,6 +1724,8 @@ public:
       delete  m_h_etaIndexvsSA_resptLargeSpecialminus11in_3station.at(i);
       delete  m_h_etaIndexvsSA_resptLargeSpecialminus15out_3station.at(i);
       delete  m_h_etaIndexvsSA_resptLargeSpecialminus15in_3station.at(i);
+      delete  m_h_segmentnumberBIM;
+      delete  m_h_segmentnumberBIR;
     }
   }
 

@@ -1,4 +1,4 @@
-#include "CalcEfficiency.chh"
+#include "CalcEff.chh"
 #include <TObject.h>
 #include <TFile.h>
 #include <TH1.h>
@@ -26,7 +26,7 @@
 #include <TROOT.h>
 #include <TChain.h>
 
-void CalcEfficiency::DrawEfficiency(TH1D *h1,TH1D *h2,Double_t max,Int_t nbin,Double_t err){
+void CalcEff::DrawEfficiency(TH1D *h1,TH1D *h2,Double_t max,Int_t nbin,Double_t err){
   TCanvas *c1 = new TCanvas("c1","c1",1600,900);
   gStyle->SetTitleYOffset(m_yoffset);
   TH1F *frame = gPad->DrawFrame(-2.0,0,max,1.1);
@@ -60,7 +60,7 @@ void CalcEfficiency::DrawEfficiency(TH1D *h1,TH1D *h2,Double_t max,Int_t nbin,Do
   delete c1; 
 }
 
-void CalcEfficiency::DrawEfficiencyeta(TH1D *h1,TH1D *h2){
+void CalcEff::DrawEfficiencyeta(TH1D *h1,TH1D *h2){
   TCanvas *c1 = new TCanvas("c1","c1",1600,900);
   gStyle->SetTitleYOffset(m_yoffset);
   TH1F *frame = gPad->DrawFrame(-2.5,0,2.5,1);
@@ -94,7 +94,7 @@ void CalcEfficiency::DrawEfficiencyeta(TH1D *h1,TH1D *h2){
   delete c1; 
 }
 
-void CalcEfficiency::DrawEfficiencyphi(TH1D *h1,TH1D *h2){
+void CalcEff::DrawEfficiencyphi(TH1D *h1,TH1D *h2){
   TCanvas *c1 = new TCanvas("c1","c1",1600,900);
   gStyle->SetTitleYOffset(m_yoffset);
   TH1F *frame = gPad->DrawFrame(-2.5,0,2.5,1);
@@ -128,7 +128,7 @@ void CalcEfficiency::DrawEfficiencyphi(TH1D *h1,TH1D *h2){
   delete c1; 
 }
 
-void CalcEfficiency::DrawEfficiencypileup(TH1D *h1,TH1D *h2){
+void CalcEff::DrawEfficiencypileup(TH1D *h1,TH1D *h2){
   TCanvas *c1 = new TCanvas("c1","c1",1600,900);
   gStyle->SetTitleYOffset(m_yoffset);
   TH1F *frame = gPad->DrawFrame(-2.5,0,2.5,1);
@@ -162,7 +162,7 @@ void CalcEfficiency::DrawEfficiencypileup(TH1D *h1,TH1D *h2){
   delete c1; 
 }
 
-void CalcEfficiency::DrawEfficiency2D(TH2F *h1,TH2F *h2){
+void CalcEff::DrawEfficiency2D(TH2F *h1,TH2F *h2){
 	TCanvas *c1 = new TCanvas("c1","c1",1000,1000);
 	gStyle->SetTitleOffset(m_yoffset);
 	TH2F *h3 = new TH2F(m_name.c_str(),m_title.c_str(),m_nbineta,-1*m_etamax,m_etamax,m_nbinphi,-1*m_phimax,m_phimax);
@@ -186,7 +186,7 @@ void CalcEfficiency::DrawEfficiency2D(TH2F *h1,TH2F *h2){
 	delete c1;
 }
 
-void CalcEfficiency::DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *h5,TH1D *h6,TH1D *h7,TH1D *h8,TH1D *h9,string type,Int_t num,Int_t pitch,Int_t thmin){
+void CalcEff::DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *h5,TH1D *h6,TH1D *h7,TH1D *h8,TH1D *h9,string type,Int_t num,Int_t pitch,Int_t thmin){
   TCanvas *c1 = new TCanvas("c1","c1",1600,900);
   gStyle->SetTitleOffset(m_yoffset);
   std::vector<Double_t> res_x;
@@ -220,7 +220,7 @@ void CalcEfficiency::DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *
   delete c1;
 }
 
-void CalcEfficiency::SetCondition(string title,Double_t offset,Double_t tmargin,Double_t bmargin,Double_t lmargin,Double_t rmargin){
+void CalcEff::SetCondition(string title,Double_t offset,Double_t tmargin,Double_t bmargin,Double_t lmargin,Double_t rmargin){
 	m_title = title;
 	m_yoffset = offset;
 	m_topmargin = tmargin;
@@ -229,7 +229,7 @@ void CalcEfficiency::SetCondition(string title,Double_t offset,Double_t tmargin,
 	m_rightmargin = rmargin;
 }
 
-void CalcEfficiency::SetConditionlabel(string label1,string label2,string label3,string label4,string label5){
+void CalcEff::SetConditionlabel(string label1,string label2,string label3,string label4,string label5){
 	m_label[0] = label1;
 	m_label[1] = label2;
 	m_label[2] = label3;
@@ -237,14 +237,14 @@ void CalcEfficiency::SetConditionlabel(string label1,string label2,string label3
 	m_label[4] = label5;
 }
 
-void CalcEfficiency::SetConditionbin(Double_t etabin,Double_t phibin,Double_t etamax,Double_t phimax){
+void CalcEff::SetConditionbin(Double_t etabin,Double_t phibin,Double_t etamax,Double_t phimax){
 	m_nbineta = etabin;
 	m_nbinphi = phibin;
 	m_etamax = etamax;
 	m_phimax = phimax;
 }
 
-void CalcEfficiency::SetConditionName(string name){
+void CalcEff::SetConditionName(string name){
 	m_name = name;
 }
 

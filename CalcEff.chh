@@ -1,5 +1,5 @@
-#ifndef CALCEFFICIENCY_CHH
-#define CALCEFFICIENCY_CHH
+#ifndef CALCEFF_CHH
+#define CALCEFF_CHH
 
 #include <TObject.h>
 #include <TFile.h>
@@ -28,7 +28,7 @@
 #include <TROOT.h>
 #include <TChain.h>
 
-class CalcEfficiency{
+class CalcEff{
 
   private:
     vector<Double_t> m_efficiency1d_x;
@@ -62,4 +62,4 @@ class CalcEfficiency{
 
 };
 
-#endif//CalcEfficiency
+#endif//CalcEff
