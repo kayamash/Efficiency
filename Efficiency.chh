@@ -283,6 +283,7 @@ class Efficiency
   vector<TH2F*> m_h_sectorvsphi;
   vector<TH2F*> m_h_indexvseta;
   vector<TH1D*> m_h_overphi;
+  vector<TH1D*> m_h_mdtchamber;
 
   //SP,segment
   vector<TH2F*> m_h_mdthitXY;
@@ -975,6 +976,7 @@ public:
               m_h_sectorvsphi.push_back(new TH2F(Form("h_segmentsectorvsofflinephi_%dGeV",i*m_thpitch + m_thmin),"Segment sector vs Offline phi;Segment sector;Offline phi",16,0.5,16.5,100,-3.14,3.14));
               m_h_indexvseta.push_back(new TH2F(Form("h_etaindexvsofflineeta_%dGeV",i*m_thpitch + m_thmin),"Segment etaIndex vs Offline eta;Segment etaIndex;Offline eta",17,-8.5,8.5,100,-2.5,2.5));
               m_h_overphi.push_back(new TH1D(Form("h_overphi_%dGeV",i*m_thpitch + m_thmin),"Over phi;overphi;Entries",400,-2.0*TMath::Pi(),2.0*TMath::Pi()));
+              m_h_mdtchamber.push_back(new TH1D(Form("h_mdtchamber_%dGeV",i*m_thpitch + m_thmin),"MDT hit;MDT hit chamber;Entries",11,-0.5,10.5));
 
               //SP,segment
 
@@ -1398,6 +1400,7 @@ public:
       delete  m_h_sectorvsphi.at(i);
       delete  m_h_indexvseta.at(i);
       delete  m_h_overphi.at(i);
+      delete  m_h_mdtchamber.at(i);
 
       delete  m_h_mdthitXY.at(i);
       delete  m_h_rpchitXY.at(i);

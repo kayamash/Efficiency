@@ -396,6 +396,9 @@ void Efficiency::Execute(Int_t ev){
                m_h_eSA_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                m_h_pSA_respt_barrel.at(i)->Fill(resSA_pt);
                if(decision_noBIM == 0)m_h_eSA_pt_LargewithoutBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               for(Int_t MDTsize = 0;MDTsize < (signed int)pSA_mdthitChamber->size();MDTsize++){
+                    m_h_mdtchamber.at(i)->Fill(pSA_mdthitChamber->at(MDTsize));
+               }
           }else{
                m_h_eSA_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
@@ -977,7 +980,7 @@ void Efficiency::Execute(Int_t ev){
                     }
                }
                for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
-                    m_h_mdthitXY.at(i)->Fill(pSA_mdtR->at(size)*cos(pSA_mdtPhi->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtPhi->at(size)));
+                    if(pSA_mdthitChamber->at(size) == 0 || pSA_mdthitChamber->at(size) == 1 || pSA_mdthitChamber->at(size) == 2)m_h_mdthitXY.at(i)->Fill(pSA_mdtR->at(size)*cos(pSA_mdtPhi->at(size)),pSA_mdtR->at(size)*sin(pSA_mdtPhi->at(size)));
                     m_h_mdthitZR.at(i)->Fill(pSA_mdtZ->at(size),pSA_mdtR->at(size));
                }
                for(Int_t size = 0;size < (signed int)pSA_rpcX->size();size++){
@@ -1310,6 +1313,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_sectorvsphi.at(i)->Write();
           m_h_indexvseta.at(i)->Write();
           m_h_overphi.at(i)->Write();
+          m_h_mdtchamber.at(i)->Write();
 
           m_h_mdthitXY.at(i)->Write();
           m_h_rpchitXY.at(i)->Write();
