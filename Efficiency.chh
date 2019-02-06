@@ -482,6 +482,8 @@ class Efficiency
   vector<TH2F*> m_h_eff_pSA_etaphi;
   vector<TH1D*> m_h_eL1_pt_LargewithoutBIM;
   vector<TH1D*> m_h_eSA_pt_LargewithoutBIM;
+  vector<TH1D*> m_h_eL1_pt_LSwithoutBIM;
+  vector<TH1D*> m_h_eSA_pt_LSwithoutBIM;
 
   //Residual
   vector<TH1D*> m_h_pSA_respt;
@@ -1178,6 +1180,8 @@ public:
               m_h_eff_pSA_etaphi.push_back(new TH2F(Form("h_eff_pSA_etaphi_%dGeV",i*m_thpitch + m_thmin),"L2MuonSAeta vs L2MuonSAphi;L2MuonSA eta;L2MuonSA phi",80,-2.5,2.5,48,-3.0,3.0));
               m_h_eL1_pt_LargewithoutBIM.push_back(new TH1D(Form("h_eL1_pt_LargewithoutBIM_%dGeV",i*m_thpitch + m_thmin),"mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75));
               m_h_eSA_pt_LargewithoutBIM.push_back(new TH1D(Form("h_eSA_pt_LargewithoutBIM_%dGeV",i*m_thpitch + m_thmin),"mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75));
+              m_h_eL1_pt_LSwithoutBIM.push_back(new TH1D(Form("h_eL1_pt_LSwithoutBIM_%dGeV",i*m_thpitch + m_thmin),"mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75));
+              m_h_eSA_pt_LSwithoutBIM.push_back(new TH1D(Form("h_eSA_pt_LSwithoutBIM_%dGeV",i*m_thpitch + m_thmin),"mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75));
 
               //Residual
               m_h_pSA_respt.push_back(new TH1D(Form("h_pSA_respt_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",300,-1,1));
@@ -1604,6 +1608,8 @@ public:
       delete  m_h_eff_pSA_etaphi.at(i);
       delete  m_h_eL1_pt_LargewithoutBIM.at(i);
       delete  m_h_eSA_pt_LargewithoutBIM.at(i);
+      delete  m_h_eL1_pt_LSwithoutBIM.at(i);
+      delete  m_h_eSA_pt_LSwithoutBIM.at(i);
 
       delete  m_h_pSA_respt.at(i);
       delete  m_h_pCB_respt.at(i);
