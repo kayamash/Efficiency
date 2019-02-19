@@ -215,6 +215,10 @@ void Efficiency::Execute(Int_t ev){
                }
           }
 
+          for(Int_t index = 0;index < 10;index++){
+               if(m_probe_segment_chamberIndex[index] == 1 && (m_probe_segment_sector[index] == 11 || m_probe_segment_sector[index] == 15) )m_h_BIMrvsx.at(i)->Fill(sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)),m_probe_segment_x[index]);
+          }
+
           tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
           tEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_eta,2) + pow(m_tEF_phi - m_toff_phi,2) );
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
@@ -241,7 +245,8 @@ void Efficiency::Execute(Int_t ev){
           if(SPinner == 0 && SPmiddle == 1 && SPouter == 1)patternSP = 5;
           Int_t decision_noBIM = 0;
           for(Int_t index = 0;index < 10;index++){
-               if(m_probe_segment_chamberIndex[index] == 1 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000 && fabs(m_probe_segment_x[index]) > 4500. && (m_probe_segment_sector[index] == 11 || m_probe_segment_sector[index] == 15))decision_noBIM++;
+               if(m_probe_segment_chamberIndex[index] == 1 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 5800 && fabs(m_probe_segment_x[index]) > 4000.)decision_noBIM++;
+               //if(m_probe_segment_chamberIndex[index] == 1 && (m_probe_segment_sector[index] == 11 || m_probe_segment_sector[index] == 15) && ((pSA_roiphi > -0.8 && pSA_roiphi < -0.6) || (pSA_roiphi > -2.6 && pSA_roiphi < -2.4)) )decision_noBIM++;
           }
 
           //offline
@@ -299,7 +304,8 @@ void Efficiency::Execute(Int_t ev){
           m_h_L1pSA_sAddress->Fill(pSA_sAddress);
           if(DicisionBarrel(m_poff_eta)){
                m_h_eL1_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-               if(decision_noBIM == 0)m_h_eL1_pt_LargewithoutBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(decision_noBIM == 0)m_h_eL1_pt_BarrelwithoutBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               m_h_eL1_pt_BarrelincBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                if(pSA_sAddress == 0 && nosector9 == 0)m_h_eL1_pt_Largenormal.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           }else{
                m_h_eL1_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
@@ -324,6 +330,7 @@ void Efficiency::Execute(Int_t ev){
                     if(areanumber > 0 && areanumber < 5)m_h_eL1_pt_LargeSpecialplus.at(i)->Fill(std::fabs(m_poff_pt*0.001));//Qeta = +1
                     if(areanumber > 4 && areanumber < 9)m_h_eL1_pt_LargeSpecialminus.at(i)->Fill(std::fabs(m_poff_pt*0.001));//Qeta = -1
                     if(decision_noBIM == 0)m_h_eL1_pt_LSwithoutBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                    m_h_eL1_pt_LSincBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                     switch(areanumber){
                          case 1://plus11out
                               m_h_eL1_pt_LargeSpecialplus11out.at(i)->Fill(std::fabs(m_poff_pt*0.001));
@@ -420,6 +427,7 @@ void Efficiency::Execute(Int_t ev){
                          m_h_saroiphi_LargeSpecial->Fill(pSA_roiphi);
                     }
                     if(decision_noBIM == 0)m_h_eSA_pt_LSwithoutBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+                    m_h_eSA_pt_LSincBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
 
                     for(Int_t index = 0;index < 10;index++){
                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialplus11out.at(i)->Fill(m_probe_segment_etaIndex[index],resSA_pt);
@@ -670,7 +678,8 @@ void Efficiency::Execute(Int_t ev){
           if(DicisionBarrel(m_poff_eta)){
                m_h_eSA_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                m_h_pSA_respt_barrel.at(i)->Fill(resSA_pt);
-               if(decision_noBIM == 0)m_h_eSA_pt_LargewithoutBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(decision_noBIM == 0)m_h_eSA_pt_BarrelwithoutBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               m_h_eSA_pt_BarrelincBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                for(Int_t MDTsize = 0;MDTsize < (signed int)pSA_mdthitChamber->size();MDTsize++){
                     m_h_mdtchamber.at(i)->Fill(pSA_mdthitChamber->at(MDTsize));
                }
@@ -1242,12 +1251,19 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionName(Form("SAEfficiencySmallSpecialminus_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("SA SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eL1_pt_SmallSpecialminus.at(i),m_h_eSA_pt_SmallSpecialminus.at(i),m_binmax,300,m_efficiency_xerr);
-          ceff.SetConditionName(Form("SAEfficiencyLargewithoutBIM_%dGeV",i*m_thpitch + m_thmin));
-          ceff.SetCondition("SA Large without BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiency(m_h_eL1_pt_LargewithoutBIM.at(i),m_h_eSA_pt_LargewithoutBIM.at(i),m_binmax,300,m_efficiency_xerr);
+          
+          ceff.SetConditionName(Form("SAEfficiencyBarrelwithoutBIM_%dGeV",i*m_thpitch + m_thmin));
+          ceff.SetCondition("SA Barrel without BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1_pt_BarrelwithoutBIM.at(i),m_h_eSA_pt_BarrelwithoutBIM.at(i),m_binmax,300,m_efficiency_xerr);
           ceff.SetConditionName(Form("SAEfficiencyLSwithoutBIM_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("SA LS without BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eL1_pt_LSwithoutBIM.at(i),m_h_eSA_pt_LSwithoutBIM.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiencyLargeincBIM_%dGeV",i*m_thpitch + m_thmin));
+          ceff.SetCondition("SA Barrel inc BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1_pt_BarrelincBIM.at(i),m_h_eSA_pt_BarrelincBIM.at(i),m_binmax,300,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiencyLSincBIM_%dGeV",i*m_thpitch + m_thmin));
+          ceff.SetCondition("SA LS inc BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1_pt_LSincBIM.at(i),m_h_eSA_pt_LSincBIM.at(i),m_binmax,300,m_efficiency_xerr);
 
           ceff.SetConditionName(Form("SA2DEfficiency_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("L1vsL2MuonSA Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
@@ -1431,6 +1447,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_numSP.at(i)->Write();
           m_h_BIRsegment.at(i)->Write();
           m_h_BIMsegment.at(i)->Write();
+          m_h_BIMrvsx.at(i)->Write();
 
           m_h_eoff_pt.at(i)->Write();
           m_h_eL1_pt.at(i)->Write();
@@ -1515,10 +1532,14 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_eff_poff_etaphi.at(i)->Write();
           m_h_eff_pL1_etaphi.at(i)->Write();
           m_h_eff_pSA_etaphi.at(i)->Write();
-          m_h_eL1_pt_LargewithoutBIM.at(i)->Write();
-          m_h_eSA_pt_LargewithoutBIM.at(i)->Write();
+          m_h_eL1_pt_BarrelwithoutBIM.at(i)->Write();
+          m_h_eSA_pt_BarrelwithoutBIM.at(i)->Write();
           m_h_eL1_pt_LSwithoutBIM.at(i)->Write();
           m_h_eSA_pt_LSwithoutBIM.at(i)->Write();
+          m_h_eL1_pt_BarrelincBIM.at(i)->Write();
+          m_h_eSA_pt_BarrelincBIM.at(i)->Write();
+          m_h_eL1_pt_LSincBIM.at(i)->Write();
+          m_h_eSA_pt_LSincBIM.at(i)->Write();
 
           m_h_pSA_respt.at(i)->Write();
           m_h_pCB_respt.at(i)->Write();

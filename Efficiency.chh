@@ -396,6 +396,8 @@ class Efficiency
   vector<TH2F*> m_h_BIRsegment;
   vector<TH2F*> m_h_BIMsegment;
 
+  vector<TH2F*> m_h_BIMrvsx;
+
   //Efficiency
   vector<TH1D*> m_h_eoff_pt;
   vector<TH1D*> m_h_eL1_pt;
@@ -480,10 +482,14 @@ class Efficiency
   vector<TH2F*> m_h_eff_poff_etaphi;
   vector<TH2F*> m_h_eff_pL1_etaphi;
   vector<TH2F*> m_h_eff_pSA_etaphi;
-  vector<TH1D*> m_h_eL1_pt_LargewithoutBIM;
-  vector<TH1D*> m_h_eSA_pt_LargewithoutBIM;
+  vector<TH1D*> m_h_eL1_pt_BarrelwithoutBIM;
+  vector<TH1D*> m_h_eSA_pt_BarrelwithoutBIM;
   vector<TH1D*> m_h_eL1_pt_LSwithoutBIM;
   vector<TH1D*> m_h_eSA_pt_LSwithoutBIM;
+  vector<TH1D*> m_h_eL1_pt_BarrelincBIM;
+  vector<TH1D*> m_h_eSA_pt_BarrelincBIM;
+  vector<TH1D*> m_h_eL1_pt_LSincBIM;
+  vector<TH1D*> m_h_eSA_pt_LSincBIM;
 
   //Residual
   vector<TH1D*> m_h_pSA_respt;
@@ -985,6 +991,7 @@ public:
               m_h_indexvseta.push_back(new TH2F(Form("h_etaindexvsofflineeta_%dGeV",i*m_thpitch + m_thmin),"Segment etaIndex vs Offline eta;Segment etaIndex;Offline eta",17,-8.5,8.5,100,-2.5,2.5));
               m_h_overphi.push_back(new TH1D(Form("h_overphi_%dGeV",i*m_thpitch + m_thmin),"Over phi;overphi;Entries",400,-2.0*TMath::Pi(),2.0*TMath::Pi()));
               m_h_mdtchamber.push_back(new TH1D(Form("h_mdtchamber_%dGeV",i*m_thpitch + m_thmin),"MDT hit;MDT hit chamber;Entries",11,-0.5,10.5));
+              m_h_BIMrvsx.push_back(new TH2F(Form("h_BIMrvsx_%dGeV",i*m_thpitch + m_thmin),";;",100,0.0,10000.0,200,-10000.0,10000.0));
 
               //SP,segment
 
@@ -1178,10 +1185,14 @@ public:
               m_h_eff_poff_etaphi.push_back(new TH2F(Form("h_eff_poff_etaphi_%dGeV",i*m_thpitch + m_thmin),"offlineeta vs offlinephi;offline eta;offline phi",80,-2.5,2.5,48,-3.0,3.0));
               m_h_eff_pL1_etaphi.push_back(new TH2F(Form("h_eff_pL1_etaphi_%dGeV",i*m_thpitch + m_thmin),"L1eta vs L1phi;L1 eta;L1 phi",80,-2.5,2.5,48,-3.0,3.0));
               m_h_eff_pSA_etaphi.push_back(new TH2F(Form("h_eff_pSA_etaphi_%dGeV",i*m_thpitch + m_thmin),"L2MuonSAeta vs L2MuonSAphi;L2MuonSA eta;L2MuonSA phi",80,-2.5,2.5,48,-3.0,3.0));
-              m_h_eL1_pt_LargewithoutBIM.push_back(new TH1D(Form("h_eL1_pt_LargewithoutBIM_%dGeV",i*m_thpitch + m_thmin),"mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75));
-              m_h_eSA_pt_LargewithoutBIM.push_back(new TH1D(Form("h_eSA_pt_LargewithoutBIM_%dGeV",i*m_thpitch + m_thmin),"mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75));
+              m_h_eL1_pt_BarrelwithoutBIM.push_back(new TH1D(Form("h_eL1_pt_BarrelwithoutBIM_%dGeV",i*m_thpitch + m_thmin),"mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75));
+              m_h_eSA_pt_BarrelwithoutBIM.push_back(new TH1D(Form("h_eSA_pt_BarrelwithoutBIM_%dGeV",i*m_thpitch + m_thmin),"mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75));
               m_h_eL1_pt_LSwithoutBIM.push_back(new TH1D(Form("h_eL1_pt_LSwithoutBIM_%dGeV",i*m_thpitch + m_thmin),"mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75));
               m_h_eSA_pt_LSwithoutBIM.push_back(new TH1D(Form("h_eSA_pt_LSwithoutBIM_%dGeV",i*m_thpitch + m_thmin),"mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75));
+              m_h_eL1_pt_BarrelincBIM.push_back(new TH1D(Form("h_eL1_pt_BarrelincBIM_%dGeV",i*m_thpitch + m_thmin),"mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75));
+              m_h_eSA_pt_BarrelincBIM.push_back(new TH1D(Form("h_eSA_pt_BarrelincBIM_%dGeV",i*m_thpitch + m_thmin),"mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75));
+              m_h_eL1_pt_LSincBIM.push_back(new TH1D(Form("h_eL1_pt_LSincBIM_%dGeV",i*m_thpitch + m_thmin),"mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75));
+              m_h_eSA_pt_LSincBIM.push_back(new TH1D(Form("h_eSA_pt_LSincBIM_%dGeV",i*m_thpitch + m_thmin),"mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75));
 
               //Residual
               m_h_pSA_respt.push_back(new TH1D(Form("h_pSA_respt_%dGeV",i*m_thpitch + m_thmin),"probe L2MuonSA residual pt;residual pt;Entries",300,-1,1));
@@ -1522,6 +1533,7 @@ public:
       delete  m_h_numSP.at(i);
       delete  m_h_BIRsegment.at(i);
       delete  m_h_BIMsegment.at(i);
+      delete  m_h_BIMrvsx.at(i);
 
       delete  m_h_eoff_pt.at(i);
       delete  m_h_eL1_pt.at(i);
@@ -1606,10 +1618,14 @@ public:
       delete  m_h_eff_poff_etaphi.at(i);
       delete  m_h_eff_pL1_etaphi.at(i);
       delete  m_h_eff_pSA_etaphi.at(i);
-      delete  m_h_eL1_pt_LargewithoutBIM.at(i);
-      delete  m_h_eSA_pt_LargewithoutBIM.at(i);
+      delete  m_h_eL1_pt_BarrelwithoutBIM.at(i);
+      delete  m_h_eSA_pt_BarrelwithoutBIM.at(i);
       delete  m_h_eL1_pt_LSwithoutBIM.at(i);
       delete  m_h_eSA_pt_LSwithoutBIM.at(i);
+      delete  m_h_eL1_pt_BarrelincBIM.at(i);
+      delete  m_h_eSA_pt_BarrelincBIM.at(i);
+      delete  m_h_eL1_pt_LSincBIM.at(i);
+      delete  m_h_eSA_pt_LSincBIM.at(i);
 
       delete  m_h_pSA_respt.at(i);
       delete  m_h_pCB_respt.at(i);
