@@ -628,10 +628,11 @@ class Efficiency
   vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus15out_3station;
   vector<TH2F*> m_h_etaIndexvsSA_resptLargeSpecialminus15in_3station;
 
-  TH1D* m_h_divideetaoverphi_resptLarge[16][8];
-  TH1D* m_h_divideetaoverphi_resptSmall[16][8];
+  TH1D *m_h_divideetaoverphi_resptLarge[16][8];
+  TH1D *m_h_divideetaoverphi_resptSmall[16][8];
   TH2F *m_h_segmentnumberBIM;
   TH2F *m_h_segmentnumberBIR;
+  TH1D *m_h_sectorphi[16];
 
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;
@@ -918,6 +919,7 @@ public:
       m_h_L1pSA_sAddress = new TH1D("L1pSA_sAddress","test;test;test",4,0,3);
       m_h_SApSA_sAddress = new TH1D("SApSA_sAddress","test;test;test",4,0,3);
       for(Int_t i = 0; i < 16;i++){
+        m_h_sectorphi[i] = new TH1D(Form("h_sector%dphi",i+1),"sector phi;segment phi;Entries",628,-TMath::Pi(),TMath::Pi());
           for(Int_t j = 0; j < 8;j++){
               m_h_divideetaoverphi_resptLarge[i][j] = new TH1D(Form("h_divideetaoverphi_resptLarge%d%d",i,j),"residual pt Large;residual pt;Entries",300,-1,1);
               m_h_divideetaoverphi_resptSmall[i][j] = new TH1D(Form("h_divideetaoverphi_resptSmall%d%d",i,j),"residual pt Small;residual pt;Entries",300,-1,1);
@@ -1352,6 +1354,7 @@ public:
     delete  m_h_L1pSA_sAddress;
     delete  m_h_SApSA_sAddress;
     for(Int_t i = 0; i < 16;i++){
+      delete  m_h_sectorphi[i];
         for(Int_t j = 0; j < 8;j++){
             delete  m_h_divideetaoverphi_resptLarge[i][j];
             delete  m_h_divideetaoverphi_resptSmall[i][j];

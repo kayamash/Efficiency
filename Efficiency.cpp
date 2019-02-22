@@ -289,6 +289,9 @@ void Efficiency::Execute(Int_t ev){
           }
           Int_t nosector9 = 0;
           for(Int_t index = 0;index < 10;index++){
+               Int_t nsector = m_probe_segment_sector[index] - 1;
+               //cout<<nsector<<endl;
+               if(std::fabs(nsector) < 16 && m_probe_segment_chamberIndex[index] >= 0 && m_probe_segment_chamberIndex[index] <= 5)m_h_sectorphi[nsector]->Fill(TMath::ATan2(m_probe_segment_y[index],m_probe_segment_x[index]));
                if(m_probe_segment_sector[index] == 9)nosector9++;
           }
 
@@ -1083,6 +1086,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_segmentnumberBIM->Write();
      m_h_segmentnumberBIR->Write();
      for(Int_t i = 0; i < 16;i++){
+          m_h_sectorphi[i]->Write();
           for(Int_t j = 0; j < 8;j++){
                m_h_divideetaoverphi_resptLarge[i][j]->Write();
                m_h_divideetaoverphi_resptSmall[i][j]->Write();
