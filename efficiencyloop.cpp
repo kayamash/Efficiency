@@ -23,13 +23,14 @@
 #include <TBranch.h>
 #include "Efficiency.cpp"
 
-const string trigger = "mu26ivm";
+//const string trigger = "mu26ivm";
 //const string trigger = "data18mu26ivm";
+const string trigger = "mu4";
 //Jpsitap == 1,Ztap == 3
-Int_t proc = 3;
+Int_t proc = 1;
 
-const string inputfilelist = "/data/data3/zp/kayamash/list/data18_physics_Main_Ztap.list";
-const string outputfilename = "/data/data2/zp/kayamash/Efficiency_output/efficiencyloopoutput/data18_physics_Main_Ztap.root";
+const string inputfilelist = "/home/kayamash/efflist/data16300540.list";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/data16300540Jpsitap.root";
 const Int_t efficiency_maxenergy = 61;
 const Double_t efficiency_x_err = 0.25;
 const Int_t thmin = 0;
