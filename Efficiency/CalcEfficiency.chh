@@ -1,0 +1,65 @@
+#ifndef CALCEFFICIENCY_CHH
+#define CALCEFFICIENCY_CHH
+
+#include <TObject.h>
+#include <TFile.h>
+#include <TH1.h>
+#include <TH2.h>
+#include <TCanvas.h>
+#include <stdio.h>
+#include <math.h>
+#include <cmath>
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <string>
+#include <sstream>
+#include <TF1.h>
+#include <TTree.h>
+#include <TStyle.h>
+#include <TText.h>
+#include <vector>
+#include <TGraphErrors.h>
+#include <TLegend.h>
+#include <TMath.h>
+#include <TBranch.h>
+#include <TROOT.h>
+#include <TChain.h>
+
+class CalcEfficiency{
+
+  private:
+    vector<Double_t> m_efficiency1d_x;
+    string m_title;
+    string m_name;
+    string m_label[5];
+    Double_t m_yoffset;
+    Double_t m_topmargin;
+    Double_t m_bottommargin;
+    Double_t m_leftmargin;
+    Double_t m_rightmargin;
+    Double_t m_nbineta;
+    Double_t m_nbinphi;
+    Double_t m_etamax;
+    Double_t m_phimax;
+
+
+  public:
+
+    void DrawEfficiency(TH1D *h1,TH1D *h2,Double_t max,Int_t nbin,Double_t err);
+    void DrawEfficiencyeta(TH1D *h1,TH1D *h2);
+    void DrawEfficiencyphi(TH1D *h1,TH1D *h2);
+    void DrawEfficiencypileup(TH1D *h1,TH1D *h2);
+    void DrawEfficiency2D(TH2F *h1,TH2F *h2);
+    void DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *h5,TH1D *h6,TH1D *h7,TH1D *h8,TH1D *h9,string type,Int_t num,Int_t pitch,Int_t thmin);
+
+    void SetCondition(string title,Double_t offset,Double_t tmargin,Double_t bmargin,Double_t lmargin,Double_t rmargin);
+    void SetConditionlabel(string label1,string label2,string label3,string label4,string label5);
+    void SetConditionbin(Double_t etabin,Double_t phibin,Double_t etamax,Double_t phimax);
+    void SetConditionName(string name);
+
+};
+
+#endif//CalcEfficiency
