@@ -1,0 +1,49 @@
+Sender: LSF System <lsfadmin@lxb16-07>
+Subject: Job 38036: <root -l -b -q efficiencyloop.cpp++> in cluster <icepprc> Done
+
+Job <root -l -b -q efficiencyloop.cpp++> was submitted from host <login12> by user <kayamash> in cluster <icepprc>.
+Job was executed on host(s) <lxb16-07>, in queue <4h>, as user <kayamash> in cluster <icepprc>.
+</home/kayamash> was used as the home directory.
+</home/kayamash/working/Efficiency> was used as the working directory.
+Started at Wed Jan 16 00:05:37 2019
+Results reported on Wed Jan 16 00:20:58 2019
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+root -l -b -q efficiencyloop.cpp++
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   783.56 sec.
+    Max Memory :                                 1988 MB
+    Average Memory :                             1826.17 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   921 sec.
+    Turnaround time :                            950 sec.
+
+The output (if any) follows:
+
+
+Processing efficiencyloop.cpp++...
+start!
+Initialize
+18953781
+Execute
+Finalize
+residual end
+diffR end
+
+
+PS:
+
+Read file <./err.log> for stderr output of this job.
+
