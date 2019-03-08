@@ -454,9 +454,9 @@ void Efficiency::Execute(Int_t ev){
                m_h_eSA_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
                //cout<<pt_method<<endl;
-               if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) < pt_threshold[EtaDistribution])m_h_ptmethod[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
-               if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) > pt_threshold[EtaDistribution])m_h_ptmethodover[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
-               if(std::fabs(m_poff_pt*0.001) < pt_threshold[EtaDistribution]){
+               if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) < pt_threshold[EtaDistribution()])m_h_ptmethod[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
+               if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) > pt_threshold[EtaDistribution()])m_h_ptmethodover[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
+               if(std::fabs(m_poff_pt*0.001) < pt_threshold[EtaDistribution()]){
                     m_h_ptSA[0]->Fill(std::fabs(pSA_pt));
                     m_h_ptSA[1]->Fill(std::fabs(pSA_ptalpha));
                     m_h_ptSA[2]->Fill(std::fabs(pSA_ptbeta));
@@ -1149,7 +1149,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_ptmethod[i]->Write();
           m_h_ptmethodover[i]->Write();
           m_h_ptSA[i]->Write();
-          m_h_reaptSA[i]->Write();
+          m_h_resptSA[i]->Write();
      }
 
      for(Int_t i = 0;i < m_nhist;i ++){

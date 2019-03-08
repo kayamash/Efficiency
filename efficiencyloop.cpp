@@ -31,7 +31,7 @@ Int_t proc = 3;
 
 //const string inputfilelist = "/home/kayamash/efflist/data16300540.list";
 const string inputfilelist = "/home/kayamash/efflist/mc16Jpsi_tsakai.list";
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/mc16Jpsi_tsakai.root";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/mc16Jpsi_tsakaiMU4.root";
 const Int_t efficiency_maxenergy = 61;
 const Double_t efficiency_x_err = 0.25;
 const Int_t thmin = 0;

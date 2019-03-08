@@ -1,4 +1,4 @@
-#ifndef EFFICIECY_CHH
+#ifndef EFFICIENCY_CHH
 #define EFFICIENCY_CHH
 
 #include <TROOT.h>
