@@ -60,6 +60,7 @@ bool Efficiency::CutTagProbe(Int_t pass){
 
 bool Efficiency::CutL1(Int_t pass){
   if(pass > -1){
+        //cout<<"passed L1"<<endl;
 	return kTRUE;
      }else{
      return kFALSE;
@@ -68,6 +69,7 @@ bool Efficiency::CutL1(Int_t pass){
 
 bool Efficiency::CutSA(Int_t pass,Double_t pt,Double_t th){
      if(pass == 1 && std::fabs(pt) > th){
+          //cout<<"passed SA"<<endl;
           return kTRUE;
      }else{
           return kFALSE;
@@ -142,6 +144,7 @@ void Efficiency::Execute(Int_t ev){
           vector<float> *pSA_mdtR = 0;
           vector<float> *pSA_mdtPhi = 0;
           vector<Int_t> *pSA_mdthitChamber = 0;
+          Double_t pSA_ptTGC = -99999;
           Double_t pSA_ptalpha = -99999;
           Double_t pSA_ptbeta = -99999;
           Double_t pSA_superpointZ_BI = -99999;
@@ -173,7 +176,7 @@ void Efficiency::Execute(Int_t ev){
 
           for(Int_t method = 0;method < 25;method++){
                if(m_mes_name->at(method) == m_method_name){
-        		     pL1_pt = m_pL1_pt->at(method);
+                    pL1_pt = m_pL1_pt->at(method);
                     pSA_pt = m_pSA_pt->at(method);
                     pCB_pt = m_pCB_pt->at(method);
                     pEF_pt = m_pEF_pt->at(method);
@@ -206,8 +209,9 @@ void Efficiency::Execute(Int_t ev){
                     pSA_mdtR = &(m_pSA_mdtR->at(method));
                     pSA_mdtPhi = &(m_pSA_mdtPhi->at(method));
                     pSA_mdthitChamber = &(m_pSA_mdthitChamber->at(method));
-                    pSA_ptalpha = &(m_pSA_ptalpha->at(method));
-                    pSA_ptbeta = &(m_pSA_ptbeta->at(method));
+                    pSA_ptTGC = m_pSA_pttgc->at(method);
+                    pSA_ptalpha = m_pSA_ptalpha->at(method);
+                    pSA_ptbeta = m_pSA_ptbeta->at(method);
                     pSA_superpointZ_BI = m_pSA_superpointZ_BI->at(method);
                     pSA_superpointZ_BM = m_pSA_superpointZ_BM->at(method);
                     pSA_superpointZ_BO = m_pSA_superpointZ_BO->at(method);
@@ -224,10 +228,11 @@ void Efficiency::Execute(Int_t ev){
                pt_method = 0;
           }else if(pSA_pt == pSA_ptbeta){
                pt_method = 1;
-          }else{
+          }else if(pSA_pt == pSA_ptTGC){
                pt_method = 2;
           }
           if(pSA_pt == pSA_ptalpha && pSA_pt == pSA_ptbeta)pt_method = 3;
+          //cout<<pt_method<<endl;
 
           for(Int_t index = 0;index < 10;index++){
                if(m_probe_segment_chamberIndex[index] == 1 && (m_probe_segment_sector[index] == 11 || m_probe_segment_sector[index] == 15) )m_h_BIMrvsx.at(i)->Fill(sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)),m_probe_segment_x[index]);
@@ -272,7 +277,7 @@ void Efficiency::Execute(Int_t ev){
           //if(std::fabs(m_poff_pt*0.001) > 8){
                m_h_eoff_eta.at(i)->Fill(m_poff_eta);
                m_h_eoff_phi.at(i)->Fill(m_poff_phi);
-               m_h_eoff_aipc.at(i)->Fill(m_aipc);
+               //m_h_eoff_aipc.at(i)->Fill(m_aipc);
           }
           if(DicisionBarrel(m_poff_eta)){
                m_h_eoff_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
@@ -333,7 +338,7 @@ void Efficiency::Execute(Int_t ev){
                m_h_eff_pL1_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
                m_h_eL1_eta.at(i)->Fill(m_poff_eta);
                m_h_eL1_phi.at(i)->Fill(m_poff_phi);
-               m_h_eL1_aipc.at(i)->Fill(m_aipc);
+               //m_h_eL1_aipc.at(i)->Fill(m_aipc);
           }
 
           areanumber = DicisionArea(pSA_roiphi);
@@ -407,6 +412,32 @@ void Efficiency::Execute(Int_t ev){
           Double_t buf_pSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_eta,2) + pow(pSA_phi - m_poff_phi,2));
           Double_t buf_eta = 0;
           m_h_SApSA_sAddress->Fill(pSA_sAddress);
+          
+          m_h_pSA_pt.at(i)->Fill(std::fabs(pSA_pt));
+          m_h_pSA_dR.at(i)->Fill(buf_pSA_dR);
+          m_h_textSA_dR.at(i)->Fill(textSA_dR);
+          m_h_pextSA_dR.at(i)->Fill(pextSA_dR);
+          m_h_eSA_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+          m_h_pSA_respt.at(i)->Fill(resSA_pt);
+          m_h_pSAphivspSAphims.at(i)->Fill(pSA_phi,pSA_phims);
+          m_h_pSAphivspSAphibe.at(i)->Fill(pSA_phi,pSA_phibe);
+          //cout<<m_poff_eta<<"    "<<pt_method<<endl;
+          if(DicisionBarrel(m_poff_eta)){
+               m_h_eSA_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               m_h_pSA_respt_barrel.at(i)->Fill(resSA_pt);
+               if(decision_noBIM == 0)m_h_eSA_pt_BarrelwithoutBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               m_h_eSA_pt_BarrelincBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               for(Int_t MDTsize = 0;MDTsize < (signed int)pSA_mdthitChamber->size();MDTsize++){
+                    m_h_mdtchamber.at(i)->Fill(pSA_mdthitChamber->at(MDTsize));
+               }
+               if(pSA_sAddress == 0 && nosector9 == 0)m_h_eSA_pt_Largenormal.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+          }else{
+               m_h_eSA_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
+               //cout<<pt_method<<endl;
+               if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) < 3.38)m_h_ptmethod[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
+               if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) > 3.38)m_h_ptmethodover[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
+          }
           for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
                buf_eta += -TMath::Log((sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) - pSA_mdtZ->at(size))/(sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) + pow(pSA_mdtZ->at(size),2)))/2.0;
           }
@@ -684,29 +715,6 @@ void Efficiency::Execute(Int_t ev){
                     break;
           }
 
-          m_h_pSA_pt.at(i)->Fill(std::fabs(pSA_pt));
-          m_h_pSA_dR.at(i)->Fill(buf_pSA_dR);
-          m_h_textSA_dR.at(i)->Fill(textSA_dR);
-          m_h_pextSA_dR.at(i)->Fill(pextSA_dR);
-          m_h_eSA_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-          m_h_pSA_respt.at(i)->Fill(resSA_pt);
-          m_h_pSAphivspSAphims.at(i)->Fill(pSA_phi,pSA_phims);
-          m_h_pSAphivspSAphibe.at(i)->Fill(pSA_phi,pSA_phibe);
-          if(DicisionBarrel(m_poff_eta)){
-               m_h_eSA_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-               m_h_pSA_respt_barrel.at(i)->Fill(resSA_pt);
-               if(decision_noBIM == 0)m_h_eSA_pt_BarrelwithoutBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-               m_h_eSA_pt_BarrelincBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-               for(Int_t MDTsize = 0;MDTsize < (signed int)pSA_mdthitChamber->size();MDTsize++){
-                    m_h_mdtchamber.at(i)->Fill(pSA_mdthitChamber->at(MDTsize));
-               }
-               if(pSA_sAddress == 0 && nosector9 == 0)m_h_eSA_pt_Largenormal.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-          }else{
-               m_h_eSA_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
-               m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
-               if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) < 3.38)m_h_ptmethod[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
-               if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) > 3.38)m_h_ptmethodover[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
-          }
 
           for(Int_t mdthit = 0; mdthit < (signed int)pSA_mdtPhi->size(); mdthit++){
                m_h_mdtphi.at(i)->Fill(pSA_mdtPhi->at(mdthit));
@@ -748,7 +756,7 @@ void Efficiency::Execute(Int_t ev){
                m_h_eff_pSA_etaphi.at(i)->Fill(m_poff_eta,m_poff_phi);
                m_h_eSA_eta.at(i)->Fill(m_poff_eta);
                m_h_eSA_phi.at(i)->Fill(m_poff_phi);
-               m_h_eSA_aipc.at(i)->Fill(m_aipc);
+               //m_h_eSA_aipc.at(i)->Fill(m_aipc);
           }
           m_h_poffvsSA_pt.at(i)->Fill(std::fabs(m_poff_pt*0.001),std::fabs(pSA_pt));
                          
@@ -1051,7 +1059,7 @@ void Efficiency::Execute(Int_t ev){
           //if(std::fabs(m_poff_pt*0.001) > 8){
                m_h_eCB_eta.at(i)->Fill(m_poff_eta);
                m_h_eCB_phi.at(i)->Fill(m_poff_phi);
-               m_h_eCB_aipc.at(i)->Fill(m_aipc);
+               //m_h_eCB_aipc.at(i)->Fill(m_aipc);
           }
           m_h_pCB_respt.at(i)->Fill(resCB_pt);
           if(DicisionBarrel(m_poff_eta)){
@@ -1076,7 +1084,7 @@ void Efficiency::Execute(Int_t ev){
           //if(std::fabs(m_poff_pt*0.001) > 8){
                m_h_eEF_eta.at(i)->Fill(m_poff_eta);
                m_h_eEF_phi.at(i)->Fill(m_poff_phi);
-               m_h_eEF_aipc.at(i)->Fill(m_aipc);
+               //m_h_eEF_aipc.at(i)->Fill(m_aipc);
           }
           m_h_pEF_respt.at(i)->Fill(resEF_pt);
           if(DicisionBarrel(m_poff_eta)){
@@ -1115,6 +1123,8 @@ void Efficiency::Finalize(TFile *tf1){
 
      for(Int_t i = 0;i < m_nhist;i ++){
           //base,target
+          cout<<"efficiency start!"<<endl;
+          
           ceff.SetConditionName(Form("L1Efficiency_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eoff_pt.at(i),m_h_eL1_pt.at(i),m_binmax,200,m_efficiency_xerr);
@@ -1151,6 +1161,7 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionName(Form("EFEfficiency_phi_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("EventFilter Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiencyphi(m_h_eCB_phi.at(i),m_h_eEF_phi.at(i));
+          /* 
           ceff.SetConditionName(Form("L1Efficiency_pileup_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("L1 Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiencypileup(m_h_eoff_aipc.at(i),m_h_eL1_aipc.at(i));
@@ -1163,6 +1174,7 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionName(Form("EFEfficiency_pileup_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("EventFilter Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiencypileup(m_h_eCB_aipc.at(i),m_h_eEF_aipc.at(i));
+          */
           ceff.SetConditionName(Form("L1Efficiency_barrel_%dGeV",i*m_thpitch + m_thmin));
           ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eoff_pt_barrel.at(i),m_h_eL1_pt_barrel.at(i),m_binmax,300,m_efficiency_xerr);
@@ -1298,7 +1310,7 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
           ceff.DrawEfficiency2D(m_h_eff_poff_etaphi.at(i),m_h_eff_pL1_etaphi.at(i));
           cout<<"eff end"<<endl;
-
+          
           m_h_poff_pt.at(i)->Write();
           m_h_pL1_pt.at(i)->Write();
           m_h_pSA_pt.at(i)->Write();
@@ -1488,11 +1500,11 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_eSA_phi.at(i)->Write();
           m_h_eCB_phi.at(i)->Write();
           m_h_eEF_phi.at(i)->Write();
-          m_h_eoff_aipc.at(i)->Write();
-          m_h_eL1_aipc.at(i)->Write();
-          m_h_eSA_aipc.at(i)->Write();
-          m_h_eCB_aipc.at(i)->Write();
-          m_h_eEF_aipc.at(i)->Write();
+          //m_h_eoff_aipc.at(i)->Write();
+          //m_h_eL1_aipc.at(i)->Write();
+          //m_h_eSA_aipc.at(i)->Write();
+          //m_h_eCB_aipc.at(i)->Write();
+          //m_h_eEF_aipc.at(i)->Write();
           m_h_eoff_pt_barrel.at(i)->Write();
           m_h_eL1_pt_barrel.at(i)->Write();
           m_h_eSA_pt_barrel.at(i)->Write();

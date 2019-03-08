@@ -27,10 +27,11 @@
 //const string trigger = "data18mu26ivm";
 const string trigger = "mu4";
 //Jpsitap == 1,Ztap == 3
-Int_t proc = 1;
+Int_t proc = 3;
 
-const string inputfilelist = "/home/kayamash/efflist/data16300540.list";
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/data16300540Jpsitap.root";
+//const string inputfilelist = "/home/kayamash/efflist/data16300540.list";
+const string inputfilelist = "/home/kayamash/efflist/mc16Jpsi_tsakai.list";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/mc16Jpsi_tsakai.root";
 const Int_t efficiency_maxenergy = 61;
 const Double_t efficiency_x_err = 0.25;
 const Int_t thmin = 0;
