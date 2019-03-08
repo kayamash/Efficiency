@@ -1,4 +1,4 @@
-#ifndef EFFICIENCY_CHH
+#ifndef EFFICIECY_CHH
 #define EFFICIENCY_CHH
 
 #include <TROOT.h>
@@ -641,6 +641,8 @@ class Efficiency
   TH1D *m_h_sectorphi[16];
   TH1D *m_h_ptmethod[4];
   TH1D *m_h_ptmethodover[4];
+  TH1D *m_h_ptSA[4];//MuonSA,alpha,beta,EE
+  TH1D *m_h_resptSA[4];
 
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;
@@ -944,6 +946,8 @@ public:
       for(Int_t i = 0; i < 4;i++){
         m_h_ptmethod[i] = new TH1D(Form("h_ptmethod%d",i),"pt calculate method;offline pt[GeV];Entries",200,-0.25,99.75);
         m_h_ptmethodover[i] = new TH1D(Form("h_ptmethodover%d",i),"pt calculate method;offline pt[GeV];Entries",200,-0.25,99.75);
+        m_h_ptSA[i] = new TH1D(Form("h_ptSA%d",i),"L2MuonSA pt;L2MuonSA pt[GeV];Entries",200,-0.25,99.75);
+        m_h_resptSA[i] = new TH1D(Form("h_resptSA%d",i),"L2MuonSA residual pt;L2MuonSA pt[GeV];Entries",200,-1.0,1.0);
       }
       for(Int_t i = 0;i < nh;i ++){
               //Standard
@@ -1364,6 +1368,7 @@ public:
   bool CutCB(Int_t pass);
   bool CutEF(Int_t pass);
   int DicisionArea(Double_t roiphi);
+  int EtaDistribution();
   void Execute(Int_t ev);
   void Finalize(TFile *tf1);
   ~Efficiency(){
@@ -1383,6 +1388,8 @@ public:
     for(Int_t i = 0;i < 4;i++){
       delete  m_h_ptmethod[i];
       delete  m_h_ptmethodover[i];
+      delete  m_h_ptSA[i];
+      delete  m_h_resptSA[i];
     }
     for(Int_t i = 0;i < m_nhist;i++){
       delete  m_h_poff_pt.at(i);

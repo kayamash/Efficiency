@@ -27,6 +27,9 @@
 #include <TChain.h>
 #include "CalcEff.cpp"
 
+const Double_t pt_threshold[4] = {3.38,1.25,3.17,3.41};
+//const Double_t pt_threshold[4] = {15.87,10.73,12.21,15.87};
+
 void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,const Int_t nh,Int_t proc){
     	     m_nbin_phi = np;
      	m_nbin_eta = ne;
@@ -113,6 +116,18 @@ int Efficiency::DicisionArea(Double_t roiphi){
           return 0;
      }
      return dicisionarea;
+}
+
+int Efficiency::EtaDistribution(){
+     if(std::fabs(m_poff_eta) < 1.05){
+          return 0;
+     }else if(std::fabs(m_poff_eta) < 1.5){
+          return 1;
+     }else if(std::fabs(m_poff_eta) < 2.0){
+          return 2;
+     }else{
+          return 3;
+     }
 }
 
 void Efficiency::Execute(Int_t ev){
@@ -230,9 +245,13 @@ void Efficiency::Execute(Int_t ev){
                pt_method = 1;
           }else if(pSA_pt == pSA_ptTGC){
                pt_method = 2;
+          }else{
+               pt_method = 3;
           }
-          if(pSA_pt == pSA_ptalpha && pSA_pt == pSA_ptbeta)pt_method = 3;
           //cout<<pt_method<<endl;
+          Double_t resptalpha = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_ptalpha) - 1.0;
+          Double_t resptbeta = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_ptbeta) - 1.0;
+          Double_t respttgc = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_ptTGC) - 1.0;
 
           for(Int_t index = 0;index < 10;index++){
                if(m_probe_segment_chamberIndex[index] == 1 && (m_probe_segment_sector[index] == 11 || m_probe_segment_sector[index] == 15) )m_h_BIMrvsx.at(i)->Fill(sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)),m_probe_segment_x[index]);
@@ -435,8 +454,18 @@ void Efficiency::Execute(Int_t ev){
                m_h_eSA_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
                //cout<<pt_method<<endl;
-               if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) < 3.38)m_h_ptmethod[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
-               if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) > 3.38)m_h_ptmethodover[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
+               if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) < pt_threshold[EtaDistribution])m_h_ptmethod[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
+               if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) > pt_threshold[EtaDistribution])m_h_ptmethodover[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
+               if(std::fabs(m_poff_pt*0.001) < pt_threshold[EtaDistribution]){
+                    m_h_ptSA[0]->Fill(std::fabs(pSA_pt));
+                    m_h_ptSA[1]->Fill(std::fabs(pSA_ptalpha));
+                    m_h_ptSA[2]->Fill(std::fabs(pSA_ptbeta));
+                    if(pt_method == 3)m_h_ptSA[3]->Fill(std::fabs(pSA_pt));
+                    m_h_resptSA[0]->Fill(resSA_pt);
+                    m_h_resptSA[1]->Fill(resptalpha);
+                    m_h_resptSA[2]->Fill(resptbeta);
+                    if(pt_method == 3)m_h_resptSA[3]->Fill(resSA_pt);
+               }
           }
           for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
                buf_eta += -TMath::Log((sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) - pSA_mdtZ->at(size))/(sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) + pow(pSA_mdtZ->at(size),2)))/2.0;
@@ -1119,6 +1148,8 @@ void Efficiency::Finalize(TFile *tf1){
      for(Int_t i = 0;i < 4;i++){
           m_h_ptmethod[i]->Write();
           m_h_ptmethodover[i]->Write();
+          m_h_ptSA[i]->Write();
+          m_h_reaptSA[i]->Write();
      }
 
      for(Int_t i = 0;i < m_nhist;i ++){
