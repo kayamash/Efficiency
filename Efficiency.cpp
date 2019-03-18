@@ -457,13 +457,13 @@ void Efficiency::Execute(Int_t ev){
                if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) < pt_threshold[EtaDistribution()])m_h_ptmethod[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
                if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) > pt_threshold[EtaDistribution()])m_h_ptmethodover[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
                if(std::fabs(m_poff_pt*0.001) < pt_threshold[EtaDistribution()]){
-                    m_h_ptSA[0]->Fill(std::fabs(pSA_pt));
-                    m_h_ptSA[1]->Fill(std::fabs(pSA_ptalpha));
-                    m_h_ptSA[2]->Fill(std::fabs(pSA_ptbeta));
+                    m_h_ptSA[0]->Fill(std::fabs(pSA_ptalpha));
+                    m_h_ptSA[1]->Fill(std::fabs(pSA_ptbeta));
+                    m_h_ptSA[2]->Fill(std::fabs(pSA_ptTGC));
                     if(pt_method == 3)m_h_ptSA[3]->Fill(std::fabs(pSA_pt));
-                    m_h_resptSA[0]->Fill(resSA_pt);
-                    m_h_resptSA[1]->Fill(resptalpha);
-                    m_h_resptSA[2]->Fill(resptbeta);
+                    m_h_resptSA[0]->Fill(resptalpha);
+                    m_h_resptSA[1]->Fill(resptbeta);
+                    m_h_resptSA[2]->Fill(respttgc);
                     if(pt_method == 3)m_h_resptSA[3]->Fill(resSA_pt);
                }
           }
