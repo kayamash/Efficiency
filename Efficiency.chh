@@ -946,7 +946,7 @@ public:
       for(Int_t i = 0; i < 4;i++){
         m_h_ptmethod[i] = new TH1D(Form("h_ptmethod%d",i),"pt calculate method;offline pt[GeV];Entries",200,-0.25,99.75);
         m_h_ptmethodover[i] = new TH1D(Form("h_ptmethodover%d",i),"pt calculate method;offline pt[GeV];Entries",200,-0.25,99.75);
-        m_h_ptSA[i] = new TH1D(Form("h_ptSA%d",i),"L2MuonSA pt;L2MuonSA pt[GeV];Entries",200,-0.25,99.75);
+        m_h_ptSA[i] = new TH1D(Form("h_ptSA%d",i),"L2MuonSA pt;L2MuonSA pt[GeV];Entries",1000,-0.25,99.75);
         m_h_resptSA[i] = new TH1D(Form("h_resptSA%d",i),"L2MuonSA residual pt;L2MuonSA pt[GeV];Entries",200,-1.0,1.0);
       }
       for(Int_t i = 0;i < nh;i ++){
