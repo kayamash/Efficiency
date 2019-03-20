@@ -641,7 +641,7 @@ class Efficiency
   TH1D *m_h_sectorphi[16];
   TH1D *m_h_ptmethod[4];
   TH1D *m_h_ptmethodover[4];
-  TH1D *m_h_ptSA[4];//MuonSA,alpha,beta,EE
+  TH1D *m_h_ptSA[4];//alpha,beta,TGC,EE
   TH1D *m_h_resptSA[4];
 
   Int_t m_nbin_eta,m_nbin_phi;
