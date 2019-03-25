@@ -1042,7 +1042,7 @@ public:
               m_h_mdtSPXY_etaIndexminus4.push_back(new TH2F(Form("h_mdtSPXY_etaIndexminus4_%dGeV",i*m_thpitch + m_thmin),"SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_mdtSPXY_etaIndexminus5.push_back(new TH2F(Form("h_mdtSPXY_etaIndexminus5_%dGeV",i*m_thpitch + m_thmin),"SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
               m_h_mdtSPXY_etaIndexminus6.push_back(new TH2F(Form("h_mdtSPXY_etaIndexminus6_%dGeV",i*m_thpitch + m_thmin),"SP distribution;SP X[mm];SP Y[mm]",2000,-10000.0,10000.0,2000,-10000.0,10000.0));
-              m_h_segmentXY.push_back(new TH2F(Form("h_segmentXY_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
+              m_h_segmentXY.push_back(new TH2F(Form("h_segmentXY_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",2400,-12000.,12000.,2400,-12000.,12000.));
               m_h_segmentXY_etaIndexplus1.push_back(new TH2F(Form("h_segmentXY_etaIndexplus1_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
               m_h_segmentXY_etaIndexplus2.push_back(new TH2F(Form("h_segmentXY_etaIndexplus2_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
               m_h_segmentXY_etaIndexplus3.push_back(new TH2F(Form("h_segmentXY_etaIndexplus3_%dGeV",i*m_thpitch + m_thmin),"segmentXY;segmentX;segmentY",3000,-15000.,15000.,3000,-15000.,15000.));
@@ -1116,8 +1116,8 @@ public:
               m_h_nPrecisionHits_special.push_back(new TH1D(Form("h_nPrecisionHits_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",21,-0.5,20.5));
               m_h_sector_normal.push_back(new TH1D(Form("h_sector_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",17,-0.5,16.5));
               m_h_sector_special.push_back(new TH1D(Form("h_sector_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",17,-0.5,16.5));
-              m_h_etaIndex_normal.push_back(new TH1D(Form("h_etaIndex_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",11,-0.5,10.5));
-              m_h_etaIndex_special.push_back(new TH1D(Form("h_etaIndex_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",11,-0.5,10.5));
+              m_h_etaIndex_normal.push_back(new TH1D(Form("h_etaIndex_normal_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",21,-10.5,10.5));
+              m_h_etaIndex_special.push_back(new TH1D(Form("h_etaIndex_special_%dGeV",i*m_thpitch + m_thmin),"the number of mdt hits;num hits;Entries",21,-10.5,10.5));
               m_h_mdtphi.push_back(new TH1D(Form("h_mdtphi_%dGeV",i*m_thpitch + m_thmin),"mdt phi;mdt phi;Entries",600,-3.0,3.0));
               m_h_mdtphi_LS.push_back(new TH1D(Form("h_mdtphi_LS_%dGeV",i*m_thpitch + m_thmin),"mdt phi;mdt phi;Entries",600,-3.0,3.0));
               m_h_mdtphi_LSBIL.push_back(new TH1D(Form("h_mdtphi_LSBIL_%dGeV",i*m_thpitch + m_thmin),"mdt phi;mdt phi;Entries",600,-3.0,3.0));
