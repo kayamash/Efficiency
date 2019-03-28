@@ -348,8 +348,16 @@ void Efficiency::Execute(Int_t ev){
                if(decision_noBIM == 0)m_h_eL1_pt_BarrelwithoutBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                m_h_eL1_pt_BarrelincBIM.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                if(pSA_sAddress == 0 && nosector9 == 0)m_h_eL1_pt_Largenormal.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 1)m_h_eL1SP1_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 2)m_h_eL1SP2_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 3)m_h_eL1SP3_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(patternSP == 3)m_h_eL1innmid_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           }else{
                m_h_eL1_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 1)m_h_eL1SP1_pt_endcap.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 2)m_h_eL1SP2_pt_endcap.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 3)m_h_eL1SP3_pt_endcap.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(patternSP == 3)m_h_eL1innmid_pt_endcap.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           }
 
           if(std::fabs(m_poff_pt*0.001) > 40){//plateau cut
@@ -450,6 +458,10 @@ void Efficiency::Execute(Int_t ev){
                     m_h_mdtchamber.at(i)->Fill(pSA_mdthitChamber->at(MDTsize));
                }
                if(pSA_sAddress == 0 && nosector9 == 0)m_h_eSA_pt_Largenormal.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 1)m_h_eSASP1_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 2)m_h_eSASP2_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 3)m_h_eSASP3_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(patternSP == 3)m_h_eSAinnmid_pt_barrel.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           }else{
                m_h_eSA_pt_end.at(i)->Fill(std::fabs(m_poff_pt*0.001));
                m_h_pSA_respt_endcap.at(i)->Fill(resSA_pt);
@@ -466,6 +478,10 @@ void Efficiency::Execute(Int_t ev){
                     m_h_resptSA[2]->Fill(respttgc);
                     if(pt_method == 3)m_h_resptSA[3]->Fill(resSA_pt);
                }
+               if(numSP == 1)m_h_eSASP1_pt_endcap.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 2)m_h_eSASP2_pt_endcap.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 3)m_h_eSASP3_pt_endcap.at(i)->Fill(std::fabs(m_poff_pt*0.001));
+               if(patternSP == 3)m_h_eSAinnmid_pt_endcap.at(i)->Fill(std::fabs(m_poff_pt*0.001));
           }
           for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
                buf_eta += -TMath::Log((sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) - pSA_mdtZ->at(size))/(sqrt(pow(pSA_mdtZ->at(size),2) + pow(pSA_mdtR->at(size),2)) + pow(pSA_mdtZ->at(size),2)))/2.0;
@@ -1342,6 +1358,31 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetCondition("L1 Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
           ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
           ceff.DrawEfficiency2D(m_h_eff_poff_etaphi.at(i),m_h_eff_pL1_etaphi.at(i));
+
+          ceff.SetConditionName(Form("SAEfficiency_SP1_barrel%dGeV",i*m_thpitch + m_thmin));
+          ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1SP1_pt_barrel.at(i),m_h_eSASP1_pt_barrel.at(i),m_binmax,200,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiency_SP2_barrel%dGeV",i*m_thpitch + m_thmin));
+          ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1SP2_pt_barrel.at(i),m_h_eSASP2_pt_barrel.at(i),m_binmax,200,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiency_SP3_barrel%dGeV",i*m_thpitch + m_thmin));
+          ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1SP3_pt_barrel.at(i),m_h_eSASP3_pt_barrel.at(i),m_binmax,200,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiency_innmid_barrel%dGeV",i*m_thpitch + m_thmin));
+          ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1innmid_pt_barrel.at(i),m_h_eSAinnmid_pt_barrel.at(i),m_binmax,200,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiency_SP1_endcap%dGeV",i*m_thpitch + m_thmin));
+          ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1SP1_pt_endcap.at(i),m_h_eSASP1_pt_endcap.at(i),m_binmax,200,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiency_SP2_endcap%dGeV",i*m_thpitch + m_thmin));
+          ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1SP2_pt_endcap.at(i),m_h_eSASP2_pt_endcap.at(i),m_binmax,200,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiency_SP3_endcap%dGeV",i*m_thpitch + m_thmin));
+          ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1SP3_pt_endcap.at(i),m_h_eSASP3_pt_endcap.at(i),m_binmax,200,m_efficiency_xerr);
+          ceff.SetConditionName(Form("SAEfficiency_innmid_endcap%dGeV",i*m_thpitch + m_thmin));
+          ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1innmid_pt_endcap.at(i),m_h_eSAinnmid_pt_endcap.at(i),m_binmax,200,m_efficiency_xerr);
           cout<<"eff end"<<endl;
           
           m_h_poff_pt.at(i)->Write();
@@ -1609,6 +1650,22 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_eSA_pt_BarrelincBIM.at(i)->Write();
           m_h_eL1_pt_LSincBIM.at(i)->Write();
           m_h_eSA_pt_LSincBIM.at(i)->Write();
+          m_h_eL1SP1_pt_barrel.at(i)->Write();
+          m_h_eSASP1_pt_barrel.at(i)->Write();
+          m_h_eL1SP2_pt_barrel.at(i)->Write();
+          m_h_eSASP2_pt_barrel.at(i)->Write();
+          m_h_eL1SP3_pt_barrel.at(i)->Write();
+          m_h_eSASP3_pt_barrel.at(i)->Write();
+          m_h_eL1innmid_pt_barrel.at(i)->Write();
+          m_h_eSAinnmid_pt_barrel.at(i)->Write();
+          m_h_eL1SP1_pt_endcap.at(i)->Write();
+          m_h_eSASP1_pt_endcap.at(i)->Write();
+          m_h_eL1SP2_pt_endcap.at(i)->Write();
+          m_h_eSASP2_pt_endcap.at(i)->Write();
+          m_h_eL1SP3_pt_endcap.at(i)->Write();
+          m_h_eSASP3_pt_endcap.at(i)->Write();
+          m_h_eL1innmid_pt_endcap.at(i)->Write();
+          m_h_eSAinnmid_pt_endcap.at(i)->Write();
 
           m_h_pSA_respt.at(i)->Write();
           m_h_pCB_respt.at(i)->Write();
