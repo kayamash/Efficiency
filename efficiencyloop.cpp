@@ -23,24 +23,24 @@
 #include <TBranch.h>
 #include "Efficiency.cpp"
 
-const string trigger = "mu26ivm";
+//const string trigger = "mu26ivm";
 //const string trigger = "data18mu26ivm";
-//const string trigger = "mu4";
+const string trigger = "mu4";
 //Jpsitap == 1,Ztap == 3
-Int_t proc = 3;
+Int_t proc = 1;
 
-//const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.list";
+const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.list";
 //const string inputfilelist = "/home/kayamash/efflist/mc16Jpsi_tsakai.list";
-const string inputfilelist = "/home/kayamash/efflist/mc16_410472.list";
-//const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190318/data18Ztap_kayamashMU20.root";
+//const string inputfilelist = "/home/kayamash/efflist/mc16_410472.list";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190328/data18_physics_Main_Ztap.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190318/mc16Jpsi_tsakaiMU20.root";
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190318/mc16_410472.root";
-const Int_t efficiency_maxenergy = 101;
+//const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190328/mc16_410472.root";
+const Int_t efficiency_maxenergy = 61;
 const Double_t efficiency_x_err = 0.25;
 const Int_t thmin = 0;
 const Int_t nhist = 1;
 const Int_t thpitch = 4;
-const Int_t eventmode = 0;//eventmode = 0,full scan eventmode = 1,sample scan
+const Int_t eventmode = 1;//eventmode = 0,full scan eventmode = 1,sample scan
 
 //main function
 void efficiencyloop(){
