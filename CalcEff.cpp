@@ -220,13 +220,14 @@ void CalcEff::DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *h5,TH1D
   delete c1;
 }
 
-void CalcEff::SetCondition(string title,Double_t offset,Double_t tmargin,Double_t bmargin,Double_t lmargin,Double_t rmargin){
+void CalcEff::SetCondition(string name,string title,Double_t offset,Double_t tmargin,Double_t bmargin,Double_t lmargin,Double_t rmargin){
 	m_title = title;
 	m_yoffset = offset;
 	m_topmargin = tmargin;
 	m_bottommargin = bmargin;
 	m_leftmargin = lmargin;
 	m_rightmargin = rmargin;
+  m_name = name;
 }
 
 void CalcEff::SetConditionlabel(string label1,string label2,string label3,string label4,string label5){
@@ -244,7 +245,4 @@ void CalcEff::SetConditionbin(Double_t etabin,Double_t phibin,Double_t etamax,Do
 	m_phimax = phimax;
 }
 
-void CalcEff::SetConditionName(string name){
-	m_name = name;
-}
 

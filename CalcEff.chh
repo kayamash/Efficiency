@@ -55,10 +55,9 @@ class CalcEff{
     void DrawEfficiency2D(TH2F *h1,TH2F *h2);
     void DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *h5,TH1D *h6,TH1D *h7,TH1D *h8,TH1D *h9,string type,Int_t num,Int_t pitch,Int_t thmin);
 
-    void SetCondition(string title,Double_t offset,Double_t tmargin,Double_t bmargin,Double_t lmargin,Double_t rmargin);
+    void SetCondition(string name,string title,Double_t offset,Double_t tmargin,Double_t bmargin,Double_t lmargin,Double_t rmargin);
     void SetConditionlabel(string label1,string label2,string label3,string label4,string label5);
     void SetConditionbin(Double_t etabin,Double_t phibin,Double_t etamax,Double_t phimax);
-    void SetConditionName(string name);
 
 };
 
