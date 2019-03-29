@@ -222,7 +222,7 @@ void CalcEff::DrawResidualplot(TH1D *h1,TH1D *h2,TH1D *h3,TH1D *h4,TH1D *h5,TH1D
 
 void CalcEff::SetCondition(string name,string title,Double_t offset,Double_t tmargin,Double_t bmargin,Double_t lmargin,Double_t rmargin){
 	m_title = title;
-  m_name name;
+  m_name = name;
 	m_yoffset = offset;
 	m_topmargin = tmargin;
 	m_bottommargin = bmargin;
