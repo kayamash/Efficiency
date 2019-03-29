@@ -95,7 +95,7 @@ bool Efficiency::CutEF(Int_t pass){
 
 bool Efficiency::PlateauCut(Double_t pt){
      Double_t cut_pt = 40.0;
-     if(m_name == "mu4" || m_name == "mu6")cut_pt = 8.0:
+     if(m_method_name == "mu4" || m_method_name == "mu6")cut_pt = 8.0;
           if(pt > cut_pt){
                return kTRUE;
           }else{
