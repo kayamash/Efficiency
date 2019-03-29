@@ -14,17 +14,17 @@ add="git add "
 message="bug fix"
 push="git push origin "
 
-eval $add$file1
-eval $add$file2
-eval $add$file3
-eval $add$file4
-eval $add$file5
-eval $add$file7
-eval $add$file8
-eval $add$file9
-eval $add$file10
-eval $add$file11
-#git add -A
+#eval $add$file1
+#eval $add$file2
+#eval $add$file3
+#eval $add$file4
+#eval $add$file5
+#eval $add$file7
+#eval $add$file8
+#eval $add$file9
+#eval $add$file10
+#eval $add$file11
+git add -A
 git commit -m "${message}"
 eval $push$branch
 
