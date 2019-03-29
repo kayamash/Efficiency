@@ -40,7 +40,7 @@ void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Doubl
      m_binmax = max;
      m_efficiency_xerr = err;
      m_proc = proc;
-     
+
      	//initialize
      m_reqL1dR = req;
 }
@@ -444,7 +444,7 @@ bool Efficiency::PlateauCut(Double_t pt){
                Double_t buf_pSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_eta,2) + pow(pSA_phi - m_poff_phi,2));
                Double_t buf_eta = 0;
                m_h_SApSA_sAddress->Fill(pSA_sAddress);
-               
+
                m_h_pSA_pt->Fill(std::fabs(pSA_pt));
                m_h_pSA_dR->Fill(buf_pSA_dR);
                m_h_textSA_dR->Fill(textSA_dR);
@@ -574,7 +574,7 @@ bool Efficiency::PlateauCut(Double_t pt){
                          m_h_SA_resptLargeSpecialplus11out->Fill(resSA_pt);
                          m_h_offetavsSA_resptLargeSpecialplus11out->Fill(m_poff_eta,resSA_pt);
                          m_h_eSA_pt_LargeSpecialplus11out->Fill(std::fabs(m_poff_pt*0.001));
-                         
+
                          m_h_mdtSPZR_LargeSpecialplus11out->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
                          m_h_mdtSPZR_LargeSpecialplus11out->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
                          m_h_mdtSPZR_LargeSpecialplus11out->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
@@ -806,7 +806,7 @@ bool Efficiency::PlateauCut(Double_t pt){
                //m_h_eSA_aipc->Fill(m_aipc);
                }
                m_h_poffvsSA_pt->Fill(std::fabs(m_poff_pt*0.001),std::fabs(pSA_pt));
-               
+
                if(pSA_sAddress == 1){
                     for(Int_t index = 0;index < 10;index++){
                          if(m_probe_segment_chamberIndex[index] == 1 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 4000 && fabs(m_probe_segment_x[index]) < 4500.){
@@ -1171,218 +1171,151 @@ void Efficiency::Finalize(TFile *tf1){
 
           //base,target
      cout<<"efficiency start!"<<endl;
-     
-     ceff.SetConditionName(Form("L1Efficiency_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+
+     ceff.SetCondition("L1Efficiency","L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt,m_h_eL1_pt,m_binmax,200,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiency_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiency","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt,m_h_eSA_pt,m_binmax,200,m_efficiency_xerr);
-     ceff.SetConditionName(Form("CBEfficiency_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("muComb Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("CBEfficiency","muComb Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eSA_pt,m_h_eCB_pt,m_binmax,200,m_efficiency_xerr);
-     ceff.SetConditionName(Form("EFEfficiency_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("EFEfficiency","EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eCB_pt,m_h_eEF_pt,m_binmax,200,m_efficiency_xerr);
-     ceff.SetConditionName(Form("L1Efficiency_eta_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 Efficiency;offline eta;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("L1Efficiency_eta","L1 Efficiency;offline eta;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyeta(m_h_eoff_eta,m_h_eL1_eta);
-     ceff.SetConditionName(Form("SAEfficiency_eta_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline eta;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiency_eta","L2MuonSA Efficiency;offline eta;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyeta(m_h_eL1_eta,m_h_eSA_eta);
-     ceff.SetConditionName(Form("CBEfficiency_eta_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("muComb Efficiency;offline eta;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("CBEfficiency_eta","muComb Efficiency;offline eta;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyeta(m_h_eSA_eta,m_h_eCB_eta);
-     ceff.SetConditionName(Form("EFEfficiency_eta_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("EventFilter Efficiency;offline eta;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("EFEfficiency_eta","EventFilter Efficiency;offline eta;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyeta(m_h_eCB_eta,m_h_eEF_eta);
-     ceff.SetConditionName(Form("L1Efficiency_phi_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("L1Efficiency_phi","L1 Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyphi(m_h_eoff_phi,m_h_eL1_phi);
-     ceff.SetConditionName(Form("SAEfficiency_phi_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiency_phi","L2MuonSA Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyphi(m_h_eL1_phi,m_h_eSA_phi);
-     ceff.SetConditionName(Form("CBEfficiency_phi_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("muComb Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("CBEfficiency_phi","muComb Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyphi(m_h_eSA_phi,m_h_eCB_phi);
-     ceff.SetConditionName(Form("EFEfficiency_phi_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("EventFilter Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("EFEfficiency_phi","EventFilter Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyphi(m_h_eCB_phi,m_h_eEF_phi);
           /*
-          ceff.SetConditionName(Form("L1Efficiency_pileup_%dGeV",i*m_thpitch + m_thmin));
-          ceff.SetCondition("L1 Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.SetCondition("L1Efficiency_pileup","L1 Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiencypileup(m_h_eoff_aipc,m_h_eL1_aipc);
-          ceff.SetConditionName(Form("SAEfficiency_pileup_%dGeV",i*m_thpitch + m_thmin));
-          ceff.SetCondition("L2MuonSA Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.SetCondition("SAEfficiency_pileup","L2MuonSA Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiencypileup(m_h_eL1_aipc,m_h_eSA_aipc);
-          ceff.SetConditionName(Form("CBEfficiency_pileup_%dGeV",i*m_thpitch + m_thmin));
-          ceff.SetCondition("muComb Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.SetCondition("CBEfficiency_pileup","muComb Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiencypileup(m_h_eSA_aipc,m_h_eCB_aipc);
-          ceff.SetConditionName(Form("EFEfficiency_pileup_%dGeV",i*m_thpitch + m_thmin));
-          ceff.SetCondition("EventFilter Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.SetCondition("EFEfficiency_pileup","EventFilter Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiencypileup(m_h_eCB_aipc,m_h_eEF_aipc);
           */
-     ceff.SetConditionName(Form("L1Efficiency_barrel_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("L1Efficiency_barrel","L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_barrel,m_h_eL1_pt_barrel,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiency_barrel_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiency_barrel","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_barrel,m_h_eSA_pt_barrel,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("CBEfficiency_barrel_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("muComb Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("CBEfficiency_barrel","muComb Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eSA_pt_barrel,m_h_eCB_pt_barrel,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("EFEfficiency_barrel_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("EFEfficiency_barrel","EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eCB_pt_barrel,m_h_eEF_pt_barrel,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("L1Efficiency_end_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("L1Efficiency_end","L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_end,m_h_eL1_pt_end,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiency_end_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiency_end","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_end,m_h_eSA_pt_end,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("CBEfficiency_end_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("muComb Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("CBEfficiency_end","muComb Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eSA_pt_end,m_h_eCB_pt_end,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("EFEfficiency_end_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("EFEfficiency_end","EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eCB_pt_end,m_h_eEF_pt_end,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("L1EfficiencyLargeplus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("L1EfficiencyLargeplus","L1 Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_Largeplus,m_h_eL1_pt_Largeplus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeplus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeplus","SA Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_Largeplus,m_h_eSA_pt_Largeplus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargenormal_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargenormal","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_Largenormal,m_h_eSA_pt_Largenormal,m_binmax,200,m_efficiency_xerr);
-     ceff.SetConditionName(Form("L1EfficiencyLargeSpecialplus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("L1EfficiencyLargeSpecialplus","L1 LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_LargeSpecialplus,m_h_eL1_pt_LargeSpecialplus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialplus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialplus","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialplus,m_h_eSA_pt_LargeSpecialplus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("L1EfficiencyLargeminus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("L1EfficiencyLargeminus","L1 Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_Largeminus,m_h_eL1_pt_Largeminus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeminus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeminus","SA Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_Largeminus,m_h_eSA_pt_Largeminus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("L1EfficiencyLargeSpecialminus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("L1EfficiencyLargeSpecialminus","L1 LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_LargeSpecialminus,m_h_eL1_pt_LargeSpecialminus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialminus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialminus","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialminus,m_h_eSA_pt_LargeSpecialminus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialplus11_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialplus11","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialplus11,m_h_eSA_pt_LargeSpecialplus11,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialminus11_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialminus11","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialminus11,m_h_eSA_pt_LargeSpecialminus11,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialplus15_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialplus15","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialplus15,m_h_eSA_pt_LargeSpecialplus15,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialminus15_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialminus15","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialminus15,m_h_eSA_pt_LargeSpecialminus15,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialplus11out_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialplus11out","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialplus11out,m_h_eSA_pt_LargeSpecialplus11out,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialminus11out_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialminus11out","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialminus11out,m_h_eSA_pt_LargeSpecialminus11out,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialplus15out_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialplus15out","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialplus15out,m_h_eSA_pt_LargeSpecialplus15out,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialminus15out_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialminus15out","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialminus15out,m_h_eSA_pt_LargeSpecialminus15out,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialplus11in_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialplus11in","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialplus11in,m_h_eSA_pt_LargeSpecialplus11in,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialminus11in_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialminus11in","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialminus11in,m_h_eSA_pt_LargeSpecialminus11in,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialplus15in_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialplus15in","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialplus15in,m_h_eSA_pt_LargeSpecialplus15in,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeSpecialminus15in_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeSpecialminus15in","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialminus15in,m_h_eSA_pt_LargeSpecialminus15in,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("L1EfficiencySmallplus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("L1EfficiencySmallplus","L1 Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_Smallplus,m_h_eL1_pt_Smallplus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencySmallplus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencySmallplus","SA Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_Smallplus,m_h_eSA_pt_Smallplus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("L1EfficiencySmallminus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("L1EfficiencySmallminus","L1 Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_Smallminus,m_h_eL1_pt_Smallminus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencySmallminus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencySmallminus","SA Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_Smallminus,m_h_eSA_pt_Smallminus,m_binmax,300,m_efficiency_xerr);
 
-     ceff.SetConditionName(Form("L1EfficiencySmallSpecialplus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("L1EfficiencySmallSpecialplus","L1 SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_SmallSpecialplus,m_h_eL1_pt_SmallSpecialplus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencySmallSpecialplus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencySmallSpecialplus","SA SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_SmallSpecialplus,m_h_eSA_pt_SmallSpecialplus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("L1EfficiencySmallSpecialminus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("L1EfficiencySmallSpecialminus","L1 SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_SmallSpecialminus,m_h_eL1_pt_SmallSpecialminus,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencySmallSpecialminus_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencySmallSpecialminus","SA SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_SmallSpecialminus,m_h_eSA_pt_SmallSpecialminus,m_binmax,300,m_efficiency_xerr);
-     
-     ceff.SetConditionName(Form("SAEfficiencyBarrelwithoutBIM_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA Barrel without BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+
+     ceff.SetCondition("SAEfficiencyBarrelwithoutBIM","SA Barrel without BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_BarrelwithoutBIM,m_h_eSA_pt_BarrelwithoutBIM,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLSwithoutBIM_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LS without BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLSwithoutBIM","SA LS without BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LSwithoutBIM,m_h_eSA_pt_LSwithoutBIM,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLargeincBIM_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA Barrel inc BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLargeincBIM","SA Barrel inc BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_BarrelincBIM,m_h_eSA_pt_BarrelincBIM,m_binmax,300,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiencyLSincBIM_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("SA LS inc BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiencyLSincBIM","SA LS inc BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LSincBIM,m_h_eSA_pt_LSincBIM,m_binmax,300,m_efficiency_xerr);
 
-     ceff.SetConditionName(Form("SA2DEfficiency_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1vsL2MuonSA Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SA2DEfficiency","L1vsL2MuonSA Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
      ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
      ceff.DrawEfficiency2D(m_h_eff_pL1_etaphi,m_h_eff_pSA_etaphi);
-     ceff.SetConditionName(Form("L12DEfficiency_%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L1 Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("L12DEfficiency","L1 Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
      ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
      ceff.DrawEfficiency2D(m_h_eff_poff_etaphi,m_h_eff_pL1_etaphi);
 
-     ceff.SetConditionName(Form("SAEfficiency_SP1_barrel%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiency_SP1_barrel","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1SP1_pt_barrel,m_h_eSASP1_pt_barrel,m_binmax,200,m_efficiency_xerr); 
-     ceff.SetConditionName(Form("SAEfficiency_SP2_barrel%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiency_SP2_barrel","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1SP2_pt_barrel,m_h_eSASP2_pt_barrel,m_binmax,200,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiency_SP3_barrel%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiency_SP3_barrel","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1SP3_pt_barrel,m_h_eSASP3_pt_barrel,m_binmax,200,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiency_innmid_barrel%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiency_innmid_barrel","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1innmid_pt_barrel,m_h_eSAinnmid_pt_barrel,m_binmax,200,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiency_SP1_endcap%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiency_SP1_endcap","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1SP1_pt_endcap,m_h_eSASP1_pt_endcap,m_binmax,200,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiency_SP2_endcap%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiency_SP2_endcap","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1SP2_pt_endcap,m_h_eSASP2_pt_endcap,m_binmax,200,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiency_SP3_endcap%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiency_SP3_endcap","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1SP3_pt_endcap,m_h_eSASP3_pt_endcap,m_binmax,200,m_efficiency_xerr);
-     ceff.SetConditionName(Form("SAEfficiency_innmid_endcap%dGeV",i*m_thpitch + m_thmin));
-     ceff.SetCondition("L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.SetCondition("SAEfficiency_innmid_endcap","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1innmid_pt_endcap,m_h_eSAinnmid_pt_endcap,m_binmax,200,m_efficiency_xerr);
      cout<<"eff end"<<endl;
-     
+
      m_h_poff_pt->Write();
      m_h_pL1_pt->Write();
      m_h_pSA_pt->Write();
