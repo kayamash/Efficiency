@@ -296,7 +296,7 @@ bool Efficiency::PlateauCut(Double_t pt){
 
           //offline
           if(!CutTagProbe(pEFTAG_pass))continue;
-          if(i == 0 && static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
+          if(static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
           m_h_poff_pt->Fill(m_poff_pt*0.001);
           m_h_eoff_pt->Fill(std::fabs(m_poff_pt*0.001));
           if(PlateauCut(std::fabs(m_poff_pt*0.001))){
@@ -518,10 +518,8 @@ bool Efficiency::PlateauCut(Double_t pt){
                     }
                     break;
                     case 1:
-                    if(i == 0){
                          m_h_saphims_LargeSpecial->Fill(pSA_phims);
                          m_h_saroiphi_LargeSpecial->Fill(pSA_roiphi);
-                    }
                     if(decision_noBIM == 0)m_h_eSA_pt_LSwithoutBIM->Fill(std::fabs(m_poff_pt*0.001));
                     m_h_eSA_pt_LSincBIM->Fill(std::fabs(m_poff_pt*0.001));
 
