@@ -340,7 +340,7 @@ bool Efficiency::PlateauCut(Double_t pt){
           }
 
           //L1
-          if(!CutL1(pL1_pass))continue;
+          if(!CutL1(pL1_pass))return;
           Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
           pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
           m_h_pL1_pt->Fill(std::fabs(pL1_pt*0.001));
@@ -435,7 +435,7 @@ bool Efficiency::PlateauCut(Double_t pt){
                }
 
           //SA
-               if(!CutSA(pSA_pass))continue;
+               if(!CutSA(pSA_pass))return;
                m_h_countSA->Fill(m_poff_eta);
                m_h_numSP->Fill(numSP);
                Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
@@ -1093,7 +1093,7 @@ bool Efficiency::PlateauCut(Double_t pt){
                m_h_offphivsSAphims->Fill(m_poff_phi,pSA_phims);
 
           //CB
-               if(!CutCB(pCB_pass))continue;
+               if(!CutCB(pCB_pass))return;
                Double_t textCB_dR = TMath::Sqrt(pow(m_tCB_eta - m_toff_exteta,2) + pow(m_tCB_phi - m_toff_extphi,2));
                pextCB_dR = TMath::Sqrt(pow(pCB_eta - m_poff_exteta,2) + pow(pCB_phi - m_poff_extphi,2));
                Double_t resCB_pt = std::fabs(m_poff_pt)/std::fabs(pCB_pt) - 1.0;
@@ -1117,7 +1117,7 @@ bool Efficiency::PlateauCut(Double_t pt){
                }
 
           //EF
-               if(!CutEF(pEF_pass))continue;
+               if(!CutEF(pEF_pass))return;
                Double_t textEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_exteta,2) + pow(m_tEF_phi - m_toff_extphi,2));
                pextEF_dR = TMath::Sqrt(pow(pEF_eta - m_poff_exteta,2) + pow(pEF_phi - m_poff_extphi,2));
                Double_t resEF_pt = std::fabs(m_poff_pt)/std::fabs(pEF_pt) - 1.0;
