@@ -23,25 +23,22 @@
 #include <TBranch.h>
 #include "Efficiency.cpp"
 
-const string trigger = "mu26ivm";
+//const string trigger = "mu26ivm";
 //const string trigger = "data18mu26ivm";
-//const string trigger = "mu4";
+const string trigger = "mu4";
+//const string trigger = "mu6";
 //Jpsitap == 1,Ztap == 3
-Int_t proc = 3;
+Int_t proc = 1;
 
-//const string inputfilelist = "/home/kayamash/efflist/Zmumu364160.list";
 const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.list";
-//const string inputfilelist = "/home/kayamash/efflist/Jpsi_noMdtCsm1k.list";
-//const string inputfilelist = "/home/kayamash/efflist/newmc16345099.list"; 
-//const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/Jpsi_noMdtCsm1k.root";
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/data18_physics_Main_Ztaptest.root";
-//const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/Zmumu364160.root";
-const Int_t efficiency_maxenergy = 101;
+//const string inputfilelist = "/home/kayamash/efflist/mc16Jpsi_tsakai.list";
+//const string inputfilelist = "/home/kayamash/efflist/mc16_410472.list";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190328/data18_physics_Main_Ztap.root";
+//const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190318/mc16Jpsi_tsakaiMU20.root";
+//const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190328/mc16_410472.root";
+const Int_t efficiency_maxenergy = 61;
 const Double_t efficiency_x_err = 0.25;
-const Int_t thmin = 0;
-const Int_t nhist = 1;
-const Int_t thpitch = 5;
-const Int_t eventmode = 0;//eventmode = 0,full scan eventmode = 1,sample scan
+const Int_t eventmode = 1;//eventmode = 0,full scan eventmode = 1,sample scan
 
 //main function
 void efficiencyloop(){
@@ -57,14 +54,12 @@ void efficiencyloop(){
 	//tr1->Add(inputfilename.c_str());
 
 	if(!tr1)cout<<"tree failed"<<endl;
-	Efficiency *eff = new Efficiency(nhist,thpitch,thmin,tr1);
-	std::ofstream ofs("LargeSpecialEvent.dat");
-	ofs.close();
+	Efficiency *eff = new Efficiency(tr1);
 	
 	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
 
 	cout<<"Initialize"<<endl;
-	eff->Init(trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,proc);
+	eff->Init(trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,proc);
 	cout<<tr1->GetEntries()<<endl;
 	cout<<"Execute"<<endl;
 	Int_t nevent = 0;
@@ -74,7 +69,7 @@ void efficiencyloop(){
 		nevent = 100000;
 	}
 	for(Int_t event = 0;event < nevent; event++){
-		//if(event%100000 == 0)printf("%d\r",event);
+		if(event%100000 == 0)printf("%d\r",event);
 		eff->Execute(event);
 	}
 	cout<<"Finalize"<<endl;
