@@ -293,6 +293,11 @@ void Efficiency::Execute(Int_t ev){
                if(m_probe_segment_chamberIndex[index] == 1 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 5800 && fabs(m_probe_segment_x[index]) > 4000.)decision_noBIM++;
                //if(m_probe_segment_chamberIndex[index] == 1 && (m_probe_segment_sector[index] == 11 || m_probe_segment_sector[index] == 15) && ((pSA_roiphi > -0.8 && pSA_roiphi < -0.6) || (pSA_roiphi > -2.6 && pSA_roiphi < -2.4)) )decision_noBIM++;
           }
+          Int_t sumple_numSP = 0;
+          if((SPinner == 1 && SPmiddle == 0 && SPouter == 0) || (SPinner == 0 && SPmiddle == 1 && SPouter == 0) || (SPinner == 0 && SPmiddle == 0 && SPouter == 1))sumple_numSP = 1;
+          if((SPinner == 1 && SPmiddle == 1 && SPouter == 0) || (SPinner == 1 && SPmiddle == 0 && SPouter == 1) || (SPinner == 0 && SPmiddle == 1 && SPouter == 1))sumple_numSP = 2;
+          if((SPinner == 1 && SPmiddle == 1 && SPouter == 1))sumple_numSP = 3;
+          if(numSP != sumple_numSP)cout<<"nomatch!"<<endl;
 
           //offline
           if(!CutTagProbe(pEFTAG_pass))return;
