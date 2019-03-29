@@ -1393,7 +1393,7 @@ public:
   bool DicisionBarrel(Double_t eta);
   bool CutTagProbe(Int_t pass);
   bool CutL1(Int_t pass);
-  bool CutSA(Int_t pass,Double_t pt);
+  bool CutSA(Int_t pass);
   bool CutCB(Int_t pass);
   bool CutEF(Int_t pass);
   bool PlateauCut(Double_t pt);

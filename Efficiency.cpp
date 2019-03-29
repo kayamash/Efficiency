@@ -295,7 +295,7 @@ bool Efficiency::PlateauCut(Double_t pt){
           }
 
           //offline
-          if(!CutTagProbe(pEFTAG_pass))continue;
+          if(!CutTagProbe(pEFTAG_pass))return;
           if(static_cast<Int_t>(pSA_sAddress) == 1)m_h_offphi_LargeSpecial->Fill(m_poff_phi);
           m_h_poff_pt->Fill(m_poff_pt*0.001);
           m_h_eoff_pt->Fill(std::fabs(m_poff_pt*0.001));
