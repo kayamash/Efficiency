@@ -737,7 +737,7 @@ bool Efficiency::PlateauCut(Double_t pt){
                     }
                     break;
                     case 3:
-                    if(i == 0)m_h_saroiphi_SmallSpecial->Fill(pSA_roiphi);
+                    m_h_saroiphi_SmallSpecial->Fill(pSA_roiphi);
                     if(m_poff_charge*m_poff_eta/std::fabs(m_poff_eta) > 0){//Qeta = +1
                          m_h_off_ptvsSA_resptSmallSpecialplus->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                          m_h_SA_resptSmallSpecialplus->Fill(resSA_pt);
