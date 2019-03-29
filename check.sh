@@ -1,2 +1,2 @@
 #!/bin/sh
-tail -f /data/data3/zp/kayamash/log/log.txt
+tail -f /home/kayamash/log/logdata18_349327.txt

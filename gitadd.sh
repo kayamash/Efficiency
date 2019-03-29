@@ -9,6 +9,7 @@ file7="run.sh"
 file8="bsub.sh"
 file9="gitadd.sh"
 file10="scp.sh"
+file11="check.sh"
 add="git add "
 message="bug fix"
 push="git push origin "
@@ -22,6 +23,7 @@ eval $add$file7
 eval $add$file8
 eval $add$file9
 eval $add$file10
+eval $add$file11
 #git add -A
 git commit -m "${message}"
 eval $push$branch
