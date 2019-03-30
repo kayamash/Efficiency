@@ -62,9 +62,9 @@ bool Efficiency::CutTagProbe(Int_t pass){
 }
 
 bool Efficiency::CutL1(Int_t pass){
-  if(pass > -1){
-      return kTRUE;
- }else{
+   if(pass > -1){
+    return kTRUE;
+}else{
      return kFALSE;
 }
 }
@@ -648,15 +648,15 @@ void Efficiency::Execute(Int_t ev){
                          m_h_offetavsSA_resptLargeSpecialminus11out->Fill(m_poff_eta,resSA_pt);
                          m_h_eSA_pt_LargeSpecialminus11out->Fill(std::fabs(m_poff_pt*0.001));
                          for(Int_t index = 0;index < 10;index++){
-                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus11out->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 2)m_h_etaIndexvsSA_resptLargeSpecialminus11out_2station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 3)m_h_etaIndexvsSA_resptLargeSpecialminus11out_3station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus11out->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 2)m_h_etaIndexvsSA_resptLargeSpecialminus11out_2station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 3)m_h_etaIndexvsSA_resptLargeSpecialminus11out_3station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                   //if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_segmentZR_LargeSpecialminus11out->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
-                        }
-                        m_h_mdtSPZR_LargeSpecialminus11out->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
-                        m_h_mdtSPZR_LargeSpecialminus11out->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
-                        m_h_mdtSPZR_LargeSpecialminus11out->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
-                        break;
+                     }
+                     m_h_mdtSPZR_LargeSpecialminus11out->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
+                     m_h_mdtSPZR_LargeSpecialminus11out->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
+                     m_h_mdtSPZR_LargeSpecialminus11out->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
+                     break;
                          case 6://minus 11in
                          m_h_off_ptvsSA_resptLargeSpecialminus11in->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                          if(numSP == 2)m_h_off_ptvsSA_resptLargeSpecialminus11in_2station->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
@@ -682,15 +682,15 @@ void Efficiency::Execute(Int_t ev){
                          m_h_offetavsSA_resptLargeSpecialminus15out->Fill(m_poff_eta,resSA_pt);
                          m_h_eSA_pt_LargeSpecialminus15out->Fill(std::fabs(m_poff_pt*0.001));
                          for(Int_t index = 0;index < 10;index++){
-                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus15out->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 2)m_h_etaIndexvsSA_resptLargeSpecialminus15out_2station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 3)m_h_etaIndexvsSA_resptLargeSpecialminus15out_3station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_etaIndexvsSA_resptLargeSpecialminus15out->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 2)m_h_etaIndexvsSA_resptLargeSpecialminus15out_2station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 3)m_h_etaIndexvsSA_resptLargeSpecialminus15out_3station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
                                   //if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_segmentZR_LargeSpecialminus15out->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
-                        }
-                        m_h_mdtSPZR_LargeSpecialminus15out->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
-                        m_h_mdtSPZR_LargeSpecialminus15out->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
-                        m_h_mdtSPZR_LargeSpecialminus15out->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
-                        break;
+                     }
+                     m_h_mdtSPZR_LargeSpecialminus15out->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
+                     m_h_mdtSPZR_LargeSpecialminus15out->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
+                     m_h_mdtSPZR_LargeSpecialminus15out->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
+                     break;
                          case 8://minus 15in
                          m_h_off_ptvsSA_resptLargeSpecialminus15in->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                          if(numSP == 2)m_h_off_ptvsSA_resptLargeSpecialminus15in_2station->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
@@ -1178,8 +1178,7 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eSA_pt,m_h_eCB_pt,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("EFEfficiency","EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eCB_pt,m_h_eEF_pt,m_binmax,200,m_efficiency_xerr);
-     cout<<"test"<<endl;
-        /*
+
      ceff.SetCondition("L1Efficiency_eta","L1 Efficiency;offline eta;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyeta(m_h_eoff_eta,m_h_eL1_eta);
      ceff.SetCondition("SAEfficiency_eta","L2MuonSA Efficiency;offline eta;Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1196,7 +1195,6 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiencyphi(m_h_eSA_phi,m_h_eCB_phi);
      ceff.SetCondition("EFEfficiency_phi","EventFilter Efficiency;offline phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyphi(m_h_eCB_phi,m_h_eEF_phi);
-     */
           /*
           ceff.SetCondition("L1Efficiency_pileup","L1 Efficiency;pileup;Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiencypileup(m_h_eoff_aipc,m_h_eL1_aipc);
@@ -1215,7 +1213,7 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eSA_pt_barrel,m_h_eCB_pt_barrel,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("EFEfficiency_barrel","EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eCB_pt_barrel,m_h_eEF_pt_barrel,m_binmax,300,m_efficiency_xerr);
-     cout<<"test"<<endl;
+
      ceff.SetCondition("L1Efficiency_end","L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_end,m_h_eL1_pt_end,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiency_end","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1224,7 +1222,7 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eSA_pt_end,m_h_eCB_pt_end,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("EFEfficiency_end","EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eCB_pt_end,m_h_eEF_pt_end,m_binmax,300,m_efficiency_xerr);
-     cout<<"test"<<endl;
+
      ceff.SetCondition("L1EfficiencyLargeplus","L1 Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_Largeplus,m_h_eL1_pt_Largeplus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyLargeplus","SA Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1239,7 +1237,7 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eoff_pt_Largeminus,m_h_eL1_pt_Largeminus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyLargeminus","SA Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_Largeminus,m_h_eSA_pt_Largeminus,m_binmax,300,m_efficiency_xerr);
-     cout<<"test"<<endl;
+
      ceff.SetCondition("L1EfficiencyLargeSpecialminus","L1 LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_LargeSpecialminus,m_h_eL1_pt_LargeSpecialminus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyLargeSpecialminus","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1268,7 +1266,7 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialplus15in,m_h_eSA_pt_LargeSpecialplus15in,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyLargeSpecialminus15in","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialminus15in,m_h_eSA_pt_LargeSpecialminus15in,m_binmax,300,m_efficiency_xerr);
-     cout<<"test"<<endl;
+
      ceff.SetCondition("L1EfficiencySmallplus","L1 Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_Smallplus,m_h_eL1_pt_Smallplus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencySmallplus","SA Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1277,7 +1275,7 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eoff_pt_Smallminus,m_h_eL1_pt_Smallminus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencySmallminus","SA Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_Smallminus,m_h_eSA_pt_Smallminus,m_binmax,300,m_efficiency_xerr);
-     cout<<"test"<<endl;
+
      ceff.SetCondition("L1EfficiencySmallSpecialplus","L1 SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_SmallSpecialplus,m_h_eL1_pt_SmallSpecialplus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencySmallSpecialplus","SA SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1286,7 +1284,7 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eoff_pt_SmallSpecialminus,m_h_eL1_pt_SmallSpecialminus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencySmallSpecialminus","SA SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_SmallSpecialminus,m_h_eSA_pt_SmallSpecialminus,m_binmax,300,m_efficiency_xerr);
-     cout<<"test"<<endl;
+
      ceff.SetCondition("SAEfficiencyBarrelwithoutBIM","SA Barrel without BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_BarrelwithoutBIM,m_h_eSA_pt_BarrelwithoutBIM,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyLSwithoutBIM","SA LS without BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1295,14 +1293,14 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1_pt_BarrelincBIM,m_h_eSA_pt_BarrelincBIM,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyLSincBIM","SA LS inc BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LSincBIM,m_h_eSA_pt_LSincBIM,m_binmax,300,m_efficiency_xerr);
-     cout<<"test"<<endl;
+
      ceff.SetCondition("SA2DEfficiency","L1vsL2MuonSA Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
      ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
      ceff.DrawEfficiency2D(m_h_eff_pL1_etaphi,m_h_eff_pSA_etaphi);
      ceff.SetCondition("L12DEfficiency","L1 Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
      ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
      ceff.DrawEfficiency2D(m_h_eff_poff_etaphi,m_h_eff_pL1_etaphi);
-     cout<<"test"<<endl;
+
      ceff.SetCondition("SAEfficiency_SP1_barrel","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1SP1_pt_barrel,m_h_eSASP1_pt_barrel,m_binmax,200,m_efficiency_xerr); 
      ceff.SetCondition("SAEfficiency_SP2_barrel","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
