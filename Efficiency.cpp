@@ -1239,6 +1239,7 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eoff_pt_Largeminus,m_h_eL1_pt_Largeminus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyLargeminus","SA Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_Largeminus,m_h_eSA_pt_Largeminus,m_binmax,300,m_efficiency_xerr);
+     cout<<"test"<<endl;
      ceff.SetCondition("L1EfficiencyLargeSpecialminus","L1 LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_LargeSpecialminus,m_h_eL1_pt_LargeSpecialminus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyLargeSpecialminus","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1267,6 +1268,7 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialplus15in,m_h_eSA_pt_LargeSpecialplus15in,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyLargeSpecialminus15in","SA LargeSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LargeSpecialminus15in,m_h_eSA_pt_LargeSpecialminus15in,m_binmax,300,m_efficiency_xerr);
+     cout<<"test"<<endl;
      ceff.SetCondition("L1EfficiencySmallplus","L1 Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_Smallplus,m_h_eL1_pt_Smallplus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencySmallplus","SA Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1275,7 +1277,7 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eoff_pt_Smallminus,m_h_eL1_pt_Smallminus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencySmallminus","SA Small Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_Smallminus,m_h_eSA_pt_Smallminus,m_binmax,300,m_efficiency_xerr);
-
+     cout<<"test"<<endl;
      ceff.SetCondition("L1EfficiencySmallSpecialplus","L1 SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_SmallSpecialplus,m_h_eL1_pt_SmallSpecialplus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencySmallSpecialplus","SA SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1284,7 +1286,7 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eoff_pt_SmallSpecialminus,m_h_eL1_pt_SmallSpecialminus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencySmallSpecialminus","SA SmallSpecial Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_SmallSpecialminus,m_h_eSA_pt_SmallSpecialminus,m_binmax,300,m_efficiency_xerr);
-
+     cout<<"test"<<endl;
      ceff.SetCondition("SAEfficiencyBarrelwithoutBIM","SA Barrel without BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_BarrelwithoutBIM,m_h_eSA_pt_BarrelwithoutBIM,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyLSwithoutBIM","SA LS without BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1293,14 +1295,14 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1_pt_BarrelincBIM,m_h_eSA_pt_BarrelincBIM,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyLSincBIM","SA LS inc BIM Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1_pt_LSincBIM,m_h_eSA_pt_LSincBIM,m_binmax,300,m_efficiency_xerr);
-
+     cout<<"test"<<endl;
      ceff.SetCondition("SA2DEfficiency","L1vsL2MuonSA Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
      ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
      ceff.DrawEfficiency2D(m_h_eff_pL1_etaphi,m_h_eff_pSA_etaphi);
      ceff.SetCondition("L12DEfficiency","L1 Efficiency;offline eta;offline phi",1.5,0.1,0.1,0.105,0.165);
      ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
      ceff.DrawEfficiency2D(m_h_eff_poff_etaphi,m_h_eff_pL1_etaphi);
-
+     cout<<"test"<<endl;
      ceff.SetCondition("SAEfficiency_SP1_barrel","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1SP1_pt_barrel,m_h_eSASP1_pt_barrel,m_binmax,200,m_efficiency_xerr); 
      ceff.SetCondition("SAEfficiency_SP2_barrel","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
