@@ -27,12 +27,12 @@
 #include <TChain.h>
 
 void CalcEff::DrawEfficiency(TH1D *h1,TH1D *h2,Double_t max,Int_t nbin,Double_t err){
-  TCanvas *c1 = new TCanvas("c1","c1",1600,900);
-  gStyle->SetTitleYOffset(m_yoffset);
   if(h1->GetEntries() == 0){
     cout<<m_name<<"   entry 0"<<endl;
     return;
   }
+  TCanvas *c1 = new TCanvas("c1","c1",1600,900);
+  gStyle->SetTitleYOffset(m_yoffset);
   TH1F *frame = gPad->DrawFrame(-2.0,0,max,1.1);
   std::vector<Double_t> eff_x;
   std::vector<Double_t> eff_y;
@@ -65,11 +65,11 @@ void CalcEff::DrawEfficiency(TH1D *h1,TH1D *h2,Double_t max,Int_t nbin,Double_t 
 }
 
 void CalcEff::DrawEfficiencyeta(TH1D *h1,TH1D *h2){
-  TCanvas *c1 = new TCanvas("c1","c1",1600,900);
   if(h1->GetEntries() == 0){
     cout<<m_name<<"   entry 0"<<endl;
     return;
   }
+  TCanvas *c1 = new TCanvas("c1","c1",1600,900);
   gStyle->SetTitleYOffset(m_yoffset);
   TH1F *frame = gPad->DrawFrame(-2.5,0,2.5,1);
   std::vector<Double_t> eff_x;
@@ -103,12 +103,12 @@ void CalcEff::DrawEfficiencyeta(TH1D *h1,TH1D *h2){
 }
 
 void CalcEff::DrawEfficiencyphi(TH1D *h1,TH1D *h2){
-  TCanvas *c1 = new TCanvas("c1","c1",1600,900);
-  gStyle->SetTitleYOffset(m_yoffset);
   if(h1->GetEntries() == 0){
     cout<<m_name<<"   entry 0"<<endl;
     return;
   }
+  TCanvas *c1 = new TCanvas("c1","c1",1600,900);
+  gStyle->SetTitleYOffset(m_yoffset);
   TH1F *frame = gPad->DrawFrame(-2.5,0,2.5,1);
   std::vector<Double_t> eff_x;
   std::vector<Double_t> eff_y;
@@ -141,12 +141,12 @@ void CalcEff::DrawEfficiencyphi(TH1D *h1,TH1D *h2){
 }
 
 void CalcEff::DrawEfficiencypileup(TH1D *h1,TH1D *h2){
-  TCanvas *c1 = new TCanvas("c1","c1",1600,900);
-  gStyle->SetTitleYOffset(m_yoffset);
   if(h1->GetEntries() == 0){
     cout<<m_name<<"   entry 0"<<endl;
     return;
   }
+  TCanvas *c1 = new TCanvas("c1","c1",1600,900);
+  gStyle->SetTitleYOffset(m_yoffset);
   TH1F *frame = gPad->DrawFrame(-2.5,0,2.5,1);
   std::vector<Double_t> eff_x;
   std::vector<Double_t> eff_y;
@@ -179,12 +179,12 @@ void CalcEff::DrawEfficiencypileup(TH1D *h1,TH1D *h2){
 }
 
 void CalcEff::DrawEfficiency2D(TH2F *h1,TH2F *h2){
-	TCanvas *c1 = new TCanvas("c1","c1",1000,1000);
-	gStyle->SetTitleOffset(m_yoffset);
   if(h1->GetEntries() == 0){
     cout<<m_name<<"   entry 0"<<endl;
     return;
   }
+  TCanvas *c1 = new TCanvas("c1","c1",1000,1000);
+  gStyle->SetTitleOffset(m_yoffset);
   TH2F *h3 = new TH2F(m_name.c_str(),m_title.c_str(),m_nbineta,-1*m_etamax,m_etamax,m_nbinphi,-1*m_phimax,m_phimax);
   gStyle->SetPalette(1);
   for(Int_t i = 0;i < m_nbineta;i++){

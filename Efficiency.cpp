@@ -169,14 +169,26 @@ void Efficiency::Execute(Int_t ev){
      Double_t pSA_ptTGC = -99999;
      Double_t pSA_ptalpha = -99999;
      Double_t pSA_ptbeta = -99999;
-     Double_t pSA_superpointZ_BI = -99999;
-     Double_t pSA_superpointZ_BM = -99999;
-     Double_t pSA_superpointZ_BO = -99999;
-     Double_t pSA_superpointZ_BME = -99999;
-     Double_t pSA_superpointR_BI = -99999;
-     Double_t pSA_superpointR_BM = -99999;
-     Double_t pSA_superpointR_BO = -99999;
-     Double_t pSA_superpointR_BME = -99999;
+     Double_t pSA_superpointZ_BI = 0;
+     Double_t pSA_superpointZ_BM = 0;
+     Double_t pSA_superpointZ_BO = 0;
+     Double_t pSA_superpointZ_BME = 0;
+     Double_t pSA_superpointZ_EI = 0;
+     Double_t pSA_superpointZ_EM = 0;
+     Double_t pSA_superpointZ_EO = 0;
+     Double_t pSA_superpointZ_EEE = 0;
+     Double_t pSA_superpointZ_CSC = 0;
+     Double_t pSA_superpointZ_BEE = 0;
+     Double_t pSA_superpointR_BI = 0;
+     Double_t pSA_superpointR_BM = 0;
+     Double_t pSA_superpointR_BO = 0;
+     Double_t pSA_superpointR_BME = 0;
+     Double_t pSA_superpointR_EI = 0;
+     Double_t pSA_superpointR_EM = 0;
+     Double_t pSA_superpointR_EO = 0;
+     Double_t pSA_superpointR_EEE = 0;
+     Double_t pSA_superpointR_CSC = 0;
+     Double_t pSA_superpointR_BEE = 0;
      Double_t pCB_pt = -99999;
      Double_t pCB_eta = 0;
      Double_t pCB_phi = 0;
@@ -238,10 +250,22 @@ void Efficiency::Execute(Int_t ev){
                     pSA_superpointZ_BM = m_pSA_superpointZ_BM->at(method);
                     pSA_superpointZ_BO = m_pSA_superpointZ_BO->at(method);
                     pSA_superpointZ_BME = m_pSA_superpointZ_BME->at(method);
+                    pSA_superpointZ_EI = m_pSA_superpointZ_EI->at(method);
+                    pSA_superpointZ_EM = m_pSA_superpointZ_EM->at(method);
+                    pSA_superpointZ_EO = m_pSA_superpointZ_EO->at(method);
+                    pSA_superpointZ_EEE = m_pSA_superpointZ_EEE->at(method);
+                    pSA_superpointZ_CSC = m_pSA_superpointZ_CSC->at(method);
+                    pSA_superpointZ_BEE = m_pSA_superpointZ_BEE->at(method);
                     pSA_superpointR_BI = m_pSA_superpointR_BI->at(method);
                     pSA_superpointR_BM = m_pSA_superpointR_BM->at(method);
                     pSA_superpointR_BO = m_pSA_superpointR_BO->at(method);
                     pSA_superpointR_BME = m_pSA_superpointR_BME->at(method);
+                    pSA_superpointR_EI = m_pSA_superpointR_EI->at(method);
+                    pSA_superpointR_EM = m_pSA_superpointR_EM->at(method);
+                    pSA_superpointR_EO = m_pSA_superpointR_EO->at(method);
+                    pSA_superpointR_EEE = m_pSA_superpointR_EEE->at(method);
+                    pSA_superpointR_CSC = m_pSA_superpointR_CSC->at(method);
+                    pSA_superpointR_BEE = m_pSA_superpointR_BEE->at(method);
                }
           }
 
@@ -260,6 +284,7 @@ void Efficiency::Execute(Int_t ev){
           Double_t resptbeta = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_ptbeta) - 1.0;
           Double_t respttgc = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_ptTGC) - 1.0;
 
+
           for(Int_t index = 0;index < 10;index++){
                if(m_probe_segment_chamberIndex[index] == 1 && (m_probe_segment_sector[index] == 11 || m_probe_segment_sector[index] == 15) )m_h_BIMrvsx->Fill(sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)),m_probe_segment_x[index]);
           }
@@ -270,21 +295,24 @@ void Efficiency::Execute(Int_t ev){
           Int_t SPinner = 0;
           Int_t SPmiddle = 0;
           Int_t SPouter = 0;
-          if(pSA_superpointZ_BI != -99999 && pSA_superpointR_BI != -99999){
+          if(pSA_superpointR_BI != 0 && pSA_superpointR_EI != 0){
                numSP++;
                patternSP += 1;
                SPinner = 1;
           }
-          if(pSA_superpointZ_BM != -99999 && pSA_superpointR_BM != -99999){
+          if(pSA_superpointR_BM != 0 && pSA_superpointR_EM != 0){
                numSP++;
                patternSP += 2;
                SPmiddle = 1;
           }
-          if(pSA_superpointZ_BO != -99999 && pSA_superpointR_BO != -99999){
+          if(pSA_superpointR_BO != 0 && pSA_superpointR_EO != 0){
                numSP++;
                patternSP += 3;
                SPouter = 1;
           }
+          if(pSA_superpointR_EEE != 0)numSP++;
+          if(pSA_superpointR_CSC != 0)numSP++;
+          if(pSA_superpointR_BEE != 0)numSP++;
           if(SPinner == 1 && SPmiddle == 1 && SPouter == 0)patternSP = 3;
           if(SPinner == 1 && SPmiddle == 0 && SPouter == 1)patternSP = 4;
           if(SPinner == 0 && SPmiddle == 1 && SPouter == 1)patternSP = 5;
