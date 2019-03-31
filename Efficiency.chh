@@ -1094,9 +1094,9 @@ public:
     m_h_overphi = new TH1D("h_overphi","Over phi;overphi;Entries",400,-2.0*TMath::Pi(),2.0*TMath::Pi());
     m_h_mdtchamber = new TH1D("h_mdtchamber","MDT hit;MDT hit chamber;Entries",11,-0.5,10.5);
     m_h_BIMrvsx = new TH2F("h_BIMrvsx",";;",100,0.0,10000.0,200,-10000.0,10000.0);
-    m_h_L2MuonSAvsOfflinept[0] = new TH2F("h_L2MuonSAvsOfflineptalpha",";L2MuonSA pt[GeV];offline pt[GeV]",200,0.0,100.0,200,0.0,100.0);
-    m_h_L2MuonSAvsOfflinept[1] = new TH2F("h_L2MuonSAvsOfflineptbeta",";L2MuonSA pt[GeV];offline pt[GeV]",200,0.0,100.0,200,0.0,100.0);
-    m_h_L2MuonSAvsOfflinept[2] = new TH2F("h_L2MuonSAvsOfflineptTGC",";L2MuonSA pt[GeV];offline pt[GeV]",200,0.0,100.0,200,0.0,100.0);
+    m_h_L2MuonSAvsOfflinept[0] = new TH2F("h_L2MuonSAvsOfflineptalpha",";L2MuonSA pt[GeV];offline pt[GeV]",200,0.0,20.0,200,0.0,20.0);
+    m_h_L2MuonSAvsOfflinept[1] = new TH2F("h_L2MuonSAvsOfflineptbeta",";L2MuonSA pt[GeV];offline pt[GeV]",200,0.0,20.0,200,0.0,20.0);
+    m_h_L2MuonSAvsOfflinept[2] = new TH2F("h_L2MuonSAvsOfflineptTGC",";L2MuonSA pt[GeV];offline pt[GeV]",200,0.0,20.0,200,0.0,20.0);
 
               //SP,segment
 
