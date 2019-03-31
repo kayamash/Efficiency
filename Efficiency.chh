@@ -424,11 +424,11 @@ private:
   TH1D *m_h_mdtphi_LS;
   TH1D *m_h_mdtphi_LSBIL;
   TH1D *m_h_numSP;
-
   TH2F *m_h_BIRsegment;
   TH2F *m_h_BIMsegment;
-
   TH2F *m_h_BIMrvsx;
+
+  TH2F *m_h_L2MuonSAvsOfflinept[3];
 
   //Efficiency
   TH1D *m_h_eoff_pt;
@@ -685,6 +685,8 @@ private:
   TH1D *m_h_ptmethodover[4];
   TH1D *m_h_ptSA[4];//alpha,beta,TGC,EE
   TH1D *m_h_resptSA[4];
+  TH1D *m_h_ptSAover[4];
+  TH1D *m_h_resptSAover[4];
 
   Int_t m_nbin_eta,m_nbin_phi;
   Double_t m_eta_max,m_phi_max,m_reqL1dR;
@@ -1021,6 +1023,8 @@ public:
       m_h_ptmethodover[i] = new TH1D(Form("h_ptmethodover%d",i),"pt calculate method;offline pt[GeV];Entries",200,-0.25,99.75);
       m_h_ptSA[i] = new TH1D(Form("h_ptSA%d",i),"L2MuonSA pt;L2MuonSA pt[GeV];Entries",1000,-0.25,99.75);
       m_h_resptSA[i] = new TH1D(Form("h_resptSA%d",i),"L2MuonSA residual pt;L2MuonSA pt[GeV];Entries",200,-1.0,1.0);
+      m_h_ptSAover[i] = new TH1D(Form("h_ptSAover%d",i),"L2MuonSA pt;L2MuonSA pt[GeV];Entries",1000,-0.25,99.75);
+      m_h_resptSAover[i] = new TH1D(Form("h_resptSAover%d",i),"L2MuonSA residual pt;L2MuonSA pt[GeV];Entries",200,-1.0,1.0);
     }
               //Standard
     m_h_poff_pt = new TH1D("h_poff_pt","probe offline pt;offline pt[GeV];Entries",150,0,150);
@@ -1090,6 +1094,9 @@ public:
     m_h_overphi = new TH1D("h_overphi","Over phi;overphi;Entries",400,-2.0*TMath::Pi(),2.0*TMath::Pi());
     m_h_mdtchamber = new TH1D("h_mdtchamber","MDT hit;MDT hit chamber;Entries",11,-0.5,10.5);
     m_h_BIMrvsx = new TH2F("h_BIMrvsx",";;",100,0.0,10000.0,200,-10000.0,10000.0);
+    m_h_L2MuonSAvsOfflinept[0] = new TH2F("h_L2MuonSAvsOfflineptalpha",";L2MuonSA pt[GeV];offline pt[GeV]",200,0.0,100.0,200,0.0,100.0);
+    m_h_L2MuonSAvsOfflinept[1] = new TH2F("h_L2MuonSAvsOfflineptbeta",";L2MuonSA pt[GeV];offline pt[GeV]",200,0.0,100.0,200,0.0,100.0);
+    m_h_L2MuonSAvsOfflinept[2] = new TH2F("h_L2MuonSAvsOfflineptTGC",";L2MuonSA pt[GeV];offline pt[GeV]",200,0.0,100.0,200,0.0,100.0);
 
               //SP,segment
 
@@ -1480,7 +1487,13 @@ public:
       delete  m_h_ptmethodover[i];
       delete  m_h_ptSA[i];
       delete  m_h_resptSA[i];
+      delete  m_h_ptSAover[i];
+      delete  m_h_resptSAover[i];
     }
+    for(Int_t i = 0;i < 3;i++){
+      delete  m_h_L2MuonSAvsOfflinept[i];
+    }
+
     delete  m_h_poff_pt;
     delete  m_h_pL1_pt;
     delete  m_h_pSA_pt;

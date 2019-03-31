@@ -494,6 +494,9 @@ void Efficiency::Execute(Int_t ev){
                }else{
                     m_h_eSA_pt_end->Fill(std::fabs(m_poff_pt*0.001));
                     m_h_pSA_respt_endcap->Fill(resSA_pt);
+                    m_h_L2MuonSAvsOfflinept[0]->Fill(std::fabs(pSA_ptalpha),std::fabs(m_poff_pt*0.001));
+                    m_h_L2MuonSAvsOfflinept[1]->Fill(std::fabs(pSA_ptbeta),std::fabs(m_poff_pt*0.001));
+                    m_h_L2MuonSAvsOfflinept[2]->Fill(std::fabs(pSA_ptTGC),std::fabs(m_poff_pt*0.001));
                     if(numSP == 1)m_h_eSASP1_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
                     if(numSP == 2)m_h_eSASP2_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
                     if(numSP == 3)m_h_eSASP3_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
@@ -509,6 +512,15 @@ void Efficiency::Execute(Int_t ev){
                          m_h_resptSA[1]->Fill(resptbeta);
                          m_h_resptSA[2]->Fill(respttgc);
                          if(pt_method == 3)m_h_resptSA[3]->Fill(resSA_pt);
+                    }else{
+                         m_h_ptSAover[0]->Fill(std::fabs(pSA_ptalpha));
+                         m_h_ptSAover[1]->Fill(std::fabs(pSA_ptbeta));
+                         m_h_ptSAover[2]->Fill(std::fabs(pSA_ptTGC));
+                         if(pt_method == 3)m_h_ptSAover[3]->Fill(std::fabs(pSA_pt));
+                         m_h_resptSAover[0]->Fill(resptalpha);
+                         m_h_resptSAover[1]->Fill(resptbeta);
+                         m_h_resptSAover[2]->Fill(respttgc);
+                         if(pt_method == 3)m_h_resptSAover[3]->Fill(resSA_pt);
                     }
                }
                for(Int_t size = 0;size < (signed int)pSA_mdtZ->size();size++){
@@ -1190,6 +1202,12 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_ptmethodover[i]->Write();
           m_h_ptSA[i]->Write();
           m_h_resptSA[i]->Write();
+          m_h_ptSAover[i]->Write();
+          m_h_resptSAover[i]->Write();
+     }
+
+     for(Int_t i = 0;i < 3;i++){
+          m_h_L2MuonSAvsOfflinept[i]->Write();
      }
 
           //base,target
