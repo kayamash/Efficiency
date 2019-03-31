@@ -300,7 +300,7 @@ void Efficiency::Execute(Int_t ev){
                patternSP += 1;
                SPinner = 1;
           }
-          if(pSA_superpointR_BM != 0 || pSA_superpointR_EM != 0){
+          if(pSA_superpointR_BM != 0 || pSA_superpointR_EM != 0 || pSA_superpointR_BME != 0){
                numSP++;
                patternSP += 2;
                SPmiddle = 1;
