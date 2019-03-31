@@ -295,17 +295,17 @@ void Efficiency::Execute(Int_t ev){
           Int_t SPinner = 0;
           Int_t SPmiddle = 0;
           Int_t SPouter = 0;
-          if(pSA_superpointR_BI != 0 && pSA_superpointR_EI != 0 && pSA_superpointR_CSC != 0 && pSA_superpointR_BEE != 0 && pSA_superpointR_EE != 0){
+          if(pSA_superpointR_BI != 0 || pSA_superpointR_EI != 0 || pSA_superpointR_CSC != 0 || pSA_superpointR_BEE != 0 || pSA_superpointR_EE != 0){
                numSP++;
                patternSP += 1;
                SPinner = 1;
           }
-          if(pSA_superpointR_BM != 0 && pSA_superpointR_EM != 0){
+          if(pSA_superpointR_BM != 0 || pSA_superpointR_EM != 0){
                numSP++;
                patternSP += 2;
                SPmiddle = 1;
           }
-          if(pSA_superpointR_BO != 0 && pSA_superpointR_EO != 0){
+          if(pSA_superpointR_BO != 0 || pSA_superpointR_EO != 0){
                numSP++;
                patternSP += 3;
                SPouter = 1;
