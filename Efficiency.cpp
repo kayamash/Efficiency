@@ -176,7 +176,7 @@ void Efficiency::Execute(Int_t ev){
      Double_t pSA_superpointZ_EI = 0;
      Double_t pSA_superpointZ_EM = 0;
      Double_t pSA_superpointZ_EO = 0;
-     Double_t pSA_superpointZ_EEE = 0;
+     Double_t pSA_superpointZ_EE = 0;
      Double_t pSA_superpointZ_CSC = 0;
      Double_t pSA_superpointZ_BEE = 0;
      Double_t pSA_superpointR_BI = 0;
@@ -186,7 +186,7 @@ void Efficiency::Execute(Int_t ev){
      Double_t pSA_superpointR_EI = 0;
      Double_t pSA_superpointR_EM = 0;
      Double_t pSA_superpointR_EO = 0;
-     Double_t pSA_superpointR_EEE = 0;
+     Double_t pSA_superpointR_EE = 0;
      Double_t pSA_superpointR_CSC = 0;
      Double_t pSA_superpointR_BEE = 0;
      Double_t pCB_pt = -99999;
@@ -253,7 +253,7 @@ void Efficiency::Execute(Int_t ev){
                     pSA_superpointZ_EI = m_pSA_superpointZ_EI->at(method);
                     pSA_superpointZ_EM = m_pSA_superpointZ_EM->at(method);
                     pSA_superpointZ_EO = m_pSA_superpointZ_EO->at(method);
-                    pSA_superpointZ_EEE = m_pSA_superpointZ_EEE->at(method);
+                    pSA_superpointZ_EE = m_pSA_superpointZ_EE->at(method);
                     pSA_superpointZ_CSC = m_pSA_superpointZ_CSC->at(method);
                     pSA_superpointZ_BEE = m_pSA_superpointZ_BEE->at(method);
                     pSA_superpointR_BI = m_pSA_superpointR_BI->at(method);
@@ -263,7 +263,7 @@ void Efficiency::Execute(Int_t ev){
                     pSA_superpointR_EI = m_pSA_superpointR_EI->at(method);
                     pSA_superpointR_EM = m_pSA_superpointR_EM->at(method);
                     pSA_superpointR_EO = m_pSA_superpointR_EO->at(method);
-                    pSA_superpointR_EEE = m_pSA_superpointR_EEE->at(method);
+                    pSA_superpointR_EE = m_pSA_superpointR_EE->at(method);
                     pSA_superpointR_CSC = m_pSA_superpointR_CSC->at(method);
                     pSA_superpointR_BEE = m_pSA_superpointR_BEE->at(method);
                }
@@ -310,7 +310,7 @@ void Efficiency::Execute(Int_t ev){
                patternSP += 3;
                SPouter = 1;
           }
-          if(pSA_superpointR_EEE != 0)numSP++;
+          if(pSA_superpointR_EE != 0)numSP++;
           if(pSA_superpointR_CSC != 0)numSP++;
           if(pSA_superpointR_BEE != 0)numSP++;
           if(SPinner == 1 && SPmiddle == 1 && SPouter == 0)patternSP = 3;

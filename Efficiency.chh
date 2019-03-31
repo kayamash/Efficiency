@@ -112,7 +112,7 @@ private:
   std::vector<Double_t> *m_pSA_superpointZ_EI;
   std::vector<Double_t> *m_pSA_superpointZ_EM;
   std::vector<Double_t> *m_pSA_superpointZ_EO;
-  std::vector<Double_t> *m_pSA_superpointZ_EEE;
+  std::vector<Double_t> *m_pSA_superpointZ_EE;
   std::vector<Double_t> *m_pSA_superpointZ_CSC;
   std::vector<Double_t> *m_pSA_superpointZ_BEE;
   std::vector<Double_t> *m_pSA_superpointR_BI;
@@ -122,7 +122,7 @@ private:
   std::vector<Double_t> *m_pSA_superpointR_EI;
   std::vector<Double_t> *m_pSA_superpointR_EM;
   std::vector<Double_t> *m_pSA_superpointR_EO;
-  std::vector<Double_t> *m_pSA_superpointR_EEE;
+  std::vector<Double_t> *m_pSA_superpointR_EE;
   std::vector<Double_t> *m_pSA_superpointR_CSC;
   std::vector<Double_t> *m_pSA_superpointR_BEE;
   std::vector<Double_t> *m_pCB_pt;
@@ -214,7 +214,7 @@ private:
   TBranch *b_pSA_superpointZ_EI;
   TBranch *b_pSA_superpointZ_EM;
   TBranch *b_pSA_superpointZ_EO;
-  TBranch *b_pSA_superpointZ_EEE;
+  TBranch *b_pSA_superpointZ_EE;
   TBranch *b_pSA_superpointZ_CSC;
   TBranch *b_pSA_superpointZ_BEE;
   TBranch *b_pSA_superpointR_BI;
@@ -224,7 +224,7 @@ private:
   TBranch *b_pSA_superpointR_EI;
   TBranch *b_pSA_superpointR_EM;
   TBranch *b_pSA_superpointR_EO;
-  TBranch *b_pSA_superpointR_EEE;
+  TBranch *b_pSA_superpointR_EE;
   TBranch *b_pSA_superpointR_CSC;
   TBranch *b_pSA_superpointR_BEE;
 
@@ -765,7 +765,7 @@ public:
     m_pSA_superpointZ_EI = 0;
     m_pSA_superpointZ_EM = 0;
     m_pSA_superpointZ_EO = 0;
-    m_pSA_superpointZ_EEE = 0;
+    m_pSA_superpointZ_EE = 0;
     m_pSA_superpointZ_CSC = 0;
     m_pSA_superpointZ_BEE = 0;
     m_pSA_superpointZ_BME = 0;
@@ -775,7 +775,7 @@ public:
     m_pSA_superpointR_EI = 0;
     m_pSA_superpointR_EM = 0;
     m_pSA_superpointR_EO = 0;
-    m_pSA_superpointR_EEE = 0;
+    m_pSA_superpointR_EE = 0;
     m_pSA_superpointR_CSC = 0;
     m_pSA_superpointR_BEE = 0;
     m_pCB_pt = 0;
@@ -870,7 +870,7 @@ public:
     tChain->SetBranchStatus("probe_mesSA_superPointZ_EI",1);
     tChain->SetBranchStatus("probe_mesSA_superPointZ_EM",1);
     tChain->SetBranchStatus("probe_mesSA_superPointZ_EO",1);
-    tChain->SetBranchStatus("probe_mesSA_superPointZ_EEE",1);
+    tChain->SetBranchStatus("probe_mesSA_superPointZ_EE",1);
     tChain->SetBranchStatus("probe_mesSA_superPointZ_CSC",1);
     tChain->SetBranchStatus("probe_mesSA_superPointZ_BEE",1);
     tChain->SetBranchStatus("probe_mesSA_superPointR_BI",1);
@@ -880,7 +880,7 @@ public:
     tChain->SetBranchStatus("probe_mesSA_superPointR_EI",1);
     tChain->SetBranchStatus("probe_mesSA_superPointR_EM",1);
     tChain->SetBranchStatus("probe_mesSA_superPointR_EO",1);
-    tChain->SetBranchStatus("probe_mesSA_superPointR_EEE",1);
+    tChain->SetBranchStatus("probe_mesSA_superPointR_EE",1);
     tChain->SetBranchStatus("probe_mesSA_superPointR_CSC",1);
     tChain->SetBranchStatus("probe_mesSA_superPointR_BEE",1);
     tChain->SetBranchStatus("probe_mesCB_pt",1);
@@ -974,9 +974,19 @@ public:
     tChain->SetBranchAddress("probe_mesSA_superPointZ_EI",&m_pSA_superpointZ_EI,&b_pSA_superpointZ_EI);
     tChain->SetBranchAddress("probe_mesSA_superPointZ_EM",&m_pSA_superpointZ_EM,&b_pSA_superpointZ_EM);
     tChain->SetBranchAddress("probe_mesSA_superPointZ_EO",&m_pSA_superpointZ_EO,&b_pSA_superpointZ_EO);
-    tChain->SetBranchAddress("probe_mesSA_superPointZ_EEE",&m_pSA_superpointZ_EEE,&b_pSA_superpointZ_EEE);
+    tChain->SetBranchAddress("probe_mesSA_superPointZ_EE",&m_pSA_superpointZ_EE,&b_pSA_superpointZ_EE);
     tChain->SetBranchAddress("probe_mesSA_superPointZ_CSC",&m_pSA_superpointZ_CSC,&b_pSA_superpointZ_CSC);
     tChain->SetBranchAddress("probe_mesSA_superPointZ_BEE",&m_pSA_superpointZ_BEE,&b_pSA_superpointZ_BEE);
+    tChain->SetBranchAddress("probe_mesSA_superPointR_BI",&m_pSA_superpointR_BI,&b_pSA_superpointR_BI);
+    tChain->SetBranchAddress("probe_mesSA_superPointR_BM",&m_pSA_superpointR_BM,&b_pSA_superpointR_BM);
+    tChain->SetBranchAddress("probe_mesSA_superPointR_BO",&m_pSA_superpointR_BO,&b_pSA_superpointR_BO);
+    tChain->SetBranchAddress("probe_mesSA_superPointR_BME",&m_pSA_superpointR_BME,&b_pSA_superpointR_BME);
+    tChain->SetBranchAddress("probe_mesSA_superPointR_EI",&m_pSA_superpointR_EI,&b_pSA_superpointR_EI);
+    tChain->SetBranchAddress("probe_mesSA_superPointR_EM",&m_pSA_superpointR_EM,&b_pSA_superpointR_EM);
+    tChain->SetBranchAddress("probe_mesSA_superPointR_EO",&m_pSA_superpointR_EO,&b_pSA_superpointR_EO);
+    tChain->SetBranchAddress("probe_mesSA_superPointR_EE",&m_pSA_superpointR_EE,&b_pSA_superpointR_EE);
+    tChain->SetBranchAddress("probe_mesSA_superPointR_CSC",&m_pSA_superpointR_CSC,&b_pSA_superpointR_CSC);
+    tChain->SetBranchAddress("probe_mesSA_superPointR_BEE",&m_pSA_superpointR_BEE,&b_pSA_superpointR_BEE);
     tChain->SetBranchAddress("probe_mesCB_pt",&m_pCB_pt,&b_pCB_pt);
     tChain->SetBranchAddress("probe_mesCB_eta",&m_pCB_eta,&b_pCB_eta);
     tChain->SetBranchAddress("probe_mesCB_phi",&m_pCB_phi,&b_pCB_phi);
