@@ -295,7 +295,7 @@ void Efficiency::Execute(Int_t ev){
           Int_t SPinner = 0;
           Int_t SPmiddle = 0;
           Int_t SPouter = 0;
-          if(pSA_superpointR_BI != 0 && pSA_superpointR_EI != 0){
+          if(pSA_superpointR_BI != 0 && pSA_superpointR_EI != 0 && pSA_superpointR_CSC != 0 && pSA_superpointR_BEE != 0 && pSA_superpointR_EE != 0){
                numSP++;
                patternSP += 1;
                SPinner = 1;
@@ -310,9 +310,6 @@ void Efficiency::Execute(Int_t ev){
                patternSP += 3;
                SPouter = 1;
           }
-          if(pSA_superpointR_EE != 0)numSP++;
-          //if(pSA_superpointR_CSC != 0)numSP++;
-          //if(pSA_superpointR_BEE != 0)numSP++;
           if(SPinner == 1 && SPmiddle == 1 && SPouter == 0)patternSP = 3;
           if(SPinner == 1 && SPmiddle == 0 && SPouter == 1)patternSP = 4;
           if(SPinner == 0 && SPmiddle == 1 && SPouter == 1)patternSP = 5;
