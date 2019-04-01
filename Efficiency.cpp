@@ -27,9 +27,9 @@
 #include <TChain.h>
 #include "CalcEff.cpp"
 
-//const Double_t pt_threshold[4] = {3.38,1.25,3.17,3.41};//MU4
+const Double_t pt_threshold[4] = {3.38,1.25,3.17,3.41};//MU4
 //const Double_t pt_threshold[4] = {5.17,3.25,4.69,5.14};//MU6
-const Double_t pt_threshold[4] = {15.87,10.73,12.21,15.87};//MU20
+//const Double_t pt_threshold[4] = {15.87,10.73,12.21,15.87};//MU20
 
 void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,Int_t proc){
      m_nbin_phi = np;
@@ -374,36 +374,35 @@ void Efficiency::Execute(Int_t ev){
                     m_h_eL1_pt->Fill(std::fabs(m_poff_pt*0.001));
                     m_h_L1pSA_sAddress->Fill(pSA_sAddress);
                     if(EtaDistribution() == 0){
+                         m_h_eL1_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eL1SP1_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eL1SP2_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 3)m_h_eL1SP3_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
                          if(patternSP == 3)m_h_eL1innmid_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
+                         if(decision_noBIM == 0)m_h_eL1_pt_BarrelwithoutBIM->Fill(std::fabs(m_poff_pt*0.001));
+                         m_h_eL1_pt_BarrelincBIM->Fill(std::fabs(m_poff_pt*0.001));
+                         if(pSA_sAddress == 0 && nosector9 == 0)m_h_eL1_pt_Largenormal->Fill(std::fabs(m_poff_pt*0.001));
                     }
                     if(EtaDistribution() == 1){
+                         m_h_eL1_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eL1SP1_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eL1SP2_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 3)m_h_eL1SP3_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
                          if(patternSP == 3)m_h_eL1innmid_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
                     }
                     if(EtaDistribution() == 2){
+                         m_h_eL1_pt_end->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eL1SP1_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eL1SP2_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 3)m_h_eL1SP3_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
                          if(patternSP == 3)m_h_eL1innmid_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
                     }
                     if(EtaDistribution() == 3){
+                         m_h_eL1_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eL1SP1_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eL1SP2_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 3)m_h_eL1SP3_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
                          if(patternSP == 3)m_h_eL1innmid_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
-                    }
-                    if(DicisionBarrel(m_poff_eta)){
-                         m_h_eL1_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
-                         if(decision_noBIM == 0)m_h_eL1_pt_BarrelwithoutBIM->Fill(std::fabs(m_poff_pt*0.001));
-                         m_h_eL1_pt_BarrelincBIM->Fill(std::fabs(m_poff_pt*0.001));
-                         if(pSA_sAddress == 0 && nosector9 == 0)m_h_eL1_pt_Largenormal->Fill(std::fabs(m_poff_pt*0.001));
-                    }else{
-                         m_h_eL1_pt_end->Fill(std::fabs(m_poff_pt*0.001));
                     }
 
                     if(PlateauCut(std::fabs(m_poff_pt*0.001))){
@@ -494,31 +493,11 @@ void Efficiency::Execute(Int_t ev){
                     m_h_pSAphivspSAphims->Fill(pSA_phi,pSA_phims);
                     m_h_pSAphivspSAphibe->Fill(pSA_phi,pSA_phibe);
                     if(EtaDistribution() == 0){
+                         m_h_eSA_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eSASP1_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eSASP2_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 3)m_h_eSASP3_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
                          if(patternSP == 3)m_h_eSAinnmid_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
-                    }
-                    if(EtaDistribution() == 1){
-                         if(numSP == 1)m_h_eSASP1_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_eSASP2_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 3)m_h_eSASP3_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
-                         if(patternSP == 3)m_h_eSAinnmid_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
-                    }
-                    if(EtaDistribution() == 2){
-                         if(numSP == 1)m_h_eSASP1_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_eSASP2_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 3)m_h_eSASP3_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
-                         if(patternSP == 3)m_h_eSAinnmid_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
-                    }
-                    if(EtaDistribution() == 3){
-                         if(numSP == 1)m_h_eSASP1_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_eSASP2_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 3)m_h_eSASP3_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
-                         if(patternSP == 3)m_h_eSAinnmid_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
-                    }
-                    if(DicisionBarrel(m_poff_eta)){
-                         m_h_eSA_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
                          m_h_pSA_respt_barrel->Fill(resSA_pt);
                          if(decision_noBIM == 0)m_h_eSA_pt_BarrelwithoutBIM->Fill(std::fabs(m_poff_pt*0.001));
                          m_h_eSA_pt_BarrelincBIM->Fill(std::fabs(m_poff_pt*0.001));
@@ -526,8 +505,30 @@ void Efficiency::Execute(Int_t ev){
                               m_h_mdtchamber->Fill(pSA_mdthitChamber->at(MDTsize));
                          }
                          if(pSA_sAddress == 0 && nosector9 == 0)m_h_eSA_pt_Largenormal->Fill(std::fabs(m_poff_pt*0.001));
-                    }else{
+                    }
+                    if(EtaDistribution() == 1){
+                         m_h_eSA_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 1)m_h_eSASP1_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 2)m_h_eSASP2_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 3)m_h_eSASP3_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
+                         if(patternSP == 3)m_h_eSAinnmid_pt_transition->Fill(std::fabs(m_poff_pt*0.001));
+                    }
+                    if(EtaDistribution() == 2){
                          m_h_eSA_pt_end->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 1)m_h_eSASP1_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 2)m_h_eSASP2_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 3)m_h_eSASP3_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
+                         if(patternSP == 3)m_h_eSAinnmid_pt_endcap->Fill(std::fabs(m_poff_pt*0.001));
+                    }
+                    if(EtaDistribution() == 3){
+                         m_h_eSA_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 1)m_h_eSASP1_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 2)m_h_eSASP2_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 3)m_h_eSASP3_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
+                         if(patternSP == 3)m_h_eSAinnmid_pt_forward->Fill(std::fabs(m_poff_pt*0.001));
+                    }
+                    if(DicisionBarrel(m_poff_eta)){
+                    }else{
                          m_h_pSA_respt_endcap->Fill(resSA_pt);
                          m_h_L2MuonSAvsOfflinept[0]->Fill(std::fabs(pSA_ptalpha),std::fabs(m_poff_pt*0.001));
                          m_h_L2MuonSAvsOfflinept[1]->Fill(std::fabs(pSA_ptbeta),std::fabs(m_poff_pt*0.001));
@@ -1302,6 +1303,24 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.SetCondition("EFEfficiency_end","EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eCB_pt_end,m_h_eEF_pt_end,m_binmax,300,m_efficiency_xerr);
 
+     ceff.SetCondition("L1Efficiency_forward","L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eoff_pt_forward,m_h_eL1_pt_forward,m_binmax,300,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiency_forward","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1_pt_forward,m_h_eSA_pt_forward,m_binmax,300,m_efficiency_xerr);
+     ceff.SetCondition("CBEfficiency_forward","muComb Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eSA_pt_forward,m_h_eCB_pt_forward,m_binmax,300,m_efficiency_xerr);
+     ceff.SetCondition("EFEfficiency_forward","EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eCB_pt_forward,m_h_eEF_pt_forward,m_binmax,300,m_efficiency_xerr);
+
+     ceff.SetCondition("L1Efficiency_transition","L1 Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eoff_pt_transition,m_h_eL1_pt_transition,m_binmax,300,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiency_transition","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1_pt_transition,m_h_eSA_pt_transition,m_binmax,300,m_efficiency_xerr);
+     ceff.SetCondition("CBEfficiency_transition","muComb Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eSA_pt_transition,m_h_eCB_pt_transition,m_binmax,300,m_efficiency_xerr);
+     ceff.SetCondition("EFEfficiency_transition","EventFilter Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eCB_pt_transition,m_h_eEF_pt_transition,m_binmax,300,m_efficiency_xerr);
+
      ceff.SetCondition("L1EfficiencyLargeplus","L1 Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eoff_pt_Largeplus,m_h_eL1_pt_Largeplus,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyLargeplus","SA Large Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1621,6 +1640,16 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSA_pt_end->Write();
      m_h_eCB_pt_end->Write();
      m_h_eEF_pt_end->Write();
+     m_h_eoff_pt_forward->Write();
+     m_h_eL1_pt_forward->Write();
+     m_h_eSA_pt_forward->Write();
+     m_h_eCB_pt_forward->Write();
+     m_h_eEF_pt_forward->Write();
+     m_h_eoff_pt_transition->Write();
+     m_h_eL1_pt_transition->Write();
+     m_h_eSA_pt_transition->Write();
+     m_h_eCB_pt_transition->Write();
+     m_h_eEF_pt_transition->Write();
      m_h_eoff_pt_Largeplus->Write();
      m_h_eL1_pt_Largeplus->Write();
      m_h_eSA_pt_Largeplus->Write();
