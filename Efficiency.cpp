@@ -445,7 +445,7 @@ void Efficiency::Execute(Int_t ev){
                          default:
                          break;
                     }
-                    switch(EtaDistribution(roieta)){
+                    switch(EtaDistribution(pSA_roieta)){
                          case 0:
                          m_h_eL1RoI_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
                          if(numBarrelSP == 1)m_h_eL1RoISP1_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
@@ -472,7 +472,7 @@ void Efficiency::Execute(Int_t ev){
                          break;
                          case 1:
                          if(areanumber > 0 && areanumber < 5)m_h_eL1_pt_LargeSpecialplus->Fill(std::fabs(m_poff_pt*0.001));//Qeta = +1
-                         indexf(areanumber > 4 && areanumber < 9)m_h_eL1_pt_LargeSpecialminus->Fill(std::fabs(m_poff_pt*0.001));//Qeta = -1
+                         if(areanumber > 4 && areanumber < 9)m_h_eL1_pt_LargeSpecialminus->Fill(std::fabs(m_poff_pt*0.001));//Qeta = -1
                          if(decision_noBIM == 0)m_h_eL1_pt_LSwithoutBIM->Fill(std::fabs(m_poff_pt*0.001));
                          m_h_eL1_pt_LSincBIM->Fill(std::fabs(m_poff_pt*0.001));
                          switch(areanumber){
@@ -581,7 +581,7 @@ void Efficiency::Execute(Int_t ev){
                               break;
                          }
 
-                         switch(EtaDistribution(roieta)){
+                         switch(EtaDistribution(pSA_roieta)){
                               case 0:
                               m_h_eSARoI_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
                               if(numBarrelSP == 1)m_h_eSARoISP1_pt_barrel->Fill(std::fabs(m_poff_pt*0.001));
