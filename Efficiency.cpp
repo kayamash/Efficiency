@@ -326,7 +326,7 @@ void Efficiency::Execute(Int_t ev){
                SPouter = 1;
           }
           
-          numBarrelSP = 0;
+          Int_t numBarrelSP = 0;
           if(pSA_superpointR_BI != 0){
                numBarrelSP++;
           }
