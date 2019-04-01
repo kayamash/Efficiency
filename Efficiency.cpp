@@ -336,7 +336,7 @@ void Efficiency::Execute(Int_t ev){
           if(pSA_superpointR_BO != 0){
                numBarrelSP++;
           }
-          numEndcapSP = 0;
+          Int_t numEndcapSP = 0;
           if(pSA_superpointR_EI != 0){
                numEndcapSP++;
           }
