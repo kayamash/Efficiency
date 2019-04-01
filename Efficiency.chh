@@ -538,6 +538,22 @@ private:
   TH1D *m_h_eSASP3_pt_endcap;
   TH1D *m_h_eL1innmid_pt_endcap;
   TH1D *m_h_eSAinnmid_pt_endcap;
+  TH1D *m_h_eL1SP1_pt_forward;
+  TH1D *m_h_eSASP1_pt_forward;
+  TH1D *m_h_eL1SP2_pt_forward;
+  TH1D *m_h_eSASP2_pt_forward;
+  TH1D *m_h_eL1SP3_pt_forward;
+  TH1D *m_h_eSASP3_pt_forward;
+  TH1D *m_h_eL1innmid_pt_forward;
+  TH1D *m_h_eSAinnmid_pt_forward;
+  TH1D *m_h_eL1SP1_pt_transition;
+  TH1D *m_h_eSASP1_pt_transition;
+  TH1D *m_h_eL1SP2_pt_transition;
+  TH1D *m_h_eSASP2_pt_transition;
+  TH1D *m_h_eL1SP3_pt_transition;
+  TH1D *m_h_eSASP3_pt_transition;
+  TH1D *m_h_eL1innmid_pt_transition;
+  TH1D *m_h_eSAinnmid_pt_transition;
 
   //Residual
   TH1D *m_h_pSA_respt;
@@ -1316,6 +1332,22 @@ public:
     m_h_eSASP3_pt_endcap = new TH1D("h_eSASP3_pt_endcap","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1innmid_pt_endcap = new TH1D("h_eL1innmid_pt_endcap","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAinnmid_pt_endcap = new TH1D("h_eSAinnmid_pt_endcap","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1SP1_pt_forward = new TH1D("h_eL1SP1_pt_forward","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSASP1_pt_forward = new TH1D("h_eSASP1_pt_forward","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1SP2_pt_forward = new TH1D("h_eL1SP2_pt_forward","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSASP2_pt_forward = new TH1D("h_eSASP2_pt_forward","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1SP3_pt_forward = new TH1D("h_eL1SP3_pt_forward","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSASP3_pt_forward = new TH1D("h_eSASP3_pt_forward","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1innmid_pt_forward = new TH1D("h_eL1innmid_pt_forward","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAinnmid_pt_forward = new TH1D("h_eSAinnmid_pt_forward","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1SP1_pt_transition = new TH1D("h_eL1SP1_pt_transition","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSASP1_pt_transition = new TH1D("h_eSASP1_pt_transition","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1SP2_pt_transition = new TH1D("h_eL1SP2_pt_transition","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSASP2_pt_transition = new TH1D("h_eSASP2_pt_transition","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1SP3_pt_transition = new TH1D("h_eL1SP3_pt_transition","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSASP3_pt_transition = new TH1D("h_eSASP3_pt_transition","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1innmid_pt_transition = new TH1D("h_eL1innmid_pt_transition","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAinnmid_pt_transition = new TH1D("h_eSAinnmid_pt_transition","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
 
               //Residual
     m_h_pSA_respt = new TH1D("h_pSA_respt","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
@@ -1780,6 +1812,22 @@ public:
     delete  m_h_eSASP3_pt_endcap;
     delete  m_h_eL1innmid_pt_endcap;
     delete  m_h_eSAinnmid_pt_endcap;
+    delete  m_h_eL1SP1_pt_forward;
+    delete  m_h_eSASP1_pt_forward;
+    delete  m_h_eL1SP2_pt_forward;
+    delete  m_h_eSASP2_pt_forward;
+    delete  m_h_eL1SP3_pt_forward;
+    delete  m_h_eSASP3_pt_forward;
+    delete  m_h_eL1innmid_pt_forward;
+    delete  m_h_eSAinnmid_pt_forward;
+    delete  m_h_eL1SP1_pt_transition;
+    delete  m_h_eSASP1_pt_transition;
+    delete  m_h_eL1SP2_pt_transition;
+    delete  m_h_eSASP2_pt_transition;
+    delete  m_h_eL1SP3_pt_transition;
+    delete  m_h_eSASP3_pt_transition;
+    delete  m_h_eL1innmid_pt_transition;
+    delete  m_h_eSAinnmid_pt_transition;
 
     delete  m_h_pSA_respt;
     delete  m_h_pCB_respt;
