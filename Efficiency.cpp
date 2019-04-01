@@ -28,8 +28,8 @@
 #include "CalcEff.cpp"
 
 //const Double_t pt_threshold[4] = {3.38,1.25,3.17,3.41};//MU4
-//const Double_t pt_threshold[4] = {5.17,3.25,4.69,5.14};//MU6
-const Double_t pt_threshold[4] = {15.87,10.73,12.21,15.87};//MU20
+const Double_t pt_threshold[4] = {5.17,3.25,4.69,5.14};//MU6
+//const Double_t pt_threshold[4] = {15.87,10.73,12.21,15.87};//MU20
 
 void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,Int_t proc){
      m_nbin_phi = np;
