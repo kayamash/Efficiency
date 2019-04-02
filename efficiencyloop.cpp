@@ -33,7 +33,7 @@ Int_t proc = 1;
 const string inputfilelist = "/home/kayamash/efflist/data18_physics_Main_Ztap.list";
 //const string inputfilelist = "/home/kayamash/efflist/mc16Jpsi_tsakai.list";
 //const string inputfilelist = "/home/kayamash/efflist/mc16_410472.list";
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190401/newdata18_physics_Main_ZtapMU4.root";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190402/newdata18_physics_Main_ZtapMU4.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190318/mc16Jpsi_tsakaiMU20.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190328/mc16_410472.root";
 const Int_t efficiency_maxenergy = 61;
@@ -70,7 +70,7 @@ void efficiencyloop(){
 	}
 	for(Int_t event = 0;event < nevent; event++){
 		if(event%100000 == 0)printf("%d\r",event);
-                eff->Execute(event);
+		eff->Execute(event);
 	}
 	cout<<"Finalize"<<endl;
 	eff->Finalize(output_file);
