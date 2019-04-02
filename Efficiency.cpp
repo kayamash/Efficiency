@@ -54,7 +54,7 @@ bool Efficiency::DicisionBarrel(Double_t eta){
 }
 
 bool Efficiency::CutTagProbe(Int_t pass){
-     if(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && m_sumReqdREF < m_tp_dR && pass > -1 && m_tag_proc == m_proc && dR > 0.2){
+     if(m_sumReqdRL1 < m_tp_extdR && 0.2 < m_tp_extdR && m_sumReqdREF < m_tp_dR && pass > -1 && m_tag_proc == m_proc){
           return kTRUE;
      }else{
           return kFALSE;
