@@ -541,9 +541,15 @@ void Efficiency::Execute(Int_t ev){
 
           //SA
                     if(CutSA(pSA_pass)){
-                         if(std::fabs(m_poff_pt*0.001) < 2.75){
+                         if(std::fabs(m_poff_pt*0.001) < 2.75 && numSP == 3){
                               std::ofstream ofs;
-                              ofs.open("LowPtPassed.txt",std::ios::app);
+                              ofs.open("/home/kayamash/LowPtPassed.txt",std::ios::app);
+                              ofs<<m_rNumber<<"   "<<m_eNumber<<std::endl;
+                              ofs.close();
+                         }
+                         if(std::fabs(m_poff_pt*0.001) < 2.75 && numBarrelSP == 3){
+                              std::ofstream ofs;
+                              ofs.open("/home/kayamash/LowPtPassedBarrel.txt",std::ios::app);
                               ofs<<m_rNumber<<"   "<<m_eNumber<<std::endl;
                               ofs.close();
                          }
