@@ -35,8 +35,8 @@ private:
   //for tree
   TTree *tChain;
   Float_t m_aipc;
-  Int_t m_eNumber;
-  Int_t m_rNumber;
+  long Int_t m_eNumber;
+  long Int_t m_rNumber;
   Double_t m_toff_pt;
   Double_t m_toff_eta;
   Double_t m_toff_exteta;
@@ -748,6 +748,8 @@ private:
 public:
   Efficiency(TTree *tree){
     tChain = tree;
+    m_eNumber = 0;
+    m_rNumber = 0;
     m_tag_proc = 0;
     m_toff_pt = 0;
     m_toff_eta = 0;
