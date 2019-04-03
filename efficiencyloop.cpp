@@ -38,7 +38,7 @@ const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190328/mc16_410472.root";
 const Int_t efficiency_maxenergy = 61;
 const Double_t efficiency_x_err = 0.25;
-const Int_t eventmode = 0;//eventmode = 0,full scan eventmode = 1,sample scan
+const Int_t eventmode = 1;//eventmode = 0,full scan eventmode = 1,sample scan
 
 //main function
 void efficiencyloop(){
