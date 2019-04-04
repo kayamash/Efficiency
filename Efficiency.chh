@@ -1549,7 +1549,7 @@ public:
 
     std::ofstream ofs;
     ofs.open("/home/kayamash/LowPtPassed.txt");
-    ofs<<"RunNumber   EventNumber"<<std::endl;
+    ofs<<"RunNumber   EventNumber   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
     ofs.close();
     ofs.open("/home/kayamash/LowPtPassedBarrel.txt");
     ofs<<"RunNumber   EventNumber"<<std::endl;
