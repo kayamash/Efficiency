@@ -544,7 +544,7 @@ void Efficiency::Execute(Int_t ev){
                          if(std::fabs(m_poff_pt*0.001) < 2.75 && numSP == 3){
                               std::ofstream ofs;
                               ofs.open("/home/kayamash/LowPtPassed.txt",std::ios::app);
-                              ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poffpt<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
+                              ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
                               ofs.close();
                          }
                          if(std::fabs(m_poff_pt*0.001) < 2.75 && numBarrelSP == 3){
