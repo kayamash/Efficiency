@@ -1162,9 +1162,15 @@ public:
     m_h_L2MuonSAvsOfflinePt[0] = new TH2F("h_L2MuonSAvsOfflineptalpha",";L2MuonSA pt[GeV];offline pt[GeV]",200,0.0,20.0,200,0.0,20.0);
     m_h_L2MuonSAvsOfflinePt[1] = new TH2F("h_L2MuonSAvsOfflineptbeta",";L2MuonSA pt[GeV];offline pt[GeV]",200,0.0,20.0,200,0.0,20.0);
     m_h_L2MuonSAvsOfflinePt[2] = new TH2F("h_L2MuonSAvsOfflineptTGC",";L2MuonSA pt[GeV];offline pt[GeV]",200,0.0,20.0,200,0.0,20.0);
-    m_h_L2MuonSAPtAlphavsBeta[0] = new TH2F("h_L2MuonSAPtAlphavsBeta",";L2MuonSA ptAlpha[GeV];L2MuonSA ptBeta[GeV]",200,0.0,20.0,200,0.0,20.0);
-    m_h_L2MuonSAPtAlphavsTGC[1] = new TH2F("h_L2MuonSAPtAlphavsTGC",";L2MuonSA ptAlpha[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
-    m_h_L2MuonSAPtBetavsTGC[2] = new TH2F("h_L2MuonSAPtBetavsTGC",";L2MuonSA ptBeta[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
+    m_h_L2MuonSAPtAlphavsBeta[0] = new TH2F("h_L2MuonSAPtAlphavsBetaAll",";L2MuonSA ptAlpha[GeV];L2MuonSA ptBeta[GeV]",200,0.0,20.0,200,0.0,20.0);
+    m_h_L2MuonSAPtAlphavsBeta[1] = new TH2F("h_L2MuonSAPtAlphavsBetaLow",";L2MuonSA ptAlpha[GeV];L2MuonSA ptBeta[GeV]",200,0.0,20.0,200,0.0,20.0);
+    m_h_L2MuonSAPtAlphavsBeta[2] = new TH2F("h_L2MuonSAPtAlphavsBetaOver",";L2MuonSA ptAlpha[GeV];L2MuonSA ptBeta[GeV]",200,0.0,20.0,200,0.0,20.0);
+    m_h_L2MuonSAPtAlphavsTGC[0] = new TH2F("h_L2MuonSAPtAlphavsTGCAll",";L2MuonSA ptAlpha[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
+    m_h_L2MuonSAPtAlphavsTGC[1] = new TH2F("h_L2MuonSAPtAlphavsTGCLow",";L2MuonSA ptAlpha[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
+    m_h_L2MuonSAPtAlphavsTGC[2] = new TH2F("h_L2MuonSAPtAlphavsTGCOver",";L2MuonSA ptAlpha[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
+    m_h_L2MuonSAPtBetavsTGC[0] = new TH2F("h_L2MuonSAPtBetavsTGCAll",";L2MuonSA ptBeta[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
+    m_h_L2MuonSAPtBetavsTGC[1] = new TH2F("h_L2MuonSAPtBetavsTGCLow",";L2MuonSA ptBeta[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
+    m_h_L2MuonSAPtBetavsTGC[2] = new TH2F("h_L2MuonSAPtBetavsTGCOver",";L2MuonSA ptBeta[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
 
               //SP,segment
 
