@@ -292,32 +292,43 @@ void Efficiency::Execute(Int_t ev){
           tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
           tEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_eta,2) + pow(m_tEF_phi - m_toff_phi,2) );
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
-          Int_t SPinner = 0;
-          Int_t SPmiddle = 0;
-          Int_t SPouter = 0;
+          bool SPinner = kFalse;
+          bool SPmiddle = kFalse;
+          bool SPouter = kFalse;
           if(pSA_superpointR_BI != 0 || pSA_superpointR_EI != 0 || pSA_superpointR_CSC != 0 || pSA_superpointR_BEE != 0 || pSA_superpointR_EE != 0){
                numSP++;
                patternSP += 1;
-               SPinner = 1;
+               SPinner = kTrue;
           }
           if(pSA_superpointR_BM != 0 || pSA_superpointR_EM != 0 || pSA_superpointR_BME != 0){
                numSP++;
                patternSP += 2;
-               SPmiddle = 1;
+               SPmiddle = kTrue;
           }
           if(pSA_superpointR_BO != 0 || pSA_superpointR_EO != 0){
                numSP++;
                patternSP += 3;
-               SPouter = 1;
+               SPouter = kTrue;
           }
-          if(SPinner == 1 && SPmiddle == 1 && SPouter == 0)patternSP = 3;
-          if(SPinner == 1 && SPmiddle == 0 && SPouter == 1)patternSP = 4;
-          if(SPinner == 0 && SPmiddle == 1 && SPouter == 1)patternSP = 5;
+          if(SPinner == kTrue && SPmiddle == kTrue && SPouter == kFalse)patternSP = 3;
+          if(SPinner == kTrue && SPmiddle == kFalse && SPouter == kTrue)patternSP = 4;
+          if(SPinner == kFalse && SPmiddle == kTrue && SPouter == kTrue)patternSP = 5;
           Int_t decision_noBIM = 0;
           for(Int_t index = 0;index < 10;index++){
                if(m_probe_segment_chamberIndex[index] == 1 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 5800 && fabs(m_probe_segment_x[index]) > 4000.)decision_noBIM++;
                //if(m_probe_segment_chamberIndex[index] == 1 && (m_probe_segment_sector[index] == 11 || m_probe_segment_sector[index] == 15) && ((pSA_roiphi > -0.8 && pSA_roiphi < -0.6) || (pSA_roiphi > -2.6 && pSA_roiphi < -2.4)) )decision_noBIM++;
           }
+          Int_t numAllSP = 0;
+          if(pSA_superpointR_BI > 0)numAllSP++;
+          if(pSA_superpointR_BM > 0)numAllSP++;
+          if(pSA_superpointR_BO > 0)numAllSP++;
+          if(pSA_superpointR_EI > 0)numAllSP++;
+          if(pSA_superpointR_EM > 0)numAllSP++;
+          if(pSA_superpointR_EO > 0)numAllSP++;
+          if(pSA_superpointR_CSC > 0)numAllSP++;
+          if(pSA_superpointR_BME > 0)numAllSP++;
+          if(pSA_superpointR_BEE > 0)numAllSP++;
+          if(pSA_superpointR_EE > 0)numAllSP++;
 
           //offline
           if(!CutTagProbe(pEFTAG_pass))return;
@@ -462,7 +473,7 @@ void Efficiency::Execute(Int_t ev){
           //SA
                if(!CutSA(pSA_pass))return;
                m_h_countSA->Fill(m_poff_eta);
-               m_h_numSP->Fill(numSP);
+               m_h_numSP->Fill(numAllSP);
                Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
                pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
                Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
