@@ -310,6 +310,7 @@ void Efficiency::Execute(Int_t ev){
           Int_t SPmiddle = 0;
           Int_t SPouter = 0;
           
+          /*
           if(pSA_superpointR_BI != 0 || pSA_superpointR_EI != 0 || pSA_superpointR_CSC != 0 || pSA_superpointR_BEE != 0 || pSA_superpointR_EE != 0){
                numSP++;
                patternSP += 1;
@@ -324,6 +325,40 @@ void Efficiency::Execute(Int_t ev){
                numSP++;
                patternSP += 3;
                SPouter = 1;
+          }
+          */
+          if(m_poff_eta < 1.05){
+               if(pSA_superpointR_BI != 0 || pSA_superpointR_BEE != 0){
+                    numSP++;
+                    patternSP += 1;
+                    SPinner = 1;
+               }
+               if(pSA_superpointR_BM != 0 || pSA_superpointR_EE != 0 || pSA_superpointR_BME != 0){
+                    numSP++;
+                    patternSP += 2;
+                    SPmiddle = 1;
+               }
+               if(pSA_superpointR_BO != 0){
+                    numSP++;
+                    patternSP += 3;
+                    SPouter = 1;
+               }
+          }else{
+               if(pSA_superpointR_EI != 0 || pSA_superpointR_CSC != 0 || pSA_superpointR_EE != 0){
+                    numSP++;
+                    patternSP += 1;
+                    SPinner = 1;
+               }
+               if(pSA_superpointR_EM != 0){
+                    numSP++;
+                    patternSP += 2;
+                    SPmiddle = 1;
+               }
+               if(pSA_superpointR_EO != 0){
+                    numSP++;
+                    patternSP += 3;
+                    SPouter = 1;
+               }
           }
           
           Int_t numBarrelSP = 0;
@@ -625,8 +660,8 @@ void Efficiency::Execute(Int_t ev){
                               m_h_L2MuonSAvsOfflinePt[0]->Fill(std::fabs(pSA_ptalpha),std::fabs(m_poff_pt*0.001));
                               m_h_L2MuonSAvsOfflinePt[1]->Fill(std::fabs(pSA_ptbeta),std::fabs(m_poff_pt*0.001));
                               m_h_L2MuonSAvsOfflinePt[2]->Fill(std::fabs(pSA_ptTGC),std::fabs(m_poff_pt*0.001));
-                              if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) < pt_threshold[EtaDistribution()])m_h_PtMethod[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
-                              if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) > pt_threshold[EtaDistribution()])m_h_PtMethodOver[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
+                              if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) < pt_threshold[EtaDistribution()] && EtaDistribution() > 0)m_h_PtMethod[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
+                              if(pt_method >= 0 && std::fabs(m_poff_pt*0.001) > pt_threshold[EtaDistribution() && EtaDistribution() > 0])m_h_PtMethodOver[pt_method]->Fill(std::fabs(m_poff_pt*0.001));
                               if(std::fabs(m_poff_pt*0.001) < pt_threshold[EtaDistribution()]){
                                    m_h_PtSA[0]->Fill(std::fabs(pSA_ptalpha));
                                    m_h_PtSA[1]->Fill(std::fabs(pSA_ptbeta));
@@ -1368,6 +1403,9 @@ void Efficiency::Finalize(TFile *tf1){
 
      for(Int_t i = 0;i < 3;i++){
           m_h_L2MuonSAvsOfflinePt[i]->Write();
+          m_h_L2MuonSAPtAlphavsBeta[i]->Write();
+          m_h_L2MuonSAPtAlphavsTGC[i]->Write();
+          m_h_L2MuonSAPtBetavsTGC[i]->Write();
      }
 
           //base,target

@@ -730,6 +730,9 @@ private:
   TH1D *m_h_ResPtSASector[16][4];
   TH1D *m_h_PtSAOverSector[16][4];
   TH1D *m_h_ResPtSAOverSector[16][4];
+  TH2F *m_h_L2MuonSAPtAlphavsBeta[3];//All,low pt,over
+  TH2F *m_h_L2MuonSAPtAlphavsTGC[3];
+  TH2F *m_h_L2MuonSAPtBetavsTGC[3];
 
 
   Int_t m_nbin_eta,m_nbin_phi;
@@ -1088,6 +1091,7 @@ public:
         m_h_ResPtSAOverSector[j][i] = new TH1D(Form("h_resptSAoversector%d%d",j,i),"L2MuonSA residual pt;L2MuonSA pt[GeV];Entries",200,-1.0,1.0);
       }
     }
+    
               //Standard
     m_h_pOffPt = new TH1D("h_poff_pt","probe offline pt;offline pt[GeV];Entries",150,0,150);
     m_h_pL1Pt = new TH1D("h_pL1_pt","probe L1 pt;L1 pt[GeV];Entries",150,0,150);
@@ -1602,6 +1606,9 @@ public:
     }
     for(Int_t i = 0;i < 3;i++){
       delete  m_h_L2MuonSAvsOfflinePt[i];
+      delete  m_h_L2MuonSAPtAlphavsBeta[i];
+      delete  m_h_L2MuonSAPtAlphavsTGC[i];
+      delete  m_h_L2MuonSAPtBetavsTGC[i];
     }
 
     delete  m_h_pOffPt;
