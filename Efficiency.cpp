@@ -389,7 +389,17 @@ void Efficiency::Execute(Int_t ev){
                if(m_probe_segment_chamberIndex[index] == 1 && sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)) > 5800 && fabs(m_probe_segment_x[index]) > 4000.)decision_noBIM++;
                //if(m_probe_segment_chamberIndex[index] == 1 && (m_probe_segment_sector[index] == 11 || m_probe_segment_sector[index] == 15) && ((pSA_roiphi > -0.8 && pSA_roiphi < -0.6) || (pSA_roiphi > -2.6 && pSA_roiphi < -2.4)) )decision_noBIM++;
           }
-          //cout<<numSP<<"   "<<numBarrelSP<<"   "<<numEndcapSP<<endl;
+          Int_t numAllSP = 0;
+          if(pSA_superpointR_BI != 0)numAllSP++;
+          if(pSA_superpointR_BM != 0)numAllSP++;
+          if(pSA_superpointR_BO != 0)numAllSP++;
+          if(pSA_superpointR_EI != 0)numAllSP++;
+          if(pSA_superpointR_EM != 0)numAllSP++;
+          if(pSA_superpointR_EO != 0)numAllSP++;
+          if(pSA_superpointR_BME != 0)numAllSP++;
+          if(pSA_superpointR_EE != 0)numAllSP++;
+          if(pSA_superpointR_CSC != 0)numAllSP++;
+          if(pSA_superpointR_BEE != 0)numAllSP++;
 
           //offline
           if(CutTagProbe(pEFTAG_pass)){
@@ -589,14 +599,14 @@ void Efficiency::Execute(Int_t ev){
                               ofs.close();
                          }
                          m_h_CountSA->Fill(m_poff_eta);
-                         m_h_NumSP->Fill(numSP);
+                         m_h_NumSP->Fill(numAllSP);
                          Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
                          pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
                          Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
                          Double_t buf_pSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_eta,2) + pow(pSA_phi - m_poff_phi,2));
                          Double_t buf_eta = 0;
                          m_h_pSAsAddress->Fill(pSA_sAddress);
-                         
+
                          m_h_L2MuonSAPtAlphavsBeta[0]->Fill(std::fabs(pSA_ptalpha),std::fabs(pSA_ptbeta));
                          m_h_L2MuonSAPtAlphavsTGC[0]->Fill(std::fabs(pSA_ptalpha),std::fabs(pSA_ptTGC));
                          m_h_L2MuonSAPtBetavsTGC[0]->Fill(std::fabs(pSA_ptbeta),std::fabs(pSA_ptTGC));
