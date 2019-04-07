@@ -1,6 +1,0 @@
-executable            = run.sh
-arguments             = $(ClusterID) $(ProcId)
-output                = /data/data3/zp/kayamash/log/efficiency.$(ClusterId).$(ProcId).out
-error                 = /data/data3/zp/kayamash/log/efficiency.$(ClusterId).$(ProcId).err
-log                   = /data/data3/zp/kayamash/log/efficiency.$(ClusterId).log
-queue
