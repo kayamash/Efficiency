@@ -310,17 +310,17 @@ void Efficiency::Execute(Int_t ev){
           bool SPmiddle = kFALSE;
           bool SPouter = kFALSE;
           if(pSA_superpointR_BI != 0 || pSA_superpointR_EI != 0 || pSA_superpointR_CSC != 0 || pSA_superpointR_BEE != 0 || pSA_superpointR_EE != 0){
-               numSP++;
+               //numSP++;
                patternSP += 1;
                SPinner = kTRUE;
           }
           if(pSA_superpointR_BM != 0 || pSA_superpointR_EM != 0 || pSA_superpointR_BME != 0){
-               numSP++;
+               //numSP++;
                patternSP += 2;
                SPmiddle = kTRUE;
           }
           if(pSA_superpointR_BO != 0 || pSA_superpointR_EO != 0){
-               numSP++;
+               //numSP++;
                patternSP += 3;
                SPouter = kTRUE;
           }
@@ -354,16 +354,16 @@ void Efficiency::Execute(Int_t ev){
                //if(m_probe_segment_chamberIndex[index] == 1 && (m_probe_segment_sector[index] == 11 || m_probe_segment_sector[index] == 15) && ((pSA_roiphi > -0.8 && pSA_roiphi < -0.6) || (pSA_roiphi > -2.6 && pSA_roiphi < -2.4)) )decision_noBIM++;
           }
           Int_t numAllSP = 0;
-          if(pSA_superpointR_BI > 0)numAllSP++;
-          if(pSA_superpointR_BM > 0)numAllSP++;
-          if(pSA_superpointR_BO > 0)numAllSP++;
-          if(pSA_superpointR_EI > 0)numAllSP++;
-          if(pSA_superpointR_EM > 0)numAllSP++;
-          if(pSA_superpointR_EO > 0)numAllSP++;
-          if(pSA_superpointR_CSC > 0)numAllSP++;
-          if(pSA_superpointR_BME > 0)numAllSP++;
-          if(pSA_superpointR_BEE > 0)numAllSP++;
-          if(pSA_superpointR_EE > 0)numAllSP++;
+          if(pSA_superpointR_BI > 0)numSP++;
+          if(pSA_superpointR_BM > 0)numSP++;
+          if(pSA_superpointR_BO > 0)numSP++;
+          if(pSA_superpointR_EI > 0)numSP++;
+          if(pSA_superpointR_EM > 0)numSP++;
+          if(pSA_superpointR_EO > 0)numSP++;
+          if(pSA_superpointR_CSC > 0)numSP++;
+          if(pSA_superpointR_BME > 0)numSP++;
+          if(pSA_superpointR_BEE > 0)numSP++;
+          if(pSA_superpointR_EE > 0)numSP++;
 
           //offline
           if(CutTagProbe(pEFTAG_pass)){
@@ -556,14 +556,8 @@ void Efficiency::Execute(Int_t ev){
                               ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
                               ofs.close();
                          }
-                         if(std::fabs(m_poff_pt*0.001) < 2.75 && numSP == 3){
-                              std::ofstream ofs;
-                              ofs.open("/home/kayamash/LowPtPassedAllSP.txt",std::ios::app);
-                              ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
-                              ofs.close();
-                         }
                          m_h_CountSA->Fill(m_poff_eta);
-                         m_h_NumSP->Fill(numAllSP);
+                         m_h_NumSP->Fill(numSP);
                          Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
                          pextSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_exteta,2) + pow(pSA_phi - m_poff_extphi,2));
                          Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
