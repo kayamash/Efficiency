@@ -1272,7 +1272,7 @@ public:
     m_h_MDTPhiLS = new TH1D("h_mdtphi_LS","mdt phi;mdt phi;Entries",600,-3.0,3.0);
     m_h_MDTPhiLSBIL = new TH1D("h_mdtphi_LSBIL","mdt phi;mdt phi;Entries",600,-3.0,3.0);
     m_h_MDTR = new TH1D("h_mdtR","mdt R;mdt R;Entries",1000,0,10000.);
-    m_h_NumSP = new TH1D("h_numSP","the number of SP;thenumber of SP;Entries",4,-0.5,3.5);
+    m_h_NumSP = new TH1D("h_numSP","the number of SP;thenumber of SP;Entries",11,-0.5,10.5);
     m_h_BIRSegment = new TH2F("h_BIRsegment","segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.);
     m_h_BIMSegment = new TH2F("h_BIMsegment","segmentXY;segmentX;segmentY",2000,-10000.,10000.,2000,-10000.,10000.);
 
