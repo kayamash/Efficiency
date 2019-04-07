@@ -327,7 +327,7 @@ void Efficiency::Execute(Int_t ev){
                SPouter = 1;
           }
           */
-          if(m_poff_eta < 1.05){
+          //if(m_poff_eta < 1.05){
           if(pSA_roieta < 1.05){
                if(pSA_superpointR_BI != 0 || pSA_superpointR_BEE != 0){
                     numSP++;
