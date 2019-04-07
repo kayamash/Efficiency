@@ -355,7 +355,7 @@ void Efficiency::Execute(Int_t ev){
                numESP++;
                SPouter = 1;
           }
-          (numBSP >= numESP) ? (numSP = numBSP) : (numESP);
+          (numBSP >= numESP) ? (numSP = numBSP) : (numSP = numESP);
           
           Int_t numBarrelSP = 0;
           if(pSA_superpointR_BI != 0){
