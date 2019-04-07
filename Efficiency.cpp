@@ -306,27 +306,27 @@ void Efficiency::Execute(Int_t ev){
           tL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_eta,2) + pow(m_tL1_phi - m_toff_phi,2) );
           tEF_dR = TMath::Sqrt(pow(m_tEF_eta - m_toff_eta,2) + pow(m_tEF_phi - m_toff_phi,2) );
           if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
-          bool SPinner = kFalse;
-          bool SPmiddle = kFalse;
-          bool SPouter = kFalse;
+          bool SPinner = kFALSE;
+          bool SPmiddle = kFALSE;
+          bool SPouter = kFALSE;
           if(pSA_superpointR_BI != 0 || pSA_superpointR_EI != 0 || pSA_superpointR_CSC != 0 || pSA_superpointR_BEE != 0 || pSA_superpointR_EE != 0){
                numSP++;
                patternSP += 1;
-               SPinner = kTrue;
+               SPinner = kTRUE;
           }
           if(pSA_superpointR_BM != 0 || pSA_superpointR_EM != 0 || pSA_superpointR_BME != 0){
                numSP++;
                patternSP += 2;
-               SPmiddle = kTrue;
+               SPmiddle = kTRUE;
           }
           if(pSA_superpointR_BO != 0 || pSA_superpointR_EO != 0){
                numSP++;
                patternSP += 3;
-               SPouter = kTrue;
+               SPouter = kTRUE;
           }
-          if(SPinner == kTrue && SPmiddle == kTrue && SPouter == kFalse)patternSP = 3;
-          if(SPinner == kTrue && SPmiddle == kFalse && SPouter == kTrue)patternSP = 4;
-          if(SPinner == kFalse && SPmiddle == kTrue && SPouter == kTrue)patternSP = 5;
+          if(SPinner == kTRUE && SPmiddle == kTRUE && SPouter == kFALSE)patternSP = 3;
+          if(SPinner == kTRUE && SPmiddle == kFALSE && SPouter == kTRUE)patternSP = 4;
+          if(SPinner == kFALSE && SPmiddle == kTRUE && SPouter == kTRUE)patternSP = 5;
           
           Int_t numBarrelSP = 0;
           if(pSA_superpointR_BI != 0){
