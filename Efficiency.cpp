@@ -1788,7 +1788,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_MDTPhiLS->Write();
      m_h_MDTPhiLSBIL->Write();
      m_h_MDTR->Write();
-     m_h_numSP->Write();
+     m_h_NumSP->Write();
      m_h_BIRSegment->Write();
      m_h_BIMSegment->Write();
      m_h_BIMrvsx->Write();
