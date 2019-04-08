@@ -434,7 +434,7 @@ void Efficiency::Execute(Int_t ev){
                     m_h_pExtL1dR->Fill(pextL1_dR);
                     m_h_eL1Pt->Fill(std::fabs(m_poff_pt*0.001));
                     m_h_L1pSAsAddress->Fill(pSA_sAddress);
-                    switch(EtaDistribution()){
+                    switch(EtaDistribution(pSA_roieta)){
                          case 0:
                          m_h_eL1PtBarrel->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eL1PtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -586,7 +586,7 @@ void Efficiency::Execute(Int_t ev){
                          m_h_pSAResPt->Fill(resSA_pt);
                          m_h_pSAPhivspSAPhims->Fill(pSA_phi,pSA_phims);
                          m_h_pSAPhivspSAPhibe->Fill(pSA_phi,pSA_phibe);
-                         switch(EtaDistribution()){
+                         switch(EtaDistribution(pSA_roieta)){
                               case 0:
                               m_h_eSAPtBarrel->Fill(std::fabs(m_poff_pt*0.001));
                               if(numSP == 1)m_h_eSAPtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
