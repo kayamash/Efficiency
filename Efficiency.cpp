@@ -472,9 +472,9 @@ void Efficiency::Execute(Int_t ev){
                     switch(EtaDistribution(pSA_roieta)){
                          case 0:
                          m_h_eL1PtBarrelRoI->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numBarrelSP == 1)m_h_eL1PtBarrel1SPRoI->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numBarrelSP == 2)m_h_eL1PtBarrel2SPRoI->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numBarrelSP == 3)m_h_eL1PtBarrel3SPRoI->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 1)m_h_eL1PtBarrel1SPRoI->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 2)m_h_eL1PtBarrel2SPRoI->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 3)m_h_eL1PtBarrel3SPRoI->Fill(std::fabs(m_poff_pt*0.001));
                          if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && pSA_superpointR_BO == 0)m_h_eL1PtBarrelIMRoI->Fill(std::fabs(m_poff_pt*0.001));
                          break;
                          default:
@@ -627,9 +627,9 @@ void Efficiency::Execute(Int_t ev){
                          switch(EtaDistribution(pSA_roieta)){
                               case 0:
                               m_h_eSAPtBarrelRoI->Fill(std::fabs(m_poff_pt*0.001));
-                              if(numBarrelSP == 1)m_h_eSAPtBarrel1SPRoI->Fill(std::fabs(m_poff_pt*0.001));
-                              if(numBarrelSP == 2)m_h_eSAPtBarrel2SPRoI->Fill(std::fabs(m_poff_pt*0.001));
-                              if(numBarrelSP == 3)m_h_eSAPtBarrel3SPRoI->Fill(std::fabs(m_poff_pt*0.001));
+                              if(numSP == 1)m_h_eSAPtBarrel1SPRoI->Fill(std::fabs(m_poff_pt*0.001));
+                              if(numSP == 2)m_h_eSAPtBarrel2SPRoI->Fill(std::fabs(m_poff_pt*0.001));
+                              if(numSP == 3)m_h_eSAPtBarrel3SPRoI->Fill(std::fabs(m_poff_pt*0.001));
                               if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && pSA_superpointR_BO == 0)m_h_eSAPtBarrelIMRoI->Fill(std::fabs(m_poff_pt*0.001));
                               break;
                               default:
