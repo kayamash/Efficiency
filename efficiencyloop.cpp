@@ -30,10 +30,10 @@ const string trigger = "mu6";
 //Jpsitap == 1,Ztap == 3
 Int_t proc = 1;
 
-const string inputfilelist = "/home/kayamash/efflist/newdata18_physics_Main_Ztap.list";
+const string inputfilelist = "/home/kayamash/efflist/20190407data18_physics_Main_Ztap.list";
 //const string inputfilelist = "/home/kayamash/efflist/mc16Jpsi_tsakai.list";
 //const string inputfilelist = "/home/kayamash/efflist/mc16_410472.list";
-const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190407/newdata18_physics_Main_ZtapMU6.root";
+const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190407/20190407data18_physics_Main_ZtapMU6.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190318/mc16Jpsi_tsakaiMU20.root";
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/20190328/mc16_410472.root";
 const Int_t efficiency_maxenergy = 61;
