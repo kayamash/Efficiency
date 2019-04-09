@@ -1562,10 +1562,10 @@ public:
 
     std::ofstream ofs;
     ofs.open("/home/kayamash/LowPtPassed20190409.txt");
-    ofs<<"RunNumber   EventNumber   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
+    ofs<<"RunNumber   EventNumber   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
     ofs.close();
     ofs.open("/home/kayamash/LowPtPassed2bin20190409.txt");
-    ofs<<"RunNumber   EventNumber   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
+    ofs<<"RunNumber   EventNumber   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
     ofs.close();
   }
 
