@@ -1571,6 +1571,9 @@ public:
     ofs.open("/home/kayamash/LowPtPassed2SP20190413.txt");
     ofs<<"RunNumber   EventNumber   SPpattern   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
     ofs.close();
+    ofs.open("/home/kayamash/LowPtPassed2SP2bin20190413.txt");
+    ofs<<"RunNumber   EventNumber   SPpattern   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
+    ofs.close();
   }
 
   void Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,Int_t proc);

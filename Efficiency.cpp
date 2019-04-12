@@ -560,14 +560,14 @@ void Efficiency::Execute(Int_t ev){
                          ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<s_patternSP<<"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
                          ofs.close();
                     }
-                         /*
-                         if(std::fabs(m_poff_pt*0.001) < 3.25 && numSP == 3){
+                         
+                         if(std::fabs(m_poff_pt*0.001) < 3.25 && numSP == 2){
                               std::ofstream ofs;
-                              ofs.open("/home/kayamash/LowPtPassed2bin20190409.txt",std::ios::app);
-                              ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
+                              ofs.open("/home/kayamash/LowPtPassed2SP2bin20190413.txt",std::ios::app);
+                              ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<s_patternSP"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
                               ofs.close();
                          }
-                         */
+                         
                     m_h_CountSA->Fill(m_poff_eta);
                     m_h_NumSP->Fill(numSP);
                     Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
