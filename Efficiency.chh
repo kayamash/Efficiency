@@ -1561,11 +1561,15 @@ public:
     m_h_EtaIndexvsSAResPtLSMinusS15inner3Station = new TH2F("h_etaIndexvsSAResPtLSMinusS15inner3Station","etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0);
 
     std::ofstream ofs;
+    /*
     ofs.open("/home/kayamash/LowPtPassed20190409.txt");
     ofs<<"RunNumber   EventNumber   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
     ofs.close();
     ofs.open("/home/kayamash/LowPtPassed2bin20190409.txt");
     ofs<<"RunNumber   EventNumber   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
+    */
+    ofs.open("/home/kayamash/LowPtPassed2SP20190413txt");
+    ofs<<"RunNumber   EventNumber   SPpattern   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
     ofs.close();
   }
 
