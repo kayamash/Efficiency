@@ -564,7 +564,7 @@ void Efficiency::Execute(Int_t ev){
                          if(std::fabs(m_poff_pt*0.001) < 3.25 && numSP == 2){
                               std::ofstream ofs;
                               ofs.open("/home/kayamash/LowPtPassed2SP2bin20190413.txt",std::ios::app);
-                              ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<s_patternSP"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
+                              ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<s_patternSP<<"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
                               ofs.close();
                          }
                          
