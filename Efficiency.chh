@@ -1568,10 +1568,10 @@ public:
     ofs.open("/home/kayamash/LowPtPassed2bin20190409.txt");
     ofs<<"RunNumber   EventNumber   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
     */
-    ofs.open("/home/kayamash/LowPtPassed2SP20190413.txt");
+    ofs.open("/home/kayamash/LowPtPassed2SPForward.txt");
     ofs<<"RunNumber   EventNumber   SPpattern   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
     ofs.close();
-    ofs.open("/home/kayamash/LowPtPassed2SP2bin20190413.txt");
+    ofs.open("/home/kayamash/LowPtPassed2SP2binForward.txt");
     ofs<<"RunNumber   EventNumber   SPpattern   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
     ofs.close();
   }
