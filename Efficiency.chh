@@ -532,6 +532,8 @@ private:
   TH1D *m_h_eSAPtBarrelIncBIM;
   TH1D *m_h_eL1PtLSIncBIM;
   TH1D *m_h_eSAPtLSIncBIM;
+  TH1D *m_h_eL1PtBarrel0SP;
+  TH1D *m_h_eSAPtBarrel0SP;
   TH1D *m_h_eL1PtBarrel1SP;
   TH1D *m_h_eSAPtBarrel1SP;
   TH1D *m_h_eL1PtBarrel2SP;
@@ -540,6 +542,8 @@ private:
   TH1D *m_h_eSAPtBarrel3SP;
   TH1D *m_h_eL1PtBarrelIM;
   TH1D *m_h_eSAPtBarrelIM;
+  TH1D *m_h_eL1PtEndcap0SP;
+  TH1D *m_h_eSAPtEndcap0SP;
   TH1D *m_h_eL1PtEndcap1SP;
   TH1D *m_h_eSAPtEndcap1SP;
   TH1D *m_h_eL1PtEndcap2SP;
@@ -548,6 +552,8 @@ private:
   TH1D *m_h_eSAPtEndcap3SP;
   TH1D *m_h_eL1PtEndcapIM;
   TH1D *m_h_eSAPtEndcapIM;
+  TH1D *m_h_eL1PtForward0SP;
+  TH1D *m_h_eSAPtForward0SP;
   TH1D *m_h_eL1PtForward1SP;
   TH1D *m_h_eSAPtForward1SP;
   TH1D *m_h_eL1PtForward2SP;
@@ -556,6 +562,8 @@ private:
   TH1D *m_h_eSAPtForward3SP;
   TH1D *m_h_eL1PtForwardIM;
   TH1D *m_h_eSAPtForwardIM;
+  TH1D *m_h_eL1PtTransition0SP;
+  TH1D *m_h_eSAPtTransition0SP;
   TH1D *m_h_eL1PtTransition1SP;
   TH1D *m_h_eSAPtTransition1SP;
   TH1D *m_h_eL1PtTransition2SP;
@@ -1379,6 +1387,8 @@ public:
     m_h_eSAPtBarrelIncBIM = new TH1D("h_eSA_ptBarrelIncBIM","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtLSIncBIM = new TH1D("h_eL1_ptLSIncBIM","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtLSIncBIM = new TH1D("h_eSA_ptLSIncBIM","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrel0SP = new TH1D("h_eL1PtBarrel0SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrel0SP = new TH1D("h_eSAPtBarrel0SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtBarrel1SP = new TH1D("h_eL1PtBarrel1SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtBarrel1SP = new TH1D("h_eSAPtBarrel1SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtBarrel2SP = new TH1D("h_eL1PtBarrel2SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
@@ -1387,6 +1397,8 @@ public:
     m_h_eSAPtBarrel3SP = new TH1D("h_eSAPtBarrel3SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtBarrelIM = new TH1D("h_eL1PtBarrelIM","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtBarrelIM = new TH1D("h_eSAPtBarrelIM","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcap0SP = new TH1D("h_eL1PtEndcap0SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcap0SP = new TH1D("h_eSAPtEndcap0SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtEndcap1SP = new TH1D("h_eL1PtEndcap1SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtEndcap1SP = new TH1D("h_eSAPtEndcap1SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtEndcap2SP = new TH1D("h_eL1PtEndcap2SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
@@ -1395,6 +1407,8 @@ public:
     m_h_eSAPtEndcap3SP = new TH1D("h_eSAPtEndcap3SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtEndcapIM = new TH1D("h_eL1PtEndcapIM","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtEndcapIM = new TH1D("h_eSAPtEndcapIM","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtForward0SP = new TH1D("h_eL1PtForward0SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtForward0SP = new TH1D("h_eSAPtForward0SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtForward1SP = new TH1D("h_eL1PtForward1SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtForward1SP = new TH1D("h_eSAPtForward1SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtForward2SP = new TH1D("h_eL1PtForward2SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
@@ -1403,6 +1417,8 @@ public:
     m_h_eSAPtForward3SP = new TH1D("h_eSAPtForward3SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtForwardIM = new TH1D("h_eL1PtForwardIM","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtForwardIM = new TH1D("h_eSAPtForwardIM","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtTransition0SP = new TH1D("h_eL1PtTransition0SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtTransition0SP = new TH1D("h_eSAPtTransition0SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtTransition1SP = new TH1D("h_eL1PtTransition1SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtTransition1SP = new TH1D("h_eSAPtTransition1SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtTransition2SP = new TH1D("h_eL1PtTransition2SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
@@ -1900,6 +1916,8 @@ public:
     delete  m_h_eSAPtBarrelIncBIM;
     delete  m_h_eL1PtLSIncBIM;
     delete  m_h_eSAPtLSIncBIM;
+    delete  m_h_eL1PtBarrel0SP;
+    delete  m_h_eSAPtBarrel0SP;
     delete  m_h_eL1PtBarrel1SP;
     delete  m_h_eSAPtBarrel1SP;
     delete  m_h_eL1PtBarrel2SP;
@@ -1908,6 +1926,8 @@ public:
     delete  m_h_eSAPtBarrel3SP;
     delete  m_h_eL1PtBarrelIM;
     delete  m_h_eSAPtBarrelIM;
+    delete  m_h_eL1PtEndcap0SP;
+    delete  m_h_eSAPtEndcap0SP;
     delete  m_h_eL1PtEndcap1SP;
     delete  m_h_eSAPtEndcap1SP;
     delete  m_h_eL1PtEndcap2SP;
@@ -1916,6 +1936,8 @@ public:
     delete  m_h_eSAPtEndcap3SP;
     delete  m_h_eL1PtEndcapIM;
     delete  m_h_eSAPtEndcapIM;
+    delete  m_h_eL1PtForward0SP;
+    delete  m_h_eSAPtForward0SP;
     delete  m_h_eL1PtForward1SP;
     delete  m_h_eSAPtForward1SP;
     delete  m_h_eL1PtForward2SP;
@@ -1924,6 +1946,8 @@ public:
     delete  m_h_eSAPtForward3SP;
     delete  m_h_eL1PtForwardIM;
     delete  m_h_eSAPtForwardIM;
+    delete  m_h_eL1PtTransition0SP;
+    delete  m_h_eSAPtTransition0SP;
     delete  m_h_eL1PtTransition1SP;
     delete  m_h_eSAPtTransition1SP;
     delete  m_h_eL1PtTransition2SP;

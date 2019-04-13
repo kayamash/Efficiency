@@ -437,6 +437,7 @@ void Efficiency::Execute(Int_t ev){
           switch(EtaDistribution(pSA_roieta)){
                case 0:
                m_h_eL1PtBarrel->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 0)m_h_eL1PtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 1)m_h_eL1PtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 2)m_h_eL1PtBarrel2SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 3)m_h_eL1PtBarrel3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -447,6 +448,7 @@ void Efficiency::Execute(Int_t ev){
                break;
                case 1:
                m_h_eL1PtTransition->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 0)m_h_eL1PtTransition0SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 1)m_h_eL1PtTransition1SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 2)m_h_eL1PtTransition2SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 3)m_h_eL1PtTransition3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -454,6 +456,7 @@ void Efficiency::Execute(Int_t ev){
                break;
                case 2:
                m_h_eL1PtEnd->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 0)m_h_eL1PtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 1)m_h_eL1PtEndcap1SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 2)m_h_eL1PtEndcap2SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 3)m_h_eL1PtEndcap3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -461,6 +464,7 @@ void Efficiency::Execute(Int_t ev){
                break;
                case 3:
                m_h_eL1PtForward->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 0)m_h_eL1PtForward0SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 1)m_h_eL1PtForward1SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 2)m_h_eL1PtForward2SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 3)m_h_eL1PtForward3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -554,7 +558,7 @@ void Efficiency::Execute(Int_t ev){
                     if(patternSP == 3)s_patternSP = "Inner+Middle";
                     if(patternSP == 4)s_patternSP = "Inner+Outer";
                     if(patternSP == 5)s_patternSP = "Middle+Outer";
-                    if(std::fabs(m_poff_pt*0.001) < 2.75 && numSP == 2 && std::fabs(m_poff_eta) > 2.0){
+                    if(std::fabs(m_poff_pt*0.001) < 2.75 && numSP == 2 && std::fabs(m_poff_eta) > 2.0{
                          std::ofstream ofs;
                          ofs.open("/home/kayamash/LowPtPassed2SPForward.txt",std::ios::app);
                          ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<s_patternSP<<"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
@@ -601,6 +605,7 @@ void Efficiency::Execute(Int_t ev){
                     switch(EtaDistribution(pSA_roieta)){
                          case 0:
                          m_h_eSAPtBarrel->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 0)m_h_eSAPtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eSAPtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eSAPtBarrel2SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 3)m_h_eSAPtBarrel3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -615,6 +620,7 @@ void Efficiency::Execute(Int_t ev){
                          break;
                          case 1:
                          m_h_eSAPtTransition->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 0)m_h_eSAPtTransition0SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eSAPtTransition1SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eSAPtTransition2SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 3)m_h_eSAPtTransition3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -622,6 +628,7 @@ void Efficiency::Execute(Int_t ev){
                          break;
                          case 2:
                          m_h_eSAPtEnd->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 0)m_h_eSAPtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eSAPtEndcap1SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eSAPtEndcap2SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 3)m_h_eSAPtEndcap3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -629,6 +636,7 @@ void Efficiency::Execute(Int_t ev){
                          break;
                          case 3:
                          m_h_eSAPtForward->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 0)m_h_eSAPtForward0SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eSAPtForward1SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eSAPtForward2SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 3)m_h_eSAPtForward3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -1548,6 +1556,8 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
      ceff.DrawEfficiency2D(m_h_eOffEtaPhi,m_h_eL1EtaPhi);
 
+     ceff.SetCondition("SAEfficiencyBarrel0SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrel0SP,m_h_eSAPtBarrel0SP,m_binmax,200,m_efficiency_xerr); 
      ceff.SetCondition("SAEfficiencyBarrel1SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtBarrel1SP,m_h_eSAPtBarrel1SP,m_binmax,200,m_efficiency_xerr); 
      ceff.SetCondition("SAEfficiencyBarrel2SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1556,6 +1566,8 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtBarrel3SP,m_h_eSAPtBarrel3SP,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyBarrelIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtBarrelIM,m_h_eSAPtBarrelIM,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcap0SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcap0SP,m_h_eSAPtEndcap0SP,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyEndcap1SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtEndcap1SP,m_h_eSAPtEndcap1SP,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyEndcap2SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1565,6 +1577,8 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.SetCondition("SAEfficiencyEndcapIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtEndcapIM,m_h_eSAPtEndcapIM,m_binmax,200,m_efficiency_xerr);
 
+     ceff.SetCondition("SAEfficiencyForward0SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtForward0SP,m_h_eSAPtForward0SP,m_binmax,200,m_efficiency_xerr); 
      ceff.SetCondition("SAEfficiencyForward1SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtForward1SP,m_h_eSAPtForward1SP,m_binmax,200,m_efficiency_xerr); 
      ceff.SetCondition("SAEfficiencyForward2SP","L2MP Fficienuoncy;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1573,6 +1587,8 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtForward3SP,m_h_eSAPtForward3SP,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyForwardIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtForwardIM,m_h_eSAPtForwardIM,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyTransition0SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtTransition0SP,m_h_eSAPtTransition0SP,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyTransition1SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtTransition1SP,m_h_eSAPtTransition1SP,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyTransition2SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1863,6 +1879,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtBarrelIncBIM->Write();
      m_h_eL1PtLSIncBIM->Write();
      m_h_eSAPtLSIncBIM->Write();
+     m_h_eL1PtBarrel0SP->Write();
+     m_h_eSAPtBarrel0SP->Write();
      m_h_eL1PtBarrel1SP->Write();
      m_h_eSAPtBarrel1SP->Write();
      m_h_eL1PtBarrel2SP->Write();
@@ -1871,6 +1889,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtBarrel3SP->Write();
      m_h_eL1PtBarrelIM->Write();
      m_h_eSAPtBarrelIM->Write();
+     m_h_eL1PtEndcap0SP->Write();
+     m_h_eSAPtEndcap0SP->Write();
      m_h_eL1PtEndcap1SP->Write();
      m_h_eSAPtEndcap1SP->Write();
      m_h_eL1PtEndcap2SP->Write();
@@ -1879,6 +1899,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtEndcap3SP->Write();
      m_h_eL1PtEndcapIM->Write();
      m_h_eSAPtEndcapIM->Write();
+     m_h_eL1PtForward0SP->Write();
+     m_h_eSAPtForward0SP->Write();
      m_h_eL1PtForward1SP->Write();
      m_h_eSAPtForward1SP->Write();
      m_h_eL1PtForward2SP->Write();
@@ -1887,6 +1909,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtForward3SP->Write();
      m_h_eL1PtForwardIM->Write();
      m_h_eSAPtForwardIM->Write();
+     m_h_eL1PtTransition0SP->Write();
+     m_h_eSAPtTransition0SP->Write();
      m_h_eL1PtTransition1SP->Write();
      m_h_eSAPtTransition1SP->Write();
      m_h_eL1PtTransition2SP->Write();
