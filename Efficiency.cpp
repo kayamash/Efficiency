@@ -558,7 +558,7 @@ void Efficiency::Execute(Int_t ev){
                     if(patternSP == 3)s_patternSP = "Inner+Middle";
                     if(patternSP == 4)s_patternSP = "Inner+Outer";
                     if(patternSP == 5)s_patternSP = "Middle+Outer";
-                    if(std::fabs(m_poff_pt*0.001) < 2.75 && numSP == 2 && std::fabs(m_poff_eta) > 2.0{
+                    if(std::fabs(m_poff_pt*0.001) < 2.75 && numSP == 2 && std::fabs(m_poff_eta) > 2.0){
                          std::ofstream ofs;
                          ofs.open("/home/kayamash/LowPtPassed2SPForward.txt",std::ios::app);
                          ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<s_patternSP<<"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
