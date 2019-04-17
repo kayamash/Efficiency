@@ -63,10 +63,10 @@ bool Efficiency::CutTagProbe(Int_t pass){
 
 bool Efficiency::CutL1(Int_t pass){
      if(pass > -1){
-         return kTRUE;
-    }else{
-     return kFALSE;
-}
+          return kTRUE;
+     }else{
+          return kFALSE;
+     }
 }
 
 bool Efficiency::CutSA(Int_t pass){
@@ -433,7 +433,6 @@ void Efficiency::Execute(Int_t ev){
           m_h_tExtL1dR->Fill(textL1_dR);
           m_h_pExtL1dR->Fill(pextL1_dR);
           m_h_eL1Pt->Fill(std::fabs(m_poff_pt*0.001));
-          m_h_L1pSAsAddress->Fill(pSA_sAddress);
           switch(EtaDistribution(pSA_roieta)){
                case 0:
                m_h_eL1PtBarrel->Fill(std::fabs(m_poff_pt*0.001));
@@ -554,6 +553,7 @@ void Efficiency::Execute(Int_t ev){
 
           //SA
                     if(!CutSA(pSA_pass))return;
+                    /*
                     string s_patternSP;
                     if(patternSP == 3)s_patternSP = "Inner+Middle";
                     if(patternSP == 4)s_patternSP = "Inner+Outer";
@@ -564,14 +564,15 @@ void Efficiency::Execute(Int_t ev){
                          ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<s_patternSP<<"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
                          ofs.close();
                     }
-                         
-                         if(std::fabs(m_poff_pt*0.001) < 3.25 && numSP == 2 && std::fabs(m_poff_eta) > 2.0){
-                              std::ofstream ofs;
-                              ofs.open("/home/kayamash/LowPtPassed2SP2binForward.txt",std::ios::app);
-                              ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<s_patternSP<<"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
-                              ofs.close();
-                         }
-                         
+
+                    if(std::fabs(m_poff_pt*0.001) < 3.25 && numSP == 2 && std::fabs(m_poff_eta) > 2.0){
+                         std::ofstream ofs;
+                         ofs.open("/home/kayamash/LowPtPassed2SP2binForward.txt",std::ios::app);
+                         ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<s_patternSP<<"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
+                         ofs.close();
+                    }
+                    */
+
                     m_h_CountSA->Fill(m_poff_eta);
                     m_h_NumSP->Fill(numSP);
                     Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
@@ -579,7 +580,6 @@ void Efficiency::Execute(Int_t ev){
                     Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
                     Double_t buf_pSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_eta,2) + pow(pSA_phi - m_poff_phi,2));
                     Double_t buf_eta = 0;
-                    m_h_pSAsAddress->Fill(pSA_sAddress);
 
                     m_h_L2MuonSAPtAlphavsBeta[0]->Fill(std::fabs(pSA_ptalpha),std::fabs(pSA_ptbeta));
                     m_h_L2MuonSAPtAlphavsTGC[0]->Fill(std::fabs(pSA_ptalpha),std::fabs(pSA_ptTGC));
@@ -628,6 +628,7 @@ void Efficiency::Execute(Int_t ev){
                          break;
                          case 2:
                          m_h_eSAPtEnd->Fill(std::fabs(m_poff_pt*0.001));
+                         m_h_RoIPhiEndcap->Fill(pSA_roieta);
                          if(numSP == 0)m_h_eSAPtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eSAPtEndcap1SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eSAPtEndcap2SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -1676,8 +1677,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_IndexvsEta->Write();
      m_h_OverPhi->Write();
      m_h_MDTChamber->Write();
-     m_h_L1pSAsAddress->Write();
-     m_h_pSAsAddress->Write();
+     m_h_RoIPhiEndcap->Write();
 
      m_h_MDTHitXY->Write();
      m_h_RPCHitXY->Write();

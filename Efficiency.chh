@@ -320,8 +320,9 @@ private:
   TH2F *m_h_IndexvsEta;
   TH1D *m_h_OverPhi;
   TH1D *m_h_MDTChamber;
-  TH1D* m_h_L1pSAsAddress;
-  TH1D* m_h_pSAsAddress;
+  TH1D *m_h_L1pSAsAddress;
+  TH1D *m_h_pSAsAddress;
+  TH1D *m_h_RoIPhiEndcap;
 
   //SP,segment
   TH2F *m_h_MDTHitXY;
@@ -1073,8 +1074,6 @@ public:
     m_h_SARoIPhiSS = new TH1D("h_saroiphi_SmallSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
     m_h_SegmentNumberBIM = new TH2F("SegmentNumberBIM","the number of segment;etaIndex;Sector number",6,0.5,6.5,2,-0.5,2.5);
     m_h_SegmentNumberBIR = new TH2F("SegmentNumberBIR","the number of segment;etaIndex;Sector number",6,0.5,6.5,2,-0.5,2.5);
-    m_h_L1pSAsAddress = new TH1D("L1pSA_sAddress","test;test;test",4,0,3);
-    m_h_pSAsAddress = new TH1D("SApSA_sAddress","test;test;test",4,0,3);
     for(Int_t i = 0; i < 16;i++){
       m_h_SectorPhi[i] = new TH1D(Form("h_sector%dphi",i+1),"sector phi;segment phi;Entries",628,-TMath::Pi(),TMath::Pi());
       m_h_SectorRoIPhi[i] = new TH1D(Form("h_sectorroi%dphi",i+1),"sector phi;segment phi;Entries",628,-TMath::Pi(),TMath::Pi());
@@ -1179,6 +1178,7 @@ public:
     m_h_L2MuonSAPtBetavsTGC[0] = new TH2F("h_L2MuonSAPtBetavsTGCAll",";L2MuonSA ptBeta[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
     m_h_L2MuonSAPtBetavsTGC[1] = new TH2F("h_L2MuonSAPtBetavsTGCLow",";L2MuonSA ptBeta[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
     m_h_L2MuonSAPtBetavsTGC[2] = new TH2F("h_L2MuonSAPtBetavsTGCOver",";L2MuonSA ptBeta[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
+    m_h_RoIPhiEndcap = new TH1D("h_RoIPhiEndcap","Endcap;RoI Phi;Entries",628,TMath::Pi(),TMath::Pi());
 
               //SP,segment
 
@@ -1583,13 +1583,13 @@ public:
     ofs.close();
     ofs.open("/home/kayamash/LowPtPassed2bin20190409.txt");
     ofs<<"RunNumber   EventNumber   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
-    */
     ofs.open("/home/kayamash/LowPtPassed2SPForward.txt");
     ofs<<"RunNumber   EventNumber   SPpattern   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
     ofs.close();
     ofs.open("/home/kayamash/LowPtPassed2SP2binForward.txt");
     ofs<<"RunNumber   EventNumber   SPpattern   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
     ofs.close();
+    */
   }
 
   void Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,Int_t proc);
@@ -1610,8 +1610,6 @@ public:
     delete m_h_pOffPhiLS;
     delete m_h_SAPhimsLS;
     delete m_h_SARoIPhiLS;
-    delete  m_h_L1pSAsAddress;
-    delete  m_h_pSAsAddress;
     for(Int_t i = 0; i < 16;i++){
       delete  m_h_SectorPhi[i];
       delete  m_h_SectorRoIPhi[i];
@@ -1710,6 +1708,7 @@ public:
     delete  m_h_IndexvsEta;
     delete  m_h_OverPhi;
     delete  m_h_MDTChamber;
+    delete  m_h_RoIPhiEndcap;
 
     delete  m_h_MDTHitXY;
     delete  m_h_RPCHitXY;
