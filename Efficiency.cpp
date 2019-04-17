@@ -628,7 +628,7 @@ void Efficiency::Execute(Int_t ev){
                          break;
                          case 2:
                          m_h_eSAPtEnd->Fill(std::fabs(m_poff_pt*0.001));
-                         m_h_RoIPhiEndcap->Fill(pSA_roieta);
+                         m_h_RoIPhiEndcap->Fill(pSA_roiphi);
                          if(numSP == 0)m_h_eSAPtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eSAPtEndcap1SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eSAPtEndcap2SP->Fill(std::fabs(m_poff_pt*0.001));
