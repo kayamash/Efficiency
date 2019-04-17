@@ -217,7 +217,7 @@ void Efficiency::Execute(Int_t ev){
      Int_t pEFTAG_pass = -1;
      Double_t segment_parameter[] = {0,0,0,0};
      Int_t areanumber = 0;
-     Int_t numSP = 0;
+     unsigned Int_t numSP = 0;
           Int_t patternSP = 0;//inner+middle=3,inner+outer=4,middle+outer=5
           Double_t overphi = TMath::Pi();
 
@@ -572,6 +572,10 @@ void Efficiency::Execute(Int_t ev){
                          ofs.close();
                     }
                     */
+                    if(std::fabs(m_poff_pt)*0.001 < 3.25){
+                         m_h_LowPtPassedRoIEtavsPhi[numSP]->Fill(pSA_roieta,pSA_roiphi);
+                         if(patternSP == 3)m_h_LowPtPassedRoIEtavsPhi[4]->Fill(pSA_roieta,pSA_roiphi);
+                    }
 
                     m_h_CountSA->Fill(m_poff_eta);
                     m_h_NumSP->Fill(numSP);
@@ -1403,6 +1407,10 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_L2MuonSAPtAlphavsBeta[i]->Write();
           m_h_L2MuonSAPtAlphavsTGC[i]->Write();
           m_h_L2MuonSAPtBetavsTGC[i]->Write();
+     }
+
+     for(Int_t i = 0;i < 5;i++){
+          m_h_LowPtPassedRoIEtavsPhi[i]->Write();
      }
 
           //base,target
