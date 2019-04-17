@@ -217,7 +217,7 @@ void Efficiency::Execute(Int_t ev){
      Int_t pEFTAG_pass = -1;
      Double_t segment_parameter[] = {0,0,0,0};
      Int_t areanumber = 0;
-     unsigned Int_t numSP = 0;
+     Int_t numSP = 0;
           Int_t patternSP = 0;//inner+middle=3,inner+outer=4,middle+outer=5
           Double_t overphi = TMath::Pi();
 
