@@ -323,7 +323,7 @@ private:
   TH1D *m_h_L1pSAsAddress;
   TH1D *m_h_pSAsAddress;
   TH1D *m_h_RoIPhiEndcap;
-  TH2F *m_h_LowPtPassedRoIEtavsPhi[5]//0SP,1SP,2SP,3SP,IM
+  TH2F *m_h_LowPtPassedRoIEtavsPhi[5];//0SP,1SP,2SP,3SP,IM
 
   //SP,segment
   TH2F *m_h_MDTHitXY;
