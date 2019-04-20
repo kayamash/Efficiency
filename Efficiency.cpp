@@ -457,6 +457,7 @@ void Efficiency::Execute(Int_t ev){
                break;
                case 2:
                m_h_eL1PtEnd->Fill(std::fabs(m_poff_pt*0.001));
+               if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eL1PhiEndcapLowPtPassed->Fill(pSA_roieta);
                if(numSP == 0){
                     m_h_eL1PtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
                     if(dividePhi >= 0)m_h_eL1PtEndcap0SPRoIPhiDivide[dividePhi]->Fill(std::fabs(m_poff_pt*0.001));
@@ -637,6 +638,7 @@ void Efficiency::Execute(Int_t ev){
                          break;
                          case 2:
                          m_h_eSAPtEnd->Fill(std::fabs(m_poff_pt*0.001));
+                         if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eSAPhiEndcapLowPtPassed->Fill(pSA_roieta);
                          m_h_RoIPhiEndcap->Fill(pSA_roiphi);
                          if(numSP == 0){
                               m_h_eSAPtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -1632,6 +1634,8 @@ void Efficiency::Finalize(TFile *tf1){
           ceff.SetCondition(Form("SAEfficiencyEndcap0SPRoIPhiDivide%d",dividePhi),"L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
           ceff.DrawEfficiency(m_h_eL1PtEndcap0SPRoIPhiDivide[dividePhi],m_h_eSAPtEndcap0SPRoIPhiDivide[dividePhi],m_binmax,200,m_efficiency_xerr);
      }
+     ceff.SetCondition("SAEfficiencyPhiEndcapLowPtPassed","SA Efficiency low p_{T} passed;RoI #phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapLowPtPassed,m_h_eSAPhiEndcapLowPtPassed);
      cout<<"eff end"<<endl;
 
      m_h_pOffPt->Write();
@@ -1958,6 +1962,8 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_eL1PtEndcap0SPRoIPhiDivide[i]->Write();
           m_h_eSAPtEndcap0SPRoIPhiDivide[i]->Write();
      }
+     m_h_eL1PhiEndcapLowPtPassed->Write();
+     m_h_eSAPhiEndcapLowPtPassed->Write();
 
      m_h_pSAResPt->Write();
      m_h_pCBResPt->Write();
