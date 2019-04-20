@@ -423,6 +423,9 @@ void Efficiency::Execute(Int_t ev){
 
           Int_t numbersector = -1;
 
+          Int_t dividePhi = (Int_t)((pSA_roieta+TMath::Pi())/0.785);
+          cout<<dividePhi<<endl;
+
 
           //L1
           if(!CutL1(pL1_pass))return;
@@ -436,7 +439,10 @@ void Efficiency::Execute(Int_t ev){
           switch(EtaDistribution(pSA_roieta)){
                case 0:
                m_h_eL1PtBarrel->Fill(std::fabs(m_poff_pt*0.001));
-               if(numSP == 0)m_h_eL1PtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 0){
+                    m_h_eL1PtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
+                    m_h_eL1PtBarrel0SPRoIPhiDivide[dividePhi]->Fill(std::fabs(m_poff_pt*0.001));
+               }
                if(numSP == 1)m_h_eL1PtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 2)m_h_eL1PtBarrel2SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 3)m_h_eL1PtBarrel3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -609,7 +615,10 @@ void Efficiency::Execute(Int_t ev){
                     switch(EtaDistribution(pSA_roieta)){
                          case 0:
                          m_h_eSAPtBarrel->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 0)m_h_eSAPtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 0){
+                              m_h_eSAPtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_eSAPtBarrel0SPRoIPhiDivide[dividePhi]->Fill(std::fabs(m_poff_pt*0.001));
+                         }
                          if(numSP == 1)m_h_eSAPtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eSAPtBarrel2SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 3)m_h_eSAPtBarrel3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -997,8 +1006,8 @@ void Efficiency::Execute(Int_t ev){
                if(pSA_sAddress == 0)overphi -= TMath::Pi()/8.0;
                numphi = overphi/TMath::Pi()*32.0 - fmod(overphi,TMath::Pi()/32.0);
                numeta += std::fabs(pSA_eta)/0.125 - fmod(std::fabs(pSA_eta),0.125);
-               if(pSA_sAddress == 0 && std::fabs(pSA_eta) < 1.0)m_h_DivideEtaOverPhiResPtLarge[numeta][numphi]->Fill(resSA_pt);
-               if(pSA_sAddress == 2 && std::fabs(pSA_eta) < 1.0)m_h_DivideEtaOverPhiResPtSmall[numeta][numphi]->Fill(resSA_pt);
+               //if(pSA_sAddress == 0 && std::fabs(pSA_eta) < 1.0)m_h_DivideEtaOverPhiResPtLarge[numeta][numphi]->Fill(resSA_pt);
+               //if(pSA_sAddress == 2 && std::fabs(pSA_eta) < 1.0)m_h_DivideEtaOverPhiResPtSmall[numeta][numphi]->Fill(resSA_pt);
 
                if(PlateauCut(std::fabs(m_poff_pt*0.001))){
                     m_h_eSAEtaPhi->Fill(m_poff_eta,m_poff_phi);
@@ -1389,8 +1398,8 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_SectorPhi[i]->Write();
           m_h_SectorRoIPhi[i]->Write();
           for(Int_t j = 0; j < 8;j++){
-               m_h_DivideEtaOverPhiResPtLarge[i][j]->Write();
-               m_h_DivideEtaOverPhiResPtSmall[i][j]->Write();
+               //m_h_DivideEtaOverPhiResPtLarge[i][j]->Write();
+               //m_h_DivideEtaOverPhiResPtSmall[i][j]->Write();
           }
      }
      for(Int_t i = 0;i < 4;i++){
@@ -1616,6 +1625,10 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtBarrel3SPRoI,m_h_eSAPtBarrel3SPRoI,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyBarrelIMRoI","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtBarrelIMRoI,m_h_eSAPtBarrelIMRoI,m_binmax,200,m_efficiency_xerr);
+     for(Int_t dividePhi = 0; dividePhi < 8; dividePhi++){
+          ceff.SetCondition(Form("SAEfficiencyBarrel0SPRoIPhiDivide%d",dividePhi),"L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+          ceff.DrawEfficiency(m_h_eL1PtBarrel0SPRoIPhiDivide[i],m_h_eSAPtBarrel0SPRoIPhiDivide[i],m_binmax,200,m_efficiency_xerr);
+     }
      cout<<"eff end"<<endl;
 
      m_h_pOffPt->Write();
@@ -1937,6 +1950,10 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtBarrel3SPRoI->Write();
      m_h_eL1PtBarrelIMRoI->Write();
      m_h_eSAPtBarrelIMRoI->Write();
+     for(Int_t i = 0;i < 8;i++){
+          m_h_eL1PtBarrel0SPRoIPhiDivide[i]->Write();
+          m_h_eSAPtBarrel0SPRoIPhiDivide[i]->Write();
+     }
 
      m_h_pSAResPt->Write();
      m_h_pCBResPt->Write();

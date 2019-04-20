@@ -584,6 +584,8 @@ private:
   TH1D *m_h_eSAPtBarrel3SPRoI;
   TH1D *m_h_eL1PtBarrelIMRoI;
   TH1D *m_h_eSAPtBarrelIMRoI;
+  TH1D *m_h_eL1PtBarrel0SPRoIPhiDivide[8];
+  TH1D *m_h_eSAPtBarrel0SPRoIPhiDivide[8];
 
   //Residual
   TH1D *m_h_pSAResPt;
@@ -722,8 +724,8 @@ private:
   TH2F *m_h_EtaIndexvsSAResPtLSMinusS15outer3Station;
   TH2F *m_h_EtaIndexvsSAResPtLSMinusS15inner3Station;
 
-  TH1D *m_h_DivideEtaOverPhiResPtLarge[16][8];
-  TH1D *m_h_DivideEtaOverPhiResPtSmall[16][8];
+  //TH1D *m_h_DivideEtaOverPhiResPtLarge[16][8];
+  //TH1D *m_h_DivideEtaOverPhiResPtSmall[16][8];
   TH2F *m_h_SegmentNumberBIM;
   TH2F *m_h_SegmentNumberBIR;
   TH1D *m_h_SectorPhi[16];
@@ -1079,8 +1081,8 @@ public:
       m_h_SectorPhi[i] = new TH1D(Form("h_sector%dphi",i+1),"sector phi;segment phi;Entries",628,-TMath::Pi(),TMath::Pi());
       m_h_SectorRoIPhi[i] = new TH1D(Form("h_sectorroi%dphi",i+1),"sector phi;segment phi;Entries",628,-TMath::Pi(),TMath::Pi());
       for(Int_t j = 0; j < 8;j++){
-        m_h_DivideEtaOverPhiResPtLarge[i][j] = new TH1D(Form("h_divideetaoverphi_resptLarge%d%d",i,j),"residual pt Large;residual pt;Entries",300,-1,1);
-        m_h_DivideEtaOverPhiResPtSmall[i][j] = new TH1D(Form("h_DivideEtaOverPhiResPtSmall%d%d",i,j),"residual pt Small;residual pt;Entries",300,-1,1);
+        //m_h_DivideEtaOverPhiResPtLarge[i][j] = new TH1D(Form("h_DivideEtaOverPhiResPtLarge%d%d",i,j),"residual pt Large;residual pt;Entries",300,-1,1);
+        //m_h_DivideEtaOverPhiResPtSmall[i][j] = new TH1D(Form("h_DivideEtaOverPhiResPtSmall%d%d",i,j),"residual pt Small;residual pt;Entries",300,-1,1);
       }
     }
     for(Int_t i = 0; i < 4;i++){
@@ -1620,8 +1622,8 @@ public:
       delete  m_h_SectorPhi[i];
       delete  m_h_SectorRoIPhi[i];
       for(Int_t j = 0; j < 8;j++){
-        delete  m_h_DivideEtaOverPhiResPtLarge[i][j];
-        delete  m_h_DivideEtaOverPhiResPtSmall[i][j];
+        //delete  m_h_DivideEtaOverPhiResPtLarge[i][j];
+        //delete  m_h_DivideEtaOverPhiResPtSmall[i][j];
       }
     }
     for(Int_t i = 0;i < 4;i++){
