@@ -1627,7 +1627,7 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtBarrelIMRoI,m_h_eSAPtBarrelIMRoI,m_binmax,200,m_efficiency_xerr);
      for(Int_t dividePhi = 0; dividePhi < 8; dividePhi++){
           ceff.SetCondition(Form("SAEfficiencyBarrel0SPRoIPhiDivide%d",dividePhi),"L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
-          ceff.DrawEfficiency(m_h_eL1PtBarrel0SPRoIPhiDivide[i],m_h_eSAPtBarrel0SPRoIPhiDivide[i],m_binmax,200,m_efficiency_xerr);
+          ceff.DrawEfficiency(m_h_eL1PtBarrel0SPRoIPhiDivide[dividePhi],m_h_eSAPtBarrel0SPRoIPhiDivide[dividePhi],m_binmax,200,m_efficiency_xerr);
      }
      cout<<"eff end"<<endl;
 
