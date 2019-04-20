@@ -590,6 +590,7 @@ private:
   TH1D *m_h_eL1PhiEndcapLowPtPassed;//offline pt<3.25GeV
   TH1D *m_h_eSAPhiEndcapLowPtPassed;//offline pt<3.25GeV
 
+
   //Residual
   TH1D *m_h_pSAResPt;
   TH1D *m_h_pCBResPt;
@@ -1455,8 +1456,8 @@ public:
     m_h_eSAPtBarrel3SPRoI = new TH1D("h_eSAPtBarrel3SPRoI","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtBarrelIMRoI = new TH1D("h_eL1PtBarrelIMRoI","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtBarrelIMRoI = new TH1D("h_eSAPtBarrelIMRoI","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
-    m_h_eL1PhiEndcapLowPtPassed = new TH1D("h_eL1PhiEndcapLowPtPassed","Low p_{T} passed;RoI #phi;Entries",628,-TMath::Pi(),TMath::Pi());
-    m_h_eSAPhiEndcapLowPtPassed = new TH1D("h_eSAPhiEndcapLowPtPassed","Low p_{T} passed;RoI #phi;Entries",628,-TMath::Pi(),TMath::Pi());
+    m_h_eL1PhiEndcapLowPtPassed = new TH1D("h_eL1PhiEndcapLowPtPassed","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0;
+    m_h_eSAPhiEndcapLowPtPassed = new TH1D("h_eSAPhiEndcapLowPtPassed","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0;
 
               //Residual
     m_h_pSAResPt = new TH1D("h_pSAResPt","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
