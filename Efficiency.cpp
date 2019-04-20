@@ -1640,7 +1640,7 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.SetCondition("SAEfficiencyPhiEndcapLowPtPassed","SA Efficiency low p_{T} passed;RoI #phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapLowPtPassed,m_h_eSAPhiEndcapLowPtPassed);
      ceff.SetCondition("SAEfficiencyPhiEndcapHighPtPassed","SA Efficiency low p_{T} passed;RoI #phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
-     ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapHighPtPassed,m_h_eSAPhiEndcapLowPtPassed);
+     ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapHighPtPassed,m_h_eSAPhiEndcapHighPtPassed);
      cout<<"eff end"<<endl;
 
      m_h_pOffPt->Write();
