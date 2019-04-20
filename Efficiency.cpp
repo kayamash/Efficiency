@@ -651,8 +651,8 @@ void Efficiency::Execute(Int_t ev){
                          if(numSP == 3)m_h_eSAPtEndcap3SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(patternSP == 3)m_h_eSAPtEndcapIM->Fill(std::fabs(m_poff_pt*0.001));
                          for(Int_t index = 0; index < 10;index++){
-                              if(m_probe_segment_chamberIndex[index] == 11)m_h_ChamberIndexvsRoIPhi->Fill(0.,pSA_roiphi);
-                              if(m_probe_segment_chamberIndex[index] == 12)m_h_ChamberIndexvsRoIPhi->Fill(0.7,pSA_roiphi);
+                              if(m_probe_segment_chamberIndex[index] == 11)m_h_ChamberIndexvsRoIPhi->Fill(0.5,pSA_roiphi);
+                              if(m_probe_segment_chamberIndex[index] == 12)m_h_ChamberIndexvsRoIPhi->Fill(1.5,pSA_roiphi);
                          }
                          break;
                          case 3:

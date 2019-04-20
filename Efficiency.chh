@@ -1199,7 +1199,7 @@ public:
     m_h_LowPtPassedRoIEtavsPhi[2] = new TH2F("h_LowPtPassedRoIEtavsPhi2SP","LowPtPassed 2SP;RoI #eta;RoI #phi",40,-4.0,4.0,40,-4.0,4.0);
     m_h_LowPtPassedRoIEtavsPhi[3] = new TH2F("h_LowPtPassedRoIEtavsPhi3SP","LowPtPassed 3SP;RoI #eta;RoI #phi",40,-4.0,4.0,40,-4.0,4.0);
     m_h_LowPtPassedRoIEtavsPhi[4] = new TH2F("h_LowPtPassedRoIEtavsPhiIM","LowPtPassed Inner + Middle;RoI #eta;RoI #phi",40,-4.0,4.0,40,-4.0,4.0);
-    m_h_ChamberIndexvsRoIPhi = new TH2F("h_ChamberIndexvsRoIPhi",";chamber index;RoI #phi",2,-0.5,1.5,628,TMath::Pi(),TMath::Pi());
+    m_h_ChamberIndexvsRoIPhi = new TH2F("h_ChamberIndexvsRoIPhi",";chamber index;RoI #phi",2,0.,2.,628,TMath::Pi(),TMath::Pi());
 
               //SP,segment
 
