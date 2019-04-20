@@ -440,9 +440,7 @@ void Efficiency::Execute(Int_t ev){
                m_h_eL1PtBarrel->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 0){
                     m_h_eL1PtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
-                    cout<<"testL1   "<<dividePhi<<endl;
-                    if(dividePhi >= 0)m_h_eL1PtBarrel0SPRoIPhiDivide[(Int_t)dividePhi]->Fill(std::fabs(m_poff_pt*0.001));
-                    cout<<"testL1 end"<<endl;
+                    if(dividePhi >= 0)m_h_eL1PtBarrel0SPRoIPhiDivide[dividePhi]->Fill(std::fabs(m_poff_pt*0.001));
                }
                if(numSP == 1)m_h_eL1PtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 2)m_h_eL1PtBarrel2SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -618,7 +616,7 @@ void Efficiency::Execute(Int_t ev){
                          m_h_eSAPtBarrel->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 0){
                               m_h_eSAPtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
-                              if(dividePhi >= 0)m_h_eSAPtBarrel0SPRoIPhiDivide[(Int_t)dividePhi]->Fill(std::fabs(m_poff_pt*0.001));
+                              if(dividePhi >= 0)m_h_eSAPtBarrel0SPRoIPhiDivide[dividePhi]->Fill(std::fabs(m_poff_pt*0.001));
                          }
                          if(numSP == 1)m_h_eSAPtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eSAPtBarrel2SP->Fill(std::fabs(m_poff_pt*0.001));
