@@ -457,7 +457,8 @@ void Efficiency::Execute(Int_t ev){
                break;
                case 2:
                m_h_eL1PtEnd->Fill(std::fabs(m_poff_pt*0.001));
-               if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eL1PhiEndcapLowPtPassed->Fill(pSA_roieta);
+               if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eL1PhiEndcapLowPtPassed->Fill(pSA_roiphi);
+               if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eL1PhiEndcapHighPtPassed->Fill(pSA_roiphi);
                if(numSP == 0){
                     m_h_eL1PtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
                     if(dividePhi >= 0)m_h_eL1PtEndcap0SPRoIPhiDivide[dividePhi]->Fill(std::fabs(m_poff_pt*0.001));
@@ -638,7 +639,8 @@ void Efficiency::Execute(Int_t ev){
                          break;
                          case 2:
                          m_h_eSAPtEnd->Fill(std::fabs(m_poff_pt*0.001));
-                         if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eSAPhiEndcapLowPtPassed->Fill(pSA_roieta);
+                         if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eSAPhiEndcapLowPtPassed->Fill(pSA_roiphi);
+                         if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eSAPhiEndcapHighPtPassed->Fill(pSA_roiphi);
                          m_h_RoIPhiEndcap->Fill(pSA_roiphi);
                          if(numSP == 0){
                               m_h_eSAPtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -1391,8 +1393,10 @@ void Efficiency::Execute(Int_t ev){
 void Efficiency::Finalize(TFile *tf1){
      CalcEff ceff;
      tf1->cd();
+     tf1->Write();//test
      //SetCondition
      //title,file title,yoffset,top margin,bottom margin,left margin,right margin
+     /*
      m_h_SARoIPhiLS->Write();
      m_h_SARoIPhiSS->Write();
      m_h_SAPhimsLS->Write();
@@ -1426,6 +1430,7 @@ void Efficiency::Finalize(TFile *tf1){
      for(Int_t i = 0;i < 5;i++){
           m_h_LowPtPassedRoIEtavsPhi[i]->Write();
      }
+     */
 
           //base,target
      cout<<"efficiency start!"<<endl;
@@ -1636,8 +1641,11 @@ void Efficiency::Finalize(TFile *tf1){
      }
      ceff.SetCondition("SAEfficiencyPhiEndcapLowPtPassed","SA Efficiency low p_{T} passed;RoI #phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapLowPtPassed,m_h_eSAPhiEndcapLowPtPassed);
+     ceff.SetCondition("SAEfficiencyPhiEndcapHighPtPassed","SA Efficiency low p_{T} passed;RoI #phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapHighPtPassed,m_h_eSAPhiEndcapLowPtPassed);
      cout<<"eff end"<<endl;
 
+     /*
      m_h_pOffPt->Write();
      m_h_pL1Pt->Write();
      m_h_pSAPt->Write();
@@ -1964,6 +1972,8 @@ void Efficiency::Finalize(TFile *tf1){
      }
      m_h_eL1PhiEndcapLowPtPassed->Write();
      m_h_eSAPhiEndcapLowPtPassed->Write();
+     m_h_eL1PhiEndcapHighPtPassed->Write();
+     m_h_eSAPhiEndcapHighPtPassed->Write();
 
      m_h_pSAResPt->Write();
      m_h_pCBResPt->Write();
@@ -2099,6 +2109,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_EtaIndexvsSAResPtLSMinusS11inner3Station->Write();
      m_h_EtaIndexvsSAResPtLSMinusS15outer3Station->Write();
      m_h_EtaIndexvsSAResPtLSMinusS15inner3Station->Write();
+     */
 
      cout<<"residual end"<<endl;
 

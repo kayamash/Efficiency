@@ -589,6 +589,8 @@ private:
   TH1D *m_h_eSAPtEndcap0SPRoIPhiDivide[8];
   TH1D *m_h_eL1PhiEndcapLowPtPassed;//offline pt<3.25GeV
   TH1D *m_h_eSAPhiEndcapLowPtPassed;//offline pt<3.25GeV
+  TH1D *m_h_eL1PhiEndcapHighPtPassed;//offline pt>10.0GeV
+  TH1D *m_h_eSAPhiEndcapHighPtPassed;//offline pt<10.0GeV
 
 
   //Residual
@@ -1458,6 +1460,8 @@ public:
     m_h_eSAPtBarrelIMRoI = new TH1D("h_eSAPtBarrelIMRoI","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PhiEndcapLowPtPassed = new TH1D("h_eL1PhiEndcapLowPtPassed","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
     m_h_eSAPhiEndcapLowPtPassed = new TH1D("h_eSAPhiEndcapLowPtPassed","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eL1PhiEndcapHighPtPassed = new TH1D("h_eL1PhiEndcapHighPtPassed","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eSAPhiEndcapHighPtPassed = new TH1D("h_eSAPhiEndcapHighPtPassed","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
 
               //Residual
     m_h_pSAResPt = new TH1D("h_pSAResPt","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
@@ -1996,6 +2000,8 @@ public:
     delete  m_h_eSAPtBarrelIMRoI;
     delete  m_h_eL1PhiEndcapLowPtPassed;
     delete  m_h_eSAPhiEndcapLowPtPassed;
+    delete  m_h_eL1PhiEndcapHighPtPassed;
+    delete  m_h_eSAPhiEndcapHighPtPassed;
 
     delete  m_h_pSAResPt;
     delete  m_h_pCBResPt;
