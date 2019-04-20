@@ -1393,10 +1393,9 @@ void Efficiency::Execute(Int_t ev){
 void Efficiency::Finalize(TFile *tf1){
      CalcEff ceff;
      tf1->cd();
-     tf1->Write();//test
+     //tf1->Write();//test
      //SetCondition
      //title,file title,yoffset,top margin,bottom margin,left margin,right margin
-     /*
      m_h_SARoIPhiLS->Write();
      m_h_SARoIPhiSS->Write();
      m_h_SAPhimsLS->Write();
@@ -1430,7 +1429,6 @@ void Efficiency::Finalize(TFile *tf1){
      for(Int_t i = 0;i < 5;i++){
           m_h_LowPtPassedRoIEtavsPhi[i]->Write();
      }
-     */
 
           //base,target
      cout<<"efficiency start!"<<endl;
@@ -1645,7 +1643,6 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapHighPtPassed,m_h_eSAPhiEndcapLowPtPassed);
      cout<<"eff end"<<endl;
 
-     /*
      m_h_pOffPt->Write();
      m_h_pL1Pt->Write();
      m_h_pSAPt->Write();
@@ -2109,7 +2106,6 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_EtaIndexvsSAResPtLSMinusS11inner3Station->Write();
      m_h_EtaIndexvsSAResPtLSMinusS15outer3Station->Write();
      m_h_EtaIndexvsSAResPtLSMinusS15inner3Station->Write();
-     */
 
      cout<<"residual end"<<endl;
 
