@@ -620,7 +620,7 @@ void Efficiency::Execute(Int_t ev){
                               m_h_eSAPtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
                               cout<<"testL1"<<endl;
                               if(dividePhi >= 0)m_h_eSAPtBarrel0SPRoIPhiDivide[dividePhi]->Fill(std::fabs(m_poff_pt*0.001));
-                              out<<"testL1 end"<<endl;
+                              cout<<"testL1 end"<<endl;
                          }
                          if(numSP == 1)m_h_eSAPtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eSAPtBarrel2SP->Fill(std::fabs(m_poff_pt*0.001));
