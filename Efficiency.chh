@@ -584,8 +584,8 @@ private:
   TH1D *m_h_eSAPtBarrel3SPRoI;
   TH1D *m_h_eL1PtBarrelIMRoI;
   TH1D *m_h_eSAPtBarrelIMRoI;
-  TH1D *m_h_eL1PtBarrel0SPRoIPhiDivide[8];
-  TH1D *m_h_eSAPtBarrel0SPRoIPhiDivide[8];
+  TH1D *m_h_eL1PtEndcap0SPRoIPhiDivide[8];
+  TH1D *m_h_eSAPtEndcap0SPRoIPhiDivide[8];
 
   //Residual
   TH1D *m_h_pSAResPt;
@@ -1103,8 +1103,8 @@ public:
     }
 
     for(Int_t i = 0;i < 8;i++){
-      m_h_eL1PtBarrel0SPRoIPhiDivide[i] = new TH1D(Form("h_eL1PtBarrel0SPRoIPhiDivide%d",i),";offline p_{T}[GeV];Entries",200,-0.25,99.75);
-      m_h_eSAPtBarrel0SPRoIPhiDivide[i] = new TH1D(Form("h_eSAPtBarrel0SPRoIPhiDivide%d",i),";offline p_{T}[GeV];Entries",200,-0.25,99.75);
+      m_h_eL1PtEndcap0SPRoIPhiDivide[i] = new TH1D(Form("h_eL1PtEndcap0SPRoIPhiDivide%d",i),";offline p_{T}[GeV];Entries",200,-0.25,99.75);
+      m_h_eSAPtEndcap0SPRoIPhiDivide[i] = new TH1D(Form("h_eSAPtEndcap0SPRoIPhiDivide%d",i),";offline p_{T}[GeV];Entries",200,-0.25,99.75);
     }
 
     
@@ -1658,8 +1658,8 @@ public:
       delete  m_h_LowPtPassedRoIEtavsPhi[i];
     }
     for(Int_t i = 0;i < 8;i++){
-      delete  m_h_eL1PtBarrel0SPRoIPhiDivide[i];
-      delete  m_h_eSAPtBarrel0SPRoIPhiDivide[i];
+      delete  m_h_eL1PtEndcap0SPRoIPhiDivide[i];
+      delete  m_h_eSAPtEndcap0SPRoIPhiDivide[i];
     }
 
     delete  m_h_pOffPt;
