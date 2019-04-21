@@ -150,8 +150,8 @@ int Efficiency::EtaDistribution(Float_t roieta){
      }
 }
 
-bool Efficiency::EndcapLargeDicision(){
-     if(std::fabs(m_pSA_roiphi) < 0.25 || 0.55 < std::fabs(m_pSA_roiphi) <= 1.025 || 1.325 < std::fabs(m_pSA_roiphi) <= 1.80 || 2.125 < std::fabs(m_pSA_roiphi) <= 2.575 || 2.90 < std::fabs(m_pSA_roiphi) <= TMath::Pi()){
+bool Efficiency::EndcapLargeDicision(Float_t roiphi){
+     if(std::fabs(roiphi) < 0.25 || 0.55 < std::fabs(roiphi) <= 1.025 || 1.325 < std::fabs(roiphi) <= 1.80 || 2.125 < std::fabs(roiphi) <= 2.575 || 2.90 < std::fabs(roiphi) <= TMath::Pi()){
           return kTRUE;
      }else{
           return kFALSE;
@@ -461,7 +461,7 @@ void Efficiency::Execute(Int_t ev){
                break;
                case 2:
                m_h_eL1PtEnd->Fill(std::fabs(m_poff_pt*0.001));
-               if(EndcapLargeDicision()){
+               if(EndcapLargeDicision(pSA_roiphi)){
                     m_h_eL1PtEndcapLarge->Fill(std::fabs(m_poff_pt*0.001));
                }else{
                     m_h_eL1PtEndcapSmall->Fill(std::fabs(m_poff_pt*0.001));
@@ -470,7 +470,7 @@ void Efficiency::Execute(Int_t ev){
                     m_h_eL1PtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
                     if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eL1PhiEndcapLowPtPassed->Fill(pSA_roiphi);
                     if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eL1PhiEndcapHighPtPassed->Fill(pSA_roiphi);
-                    if(EndcapLargeDicision()){
+                    if(EndcapLargeDicision(pSA_roiphi)){
                          m_h_eL1PtEndcap0SPLarge->Fill(std::fabs(m_poff_pt*0.001));
                     }else{
                          m_h_eL1PtEndcap0SPSmall->Fill(std::fabs(m_poff_pt*0.001));
@@ -478,7 +478,7 @@ void Efficiency::Execute(Int_t ev){
                }
                if(numSP == 1){
                     m_h_eL1PtEndcap1SP->Fill(std::fabs(m_poff_pt*0.001));
-                    if(EndcapLargeDicision()){
+                    if(EndcapLargeDicision(pSA_roiphi)){
                          m_h_eL1PtEndcap1SPLarge->Fill(std::fabs(m_poff_pt*0.001));
                     }else{
                          m_h_eL1PtEndcap1SPSmall->Fill(std::fabs(m_poff_pt*0.001));
@@ -486,7 +486,7 @@ void Efficiency::Execute(Int_t ev){
                }
                if(numSP == 2){
                     m_h_eL1PtEndcap2SP->Fill(std::fabs(m_poff_pt*0.001));
-                    if(EndcapLargeDicision()){
+                    if(EndcapLargeDicision(pSA_roiphi)){
                          m_h_eL1PtEndcap2SPLarge->Fill(std::fabs(m_poff_pt*0.001));
                     }else{
                          m_h_eL1PtEndcap2SPSmall->Fill(std::fabs(m_poff_pt*0.001));
@@ -494,7 +494,7 @@ void Efficiency::Execute(Int_t ev){
                }
                if(numSP == 3){
                     m_h_eL1PtEndcap3SP->Fill(std::fabs(m_poff_pt*0.001));
-                    if(EndcapLargeDicision()){
+                    if(EndcapLargeDicision(pSA_roiphi)){
                          m_h_eL1PtEndcap3SPLarge->Fill(std::fabs(m_poff_pt*0.001));
                     }else{
                          m_h_eL1PtEndcap3SPSmall->Fill(std::fabs(m_poff_pt*0.001));
@@ -502,7 +502,7 @@ void Efficiency::Execute(Int_t ev){
                }
                if(patternSP == 3){
                     m_h_eL1PtEndcapIM->Fill(std::fabs(m_poff_pt*0.001));
-                    if(EndcapLargeDicision()){
+                    if(EndcapLargeDicision(pSA_roiphi)){
                          m_h_eL1PtEndcapIMLarge->Fill(std::fabs(m_poff_pt*0.001));
                     }else{
                          m_h_eL1PtEndcapIMSmall->Fill(std::fabs(m_poff_pt*0.001));
@@ -681,14 +681,14 @@ void Efficiency::Execute(Int_t ev){
                          case 2:
                          m_h_eSAPtEnd->Fill(std::fabs(m_poff_pt*0.001));
                          m_h_RoIPhiEndcap->Fill(pSA_roiphi);
-                         if(EndcapLargeDicision()){
+                         if(EndcapLargeDicision(pSA_roiphi)){
                               m_h_eSAPtEndcapLarge->Fill(std::fabs(m_poff_pt*0.001));
                          }else{
                               m_h_eSAPtEndcapSmall->Fill(std::fabs(m_poff_pt*0.001));
                          }
                          if(numSP == 0){
                               m_h_eSAPtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
-                              if(EndcapLargeDicision()){
+                              if(EndcapLargeDicision(pSA_roiphi)){
                                    m_h_eSAPtEndcap0SPLarge->Fill(std::fabs(m_poff_pt*0.001));
                               }else{
                                    m_h_eSAPtEndcap0SPSmall->Fill(std::fabs(m_poff_pt*0.001));
@@ -698,7 +698,7 @@ void Efficiency::Execute(Int_t ev){
                          }
                          if(numSP == 1){
                               m_h_eSAPtEndcap1SP->Fill(std::fabs(m_poff_pt*0.001));
-                              if(EndcapLargeDicision()){
+                              if(EndcapLargeDicision(pSA_roiphi)){
                                    m_h_eSAPtEndcap1SPLarge->Fill(std::fabs(m_poff_pt*0.001));
                               }else{
                                    m_h_eSAPtEndcap1SPSmall->Fill(std::fabs(m_poff_pt*0.001));
@@ -706,7 +706,7 @@ void Efficiency::Execute(Int_t ev){
                          }
                          if(numSP == 2){
                               m_h_eSAPtEndcap2SP->Fill(std::fabs(m_poff_pt*0.001));
-                              if(EndcapLargeDicision()){
+                              if(EndcapLargeDicision(pSA_roiphi)){
                                    m_h_eSAPtEndcap2SPLarge->Fill(std::fabs(m_poff_pt*0.001));
                               }else{
                                    m_h_eSAPtEndcap2SPSmall->Fill(std::fabs(m_poff_pt*0.001));
@@ -714,7 +714,7 @@ void Efficiency::Execute(Int_t ev){
                          }
                          if(numSP == 3){
                               m_h_eSAPtEndcap3SP->Fill(std::fabs(m_poff_pt*0.001));
-                              if(EndcapLargeDicision()){
+                              if(EndcapLargeDicision(pSA_roiphi)){
                                    m_h_eSAPtEndcap3SPLarge->Fill(std::fabs(m_poff_pt*0.001));
                               }else{
                                    m_h_eSAPtEndcap3SPSmall->Fill(std::fabs(m_poff_pt*0.001));
@@ -722,7 +722,7 @@ void Efficiency::Execute(Int_t ev){
                          }
                          if(patternSP == 3){
                               m_h_eSAPtEndcapIM->Fill(std::fabs(m_poff_pt*0.001));
-                              if(EndcapLargeDicision()){
+                              if(EndcapLargeDicision(pSA_roiphi)){
                                    m_h_eSAPtEndcapIMLarge->Fill(std::fabs(m_poff_pt*0.001));
                               }else{
                                    m_h_eSAPtEndcapIMSmall->Fill(std::fabs(m_poff_pt*0.001));

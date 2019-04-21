@@ -1670,7 +1670,7 @@ public:
   int DicisionArea(Double_t roiphi);
   int EtaDistribution();
   int EtaDistribution(Float_t roieta);
-  bool EndcapLargeDicision();
+  bool EndcapLargeDicision(Float_t roiphi);
   void Execute(Int_t ev);
   void Finalize(TFile *tf1);
   ~Efficiency(){
