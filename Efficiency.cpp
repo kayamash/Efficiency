@@ -151,9 +151,11 @@ int Efficiency::EtaDistribution(Float_t roieta){
 }
 
 bool Efficiency::EndcapLargeDicision(Float_t roiphi){
-     if(std::fabs(roiphi) < 0.25 || 0.55 < std::fabs(roiphi) <= 1.025 || 1.325 < std::fabs(roiphi) <= 1.80 || 2.125 < std::fabs(roiphi) <= 2.575 || 2.90 < std::fabs(roiphi) <= TMath::Pi()){
+     if(std::fabs(roiphi) <= 0.25 || 0.55 < std::fabs(roiphi) <= 1.025 || 1.325 < std::fabs(roiphi) <= 1.80 || 2.125 < std::fabs(roiphi) <= 2.575 || 2.90 < std::fabs(roiphi) <= TMath::Pi()){
+          cout<<"Endcap Large!"<<endl;
           return kTRUE;
      }else{
+          cout<<"Endcap Small!"<<endl;
           return kFALSE;
      }
 }
