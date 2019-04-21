@@ -1455,6 +1455,13 @@ void Efficiency::Execute(Int_t ev){
                }else{
                     m_h_pCBResPtEndcap->Fill(resCB_pt);
                }
+               if(EtaDistribution(pSA_roieta) == 2 && numSP == 0){
+                    if(EndcapLargeDicision(pSA_roiphi)){
+                         m_h_eCBPtEndcap0SPLarge->Fill(std::fabs(m_poff_pt*0.001));
+                    }else{
+                         m_h_eCBPtEndcap0SPSmall->Fill(std::fabs(m_poff_pt*0.001));
+                    }
+               }
 
           //EF
                if(!CutEF(pEF_pass))return;
@@ -1494,6 +1501,13 @@ void Efficiency::Execute(Int_t ev){
                }else{
                     m_h_eEFPtEnd->Fill(std::fabs(m_poff_pt*0.001));
                     m_h_pEFResPtEndcap->Fill(resEF_pt);
+               }
+               if(EtaDistribution(pSA_roieta) == 2 && numSP == 0){
+                    if(EndcapLargeDicision(pSA_roiphi)){
+                         m_h_eEFPtEndcap0SPLarge->Fill(std::fabs(m_poff_pt*0.001));
+                    }else{
+                         m_h_eEFPtEndcap0SPSmall->Fill(std::fabs(m_poff_pt*0.001));
+                    }
                }
 }//Execute
 
@@ -1713,6 +1727,10 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtEndcapLarge,m_h_eSAPtEndcapLarge,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyEndcap0SPLarge","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtEndcap0SPLarge,m_h_eSAPtEndcap0SPLarge,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("CBEfficiencyEndcap0SPLarge","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eSAPtEndcap0SPLarge,m_h_eCBPtEndcap0SPLarge,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("EFEfficiencyEndcap0SPLarge","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eCBPtEndcap0SPLarge,m_h_eEFPtEndcap0SPLarge,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyEndcap1SPLarge","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtEndcap1SPLarge,m_h_eSAPtEndcap1SPLarge,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyEndcap2SPLarge","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1725,6 +1743,10 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtEndcapSmall,m_h_eSAPtEndcapSmall,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyEndcap0SPSmall","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtEndcap0SPSmall,m_h_eSAPtEndcap0SPSmall,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("CBEfficiencyEndcap0SPSmall","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eSAPtEndcap0SPSmall,m_h_eCBPtEndcap0SPSmall,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("EFEfficiencyEndcap0SPSmall","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eCBPtEndcap0SPSmall,m_h_eEFPtEndcap0SPSmall,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyEndcap1SPSmall","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtEndcap1SPSmall,m_h_eSAPtEndcap1SPSmall,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyEndcap2SPSmall","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -2068,6 +2090,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtEndcapLarge->Write();
      m_h_eL1PtEndcap0SPLarge->Write();
      m_h_eSAPtEndcap0SPLarge->Write();
+     m_h_eCBPtEndcap0SPLarge->Write();
+     m_h_eEFPtEndcap0SPLarge->Write();
      m_h_eL1PtEndcap1SPLarge->Write();
      m_h_eSAPtEndcap1SPLarge->Write();
      m_h_eL1PtEndcap2SPLarge->Write();
@@ -2080,6 +2104,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtEndcapSmall->Write();
      m_h_eL1PtEndcap0SPSmall->Write();
      m_h_eSAPtEndcap0SPSmall->Write();
+     m_h_eCBPtEndcap0SPSmall->Write();
+     m_h_eEFPtEndcap0SPSmall->Write();
      m_h_eL1PtEndcap1SPSmall->Write();
      m_h_eSAPtEndcap1SPSmall->Write();
      m_h_eL1PtEndcap2SPSmall->Write();

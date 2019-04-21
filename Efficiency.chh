@@ -560,6 +560,8 @@ private:
   TH1D *m_h_eSAPtEndcapLarge;
   TH1D *m_h_eL1PtEndcap0SPLarge;
   TH1D *m_h_eSAPtEndcap0SPLarge;
+  TH1D *m_h_eCBPtEndcap0SPLarge;
+  TH1D *m_h_eEFPtEndcap0SPLarge;
   TH1D *m_h_eL1PtEndcap1SPLarge;
   TH1D *m_h_eSAPtEndcap1SPLarge;
   TH1D *m_h_eL1PtEndcap2SPLarge;
@@ -572,6 +574,8 @@ private:
   TH1D *m_h_eSAPtEndcapSmall;
   TH1D *m_h_eL1PtEndcap0SPSmall;
   TH1D *m_h_eSAPtEndcap0SPSmall;
+  TH1D *m_h_eCBPtEndcap0SPSmall;
+  TH1D *m_h_eEFPtEndcap0SPSmall;
   TH1D *m_h_eL1PtEndcap1SPSmall;
   TH1D *m_h_eSAPtEndcap1SPSmall;
   TH1D *m_h_eL1PtEndcap2SPSmall;
@@ -1454,6 +1458,8 @@ public:
     m_h_eSAPtEndcapLarge = new TH1D("h_eSAPtEndcapLarge","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtEndcap0SPLarge = new TH1D("h_eL1PtEndcap0SPLarge","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtEndcap0SPLarge = new TH1D("h_eSAPtEndcap0SPLarge","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eCBPtEndcap0SPLarge = new TH1D("h_eCBPtEndcap0SPLarge","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eEFPtEndcap0SPLarge = new TH1D("h_eEFPtEndcap0SPLarge","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtEndcap1SPLarge = new TH1D("h_eL1PtEndcap1SPLarge","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtEndcap1SPLarge = new TH1D("h_eSAPtEndcap1SPLarge","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtEndcap2SPLarge = new TH1D("h_eL1PtEndcap2SPLarge","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
@@ -1466,6 +1472,8 @@ public:
     m_h_eSAPtEndcapSmall = new TH1D("h_eSAPtEndcapSmall","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtEndcap0SPSmall = new TH1D("h_eL1PtEndcap0SPSmall","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtEndcap0SPSmall = new TH1D("h_eSAPtEndcap0SPSmall","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eCBPtEndcap0SPSmall = new TH1D("h_eCBPtEndcap0SPSmall","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eEFPtEndcap0SPSmall = new TH1D("h_eEFPtEndcap0SPSmall","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtEndcap1SPSmall = new TH1D("h_eL1PtEndcap1SPSmall","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtEndcap1SPSmall = new TH1D("h_eSAPtEndcap1SPSmall","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtEndcap2SPSmall = new TH1D("h_eL1PtEndcap2SPSmall","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
@@ -2019,6 +2027,8 @@ public:
     delete  m_h_eSAPtEndcapSmall;
     delete  m_h_eL1PtEndcap0SPSmall;
     delete  m_h_eSAPtEndcap0SPSmall;
+    delete  m_h_eCBPtEndcap0SPSmall;
+    delete  m_h_eEFPtEndcap0SPSmall;
     delete  m_h_eL1PtEndcap1SPSmall;
     delete  m_h_eSAPtEndcap1SPSmall;
     delete  m_h_eL1PtEndcap2SPSmall;
@@ -2031,6 +2041,8 @@ public:
     delete  m_h_eSAPtEndcapLarge;
     delete  m_h_eL1PtEndcap0SPLarge;
     delete  m_h_eSAPtEndcap0SPLarge;
+    delete  m_h_eCBPtEndcap0SPLarge;
+    delete  m_h_eEFPtEndcap0SPLarge;
     delete  m_h_eL1PtEndcap1SPLarge;
     delete  m_h_eSAPtEndcap1SPLarge;
     delete  m_h_eL1PtEndcap2SPLarge;
