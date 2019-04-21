@@ -235,6 +235,7 @@ void Efficiency::Execute(Int_t ev){
      Double_t pSA_superpointR_EE = 0;
      Double_t pSA_superpointR_CSC = 0;
      Double_t pSA_superpointR_BEE = 0;
+     Double_t pSA_superpointSlope_BM = 0;
      Double_t pCB_pt = -99999;
      Double_t pCB_eta = 0;
      Double_t pCB_phi = 0;
@@ -313,6 +314,7 @@ void Efficiency::Execute(Int_t ev){
                     pSA_superpointR_EE = m_pSA_superpointR_EE->at(method);
                     pSA_superpointR_CSC = m_pSA_superpointR_CSC->at(method);
                     pSA_superpointR_BEE = m_pSA_superpointR_BEE->at(method);
+                    pSA_superpointSlope_BM = m_pSA_superpointSlope_BM->at(method);
                }
           }
 
@@ -696,6 +698,21 @@ void Efficiency::Execute(Int_t ev){
                               m_h_MDTChamber->Fill(pSA_mdthitChamber->at(MDTsize));
                          }
                          if(pSA_sAddress == 0 && nosector9 == 0)m_h_eSAPtLargeNormal->Fill(std::fabs(m_poff_pt*0.001));
+                         //barrel alpha
+                         if(pSA_superpointR_BM != 0 && (pSA_superpointR_BI == 0 || pSA_superpointR_BO == 0)){
+                              Double_t barrelalpha = 0;
+                              barrelalpha = atan(pSA_superpointZ_BM/pSA_superpointR_BM) - atan(pSA_superpointSlope_BM);
+                              m_h_BarrelAlpha->Fill(barrelalpha);
+                         }
+                         //barrel alpha end
+
+                         //barrel beta
+                         if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && pSA_superpointR_BO == 0){
+                              Double_t barrelbeta = 0;
+                              barrelbeta = atan(pSA_superpointSlope_BI) - atan(pSA_superpointSlope_BM);
+                              m_h_BarrelBeta->Fill(barrelbeta);
+                         }
+
                          break;
                          case 1:
                          m_h_eSAPtTransition->Fill(std::fabs(m_poff_pt*0.001));
@@ -1865,6 +1882,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_MDTChamber->Write();
      m_h_RoIPhiEndcap->Write();
      m_h_ChamberIndexvsRoIPhi->Write();
+     m_h_BarrelAlpha->Write();
+     m_h_BarrelBeta->Write();
 
      m_h_MDTHitXY->Write();
      m_h_RPCHitXY->Write();

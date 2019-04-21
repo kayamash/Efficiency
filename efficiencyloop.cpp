@@ -70,7 +70,7 @@ void efficiencyloop(){
 	}
 	for(Int_t event = 0;event < nevent; event++){
 		//if(event%100000 == 0)printf("%d\r",event);
-		if(event%1000000 == 0)cout<<"The number of events is "<<event<<" now!"<<endl;
+		if(event%1000000 == 0)cout<<"The number of entry is "<<event<<" now!"<<endl;
 		eff->Execute(event);
 	}
 	cout<<"Finalize"<<endl;
