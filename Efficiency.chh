@@ -615,6 +615,10 @@ private:
   TH1D *m_h_eSAPhiEndcapLowPtPassed;//offline pt<3.25GeV
   TH1D *m_h_eL1PhiEndcapHighPtPassed;//offline pt>10.0GeV
   TH1D *m_h_eSAPhiEndcapHighPtPassed;//offline pt<10.0GeV
+  TH1D *m_h_eL1PhiEndcapLowPtPassed0SP;//offline pt<3.25GeV
+  TH1D *m_h_eSAPhiEndcapLowPtPassed0SP;//offline pt<3.25GeV
+  TH1D *m_h_eL1PhiEndcapHighPtPassed0SP;//offline pt>10.0GeV
+  TH1D *m_h_eSAPhiEndcapHighPtPassed0SP;//offline pt<10.0GeV
 
 
   //Residual
@@ -1504,6 +1508,10 @@ public:
     m_h_eSAPhiEndcapLowPtPassed = new TH1D("h_eSAPhiEndcapLowPtPassed","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
     m_h_eL1PhiEndcapHighPtPassed = new TH1D("h_eL1PhiEndcapHighPtPassed","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
     m_h_eSAPhiEndcapHighPtPassed = new TH1D("h_eSAPhiEndcapHighPtPassed","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eL1PhiEndcapLowPtPassed0SP = new TH1D("h_eL1PhiEndcapLowPtPassed0SP","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eSAPhiEndcapLowPtPassed0SP = new TH1D("h_eSAPhiEndcapLowPtPassed0SP","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eL1PhiEndcapHighPtPassed0SP = new TH1D("h_eL1PhiEndcapHighPtPassed0SP","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eSAPhiEndcapHighPtPassed0SP = new TH1D("h_eSAPhiEndcapHighPtPassed0SP","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
 
               //Residual
     m_h_pSAResPt = new TH1D("h_pSAResPt","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
@@ -2065,6 +2073,10 @@ public:
     delete  m_h_eSAPhiEndcapLowPtPassed;
     delete  m_h_eL1PhiEndcapHighPtPassed;
     delete  m_h_eSAPhiEndcapHighPtPassed;
+    delete  m_h_eL1PhiEndcapLowPtPassed0SP;
+    delete  m_h_eSAPhiEndcapLowPtPassed0SP;
+    delete  m_h_eL1PhiEndcapHighPtPassed0SP;
+    delete  m_h_eSAPhiEndcapHighPtPassed0SP;
 
     delete  m_h_pSAResPt;
     delete  m_h_pCBResPt;

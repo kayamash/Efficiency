@@ -486,6 +486,8 @@ void Efficiency::Execute(Int_t ev){
                break;
                case 2:
                m_h_eL1PtEnd->Fill(std::fabs(m_poff_pt*0.001));
+               if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eL1PhiEndcapLowPtPassed->Fill(pSA_roiphi);
+               if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eL1PhiEndcapHighPtPassed->Fill(pSA_roiphi);
                if(EndcapLargeDicision(pSA_roiphi)){
                     m_h_eL1PtEndcapLarge->Fill(std::fabs(m_poff_pt*0.001));
                }else{
@@ -493,8 +495,8 @@ void Efficiency::Execute(Int_t ev){
                }
                if(numSP == 0){
                     m_h_eL1PtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
-                    if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eL1PhiEndcapLowPtPassed->Fill(pSA_roiphi);
-                    if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eL1PhiEndcapHighPtPassed->Fill(pSA_roiphi);
+                    if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eL1PhiEndcapLowPtPassed0SP->Fill(pSA_roiphi);
+                    if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eL1PhiEndcapHighPtPassed0SP->Fill(pSA_roiphi);
                     if(EndcapLargeDicision(pSA_roiphi)){
                          m_h_eL1PtEndcap0SPLarge->Fill(std::fabs(m_poff_pt*0.001));
                     }else{
@@ -706,6 +708,8 @@ void Efficiency::Execute(Int_t ev){
                          case 2:
                          m_h_eSAPtEnd->Fill(std::fabs(m_poff_pt*0.001));
                          m_h_RoIPhiEndcap->Fill(pSA_roiphi);
+                         if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eSAPhiEndcapLowPtPassed->Fill(pSA_roiphi);
+                         if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eSAPhiEndcapHighPtPassed->Fill(pSA_roiphi);
                          if(EndcapLargeDicision(pSA_roiphi)){
                               m_h_eSAPtEndcapLarge->Fill(std::fabs(m_poff_pt*0.001));
                          }else{
@@ -718,8 +722,8 @@ void Efficiency::Execute(Int_t ev){
                               }else{
                                    m_h_eSAPtEndcap0SPSmall->Fill(std::fabs(m_poff_pt*0.001));
                               }
-                              if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eSAPhiEndcapLowPtPassed->Fill(pSA_roiphi);
-                              if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eSAPhiEndcapHighPtPassed->Fill(pSA_roiphi);
+                              if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eSAPhiEndcapLowPtPassed0SP->Fill(pSA_roiphi);
+                              if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eSAPhiEndcapHighPtPassed0SP->Fill(pSA_roiphi);
                          }
                          if(numSP == 1){
                               m_h_eSAPtEndcap1SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -1764,6 +1768,10 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapLowPtPassed,m_h_eSAPhiEndcapLowPtPassed);
      ceff.SetCondition("SAEfficiencyPhiEndcapHighPtPassed","SA Efficiency low p_{T} passed;RoI #phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapHighPtPassed,m_h_eSAPhiEndcapHighPtPassed);
+     ceff.SetCondition("SAEfficiencyPhiEndcapLowPtPassed0SP","SA Efficiency low p_{T} passed;RoI #phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapLowPtPassed0SP,m_h_eSAPhiEndcapLowPtPassed0SP);
+     ceff.SetCondition("SAEfficiencyPhiEndcapHighPtPassed0SP","SA Efficiency low p_{T} passed;RoI #phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapHighPtPassed0SP,m_h_eSAPhiEndcapHighPtPassed0SP);
      cout<<"eff end"<<endl;
 
      m_h_pOffPt->Write();
@@ -2114,6 +2122,10 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPhiEndcapLowPtPassed->Write();
      m_h_eL1PhiEndcapHighPtPassed->Write();
      m_h_eSAPhiEndcapHighPtPassed->Write();
+     m_h_eL1PhiEndcapLowPtPassed0SP->Write();
+     m_h_eSAPhiEndcapLowPtPassed0SP->Write();
+     m_h_eL1PhiEndcapHighPtPassed0SP->Write();
+     m_h_eSAPhiEndcapHighPtPassed0SP->Write();
 
      m_h_pSAResPt->Write();
      m_h_pCBResPt->Write();
