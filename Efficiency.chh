@@ -128,6 +128,7 @@ private:
   std::vector<Double_t> *m_pSA_superpointR_EE;
   std::vector<Double_t> *m_pSA_superpointR_CSC;
   std::vector<Double_t> *m_pSA_superpointR_BEE;
+  std::vector<Double_t> *m_pSA_superpointSlope_BI;
   std::vector<Double_t> *m_pSA_superpointSlope_BM;
   std::vector<Double_t> *m_pCB_pt;
   std::vector<Double_t> *m_pCB_eta;
@@ -235,6 +236,7 @@ private:
   TBranch *b_pSA_superpointR_EE;
   TBranch *b_pSA_superpointR_CSC;
   TBranch *b_pSA_superpointR_BEE;
+  TBranch *b_pSA_superpointSlope_BI;
   TBranch *b_pSA_superpointSlope_BM;
 
   TBranch *b_pCB_pt;
@@ -884,6 +886,8 @@ public:
     m_pSA_superpointR_EE = 0;
     m_pSA_superpointR_CSC = 0;
     m_pSA_superpointR_BEE = 0;
+    m_pSA_superpointSlope_BI = 0;
+    m_pSA_superpointSlope_BM = 0;
     m_pCB_pt = 0;
     m_pCB_eta = 0;
     m_pCB_phi = 0;
@@ -992,6 +996,7 @@ public:
     tChain->SetBranchStatus("probe_mesSA_superPointR_EE",1);
     tChain->SetBranchStatus("probe_mesSA_superPointR_CSC",1);
     tChain->SetBranchStatus("probe_mesSA_superPointR_BEE",1);
+    tChain->SetBranchStatus("probe_mesSA_superPointSlope_BI",1);
     tChain->SetBranchStatus("probe_mesSA_superPointSlope_BM",1);
     tChain->SetBranchStatus("probe_mesCB_pt",1);
     tChain->SetBranchStatus("probe_mesCB_eta",1);
@@ -1100,6 +1105,7 @@ public:
     tChain->SetBranchAddress("probe_mesSA_superPointR_EE",&m_pSA_superpointR_EE,&b_pSA_superpointR_EE);
     tChain->SetBranchAddress("probe_mesSA_superPointR_CSC",&m_pSA_superpointR_CSC,&b_pSA_superpointR_CSC);
     tChain->SetBranchAddress("probe_mesSA_superPointR_BEE",&m_pSA_superpointR_BEE,&b_pSA_superpointR_BEE);
+    tChain->SetBranchAddress("probe_mesSA_superPointSlope_BI",&m_pSA_superpointSlope_BI,&b_pSA_superpointSlope_BI);
     tChain->SetBranchAddress("probe_mesSA_superPointSlope_BM",&m_pSA_superpointSlope_BM,&b_pSA_superpointSlope_BM);
     tChain->SetBranchAddress("probe_mesCB_pt",&m_pCB_pt,&b_pCB_pt);
     tChain->SetBranchAddress("probe_mesCB_eta",&m_pCB_eta,&b_pCB_eta);

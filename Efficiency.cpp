@@ -235,6 +235,7 @@ void Efficiency::Execute(Int_t ev){
      Double_t pSA_superpointR_EE = 0;
      Double_t pSA_superpointR_CSC = 0;
      Double_t pSA_superpointR_BEE = 0;
+     Double_t pSA_superpointSlope_BI = 0;
      Double_t pSA_superpointSlope_BM = 0;
      Double_t pCB_pt = -99999;
      Double_t pCB_eta = 0;
@@ -314,6 +315,7 @@ void Efficiency::Execute(Int_t ev){
                     pSA_superpointR_EE = m_pSA_superpointR_EE->at(method);
                     pSA_superpointR_CSC = m_pSA_superpointR_CSC->at(method);
                     pSA_superpointR_BEE = m_pSA_superpointR_BEE->at(method);
+                    pSA_superpointSlope_BI = m_pSA_superpointSlope_BI->at(method);
                     pSA_superpointSlope_BM = m_pSA_superpointSlope_BM->at(method);
                }
           }
