@@ -152,7 +152,6 @@ int Efficiency::EtaDistribution(Float_t roieta){
 }
 
 bool Efficiency::EndcapLargeDicision(Float_t roiphi){
-     cout<<std::fabs(roiphi)<<endl;
      /*
      if(std::fabs(roiphi) <= LargeRegion[0] || LargeRegion[1] < std::fabs(roiphi) <= LargeRegion[2] || LargeRegion[3] < std::fabs(roiphi) <= LargeRegion[4] || LargeRegion[5] < std::fabs(roiphi) <= LargeRegion[6] || LargeRegion[7] < std::fabs(roiphi) <= LargeRegion[8]){
           cout<<"Endcap Large!"<<endl;
@@ -163,31 +162,22 @@ bool Efficiency::EndcapLargeDicision(Float_t roiphi){
      }
      */
      if(std::fabs(roiphi) <= LargeRegion[0]){
-          cout<<"Endcap Large!"<<endl;
           return kTRUE;
      }else if(std::fabs(roiphi) <= LargeRegion[1]){
-          cout<<"Endcap Small!"<<endl;
           return kFALSE;
      }else if(std::fabs(roiphi) <= LargeRegion[2]){
-          cout<<"Endcap Large!"<<endl;
           return kTRUE;
      }else if(std::fabs(roiphi) <= LargeRegion[3]){
-          cout<<"Endcap Small!"<<endl;
           return kFALSE;
      }else if(std::fabs(roiphi) <= LargeRegion[4]){
-          cout<<"Endcap Large!"<<endl;
           return kTRUE;
      }else if(std::fabs(roiphi) <= LargeRegion[5]){
-          cout<<"Endcap Small!"<<endl;
           return kFALSE;
      }else if(std::fabs(roiphi) <= LargeRegion[6]){
-          cout<<"Endcap Large!"<<endl;
           return kTRUE;
      }else if(std::fabs(roiphi) <= LargeRegion[7]){
-          cout<<"Endcap Small!"<<endl;
           return kFALSE;
      }else if(std::fabs(roiphi) <= LargeRegion[8]){
-          cout<<"Endcap Large!"<<endl;
           return kTRUE;
      }
      return kFALSE;
