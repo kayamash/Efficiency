@@ -30,6 +30,7 @@
 //const Double_t pt_threshold[4] = {3.38,1.25,3.17,3.41};//MU4
 const Double_t pt_threshold[4] = {5.17,3.25,4.69,5.14};//MU6
 //const Double_t pt_threshold[4] = {15.87,10.73,12.21,15.87};//MU20
+const Double_t LargeRegion[9] = {0.25,0.55,1.025,1.325,1.80,2.125,2.575,2.90,TMath::Pi()}
 
 void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,Int_t proc){
      m_nbin_phi = np;
@@ -152,16 +153,8 @@ int Efficiency::EtaDistribution(Float_t roieta){
 
 bool Efficiency::EndcapLargeDicision(Float_t roiphi){
      cout<<std::fabs(roiphi)<<endl;
-     /*
-     if(std::fabs(roiphi) <= 0.25 || 0.55 < std::fabs(roiphi) <= 1.025 || 1.325 < std::fabs(roiphi) <= 1.80 || 2.125 < std::fabs(roiphi) <= 2.575 || 2.90 < std::fabs(roiphi) <= TMath::Pi()){
-          cout<<"Endcap Large!"<<endl;
-          return kTRUE;
-     }else{
-          cout<<"Endcap Small!"<<endl;
-          return kFALSE;
-     }
-     */
-     if(-TMath::Pi() <= roiphi <= -2.9 || -2.575 <= roiphi < -2.125 || -1.80 <= roiphi < -1.325 || -1.025 <= roiphi < -0.55 || -0.25 <= roiphi <= 0.25 || 0.55 < roiphi <= 1.025 || 1.325 < roiphi <= 1.80 || 2.125 < roiphi <= 2.575 || 2.90 < roiphi <= TMath::Pi()){
+     //if(std::fabs(roiphi) <= 0.25 || 0.55 < std::fabs(roiphi) <= 1.025 || 1.325 < std::fabs(roiphi) <= 1.80 || 2.125 < std::fabs(roiphi) <= 2.575 || 2.90 < std::fabs(roiphi) <= TMath::Pi()){
+     if(std::fabs(roiphi) <= LargeRegion[0] || LargeRegion[1] < std::fabs(roiphi) <= LargeRegion[2] || LargeRegion[3] < std::fabs(roiphi) <= LargeRegion[4] || LargeRegion[5] < std::fabs(roiphi) <= LargeRegion[6] || LargeRegion[7] < std::fabs(roiphi) <= LargeRegion[8]){
           cout<<"Endcap Large!"<<endl;
           return kTRUE;
      }else{
