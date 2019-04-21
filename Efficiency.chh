@@ -1238,8 +1238,8 @@ public:
     m_h_LowPtPassedRoIEtavsPhi[3] = new TH2F("h_LowPtPassedRoIEtavsPhi3SP","LowPtPassed 3SP;RoI #eta;RoI #phi",40,-4.0,4.0,40,-4.0,4.0);
     m_h_LowPtPassedRoIEtavsPhi[4] = new TH2F("h_LowPtPassedRoIEtavsPhiIM","LowPtPassed Inner + Middle;RoI #eta;RoI #phi",40,-4.0,4.0,40,-4.0,4.0);
     m_h_ChamberIndexvsRoIPhi = new TH2F("h_ChamberIndexvsRoIPhi",";chamber index;RoI #phi",2,0.,2.,628,TMath::Pi(),TMath::Pi());
-    m_h_BarrelAlpha = new TH1D("h_BarrelAlpha",";barrel #alpha;Entries",100,-0.1,0.1);
-    m_h_BarrelBeta = new TH1D("h_BarrelBeta",";barrel #beta;Entries",100,-0.1,0.1);
+    m_h_BarrelAlpha = new TH1D("h_BarrelAlpha",";barrel #alpha;Entries",120,-0.6,0.6);
+    m_h_BarrelBeta = new TH1D("h_BarrelBeta",";barrel #beta;Entries",120,-0.6,0.6);
 
               //SP,segment
 

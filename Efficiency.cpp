@@ -701,7 +701,7 @@ void Efficiency::Execute(Int_t ev){
                          }
                          if(pSA_sAddress == 0 && nosector9 == 0)m_h_eSAPtLargeNormal->Fill(std::fabs(m_poff_pt*0.001));
                          //barrel alpha
-                         if(pSA_superpointR_BM != 0 && (pSA_superpointR_BI == 0 || pSA_superpointR_BO == 0)){
+                         if(pSA_superpointR_BM != 0){
                               Double_t barrelalpha = 0;
                               barrelalpha = atan(pSA_superpointZ_BM/pSA_superpointR_BM) - atan(pSA_superpointSlope_BM);
                               m_h_BarrelAlpha->Fill(barrelalpha);
@@ -709,7 +709,7 @@ void Efficiency::Execute(Int_t ev){
                          //barrel alpha end
 
                          //barrel beta
-                         if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && pSA_superpointR_BO == 0){
+                         if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0){
                               Double_t barrelbeta = 0;
                               barrelbeta = atan(pSA_superpointSlope_BI) - atan(pSA_superpointSlope_BM);
                               m_h_BarrelBeta->Fill(barrelbeta);
