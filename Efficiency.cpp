@@ -161,7 +161,7 @@ bool Efficiency::EndcapLargeDicision(Float_t roiphi){
           return kFALSE;
      }
      */
-     if(-TMath::Pi() <= -2.9 || -2.575 <= roiphi < -2.125 || -1.80 <= roiphi < -1.325 || -1.025 <= roiphi < -0.55 || -0.25 <= roiphi <= 0.25 || 0.55 < roiphi <= 1.025 || 1.325 < roiphi <= 1.80 || 2.125 < roiphi <= 2.575 || 2.90 < roiphi <= TMath::Pi()){
+     if(-TMath::Pi() <= roiphi <= -2.9 || -2.575 <= roiphi < -2.125 || -1.80 <= roiphi < -1.325 || -1.025 <= roiphi < -0.55 || -0.25 <= roiphi <= 0.25 || 0.55 < roiphi <= 1.025 || 1.325 < roiphi <= 1.80 || 2.125 < roiphi <= 2.575 || 2.90 < roiphi <= TMath::Pi()){
           cout<<"Endcap Large!"<<endl;
           return kTRUE;
      }else{
