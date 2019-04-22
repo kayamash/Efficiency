@@ -464,6 +464,7 @@ void Efficiency::Execute(Int_t ev){
                Double_t barrelalpha = 0;
                barrelalpha = atan(pSA_superpointZ_BM/pSA_superpointR_BM) - atan(pSA_superpointSlope_BM);
                m_h_BarrelAlpha->Fill(barrelalpha);
+               m_h_PtvsBarrelAlpha->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelalpha);
           }
           //barrel alpha end
 
@@ -472,7 +473,9 @@ void Efficiency::Execute(Int_t ev){
                Double_t barrelbeta = 0;
                barrelbeta = atan(pSA_superpointSlope_BI) - atan(pSA_superpointSlope_BM);
                m_h_BarrelBeta->Fill(barrelbeta);
+               m_h_PtvsBarrelBeta->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelbeta);
           }
+          //barrel beta end
 
           //L1
           if(!CutL1(pL1_pass))return;
@@ -1887,6 +1890,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_ChamberIndexvsRoIPhi->Write();
      m_h_BarrelAlpha->Write();
      m_h_BarrelBeta->Write();
+     m_h_PtvsBarrelAlpha->Write();
+     m_h_PtvsBarrelBeta->Write();
 
      m_h_MDTHitXY->Write();
      m_h_RPCHitXY->Write();
