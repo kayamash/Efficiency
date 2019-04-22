@@ -459,6 +459,21 @@ void Efficiency::Execute(Int_t ev){
           }
           Int_t numbersector = -1;
 
+          //barrel alpha
+          if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){
+               Double_t barrelalpha = 0;
+               barrelalpha = atan(pSA_superpointZ_BM/pSA_superpointR_BM) - atan(pSA_superpointSlope_BM);
+               m_h_BarrelAlpha->Fill(barrelalpha);
+          }
+          //barrel alpha end
+
+          //barrel beta
+          if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){
+               Double_t barrelbeta = 0;
+               barrelbeta = atan(pSA_superpointSlope_BI) - atan(pSA_superpointSlope_BM);
+               m_h_BarrelBeta->Fill(barrelbeta);
+          }
+
           //L1
           if(!CutL1(pL1_pass))return;
           Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
@@ -700,20 +715,6 @@ void Efficiency::Execute(Int_t ev){
                               m_h_MDTChamber->Fill(pSA_mdthitChamber->at(MDTsize));
                          }
                          if(pSA_sAddress == 0 && nosector9 == 0)m_h_eSAPtLargeNormal->Fill(std::fabs(m_poff_pt*0.001));
-                         //barrel alpha
-                         if(pSA_superpointR_BM != 0){
-                              Double_t barrelalpha = 0;
-                              barrelalpha = atan(pSA_superpointZ_BM/pSA_superpointR_BM) - atan(pSA_superpointSlope_BM);
-                              m_h_BarrelAlpha->Fill(barrelalpha);
-                         }
-                         //barrel alpha end
-
-                         //barrel beta
-                         if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0){
-                              Double_t barrelbeta = 0;
-                              barrelbeta = atan(pSA_superpointSlope_BI) - atan(pSA_superpointSlope_BM);
-                              m_h_BarrelBeta->Fill(barrelbeta);
-                         }
 
                          break;
                          case 1:
