@@ -183,7 +183,7 @@ bool Efficiency::EndcapLargeDicision(Float_t roiphi){
      return kFALSE;
 }
 
-int WeakMagneticFieldRegion(const Float_t eta,const Float_t phi){
+int WeakMagneticFieldRegion(Float_t eta,Float_t phi){
      Float_t abseta = std::fabs(eta);
      Float_t absphi = std::fabs(phi);
      if( 1.3 <= abseta && abseta < 1.45 ){//WeakBFieldA
@@ -1014,15 +1014,15 @@ void Efficiency::Execute(Int_t ev){
                          m_h_pOffEtavsSAResPtLSMinusS11outer->Fill(m_poff_eta,resSA_pt);
                          m_h_eSAPtLSMinusS11outer->Fill(std::fabs(m_poff_pt*0.001));
                          for(Int_t index = 0;index < 10;index++){
-                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_EtaIndexvsSAResPtLSMinusS11outer->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 2)m_h_EtaIndexvsSAResPtLSMinusS11outer2Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 3)m_h_EtaIndexvsSAResPtLSMinusS11outer3Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                          if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_SegmentZRLSMinusS11outer->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
-                     }
-                     m_h_MDTSPZRLSMinusS11outer->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
-                     m_h_MDTSPZRLSMinusS11outer->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
-                     m_h_MDTSPZRLSMinusS11outer->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
-                     break;
+                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_EtaIndexvsSAResPtLSMinusS11outer->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 2)m_h_EtaIndexvsSAResPtLSMinusS11outer2Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 3)m_h_EtaIndexvsSAResPtLSMinusS11outer3Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                             if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_SegmentZRLSMinusS11outer->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
+                        }
+                        m_h_MDTSPZRLSMinusS11outer->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
+                        m_h_MDTSPZRLSMinusS11outer->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
+                        m_h_MDTSPZRLSMinusS11outer->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
+                        break;
                          case 6://minus 11in
                          m_h_pOffPtvsSAResPtLSMinusS11inner->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                          if(numSP == 2)m_h_pOffPtvsSAResPtLSMinusS11inner2Station->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
@@ -1048,15 +1048,15 @@ void Efficiency::Execute(Int_t ev){
                          m_h_pOffEtavsSAResPtLSMinusS15outer->Fill(m_poff_eta,resSA_pt);
                          m_h_eSAPtLSMinusS15outer->Fill(std::fabs(m_poff_pt*0.001));
                          for(Int_t index = 0;index < 10;index++){
-                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_EtaIndexvsSAResPtLSMinusS15outer->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 2)m_h_EtaIndexvsSAResPtLSMinusS15outer2Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 3)m_h_EtaIndexvsSAResPtLSMinusS15outer3Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                          if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_SegmentZRLSMinusS15outer->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
-                     }
-                     m_h_MDTSPZRLSMinusS15outer->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
-                     m_h_MDTSPZRLSMinusS15outer->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
-                     m_h_MDTSPZRLSMinusS15outer->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
-                     break;
+                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_EtaIndexvsSAResPtLSMinusS15outer->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 2)m_h_EtaIndexvsSAResPtLSMinusS15outer2Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 3)m_h_EtaIndexvsSAResPtLSMinusS15outer3Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                             if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_SegmentZRLSMinusS15outer->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
+                        }
+                        m_h_MDTSPZRLSMinusS15outer->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
+                        m_h_MDTSPZRLSMinusS15outer->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
+                        m_h_MDTSPZRLSMinusS15outer->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
+                        break;
                          case 8://minus 15in
                          m_h_pOffPtvsSAResPtLSMinusS15inner->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                          if(numSP == 2)m_h_pOffPtvsSAResPtLSMinusS15inner2Station->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);

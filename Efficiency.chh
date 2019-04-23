@@ -1709,7 +1709,7 @@ public:
   int EtaDistribution();
   int EtaDistribution(Float_t roieta);
   bool EndcapLargeDicision(Float_t roiphi);
-  int WeakMagneticFieldRegion(const Float_t eta,const Float_t phi);
+  int WeakMagneticFieldRegion(Float_t eta,Float_t phi);
   void Execute(Int_t ev);
   void Finalize(TFile *tf1);
   ~Efficiency(){
