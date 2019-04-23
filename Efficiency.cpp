@@ -183,7 +183,7 @@ bool Efficiency::EndcapLargeDicision(Float_t roiphi){
      return kFALSE;
 }
 
-int WeakMagneticFieldRegion(float eta,float phi){
+int Efficiency::WeakMagneticFieldRegion(float eta,float phi){
      Float_t abseta = std::fabs(eta);
      Float_t absphi = std::fabs(phi);
      if( 1.3 <= abseta && abseta < 1.45 ){//WeakBFieldA
@@ -603,7 +603,7 @@ void Efficiency::Execute(Int_t ev){
                m_h_eL1Aipc->Fill(m_aipc);
           }
 
-          //if(std::fabs(pSA_roieta) <= 2.5 && WeakMagneticFieldRegion(pSA_roieta,pSA_roiphi) >= 0)m_h_RoIEtaPhiWeakBField[WeakMagneticFieldRegion(pSA_roieta,pSA_roiphi)]->Fill(pSA_roieta,pSA_roiphi);
+          if(std::fabs(pSA_roieta) <= 2.5 && WeakMagneticFieldRegion(pSA_roieta,pSA_roiphi) >= 0)m_h_RoIEtaPhiWeakBField[WeakMagneticFieldRegion(pSA_roieta,pSA_roiphi)]->Fill(pSA_roieta,pSA_roiphi);
 
           areanumber = DicisionArea(pSA_roiphi);
                     switch(static_cast<Int_t>(pSA_sAddress)){//switch Large ,LS , Small ,SS
