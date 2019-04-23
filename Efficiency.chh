@@ -333,6 +333,7 @@ private:
   TH1D *m_h_BarrelBeta;
   TH2F *m_h_PtvsBarrelAlpha;
   TH2F *m_h_PtvsBarrelBeta;
+  TH2F *m_h_RoIEtaPhiWeakBField[3];//WeakBFieldA,B,normal
 
   //SP,segment
   TH2F *m_h_MDTHitXY;
@@ -1244,6 +1245,9 @@ public:
     m_h_BarrelBeta = new TH1D("h_BarrelBeta",";barrel #beta;Entries",120,-0.6,0.6);
     m_h_PtvsBarrelAlpha = new TH2F("h_PtvsBarrelAlpha","1/p_{T} vs Barrel #alpha;1/p_{T};barrel #alpha",100,0.,1.0,200,-1.0,1.0);
     m_h_PtvsBarrelBeta = new TH2F("h_PtvsBarrelBeta","1/p_{T} vs Barrel #beta;1/p_{T};barrel #beta",100,0.,1.0,200,-1.0,1.0);
+    m_h_RoIEtaPhiWeakBField[0] = new TH2F("h_RoIEtaPhiWeakBFieldA","Weak Magnetic Field A;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
+    m_h_RoIEtaPhiWeakBField[1] = new TH2F("h_RoIEtaPhiWeakBFieldB","Weak Magnetic Field B;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
+    m_h_RoIEtaPhiWeakBField[2] = new TH2F("h_RoIEtaPhiWeakBFieldNormal","Weak Magnetic Field Normal;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
 
               //SP,segment
 
@@ -1705,6 +1709,7 @@ public:
   int EtaDistribution();
   int EtaDistribution(Float_t roieta);
   bool EndcapLargeDicision(Float_t roiphi);
+  int WeakMagneticFieldRegion(const Float_t eta,const Float_t phi);
   void Execute(Int_t ev);
   void Finalize(TFile *tf1);
   ~Efficiency(){
@@ -1741,6 +1746,7 @@ public:
       delete  m_h_L2MuonSAPtAlphavsBeta[i];
       delete  m_h_L2MuonSAPtAlphavsTGC[i];
       delete  m_h_L2MuonSAPtBetavsTGC[i];
+      delete  m_h_RoIEtaPhiWeakBField[i];
     }
     for(Int_t i = 0;i < 5;i++){
       delete  m_h_LowPtPassedRoIEtavsPhi[i];

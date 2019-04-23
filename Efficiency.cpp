@@ -183,6 +183,20 @@ bool Efficiency::EndcapLargeDicision(Float_t roiphi){
      return kFALSE;
 }
 
+int WeakMagneticFieldRegion(const Float_t eta,const Float_t phi){
+     Float_t abseta = std::fabs(eta);
+     Float_t absphi = std::fabs(phi);
+     if( 1.3 <= abseta && abseta < 1.45 ){//WeakBFieldA
+          if( (0 <= absphi && absphi < TMath::Pi()/48. ) || (TMath::Pi()*11./48. <= absphi && absphi < TMath::Pi()*13./48. ) || (TMath::Pi()*23./48. <= absphi && absphi < TMath::Pi()*25./48. ) || (TMath::Pi()*35./48. <= absphi && absphi < TMath::Pi()*37./48. ) || (TMath::Pi()*47./48. <= absphi && absphi < TMath::Pi())){
+               return 0;
+          }
+     }else if( 1.5 <= abseta && abseta < 1.65 ){//WeakBFieldB
+          if( (TMath::Pi()*3./32. <= absphi && absphi < TMath::Pi()*5./32. ) || (TMath::Pi()*11./32. <= absphi && absphi < TMath::Pi()*13./32. ) || (TMath::Pi()*19./32. <= absphi && absphi < TMath::Pi()*21./32. ) || (TMath::Pi()*27./32. <= absphi && absphi < TMath::Pi()*29./32. ) || (TMath::Pi()*47./48. <= absphi && absphi < TMath::Pi())){
+               return 1;
+          }
+     }else return 2;
+}
+
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
      Double_t pextL1_dR = 1; 
@@ -587,6 +601,8 @@ void Efficiency::Execute(Int_t ev){
                m_h_eL1Phi->Fill(m_poff_phi);
                m_h_eL1Aipc->Fill(m_aipc);
           }
+
+          if(std::fabs(pSA_roieta) <= 2.5)m_h_RoIEtaPhiWeakBField[WeakMagneticFieldRegion(pSA_roieta,pSA_roiphi)]->Fill(pSA_roieta,pSA_roiphi);
 
           areanumber = DicisionArea(pSA_roiphi);
                     switch(static_cast<Int_t>(pSA_sAddress)){//switch Large ,LS , Small ,SS
@@ -1568,6 +1584,7 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_L2MuonSAPtAlphavsBeta[i]->Write();
           m_h_L2MuonSAPtAlphavsTGC[i]->Write();
           m_h_L2MuonSAPtBetavsTGC[i]->Write();
+          m_h_RoIEtaPhiWeakBField[i]->Write();
      }
 
      for(Int_t i = 0;i < 5;i++){
