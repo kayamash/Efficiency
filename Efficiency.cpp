@@ -195,6 +195,7 @@ int WeakMagneticFieldRegion(const Float_t eta,const Float_t phi){
                return 1;
           }
      }else return 2;
+     return -1;
 }
 
 void Efficiency::Execute(Int_t ev){
