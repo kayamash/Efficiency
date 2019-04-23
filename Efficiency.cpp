@@ -527,8 +527,10 @@ void Efficiency::Execute(Int_t ev){
                if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eL1PhiEndcapHighPtPassed->Fill(pSA_roiphi);
                if(EndcapLargeDicision(pSA_roiphi)){
                     m_h_eL1PtEndcapLarge->Fill(std::fabs(m_poff_pt*0.001));
+                    m_h_RoIEtavsPhiEndcap[0]->Fill(pSA_roieta,pSA_roiphi);
                }else{
                     m_h_eL1PtEndcapSmall->Fill(std::fabs(m_poff_pt*0.001));
+                    m_h_RoIEtavsPhiEndcap[1]->Fill(pSA_roieta,pSA_roiphi);
                }
                if(numSP == 0){
                     m_h_eL1PtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -1910,6 +1912,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_BarrelBeta->Write();
      m_h_PtvsBarrelAlpha->Write();
      m_h_PtvsBarrelBeta->Write();
+     m_h_RoIEtavsPhiEndcap[0]->Write();
+     m_h_RoIEtavsPhiEndcap[1]->Write();
 
      m_h_MDTHitXY->Write();
      m_h_RPCHitXY->Write();

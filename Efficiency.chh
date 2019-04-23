@@ -334,6 +334,7 @@ private:
   TH2F *m_h_PtvsBarrelAlpha;
   TH2F *m_h_PtvsBarrelBeta;
   TH2F *m_h_RoIEtaPhiWeakBField[3];//WeakBFieldA,B,normal
+  TH2F *m_h_RoIEtavsPhiEndcap[2];//Large,Small
 
   //SP,segment
   TH2F *m_h_MDTHitXY;
@@ -1248,6 +1249,8 @@ public:
     m_h_RoIEtaPhiWeakBField[0] = new TH2F("h_RoIEtaPhiWeakBFieldA","Weak Magnetic Field A;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
     m_h_RoIEtaPhiWeakBField[1] = new TH2F("h_RoIEtaPhiWeakBFieldB","Weak Magnetic Field B;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
     m_h_RoIEtaPhiWeakBField[2] = new TH2F("h_RoIEtaPhiWeakBFieldNormal","Weak Magnetic Field Normal;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
+    m_h_RoIEtavsPhiEndcap[0] = new TH2F("h_RoIEtavsPhiEndcapLarge","Endcap Large;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
+    m_h_RoIEtavsPhiEndcap[1] = new TH2F("h_RoIEtavsPhiEndcapSmall","Endcap Small;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
 
               //SP,segment
 
@@ -1825,6 +1828,8 @@ public:
     delete  m_h_BarrelBeta;
     delete  m_h_PtvsBarrelAlpha;
     delete  m_h_PtvsBarrelBeta;
+    delete  m_h_RoIEtavsPhiEndcap[0];
+    delete  m_h_RoIEtavsPhiEndcap[1];
 
     delete  m_h_MDTHitXY;
     delete  m_h_RPCHitXY;
