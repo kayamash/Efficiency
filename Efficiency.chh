@@ -633,7 +633,10 @@ private:
   TH1D *m_h_eSAPhiEndcapLowPtPassed0SP;//offline pt<3.25GeV
   TH1D *m_h_eL1PhiEndcapHighPtPassed0SP;//offline pt>10.0GeV
   TH1D *m_h_eSAPhiEndcapHighPtPassed0SP;//offline pt<10.0GeV
-
+  TH1D *m_h_eL1PtEndcapLargepattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eSAPtEndcapLargepattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eL1PtEndcapSmallpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eSAPtEndcapSmallpattern[6];//Inner,Middle,Outer,IM,IO,MO
 
   //Residual
   TH1D *m_h_pSAResPt;
@@ -1545,6 +1548,30 @@ public:
     m_h_eSAPhiEndcapLowPtPassed0SP = new TH1D("h_eSAPhiEndcapLowPtPassed0SP","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
     m_h_eL1PhiEndcapHighPtPassed0SP = new TH1D("h_eL1PhiEndcapHighPtPassed0SP","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
     m_h_eSAPhiEndcapHighPtPassed0SP = new TH1D("h_eSAPhiEndcapHighPtPassed0SP","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eL1PtEndcapLargepattern[0] = new TH1D("h_eL1PtEndcapLarge1SPInner","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapLargepattern[0] = new TH1D("h_eSAPtEndcapLarge1SPInner","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapLargepattern[1] = new TH1D("h_eL1PtEndcapLarge1SPMiddle","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapLargepattern[1] = new TH1D("h_eSAPtEndcapLarge1SPMiddle","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapLargepattern[2] = new TH1D("h_eL1PtEndcapLarge1SPOuter","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapLargepattern[2] = new TH1D("h_eSAPtEndcapLarge1SPOuter","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapLargepattern[3] = new TH1D("h_eL1PtEndcapLarge2SPIM","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapLargepattern[3] = new TH1D("h_eSAPtEndcapLarge2SPIM","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapLargepattern[4] = new TH1D("h_eL1PtEndcapLarge2SPIO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapLargepattern[4] = new TH1D("h_eSAPtEndcapLarge2SPIO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapLargepattern[5] = new TH1D("h_eL1PtEndcapLarge2SPMO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapLargepattern[5] = new TH1D("h_eSAPtEndcapLarge2SPMO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapSmallpattern[0] = new TH1D("h_eL1PtEndcapSmall1SPInner","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapSmallpattern[0] = new TH1D("h_eSAPtEndcapSmall1SPInner","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapSmallpattern[1] = new TH1D("h_eL1PtEndcapSmall1SPMiddle","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapSmallpattern[1] = new TH1D("h_eSAPtEndcapSmall1SPMiddle","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapSmallpattern[2] = new TH1D("h_eL1PtEndcapSmall1SPOuter","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapSmallpattern[2] = new TH1D("h_eSAPtEndcapSmall1SPOuter","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapSmallpattern[3] = new TH1D("h_eL1PtEndcapSmall2SPIM","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapSmallpattern[3] = new TH1D("h_eSAPtEndcapSmall2SPIM","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapSmallpattern[4] = new TH1D("h_eL1PtEndcapSmall2SPIO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapSmallpattern[4] = new TH1D("h_eSAPtEndcapSmall2SPIO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapSmallpattern[5] = new TH1D("h_eL1PtEndcapSmall2SPMO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapSmallpattern[5] = new TH1D("h_eSAPtEndcapSmall2SPMO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
 
               //Residual
     m_h_pSAResPt = new TH1D("h_pSAResPt","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
@@ -1684,20 +1711,6 @@ public:
     m_h_EtaIndexvsSAResPtLSMinusS15outer3Station = new TH2F("h_etaIndexvsSAResPtLSMinusS15outer3Station","etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0);
     m_h_EtaIndexvsSAResPtLSMinusS15inner3Station = new TH2F("h_etaIndexvsSAResPtLSMinusS15inner3Station","etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0);
 
-    std::ofstream ofs;
-    /*
-    ofs.open("/home/kayamash/LowPtPassed20190409.txt");
-    ofs<<"RunNumber   EventNumber   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
-    ofs.close();
-    ofs.open("/home/kayamash/LowPtPassed2bin20190409.txt");
-    ofs<<"RunNumber   EventNumber   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
-    ofs.open("/home/kayamash/LowPtPassed2SPForward.txt");
-    ofs<<"RunNumber   EventNumber   SPpattern   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
-    ofs.close();
-    ofs.open("/home/kayamash/LowPtPassed2SP2binForward.txt");
-    ofs<<"RunNumber   EventNumber   SPpattern   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
-    ofs.close();
-    */
   }
 
   void Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,Int_t proc);
@@ -1713,6 +1726,7 @@ public:
   int EtaDistribution(Float_t roieta);
   bool EndcapLargeDicision(Float_t roiphi);
   int WeakMagneticFieldRegion(Float_t eta,Float_t phi);
+  int SPPatternMatching(Double_t SPR1,Double_t SPR2,Double_t SPR3,Double_t SPR4,Double_t SPR5);
   void Execute(Int_t ev);
   void Finalize(TFile *tf1);
   ~Efficiency(){
@@ -1753,6 +1767,12 @@ public:
     }
     for(Int_t i = 0;i < 5;i++){
       delete  m_h_LowPtPassedRoIEtavsPhi[i];
+    }
+    for(Int_t i = 0;i < 6;i++){
+      delete  m_h_eL1PtEndcapLargepattern[i];
+      delete  m_h_eSAPtEndcapLargepattern[i];
+      delete  m_h_eL1PtEndcapSmallpattern[i];
+      delete  m_h_eSAPtEndcapSmallpattern[i];
     }
 
     delete  m_h_pOffPt;

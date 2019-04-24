@@ -198,6 +198,16 @@ int Efficiency::WeakMagneticFieldRegion(float eta,float phi){
      return -1;
 }
 
+int Efficiency::SPPatternMatching(Double_t SPR1,Double_t SPR2,Double_t SPR3,Double_t SPR4,Double_t SPR5){
+     if( (SPR1 != 0 || SPR2 != 0 || SPR3 != 0) && SPR4 == 0 && SPR5 == 0)return 0;
+     if( (SPR1 == 0 && SPR2 == 0 && SPR3 == 0) && SPR4 != 0 && SPR5 == 0)return 1;
+     if( (SPR1 == 0 && SPR2 == 0 && SPR3 == 0) && SPR4 == 0 && SPR5 != 0)return 2;
+     if( (SPR1 != 0 || SPR2 != 0 || SPR3 != 0) && SPR4 != 0 && SPR5 == 0)return 3;
+     if( (SPR1 != 0 || SPR2 != 0 || SPR3 != 0) && SPR4 == 0 && SPR5 != 0)return 4;
+     if( (SPR1 == 0 && SPR2 == 0 && SPR3 == 0) && SPR4 != 0 && SPR5 != 0)return 5;
+     return -1;
+}
+
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
      Double_t pextL1_dR = 1; 
@@ -496,6 +506,7 @@ void Efficiency::Execute(Int_t ev){
           if(!CutL1(pL1_pass))return;
           Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
           pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
+          Int_t SPpattern = SPPatternMatching(pSA_superpointR_EI,pSA_superpointR_EE,pSA_superpointR_CSC,pSA_superpointR_EM,pSA_superpointR_EO);
           m_h_pL1Pt->Fill(std::fabs(pL1_pt*0.001));
           m_h_pL1dR->Fill(pL1_dR);
           m_h_tExtL1dR->Fill(textL1_dR);
@@ -528,9 +539,11 @@ void Efficiency::Execute(Int_t ev){
                if(EndcapLargeDicision(pSA_roiphi)){
                     m_h_eL1PtEndcapLarge->Fill(std::fabs(m_poff_pt*0.001));
                     m_h_RoIEtavsPhiEndcap[0]->Fill(pSA_roieta,pSA_roiphi);
+                    if(SPpattern >= 0)m_h_eL1PtEndcapLargepattern[SPpattern]->Fill(std::fabs(m_poff_pt*0.001));
                }else{
                     m_h_eL1PtEndcapSmall->Fill(std::fabs(m_poff_pt*0.001));
                     m_h_RoIEtavsPhiEndcap[1]->Fill(pSA_roieta,pSA_roiphi);
+                    if(SPpattern >= 0)m_h_eL1PtEndcapSmallpattern[SPpattern]->Fill(std::fabs(m_poff_pt*0.001));
                }
                if(numSP == 0){
                     m_h_eL1PtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -669,25 +682,6 @@ void Efficiency::Execute(Int_t ev){
 
           //SA
                     if(!CutSA(pSA_pass))return;
-                    /*
-                    string s_patternSP;
-                    if(patternSP == 3)s_patternSP = "Inner+Middle";
-                    if(patternSP == 4)s_patternSP = "Inner+Outer";
-                    if(patternSP == 5)s_patternSP = "Middle+Outer";
-                    if(std::fabs(m_poff_pt*0.001) < 2.75 && numSP == 2 && std::fabs(m_poff_eta) > 2.0){
-                         std::ofstream ofs;
-                         ofs.open("/home/kayamash/LowPtPassed2SPForward.txt",std::ios::app);
-                         ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<s_patternSP<<"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
-                         ofs.close();
-                    }
-
-                    if(std::fabs(m_poff_pt*0.001) < 3.25 && numSP == 2 && std::fabs(m_poff_eta) > 2.0){
-                         std::ofstream ofs;
-                         ofs.open("/home/kayamash/LowPtPassed2SP2binForward.txt",std::ios::app);
-                         ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<s_patternSP<<"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
-                         ofs.close();
-                    }
-                    */
                     if(std::fabs(m_poff_pt)*0.001 < 3.25){
                          m_h_LowPtPassedRoIEtavsPhi[numSP]->Fill(pSA_roieta,pSA_roiphi);
                          if(patternSP == 3)m_h_LowPtPassedRoIEtavsPhi[4]->Fill(pSA_roieta,pSA_roiphi);
@@ -754,8 +748,10 @@ void Efficiency::Execute(Int_t ev){
                          if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eSAPhiEndcapHighPtPassed->Fill(pSA_roiphi);
                          if(EndcapLargeDicision(pSA_roiphi)){
                               m_h_eSAPtEndcapLarge->Fill(std::fabs(m_poff_pt*0.001));
+                              if(SPpattern >= 0)m_h_eSAPtEndcapLargepattern[SPpattern]->Fill(std::fabs(m_poff_pt*0.001));
                          }else{
                               m_h_eSAPtEndcapSmall->Fill(std::fabs(m_poff_pt*0.001));
+                              if(SPpattern >= 0)m_h_eSAPtEndcapSmallpattern[SPpattern]->Fill(std::fabs(m_poff_pt*0.001));
                          }
                          if(numSP == 0){
                               m_h_eSAPtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -1837,6 +1833,30 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapLowPtPassed0SP,m_h_eSAPhiEndcapLowPtPassed0SP);
      ceff.SetCondition("SAEfficiencyPhiEndcapHighPtPassed0SP","SA Efficiency low p_{T} passed;RoI #phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapHighPtPassed0SP,m_h_eSAPhiEndcapHighPtPassed0SP);
+     ceff.SetCondition("SAEfficiencyEndcapLarge1SPInner","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapLargepattern[0],m_h_eSAPtEndcapLargepattern[0],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapLarge1SPMiddle","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapLargepattern[1],m_h_eSAPtEndcapLargepattern[1],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapLarge1SPOuter","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapLargepattern[2],m_h_eSAPtEndcapLargepattern[2],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapLarge2SPIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapLargepattern[3],m_h_eSAPtEndcapLargepattern[3],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapLarge2SPIO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapLargepattern[4],m_h_eSAPtEndcapLargepattern[4],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapLarge2SPMO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapLargepattern[5],m_h_eSAPtEndcapLargepattern[5],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapSmall1SPInner","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[0],m_h_eSAPtEndcapSmallpattern[0],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapSmall1SPMiddle","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[1],m_h_eSAPtEndcapSmallpattern[1],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapSmall1SPOuter","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[2],m_h_eSAPtEndcapSmallpattern[2],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapSmall2SPIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[3],m_h_eSAPtEndcapSmallpattern[3],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapSmall2SPIO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[4],m_h_eSAPtEndcapSmallpattern[4],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapSmall2SPMO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[5],m_h_eSAPtEndcapSmallpattern[5],m_binmax,200,m_efficiency_xerr);
      cout<<"eff end"<<endl;
 
      m_h_pOffPt->Write();
@@ -2201,6 +2221,12 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPhiEndcapLowPtPassed0SP->Write();
      m_h_eL1PhiEndcapHighPtPassed0SP->Write();
      m_h_eSAPhiEndcapHighPtPassed0SP->Write();
+     for(Int_t i = 0;i < 6;i++){
+          m_h_eL1PtEndcapLargepattern[i]->Write();
+          m_h_eSAPtEndcapLargepattern[i]->Write();
+          m_h_eL1PtEndcapSmallpattern[i]->Write();
+          m_h_eSAPtEndcapSmallpattern[i]->Write();
+     }
 
      m_h_pSAResPt->Write();
      m_h_pCBResPt->Write();
