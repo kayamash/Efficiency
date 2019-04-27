@@ -487,7 +487,7 @@ void Efficiency::Execute(Int_t ev){
           //barrel alpha
           if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){
                Double_t barrelalpha = 0;
-               barrelalpha = atan(pSA_superpointZ_BM/pSA_superpointR_BM) - atan(pSA_superpointSlope_BM);
+               barrelalpha = atan(pSA_superpointZ_BM/pSA_superpointR_BM) - atan(1.0/pSA_superpointSlope_BM);//Reciprocal number?
                m_h_BarrelAlpha->Fill(barrelalpha);
                m_h_PtvsBarrelAlpha->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelalpha);
           }
@@ -496,7 +496,7 @@ void Efficiency::Execute(Int_t ev){
           //barrel beta
           if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){
                Double_t barrelbeta = 0;
-               barrelbeta = atan(pSA_superpointSlope_BI) - atan(pSA_superpointSlope_BM);
+               barrelbeta = atan(1.0/pSA_superpointSlope_BI) - atan(1.0/pSA_superpointSlope_BM);//Reciprocal number?
                m_h_BarrelBeta->Fill(barrelbeta);
                m_h_PtvsBarrelBeta->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelbeta);
           }
