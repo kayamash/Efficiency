@@ -637,6 +637,14 @@ private:
   TH1D *m_h_eSAPtEndcapLargepattern[6];//Inner,Middle,Outer,IM,IO,MO
   TH1D *m_h_eL1PtEndcapSmallpattern[6];//Inner,Middle,Outer,IM,IO,MO
   TH1D *m_h_eSAPtEndcapSmallpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eL1PtBarrelLargepattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eSAPtBarrelLargepattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eL1PtBarrelSmallpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eSAPtBarrelSmallpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eL1PtBarrelLSpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eSAPtBarrelLSpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eL1PtBarrelSSpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eSAPtBarrelSSpattern[6];//Inner,Middle,Outer,IM,IO,MO
 
   //Residual
   TH1D *m_h_pSAResPt;
@@ -1572,6 +1580,54 @@ public:
     m_h_eSAPtEndcapSmallpattern[4] = new TH1D("h_eSAPtEndcapSmall2SPIO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtEndcapSmallpattern[5] = new TH1D("h_eL1PtEndcapSmall2SPMO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtEndcapSmallpattern[5] = new TH1D("h_eSAPtEndcapSmall2SPMO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLargepattern[0] = new TH1D("h_eL1PtBarrelLarge1SPInner","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLargepattern[0] = new TH1D("h_eSAPtBarrelLarge1SPInner","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLargepattern[1] = new TH1D("h_eL1PtBarrelLarge1SPMiddle","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLargepattern[1] = new TH1D("h_eSAPtBarrelLarge1SPMiddle","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLargepattern[2] = new TH1D("h_eL1PtBarrelLarge1SPOuter","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLargepattern[2] = new TH1D("h_eSAPtBarrelLarge1SPOuter","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLargepattern[3] = new TH1D("h_eL1PtBarrelLarge2SPIM","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLargepattern[3] = new TH1D("h_eSAPtBarrelLarge2SPIM","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLargepattern[4] = new TH1D("h_eL1PtBarrelLarge2SPIO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLargepattern[4] = new TH1D("h_eSAPtBarrelLarge2SPIO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLargepattern[5] = new TH1D("h_eL1PtBarrelLarge2SPMO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLargepattern[5] = new TH1D("h_eSAPtBarrelLarge2SPMO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSmallpattern[0] = new TH1D("h_eL1PtBarrelSmall1SPInner","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSmallpattern[0] = new TH1D("h_eSAPtBarrelSmall1SPInner","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSmallpattern[1] = new TH1D("h_eL1PtBarrelSmall1SPMiddle","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSmallpattern[1] = new TH1D("h_eSAPtBarrelSmall1SPMiddle","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSmallpattern[2] = new TH1D("h_eL1PtBarrelSmall1SPOuter","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSmallpattern[2] = new TH1D("h_eSAPtBarrelSmall1SPOuter","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSmallpattern[3] = new TH1D("h_eL1PtBarrelSmall2SPIM","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSmallpattern[3] = new TH1D("h_eSAPtBarrelSmall2SPIM","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSmallpattern[4] = new TH1D("h_eL1PtBarrelSmall2SPIO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSmallpattern[4] = new TH1D("h_eSAPtBarrelSmall2SPIO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSmallpattern[5] = new TH1D("h_eL1PtBarrelSmall2SPMO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSmallpattern[5] = new TH1D("h_eSAPtBarrelSmall2SPMO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLSpattern[0] = new TH1D("h_eL1PtBarrelLS1SPInner","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLSpattern[0] = new TH1D("h_eSAPtBarrelLS1SPInner","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLSpattern[1] = new TH1D("h_eL1PtBarrelLS1SPMiddle","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLSpattern[1] = new TH1D("h_eSAPtBarrelLS1SPMiddle","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLSpattern[2] = new TH1D("h_eL1PtBarrelLS1SPOuter","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLSpattern[2] = new TH1D("h_eSAPtBarrelLS1SPOuter","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLSpattern[3] = new TH1D("h_eL1PtBarrelLS2SPIM","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLSpattern[3] = new TH1D("h_eSAPtBarrelLS2SPIM","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLSpattern[4] = new TH1D("h_eL1PtBarrelLS2SPIO","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLSpattern[4] = new TH1D("h_eSAPtBarrelLS2SPIO","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLSpattern[5] = new TH1D("h_eL1PtBarrelLS2SPMO","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLSpattern[5] = new TH1D("h_eSAPtBarrelLS2SPMO","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSSpattern[0] = new TH1D("h_eL1PtBarrelSS1SPInner","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSSpattern[0] = new TH1D("h_eSAPtBarrelSS1SPInner","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSSpattern[1] = new TH1D("h_eL1PtBarrelSS1SPMiddle","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSSpattern[1] = new TH1D("h_eSAPtBarrelSS1SPMiddle","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSSpattern[2] = new TH1D("h_eL1PtBarrelSS1SPOuter","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSSpattern[2] = new TH1D("h_eSAPtBarrelSS1SPOuter","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSSpattern[3] = new TH1D("h_eL1PtBarrelSS2SPIM","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSSpattern[3] = new TH1D("h_eSAPtBarrelSS2SPIM","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSSpattern[4] = new TH1D("h_eL1PtBarrelSS2SPIO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSSpattern[4] = new TH1D("h_eSAPtBarrelSS2SPIO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSSpattern[5] = new TH1D("h_eL1PtBarrelSS2SPMO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSSpattern[5] = new TH1D("h_eSAPtBarrelSS2SPMO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
 
               //Residual
     m_h_pSAResPt = new TH1D("h_pSAResPt","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
@@ -1727,6 +1783,7 @@ public:
   bool EndcapLargeDicision(Float_t roiphi);
   int WeakMagneticFieldRegion(Float_t eta,Float_t phi);
   int SPPatternMatching(Double_t SPR1,Double_t SPR2,Double_t SPR3,Double_t SPR4,Double_t SPR5);
+  int BarrelSPPatternMatching(Double_t SPR1,Double_t SPR2,Double_t SPR3,Double_t SPR4,Double_t SPR5);
   void Execute(Int_t ev);
   void Finalize(TFile *tf1);
   ~Efficiency(){
@@ -1773,6 +1830,15 @@ public:
       delete  m_h_eSAPtEndcapLargepattern[i];
       delete  m_h_eL1PtEndcapSmallpattern[i];
       delete  m_h_eSAPtEndcapSmallpattern[i];
+      delete  m_h_eL1PtBarrelLargepattern[i];
+      delete  m_h_eSAPtBarrelLargepattern[i];
+      delete  m_h_eL1PtBarrelSmallpattern[i];
+      delete  m_h_eSAPtBarrelSmallpattern[i];
+      delete  m_h_eL1PtBarrelLSpattern[i];
+      delete  m_h_eSAPtBarrelLSpattern[i];
+      delete  m_h_eL1PtBarrelSSpattern[i];
+      delete  m_h_eSAPtBarrelSSpattern[i];
+
     }
 
     delete  m_h_pOffPt;
