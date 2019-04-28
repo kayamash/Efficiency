@@ -516,7 +516,7 @@ void Efficiency::Execute(Int_t ev){
           Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
           pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
           Int_t SPpattern = SPPatternMatching(pSA_superpointR_EI,pSA_superpointR_EE,pSA_superpointR_CSC,pSA_superpointR_EM,pSA_superpointR_EO);
-          Int_t BarrelSPpattern = BarrelSPpattern(pSA_superpointR_BI,pSA_superpointR_BEE,pSA_superpointR_BME,pSA_superpointR_BM,pSA_superpointR_BO);
+          Int_t BarrelSPpattern = BarrelSPPatternMatching(pSA_superpointR_BI,pSA_superpointR_BEE,pSA_superpointR_BME,pSA_superpointR_BM,pSA_superpointR_BO);
           m_h_pL1Pt->Fill(std::fabs(pL1_pt*0.001));
           m_h_pL1dR->Fill(pL1_dR);
           m_h_tExtL1dR->Fill(textL1_dR);
@@ -533,7 +533,7 @@ void Efficiency::Execute(Int_t ev){
                if(decision_noBIM == 0)m_h_eL1PtBarrelWithoutBIM->Fill(std::fabs(m_poff_pt*0.001));
                m_h_eL1PtBarrelIncBIM->Fill(std::fabs(m_poff_pt*0.001));
                if(pSA_sAddress == 0 && nosector9 == 0)m_h_eL1PtLargeNormal->Fill(std::fabs(m_poff_pt*0.001));
-               switch(pSA_sAddress){
+               switch(static_cast<Int_t>(pSA_sAddress)){
                     case 0:
                     if(BarrelSPpattern >= 0)m_h_eL1PtBarrelLargepattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
                     break;
@@ -755,7 +755,7 @@ void Efficiency::Execute(Int_t ev){
                               m_h_MDTChamber->Fill(pSA_mdthitChamber->at(MDTsize));
                          }
                          if(pSA_sAddress == 0 && nosector9 == 0)m_h_eSAPtLargeNormal->Fill(std::fabs(m_poff_pt*0.001));
-                         switch(pSA_sAddress){
+                         switch(static_cast<Int_t>(pSA_sAddress)){
                               case 0:
                               if(BarrelSPpattern >= 0)m_h_eSAPtBarrelLargepattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
                               break;
