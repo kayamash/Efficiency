@@ -865,6 +865,13 @@ public:
     m_tEF_pt = 0;
     m_tEF_eta = 0;
     m_tEF_phi = 0;
+    m_probe_segment_etaIndex = 0;
+    m_probe_segment_chamberIndex = 0;
+    m_probe_segment_x = 0;
+    m_probe_segment_y = 0;
+    m_probe_segment_z = 0;
+    m_probe_segment_nPrecisionHits = 0;
+    m_probe_segment_sector = 0;
     m_mes_name = 0;
     m_pL1_pt = 0;
     m_pL1_eta = 0;
@@ -896,6 +903,7 @@ public:
     m_pSA_roiSector = 0;
     m_pSA_ptalpha = 0;
     m_pSA_ptbeta = 0;
+    m_pSA_pttgc = 0;
     m_pSA_superpointZ_BI = 0;
     m_pSA_superpointZ_BM = 0;
     m_pSA_superpointZ_BO = 0;
