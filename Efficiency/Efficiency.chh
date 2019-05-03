@@ -871,7 +871,7 @@ public:
     m_pL1_dR = 0;
     m_pL1_pass = 0;
     m_pL1_roiNumber = 0;
-    m_pL1_roiSector　= 0;
+    m_pL1_roiSector = 0;
     m_sumReqdRL1 = 0;
     m_pSA_pt = 0;
     m_pSA_eta = 0;

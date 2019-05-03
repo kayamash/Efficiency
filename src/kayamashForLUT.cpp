@@ -24,7 +24,7 @@
 #include <TBranch.h>
 #include <TObject.h>
 #include <TProfile.h>
-#include "../PtNewMethod/kayamashForLUT.chh"
+#include "../Efficiency/kayamashForLUT.chh"
 
 bool kayamashForLUT::getLUTparameter(Double_t address,Double_t charge,Double_t eta,Double_t phi,Int_t (&par)[5],Double_t &tmp_phi1){
 	for(Int_t i = 0; i < 4; ++i)par[i] = -1;

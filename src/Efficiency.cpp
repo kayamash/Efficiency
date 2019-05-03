@@ -221,6 +221,7 @@ int Efficiency::BarrelSPPatternMatching(Double_t SPR1,Double_t SPR2,Double_t SPR
      if( (SPR1 != 0 || SPR2 != 0 ) && (SPR3 != 0 || SPR4 != 0 ) && SPR5 == 0)return 3;
      if( (SPR1 != 0 || SPR2 != 0 ) && (SPR3 == 0 && SPR4 == 0 ) && SPR5 != 0)return 4;
      if( (SPR1 == 0 && SPR2 == 0 ) && (SPR3 != 0 || SPR4 != 0 ) && SPR5 != 0)return 5;
+     return -1;
 }
 
 void Efficiency::Execute(Int_t ev){
