@@ -208,6 +208,15 @@ int Efficiency::SPPatternMatching(Double_t SPR1,Double_t SPR2,Double_t SPR3,Doub
      return -1;
 }
 
+int Efficiency::BarrelSPPatternMatching(Double_t SPR1,Double_t SPR2,Double_t SPR3,Double_t SPR4,Double_t SPR5){
+     if( (SPR1 != 0 || SPR2 != 0 ) && (SPR3 == 0 && SPR4 == 0 ) && SPR5 == 0)return 0;
+     if( (SPR1 == 0 && SPR2 == 0 ) && (SPR3 != 0 || SPR4 != 0 ) && SPR5 == 0)return 1;
+     if( (SPR1 == 0 && SPR2 == 0 ) && (SPR3 == 0 && SPR4 == 0 ) && SPR5 != 0)return 2;
+     if( (SPR1 != 0 || SPR2 != 0 ) && (SPR3 != 0 || SPR4 != 0 ) && SPR5 == 0)return 3;
+     if( (SPR1 != 0 || SPR2 != 0 ) && (SPR3 == 0 && SPR4 == 0 ) && SPR5 != 0)return 4;
+     if( (SPR1 == 0 && SPR2 == 0 ) && (SPR3 != 0 || SPR4 != 0 ) && SPR5 != 0)return 5;
+}
+
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
      Double_t pextL1_dR = 1; 
@@ -487,7 +496,7 @@ void Efficiency::Execute(Int_t ev){
           //barrel alpha
           if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){
                Double_t barrelalpha = 0;
-               barrelalpha = atan(pSA_superpointZ_BM/pSA_superpointR_BM) - atan(pSA_superpointSlope_BM);
+               barrelalpha = atan(pSA_superpointZ_BM/pSA_superpointR_BM) - atan(1.0/pSA_superpointSlope_BM);//Reciprocal number?
                m_h_BarrelAlpha->Fill(barrelalpha);
                m_h_PtvsBarrelAlpha->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelalpha);
           }
@@ -496,7 +505,7 @@ void Efficiency::Execute(Int_t ev){
           //barrel beta
           if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){
                Double_t barrelbeta = 0;
-               barrelbeta = atan(pSA_superpointSlope_BI) - atan(pSA_superpointSlope_BM);
+               barrelbeta = atan(1.0/pSA_superpointSlope_BI) - atan(1.0/pSA_superpointSlope_BM);//Reciprocal number?
                m_h_BarrelBeta->Fill(barrelbeta);
                m_h_PtvsBarrelBeta->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelbeta);
           }
@@ -507,6 +516,7 @@ void Efficiency::Execute(Int_t ev){
           Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
           pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
           Int_t SPpattern = SPPatternMatching(pSA_superpointR_EI,pSA_superpointR_EE,pSA_superpointR_CSC,pSA_superpointR_EM,pSA_superpointR_EO);
+          Int_t BarrelSPpattern = BarrelSPPatternMatching(pSA_superpointR_BI,pSA_superpointR_BEE,pSA_superpointR_BME,pSA_superpointR_BM,pSA_superpointR_BO);
           m_h_pL1Pt->Fill(std::fabs(pL1_pt*0.001));
           m_h_pL1dR->Fill(pL1_dR);
           m_h_tExtL1dR->Fill(textL1_dR);
@@ -523,6 +533,20 @@ void Efficiency::Execute(Int_t ev){
                if(decision_noBIM == 0)m_h_eL1PtBarrelWithoutBIM->Fill(std::fabs(m_poff_pt*0.001));
                m_h_eL1PtBarrelIncBIM->Fill(std::fabs(m_poff_pt*0.001));
                if(pSA_sAddress == 0 && nosector9 == 0)m_h_eL1PtLargeNormal->Fill(std::fabs(m_poff_pt*0.001));
+               switch(static_cast<Int_t>(pSA_sAddress)){
+                    case 0:
+                    if(BarrelSPpattern >= 0)m_h_eL1PtBarrelLargepattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                    break;
+                    case 1:
+                    if(BarrelSPpattern >= 0)m_h_eL1PtBarrelLSpattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                    break;
+                    case 2:
+                    if(BarrelSPpattern >= 0)m_h_eL1PtBarrelSmallpattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                    break;
+                    case 3:
+                    if(BarrelSPpattern >= 0)m_h_eL1PtBarrelSSpattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                    break;
+               }
                break;
                case 1:
                m_h_eL1PtTransition->Fill(std::fabs(m_poff_pt*0.001));
@@ -731,7 +755,20 @@ void Efficiency::Execute(Int_t ev){
                               m_h_MDTChamber->Fill(pSA_mdthitChamber->at(MDTsize));
                          }
                          if(pSA_sAddress == 0 && nosector9 == 0)m_h_eSAPtLargeNormal->Fill(std::fabs(m_poff_pt*0.001));
-
+                         switch(static_cast<Int_t>(pSA_sAddress)){
+                              case 0:
+                              if(BarrelSPpattern >= 0)m_h_eSAPtBarrelLargepattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                              case 1:
+                              if(BarrelSPpattern >= 0)m_h_eSAPtBarrelLSpattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                              case 2:
+                              if(BarrelSPpattern >= 0)m_h_eSAPtBarrelSmallpattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                              case 3:
+                              if(BarrelSPpattern >= 0)m_h_eSAPtBarrelSSpattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                         }
                          break;
                          case 1:
                          m_h_eSAPtTransition->Fill(std::fabs(m_poff_pt*0.001));
@@ -1857,6 +1894,54 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[4],m_h_eSAPtEndcapSmallpattern[4],m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyEndcapSmall2SPMO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[5],m_h_eSAPtEndcapSmallpattern[5],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLarge1SPInner","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLargepattern[0],m_h_eSAPtBarrelLargepattern[0],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLarge1SPMiddle","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLargepattern[1],m_h_eSAPtBarrelLargepattern[1],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLarge1SPOuter","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLargepattern[2],m_h_eSAPtBarrelLargepattern[2],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLarge2SPIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLargepattern[3],m_h_eSAPtBarrelLargepattern[3],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLarge2SPIO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLargepattern[4],m_h_eSAPtBarrelLargepattern[4],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLarge2SPMO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLargepattern[5],m_h_eSAPtBarrelLargepattern[5],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSmall1SPInner","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSmallpattern[0],m_h_eSAPtBarrelSmallpattern[0],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSmall1SPMiddle","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSmallpattern[1],m_h_eSAPtBarrelSmallpattern[1],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSmall1SPOuter","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSmallpattern[2],m_h_eSAPtBarrelSmallpattern[2],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSmall2SPIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSmallpattern[3],m_h_eSAPtBarrelSmallpattern[3],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSmall2SPIO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSmallpattern[4],m_h_eSAPtBarrelSmallpattern[4],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSmall2SPMO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSmallpattern[5],m_h_eSAPtBarrelSmallpattern[5],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLS1SPInner","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLSpattern[0],m_h_eSAPtBarrelLSpattern[0],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLS1SPMiddle","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLSpattern[1],m_h_eSAPtBarrelLSpattern[1],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLS1SPOuter","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLSpattern[2],m_h_eSAPtBarrelLSpattern[2],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLS2SPIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLSpattern[3],m_h_eSAPtBarrelLSpattern[3],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLS2SPIO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLSpattern[4],m_h_eSAPtBarrelLSpattern[4],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLS2SPMO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLSpattern[5],m_h_eSAPtBarrelLSpattern[5],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSS1SPInner","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSSpattern[0],m_h_eSAPtBarrelSSpattern[0],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSS1SPMiddle","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSSpattern[1],m_h_eSAPtBarrelSSpattern[1],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSS1SPOuter","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSSpattern[2],m_h_eSAPtBarrelSSpattern[2],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSS2SPIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSSpattern[3],m_h_eSAPtBarrelSSpattern[3],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSS2SPIO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSSpattern[4],m_h_eSAPtBarrelSSpattern[4],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSS2SPMO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSSpattern[5],m_h_eSAPtBarrelSSpattern[5],m_binmax,200,m_efficiency_xerr);
      cout<<"eff end"<<endl;
 
      m_h_pOffPt->Write();
@@ -2226,6 +2311,14 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_eSAPtEndcapLargepattern[i]->Write();
           m_h_eL1PtEndcapSmallpattern[i]->Write();
           m_h_eSAPtEndcapSmallpattern[i]->Write();
+          m_h_eL1PtBarrelLargepattern[i]->Write();
+          m_h_eSAPtBarrelLargepattern[i]->Write();
+          m_h_eL1PtBarrelSmallpattern[i]->Write();
+          m_h_eSAPtBarrelSmallpattern[i]->Write();
+          m_h_eL1PtBarrelLSpattern[i]->Write();
+          m_h_eSAPtBarrelLSpattern[i]->Write();
+          m_h_eL1PtBarrelSSpattern[i]->Write();
+          m_h_eSAPtBarrelSSpattern[i]->Write();
      }
 
      m_h_pSAResPt->Write();
