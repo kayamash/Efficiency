@@ -87,6 +87,8 @@ private:
   std::vector<Double_t> *m_pL1_phi;
   std::vector<Double_t> *m_pL1_dR;
   std::vector<Int_t> *m_pL1_pass;
+  std::vector<Int_t> *m_pL1_roiNumber;
+  std::vector<Int_t> *m_pL1_roiSector;
   std::vector<Double_t> *m_pSA_pt;
   std::vector<Double_t> *m_pSA_eta;
   std::vector<Double_t> *m_pSA_phi;
@@ -97,6 +99,8 @@ private:
   std::vector<float> *m_pSA_roieta;
   std::vector<float> *m_pSA_roiphi;
   std::vector<Int_t> *m_pSA_pass;
+  std::vector<unsigned int> *m_pSA_roiNumber;
+  std::vector<unsigned int> *m_pSA_roiSector;
   std::vector<vector<float>> *m_pSA_rpcX;
   std::vector<vector<float>> *m_pSA_rpcY;
   std::vector<vector<float>> *m_pSA_rpcZ;
@@ -194,12 +198,16 @@ private:
   TBranch *b_pL1_phi;
   TBranch *b_pL1_dR;;
   TBranch *b_pL1_pass;
+  TBranch *b_pL1_roiNumber;
+  TBranch *b_pL1_roiSector;
   TBranch *b_sumReqdRL1;
   TBranch *b_pSA_pt;
   TBranch *b_pSA_eta;
   TBranch *b_pSA_phi;
   TBranch *b_pSA_dR;
   TBranch *b_pSA_sAddress;
+  TBranch *b_pSA_roiNumber;
+  TBranch *b_pSA_roiSector;
   TBranch *b_pSA_phims;
   TBranch *b_pSA_phibe;
   TBranch *b_pSA_roieta;
@@ -645,6 +653,8 @@ private:
   TH1D *m_h_eSAPtBarrelLSpattern[6];//Inner,Middle,Outer,IM,IO,MO
   TH1D *m_h_eL1PtBarrelSSpattern[6];//Inner,Middle,Outer,IM,IO,MO
   TH1D *m_h_eSAPtBarrelSSpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eSAPtBarrelMyLUTAlpha;
+  TH1D *m_h_eSAPtBarrelMyLUTBeta;
 
   //Residual
   TH1D *m_h_pSAResPt;
@@ -860,6 +870,8 @@ public:
     m_pL1_phi = 0;
     m_pL1_dR = 0;
     m_pL1_pass = 0;
+    m_pL1_roiNumber = 0;
+    m_pL1_roiSector　= 0;
     m_sumReqdRL1 = 0;
     m_pSA_pt = 0;
     m_pSA_eta = 0;
@@ -879,6 +891,8 @@ public:
     m_pSA_phibe = 0;
     m_pSA_roieta = 0;
     m_pSA_roiphi = 0;
+    m_pSA_roiNumber = 0;
+    m_pSA_roiSector = 0;
     m_pSA_ptalpha = 0;
     m_pSA_ptbeta = 0;
     m_pSA_superpointZ_BI = 0;
@@ -969,6 +983,8 @@ public:
     tChain->SetBranchStatus("probe_mesL1_phi",1);
     tChain->SetBranchStatus("probe_mesL1_pass",1);
     tChain->SetBranchStatus("probe_mesL1_dR",1);
+    tChain->SetBranchStatus("probe_mesL1_roiNumber",1);
+    tChain->SetBranchStatus("probe_mesL1_roiSector",1);
     tChain->SetBranchStatus("sumReqdRL1",1);
     tChain->SetBranchStatus("probe_mesSA_pt",1);
     tChain->SetBranchStatus("probe_mesSA_eta",1);
@@ -980,6 +996,8 @@ public:
     tChain->SetBranchStatus("probe_mesSA_phibe",1);
     tChain->SetBranchStatus("probe_mesSA_roiEta",1);
     tChain->SetBranchStatus("probe_mesSA_roiPhi",1);
+    tChain->SetBranchStatus("probe_mesSA_roiNumber",1);
+    tChain->SetBranchStatus("probe_mesSA_roiSector",1);
     tChain->SetBranchStatus("probe_mesSA_rpcHitX",1);
     tChain->SetBranchStatus("probe_mesSA_rpcHitY",1);
     tChain->SetBranchStatus("probe_mesSA_rpcHitZ",1);
@@ -1078,6 +1096,8 @@ public:
     tChain->SetBranchAddress("probe_mesL1_phi",&m_pL1_phi,&b_pL1_phi);
     tChain->SetBranchAddress("probe_mesL1_pass",&m_pL1_pass,&b_pL1_pass);
     tChain->SetBranchAddress("probe_mesL1_dR",&m_pL1_dR,&b_pL1_dR);
+    tChain->SetBranchAddress("probe_mesL1_roiNumber",&m_pL1_roiNumber,&b_pL1_roiNumber);
+    tChain->SetBranchAddress("probe_mesL1_roiSector",&m_pL1_roiSector,&b_pL1_roiSector);
     tChain->SetBranchAddress("sumReqdRL1",&m_sumReqdRL1,&b_sumReqdRL1);
     tChain->SetBranchAddress("probe_mesSA_pt",&m_pSA_pt,&b_pSA_pt);
     tChain->SetBranchAddress("probe_mesSA_eta",&m_pSA_eta,&b_pSA_eta);
@@ -1100,6 +1120,8 @@ public:
     tChain->SetBranchAddress("probe_mesSA_phibe",&m_pSA_phibe,&b_pSA_phibe);
     tChain->SetBranchAddress("probe_mesSA_roiEta",&m_pSA_roieta,&b_pSA_roieta);
     tChain->SetBranchAddress("probe_mesSA_roiPhi",&m_pSA_roiphi,&b_pSA_roiphi);
+    tChain->SetBranchAddress("probe_mesSA_roiNumber",&m_pSA_roiNumber,&b_pSA_roiNumber);
+    tChain->SetBranchAddress("probe_mesSA_roiSector",&m_pSA_roiSector,&b_pSA_roiSector);
     tChain->SetBranchAddress("probe_mesSA_superPointZ_BI",&m_pSA_superpointZ_BI,&b_pSA_superpointZ_BI);
     tChain->SetBranchAddress("probe_mesSA_superPointZ_BM",&m_pSA_superpointZ_BM,&b_pSA_superpointZ_BM);
     tChain->SetBranchAddress("probe_mesSA_superPointZ_BO",&m_pSA_superpointZ_BO,&b_pSA_superpointZ_BO);
@@ -1628,6 +1650,8 @@ public:
     m_h_eSAPtBarrelSSpattern[4] = new TH1D("h_eSAPtBarrelSS2SPIO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtBarrelSSpattern[5] = new TH1D("h_eL1PtBarrelSS2SPMO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtBarrelSSpattern[5] = new TH1D("h_eSAPtBarrelSS2SPMO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelMyLUTAlpha = new TH1D("h_eSAPtBarrelMyLUTAlpha",";;",200,-0.25,99.75);
+    m_h_eSAPtBarrelMyLUTBeta = new TH1D("h_eSAPtBarrelMyLUTBeta",";;",200,-0.25,99.75);
 
               //Residual
     m_h_pSAResPt = new TH1D("h_pSAResPt","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
@@ -1777,6 +1801,7 @@ public:
   bool CutCB(Int_t pass);
   bool CutEF(Int_t pass);
   bool PlateauCut(Double_t pt);
+  bool CutSAMyLUT(Double_t Pt,Int_t L1Number,Int_t L1Sector,Int_t SANumber,Int_t SASector);
   int DicisionArea(Double_t roiphi);
   int EtaDistribution();
   int EtaDistribution(Float_t roieta);
@@ -2208,6 +2233,8 @@ public:
     delete  m_h_eSAPhiEndcapLowPtPassed0SP;
     delete  m_h_eL1PhiEndcapHighPtPassed0SP;
     delete  m_h_eSAPhiEndcapHighPtPassed0SP;
+    delete  m_h_eSAPtBarrelMyLUTAlpha;
+    delete  m_h_eSAPtBarrelMyLUTBeta;
 
     delete  m_h_pSAResPt;
     delete  m_h_pCBResPt;
