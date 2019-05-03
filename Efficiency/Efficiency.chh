@@ -829,6 +829,7 @@ public:
     tChain = tree;
     m_eNumber = 0;
     m_rNumber = 0;
+    m_aipc = 0;
     m_tag_proc = 0;
     m_toff_pt = 0;
     m_toff_eta = 0;
@@ -909,12 +910,14 @@ public:
     m_pSA_superpointR_BI = 0;
     m_pSA_superpointR_BM = 0;
     m_pSA_superpointR_BO = 0;
+    m_pSA_superpointR_BME = 0;
     m_pSA_superpointR_EI = 0;
     m_pSA_superpointR_EM = 0;
     m_pSA_superpointR_EO = 0;
     m_pSA_superpointR_EE = 0;
     m_pSA_superpointR_CSC = 0;
     m_pSA_superpointR_BEE = 0;
+    m_pSA_superpointR_BME = 0;
     m_pSA_superpointSlope_BI = 0;
     m_pSA_superpointSlope_BM = 0;
     m_pCB_pt = 0;
