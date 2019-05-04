@@ -735,7 +735,7 @@ void Efficiency::Execute(Int_t ev){
                          bool check = LUT.ReadLUT(LUTparameter,"NewMethodAlphaJPZ.LUT",parA,parB);
                          Double_t AlphaPt = 0;
                          if(check)AlphaPt = 2.*parB/(-parA + sqrt(parA*parA + 4.*parB*barrelalpha));
-                         cout<<"Alpha Pt = "<<AlphaPt<<"   "<<parA<<"   "<<parB<<endl;
+                         //cout<<"Alpha Pt = "<<AlphaPt<<"   "<<parA<<"   "<<parB<<endl;
                          if(AlphaPt != 0 && CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
                          m_h_pSAResPtBarrelAlpha->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
                     }
@@ -745,7 +745,7 @@ void Efficiency::Execute(Int_t ev){
                          bool check = LUT.ReadLUT(LUTparameter,"NewMethodBetaJPZ.LUT",parA,parB);
                          Double_t BetaPt = 0;
                          if(check)BetaPt = 2.*parB/(-parA + sqrt(parA*parA + 4.*parB*barrelbeta));
-                         cout<<"Beta Pt = "<<BetaPt<<"   "<<parA<<"   "<<parB<<endl;
+                         //cout<<"Beta Pt = "<<BetaPt<<"   "<<parA<<"   "<<parB<<endl;
                          if(BetaPt != 0 && CutSAMyLUT(BetaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
                          m_h_pSAResPtBarrelBeta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
                     }
