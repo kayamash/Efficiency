@@ -343,6 +343,7 @@ private:
   TH2F *m_h_PtvsBarrelBeta;
   TH2F *m_h_RoIEtaPhiWeakBField[3];//WeakBFieldA,B,normal
   TH2F *m_h_RoIEtavsPhiEndcap[2];//Large,Small
+  TH2F *m_h_OfflineEtavsPhi;
 
   //SP,segment
   TH2F *m_h_MDTHitXY;
@@ -653,7 +654,9 @@ private:
   TH1D *m_h_eSAPtBarrelLSpattern[6];//Inner,Middle,Outer,IM,IO,MO
   TH1D *m_h_eL1PtBarrelSSpattern[6];//Inner,Middle,Outer,IM,IO,MO
   TH1D *m_h_eSAPtBarrelSSpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eL1PtBarrelMyLUTAlpha;
   TH1D *m_h_eSAPtBarrelMyLUTAlpha;
+  TH1D *m_h_eL1PtBarrelMyLUTBeta;
   TH1D *m_h_eSAPtBarrelMyLUTBeta;
 
   //Residual
@@ -792,6 +795,8 @@ private:
   TH2F *m_h_EtaIndexvsSAResPtLSMinusS11inner3Station;
   TH2F *m_h_EtaIndexvsSAResPtLSMinusS15outer3Station;
   TH2F *m_h_EtaIndexvsSAResPtLSMinusS15inner3Station;
+  TH1D *m_h_pSAResPtBarrelAlpha;
+  TH1D *m_h_pSAResPtBarrelBeta;
 
   //TH1D *m_h_DivideEtaOverPhiResPtLarge[16][8];
   //TH1D *m_h_DivideEtaOverPhiResPtSmall[16][8];
@@ -1288,6 +1293,7 @@ public:
     m_h_RoIEtaPhiWeakBField[2] = new TH2F("h_RoIEtaPhiWeakBFieldNormal","Weak Magnetic Field Normal;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
     m_h_RoIEtavsPhiEndcap[0] = new TH2F("h_RoIEtavsPhiEndcapLarge","Endcap Large;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
     m_h_RoIEtavsPhiEndcap[1] = new TH2F("h_RoIEtavsPhiEndcapSmall","Endcap Small;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
+    m_h_OfflineEtavsPhi = new TH2F("h_OfflineEtavsPhi","Offline;Offline #eta;Offline #phi",105,0,1.05,628,-TMath::Pi(),TMath::Pi());
 
               //SP,segment
 
@@ -1654,7 +1660,9 @@ public:
     m_h_eSAPtBarrelSSpattern[4] = new TH1D("h_eSAPtBarrelSS2SPIO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtBarrelSSpattern[5] = new TH1D("h_eL1PtBarrelSS2SPMO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtBarrelSSpattern[5] = new TH1D("h_eSAPtBarrelSS2SPMO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelMyLUTAlpha = new TH1D("h_eL1PtBarrelMyLUTAlpha",";;",200,-0.25,99.75);
     m_h_eSAPtBarrelMyLUTAlpha = new TH1D("h_eSAPtBarrelMyLUTAlpha",";;",200,-0.25,99.75);
+    m_h_eL1PtBarrelMyLUTBeta = new TH1D("h_eL1PtBarrelMyLUTBeta",";;",200,-0.25,99.75);
     m_h_eSAPtBarrelMyLUTBeta = new TH1D("h_eSAPtBarrelMyLUTBeta",";;",200,-0.25,99.75);
 
               //Residual
@@ -1667,6 +1675,8 @@ public:
     m_h_pSAResPtEndcap = new TH1D("h_pSAResPtEndcap","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pCBResPtEndcap = new TH1D("h_pCBResPtEndcap","probe muComb residual pt;residual pt;Entries",640,-0.8,0.8);
     m_h_pEFResPtEndcap = new TH1D("h_pEFResPtEndcap","probe EventFilter residual pt;residual pt;Entries",1800,-0.3,0.3);
+    m_h_pSAResPtBarrelAlpha = new TH1D("h_pSAResPtBarrelAlpha","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBeta = new TH1D("h_pSAResPtBarrelBeta","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
 
     m_h_SAResPtLargePlus = new TH1D("h_SAResPtLargePlus","SAresidualptLarge;L2MuonSA residual pt;Entries",1000,-5.0,5.0);
     m_h_SAResPtLSPlus = new TH1D("h_SAResPtLSPlus","SAresidualptLargeSpecial;L2MuonSA residual pt;Entries",1000,-5.0,5.0);
@@ -1945,6 +1955,7 @@ public:
     delete  m_h_PtvsBarrelBeta;
     delete  m_h_RoIEtavsPhiEndcap[0];
     delete  m_h_RoIEtavsPhiEndcap[1];
+    delete  m_h_OfflineEtavsPhi;
 
     delete  m_h_MDTHitXY;
     delete  m_h_RPCHitXY;
@@ -2237,7 +2248,9 @@ public:
     delete  m_h_eSAPhiEndcapLowPtPassed0SP;
     delete  m_h_eL1PhiEndcapHighPtPassed0SP;
     delete  m_h_eSAPhiEndcapHighPtPassed0SP;
+    delete  m_h_eL1PtBarrelMyLUTAlpha;
     delete  m_h_eSAPtBarrelMyLUTAlpha;
+    delete  m_h_eL1PtBarrelMyLUTBeta;
     delete  m_h_eSAPtBarrelMyLUTBeta;
 
     delete  m_h_pSAResPt;
@@ -2249,6 +2262,8 @@ public:
     delete  m_h_pSAResPtEndcap;
     delete  m_h_pCBResPtEndcap;
     delete  m_h_pEFResPtEndcap;
+    delete  m_h_pSAResPtBarrelAlpha;
+    delete  m_h_pSAResPtBarrelBeta;
     delete  m_h_SAResPtLargePlus;
     delete  m_h_SAResPtLSPlus;
     delete  m_h_SAResPtSmallPlus;
