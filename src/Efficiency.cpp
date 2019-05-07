@@ -111,7 +111,7 @@ bool Efficiency::PlateauCut(Double_t pt){
 
 bool Efficiency::CutSAMyLUT(Double_t pt,Int_t L1Number,Int_t L1Sector,Int_t SANumber,Int_t SASector){
      //if(L1Number == SANumber && L1Sector == SASector && pt >= pt_threshold[0])return kTRUE;
-     if(pt >= pt_threshold[0])return kTRUE;
+     if(std::fabs(pt) >= pt_threshold[0])return kTRUE;
      return kFALSE;
 }
 
