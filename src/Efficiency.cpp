@@ -512,7 +512,7 @@ void Efficiency::Execute(Int_t ev){
           Double_t barrelalpha = 0;
           //barrel alpha
           if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){
-               barrelalpha = atan(pSA_superpointZ_BM/pSA_superpointR_BM) - atan(1.0/pSA_superpointSlope_BM);//Reciprocal number?
+               barrelalpha = atan(pSA_superpointZ_BM/pSA_superpointR_BM) - atan(pSA_superpointSlope_BM);//Reciprocal number?
                m_h_BarrelAlpha->Fill(barrelalpha);
                m_h_PtvsBarrelAlpha->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelalpha);
           }
