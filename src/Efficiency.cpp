@@ -747,6 +747,7 @@ void Efficiency::Execute(Int_t ev){
                          }
                          m_h_pSAResPtBarrelAlpha->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
                          m_h_pSAResPtBarrelAlphaSector[LUTparameter[0]]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
+                         if(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0 >= 0.4)cout<<AlphaPt<<"   "<<m_poff_pt*0.001<<"   "<<LUTparameter[0]<<"   "<<LUTparameter[1]<<"   "<<LUTparameter[2]<<"   "<<LUTparameter[3]<<endl;
                     }//barrel alpha end
 
                     if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){//barrel beta
