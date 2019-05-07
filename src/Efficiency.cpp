@@ -28,8 +28,8 @@
 #include <TROOT.h>
 #include <TChain.h>
 
-//const Double_t pt_threshold[4] = {3.38,1.25,3.17,3.41};//MU4
-const Double_t pt_threshold[4] = {5.17,3.25,4.69,5.14};//MU6
+const Double_t pt_threshold[4] = {3.38,1.25,3.17,3.41};//MU4
+//const Double_t pt_threshold[4] = {5.17,3.25,4.69,5.14};//MU6
 //const Double_t pt_threshold[4] = {15.87,10.73,12.21,15.87};//MU20
 const Double_t LargeRegion[9] = {0.25,0.55,1.025,1.325,1.80,2.125,2.575,2.90,TMath::Pi()};
 
@@ -106,7 +106,8 @@ bool Efficiency::PlateauCut(Double_t pt){
 }
 
 bool Efficiency::CutSAMyLUT(Double_t pt,Int_t L1Number,Int_t L1Sector,Int_t SANumber,Int_t SASector){
-     if(L1Number == SANumber && L1Sector == SASector && pt >= pt_threshold[0])return kTRUE;
+     //if(L1Number == SANumber && L1Sector == SASector && pt >= pt_threshold[0])return kTRUE;
+     if(pt >= pt_threshold[0])return kTRUE;
      return kFALSE;
 }
 
