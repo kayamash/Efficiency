@@ -634,6 +634,7 @@ void Efficiency::Execute(Int_t ev){
                if(numSP == 2)m_h_eL1PtBarrel2SPRoI->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 3)m_h_eL1PtBarrel3SPRoI->Fill(std::fabs(m_poff_pt*0.001));
                if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && pSA_superpointR_BO == 0)m_h_eL1PtBarrelIMRoI->Fill(std::fabs(m_poff_pt*0.001));
+               m_h_eL1PtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
                break;
                default:
                break;
@@ -729,12 +730,21 @@ void Efficiency::Execute(Int_t ev){
                          BetaPt = BetaPt = 2.*parB/(-parA + sqrt(parA*parA + 4.*parB*barrelbeta));
                     }
 
-                    if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 && numSP <= 2){//barrel alpha
+                    if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){//barrel alpha
                          m_h_BarrelAlpha->Fill(barrelalpha);
                          m_h_PtvsBarrelAlpha->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelalpha);
-                         m_h_eL1PtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
                          if(CutSA(pSA_pass))m_h_eSAPtBarrelCompareAlpha->Fill(std::fabs(m_poff_pt*0.001));
-                         if(AlphaPt != 0 && CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
+                         switch(numSP){
+                              case 1:
+                              if(AlphaPt != 0 && CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                              case 2:
+                              if(AlphaPt != 0 && CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                              case 3:
+                              if(CutSA(pSA_pass))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                         }
                          m_h_pSAResPtBarrelAlpha->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
                          m_h_pSAResPtBarrelAlphaSector[LUTparameter[0]]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
                     }//barrel alpha end
@@ -744,7 +754,17 @@ void Efficiency::Execute(Int_t ev){
                          m_h_PtvsBarrelBeta->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelbeta);
                          m_h_eL1PtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
                          if(CutSA(pSA_pass))m_h_eSAPtBarrelCompareBeta->Fill(std::fabs(m_poff_pt*0.001));
-                         if(BetaPt != 0 && CutSAMyLUT(BetaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
+                         switch(numSP){
+                              case 1:
+                              if(AlphaPt != 0 && CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                              case 2:
+                              if(AlphaPt != 0 && CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                              case 3:
+                              if(CutSA(pSA_pass))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                         }
                          m_h_pSAResPtBarrelBeta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
                          m_h_pSAResPtBarrelBetaSector[LUTparameter[0]]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
                     }//barrel beta end

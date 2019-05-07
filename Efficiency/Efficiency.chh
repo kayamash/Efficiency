@@ -806,7 +806,6 @@ private:
   TH1D *m_h_pSAResPtBarrelAlpha2SP;
   TH1D *m_h_pSAResPtBarrelBeta2SP;
   TH1D *m_h_pSAResPtBarrelAlpha1SP;
-  TH1D *m_h_pSAResPtBarrelBeta1SP;
 
   //TH1D *m_h_DivideEtaOverPhiResPtLarge[16][8];
   //TH1D *m_h_DivideEtaOverPhiResPtSmall[16][8];
@@ -1707,7 +1706,6 @@ public:
     m_h_pSAResPtBarrelAlpha2SP = new TH1D("h_pSAResPtBarrelAlpha2SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pSAResPtBarrelBeta2SP = new TH1D("h_pSAResPtBarrelBeta2SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pSAResPtBarrelAlpha1SP = new TH1D("h_pSAResPtBarrelAlpha1SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelBeta1SP = new TH1D("h_pSAResPtBarrelBeta1SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
 
     m_h_SAResPtLargePlus = new TH1D("h_SAResPtLargePlus","SAresidualptLarge;L2MuonSA residual pt;Entries",1000,-5.0,5.0);
     m_h_SAResPtLSPlus = new TH1D("h_SAResPtLSPlus","SAresidualptLargeSpecial;L2MuonSA residual pt;Entries",1000,-5.0,5.0);
@@ -2304,7 +2302,6 @@ public:
     delete  m_h_pSAResPtBarrelAlpha2SP;
     delete  m_h_pSAResPtBarrelBeta2SP;
     delete  m_h_pSAResPtBarrelAlpha1SP;
-    delete  m_h_pSAResPtBarrelBeta1SP;
     delete  m_h_SAResPtLargePlus;
     delete  m_h_SAResPtLSPlus;
     delete  m_h_SAResPtSmallPlus;
