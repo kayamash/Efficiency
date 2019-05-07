@@ -726,29 +726,35 @@ void Efficiency::Execute(Int_t ev){
                          break;
                     }
 
-                    if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0)m_h_eL1PtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
-                    if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0)m_h_eL1PtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
+                    if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 && numSP <= 2)m_h_eL1PtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
+                    if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 && numSP <= 2)m_h_eL1PtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
                     kayamashForLUT LUT(0.,0.);
                     Double_t phiInteg = 0;
                     Int_t tmp_LUTpar[5] = {0,0,0,0,0};
                     bool LUTcheck = LUT.getLUTparameter(pSA_sAddress,m_poff_charge,pSA_eta,pSA_phi,tmp_LUTpar,phiInteg);
                     Int_t LUTparameter[4];
                     for(Int_t i = 0; i < 4; ++i)LUTparameter[i] = tmp_LUTpar[i];
-                    if(LUTcheck && barrelalpha != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){
-                         Double_t parA = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
-                         Double_t parB = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
-                         Double_t AlphaPt = 2.*parB/(-parA + sqrt(parA*parA + 4.*parB*barrelalpha));
-                         //cout<<"Alpha Pt = "<<AlphaPt<<"   "<<parA<<"   "<<parB<<endl;
-                         if(AlphaPt != 0 && CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
-                         m_h_pSAResPtBarrelAlpha->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
+                    if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 && numSP <= 2){
+                         if(CutSA(pSA_pass))m_h_eSAPtBarrelCompareAlpha->Fill(std::fabs(m_poff_pt*0.001));
+                         if(LUTcheck && barrelalpha != 0){
+                              Double_t parA = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
+                              Double_t parB = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
+                              Double_t AlphaPt = 2.*parB/(-parA + sqrt(parA*parA + 4.*parB*barrelalpha));
+                              //cout<<"Alpha Pt = "<<AlphaPt<<"   "<<parA<<"   "<<parB<<endl;
+                              if(AlphaPt != 0 && CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_pSAResPtBarrelAlpha->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
+                         }
                     }
-                    if(LUTcheck && barrelbeta != 0 && pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){
-                         Double_t parA = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
-                         Double_t parB = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
-                         Double_t BetaPt = BetaPt = 2.*parB/(-parA + sqrt(parA*parA + 4.*parB*barrelbeta));
-                         //cout<<"Beta Pt = "<<BetaPt<<"   "<<parA<<"   "<<parB<<endl;
-                         if(BetaPt != 0 && CutSAMyLUT(BetaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
-                         m_h_pSAResPtBarrelBeta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+                    if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 && numSP <= 2){
+                         if(CutSA(pSA_pass))m_h_eSAPtBarrelCompareBeta->Fill(std::fabs(m_poff_pt*0.001))
+                         if(LUTcheck && barrelbeta != 0){
+                              Double_t parA = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
+                              Double_t parB = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
+                              Double_t BetaPt = BetaPt = 2.*parB/(-parA + sqrt(parA*parA + 4.*parB*barrelbeta));
+                              //cout<<"Beta Pt = "<<BetaPt<<"   "<<parA<<"   "<<parB<<endl;
+                              if(BetaPt != 0 && CutSAMyLUT(BetaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_pSAResPtBarrelBeta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+                         }
                     }
 
 
@@ -1989,6 +1995,10 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtBarrelMyLUTAlpha,m_h_eSAPtBarrelMyLUTAlpha,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyBarrelMyLUTBeta","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtBarrelMyLUTBeta,m_h_eSAPtBarrelMyLUTBeta,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelCompareAlpha","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelMyLUTAlpha,m_h_eSAPtBarrelCompareAlpha,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelCompareBeta","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelMyLUTBeta,m_h_eSAPtBarrelCompareBeta,m_binmax,200,m_efficiency_xerr);
      cout<<"eff end"<<endl;
 
      m_h_pOffPt->Write();
@@ -2372,6 +2382,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtBarrelMyLUTAlpha->Write();
      m_h_eL1PtBarrelMyLUTBeta->Write();
      m_h_eSAPtBarrelMyLUTBeta->Write();
+     m_h_eSAPtBarrelCompareAlpha->Write();
+     m_h_eSAPtBarrelCompareBeta->Write();
 
      m_h_pSAResPt->Write();
      m_h_pCBResPt->Write();
