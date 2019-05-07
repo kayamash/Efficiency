@@ -47,8 +47,8 @@ void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Doubl
      m_reqL1dR = req;
 
      kayamashForLUT LUT(0.,0.);
-     LUT.ReadLUT(LUTparameter,"NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
-     LUT.ReadLUT(LUTparameter,"NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
+     LUT.ReadLUT("NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
+     LUT.ReadLUT("NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
 }
 
 bool Efficiency::DicisionBarrel(Double_t eta){
