@@ -743,6 +743,7 @@ void Efficiency::Execute(Int_t ev){
                               //cout<<"Alpha Pt = "<<AlphaPt<<"   "<<parA<<"   "<<parB<<endl;
                               if(AlphaPt != 0 && CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
                               m_h_pSAResPtBarrelAlpha->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
+                              m_h_pSAResPtBarrelAlphaSector[LUTparameter[0]]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
                          }
                     }
                     if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 && numSP <= 2){
@@ -754,6 +755,7 @@ void Efficiency::Execute(Int_t ev){
                               //cout<<"Beta Pt = "<<BetaPt<<"   "<<parA<<"   "<<parB<<endl;
                               if(BetaPt != 0 && CutSAMyLUT(BetaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
                               m_h_pSAResPtBarrelBeta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+                              m_h_pSAResPtBarrelBetaSector[LUTparameter[0]]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
                          }
                     }
 
@@ -2396,6 +2398,10 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_pEFResPtEndcap->Write();
      m_h_pSAResPtBarrelAlpha->Write();
      m_h_pSAResPtBarrelBeta->Write();
+     for(Int_t i = 0; i < 5;++i){
+          m_h_pSAResPtBarrelAlphaSector[i]->Write();
+          m_h_pSAResPtBarrelBetaSector[i]->Write();
+     }
      m_h_SAResPtLargePlus->Write();
      m_h_SAResPtLSPlus->Write();
      m_h_SAResPtSmallPlus->Write();

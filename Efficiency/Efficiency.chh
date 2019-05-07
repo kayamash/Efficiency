@@ -799,6 +799,8 @@ private:
   TH2F *m_h_EtaIndexvsSAResPtLSMinusS15inner3Station;
   TH1D *m_h_pSAResPtBarrelAlpha;
   TH1D *m_h_pSAResPtBarrelBeta;
+  TH1D *m_h_pSAResPtBarrelAlphaSector[5];//Large Sector11 Sector15 Small SmallSpecial
+  TH1D *m_h_pSAResPtBarrelBetaSector[5];
 
   //TH1D *m_h_DivideEtaOverPhiResPtLarge[16][8];
   //TH1D *m_h_DivideEtaOverPhiResPtSmall[16][8];
@@ -1684,6 +1686,16 @@ public:
     m_h_pEFResPtEndcap = new TH1D("h_pEFResPtEndcap","probe EventFilter residual pt;residual pt;Entries",1800,-0.3,0.3);
     m_h_pSAResPtBarrelAlpha = new TH1D("h_pSAResPtBarrelAlpha","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pSAResPtBarrelBeta = new TH1D("h_pSAResPtBarrelBeta","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[0] = new TH1D("h_pSAResPtBarrelAlphaLarge","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBetaSector[0] = new TH1D("h_pSAResPtBarrelBetaLarge","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[1] = new TH1D("h_pSAResPtBarrelAlphaSector11","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBetaSector[1] = new TH1D("h_pSAResPtBarrelBetaSector11","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[2] = new TH1D("h_pSAResPtBarrelAlphaSector15","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBetaSector[2] = new TH1D("h_pSAResPtBarrelBetaSector15","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[3] = new TH1D("h_pSAResPtBarrelAlphaSmall","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBetaSector[3] = new TH1D("h_pSAResPtBarrelBetaSmall","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[4] = new TH1D("h_pSAResPtBarrelAlphaSmallSpecial","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBetaSector[4] = new TH1D("h_pSAResPtBarrelBetaSmallSpecial","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
 
     m_h_SAResPtLargePlus = new TH1D("h_SAResPtLargePlus","SAresidualptLarge;L2MuonSA residual pt;Entries",1000,-5.0,5.0);
     m_h_SAResPtLSPlus = new TH1D("h_SAResPtLSPlus","SAresidualptLargeSpecial;L2MuonSA residual pt;Entries",1000,-5.0,5.0);
@@ -1870,6 +1882,8 @@ public:
     }
     for(Int_t i = 0;i < 5;i++){
       delete  m_h_LowPtPassedRoIEtavsPhi[i];
+      delete  m_h_pSAResPtBarrelAlphaSector[i];
+      delete  m_h_pSAResPtBarrelBetaSector[i];
     }
     for(Int_t i = 0;i < 6;i++){
       delete  m_h_eL1PtEndcapLargepattern[i];
