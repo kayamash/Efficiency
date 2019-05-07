@@ -829,6 +829,9 @@ private:
   Double_t m_binmax;
   Double_t m_efficiency_xerr;
 
+  Double_t m_LUTAlphaSectorChargeEtaPhi[5][2][30][30][2];//Sector Charge Eta Phi parAorB
+  Double_t m_LUTBetaSectorChargeEtaPhiParB[5][2][30][30][2];
+
 public:
   Efficiency(TTree *tree){
     tChain = tree;

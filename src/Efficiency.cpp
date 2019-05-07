@@ -45,6 +45,10 @@ void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Doubl
 
      	//initialize
      m_reqL1dR = req;
+
+     kayamashForLUT LUT(0.,0.);
+     LUT.ReadLUT(LUTparameter,"NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
+     LUT.ReadLUT(LUTparameter,"NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
 }
 
 bool Efficiency::DicisionBarrel(Double_t eta){
@@ -731,21 +735,17 @@ void Efficiency::Execute(Int_t ev){
                     Int_t LUTparameter[4];
                     for(Int_t i = 0; i < 4; ++i)LUTparameter[i] = tmp_LUTpar[i];
                     if(LUTcheck && barrelalpha != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){
-                         Double_t parA = 0;
-                         Double_t parB = 0;
-                         bool check = LUT.ReadLUT(LUTparameter,"NewMethodAlphaJPZ.LUT",parA,parB);
-                         Double_t AlphaPt = 0;
-                         if(check)AlphaPt = 2.*parB/(-parA + sqrt(parA*parA + 4.*parB*barrelalpha));
+                         Double_t parA = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
+                         Double_t parB = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
+                         Double_t AlphaPt = 2.*parB/(-parA + sqrt(parA*parA + 4.*parB*barrelalpha));
                          //cout<<"Alpha Pt = "<<AlphaPt<<"   "<<parA<<"   "<<parB<<endl;
                          if(AlphaPt != 0 && CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
                          m_h_pSAResPtBarrelAlpha->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
                     }
                     if(LUTcheck && barrelbeta != 0 && pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){
-                         Double_t parA = 0;
-                         Double_t parB = 0;
-                         bool check = LUT.ReadLUT(LUTparameter,"NewMethodBetaJPZ.LUT",parA,parB);
-                         Double_t BetaPt = 0;
-                         if(check)BetaPt = 2.*parB/(-parA + sqrt(parA*parA + 4.*parB*barrelbeta));
+                         Double_t parA = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
+                         Double_t parB = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
+                         Double_t BetaPt = BetaPt = 2.*parB/(-parA + sqrt(parA*parA + 4.*parB*barrelbeta));
                          //cout<<"Beta Pt = "<<BetaPt<<"   "<<parA<<"   "<<parB<<endl;
                          if(BetaPt != 0 && CutSAMyLUT(BetaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
                          m_h_pSAResPtBarrelBeta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
@@ -1637,7 +1637,6 @@ void Efficiency::Execute(Int_t ev){
 void Efficiency::Finalize(TFile *tf1){
      CalcEff ceff;
      tf1->cd();
-     //tf1->Write();//test
      //SetCondition
      //title,file title,yoffset,top margin,bottom margin,left margin,right margin
      m_h_SARoIPhiLS->Write();
@@ -1649,10 +1648,6 @@ void Efficiency::Finalize(TFile *tf1){
      for(Int_t i = 0; i < 16;i++){
           m_h_SectorPhi[i]->Write();
           m_h_SectorRoIPhi[i]->Write();
-          for(Int_t j = 0; j < 8;j++){
-               //m_h_DivideEtaOverPhiResPtLarge[i][j]->Write();
-               //m_h_DivideEtaOverPhiResPtSmall[i][j]->Write();
-          }
      }
      for(Int_t i = 0;i < 4;i++){
           m_h_PtMethod[i]->Write();
