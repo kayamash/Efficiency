@@ -749,12 +749,12 @@ void Efficiency::Execute(Int_t ev){
                          m_h_pSAResPtBarrelBetaSector[LUTparameter[0]]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
                     }//barrel beta end
 
-                    if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 AlphaPt != 0){
+                    if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 && AlphaPt != 0){
                          if(numSP == 1)m_h_pSAResPtBarrelAlpha1SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
                          if(numSP == 2)m_h_pSAResPtBarrelAlpha2SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
                          if(numSP == 3)m_h_pSAResPtBarrelAlpha3SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
                     }
-                    if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 BetaPt != 0){
+                    if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 && BetaPt != 0){
                          if(numSP == 2)m_h_pSAResPtBarrelBeta2SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
                          if(numSP == 3)m_h_pSAResPtBarrelBeta3SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
                     }
