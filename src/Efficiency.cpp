@@ -2401,6 +2401,11 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_pSAResPtBarrelAlphaSector[i]->Write();
           m_h_pSAResPtBarrelBetaSector[i]->Write();
      }
+     m_h_pSAResPtBarrelAlpha1SP->Write();
+     m_h_pSAResPtBarrelAlpha2SP->Write();
+     m_h_pSAResPtBarrelBeta2SP->Write();
+     m_h_pSAResPtBarrelAlpha3SP->Write();
+     m_h_pSAResPtBarrelBeta3SP->Write();
      m_h_SAResPtLargePlus->Write();
      m_h_SAResPtLSPlus->Write();
      m_h_SAResPtSmallPlus->Write();
