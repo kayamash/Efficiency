@@ -710,9 +710,35 @@ void Efficiency::Execute(Int_t ev){
                     }
 
                     kayamashForLUT LUT(0.,0.);
+                    Double_t SPZInner = 0;
+                    Double_t SPRInner = 0;
+                    Double_t SPSlopeInner = 0;
+                    Double_t SPZMiddle = 0;
+                    Double_t SPRMiddle = 0;
+                    Double_t SPSlopeMiddle = 0;
+                    if(pSA_superpointR_BI != 0){
+                         SPZInner = pSA_superpointZ_BI;
+                         SPRInner = pSA_superpointR_BI;
+                         SPSlopeInner = pSA_superpointSlope_BI;
+                    }
+                    if(pSA_superpointR_BEE != 0){
+                         SPZInner = pSA_superpointZ_BEE;
+                         SPRInner = pSA_superpointR_BEE;
+                         SPSlopeInner = pSA_superpointSlope_BEE;
+                    }
+                    if(pSA_superpointR_BM != 0){
+                         SPZMiddle = pSA_superpointZ_BM;
+                         SPRMiddle = pSA_superpointR_BM;
+                         SPSlopeMiddle = pSA_superpointSlope_BM;
+                    }
+                    if(pSA_superpointR_BME != 0){
+                         SPZMiddle = pSA_superpointZ_BME;
+                         SPRMiddle = pSA_superpointR_BME;
+                         SPSlopeMiddle = pSA_superpointSlope_BME;
+                    }
                     Double_t phiInteg = 0;
-                    Double_t barrelalpha = atan(pSA_superpointZ_BM/pSA_superpointR_BM) - atan(pSA_superpointSlope_BM);//Reciprocal number?;
-                    Double_t barrelbeta = atan(1.0/pSA_superpointSlope_BI) - atan(1.0/pSA_superpointSlope_BM);//Reciprocal number?
+                    Double_t barrelalpha = atan(SPZMiddle/SPRMiddle) - atan(SPSlopeMiddle);//Reciprocal number?;
+                    Double_t barrelbeta = atan(1.0/SPSlopeInner) - atan(1.0/SPSlopeMiddle);//Reciprocal number?
                     Double_t AlphaPt = 0;
                     Double_t BetaPt = 0;
                     Int_t tmp_LUTpar[5] = {0,0,0,0,0};
@@ -747,7 +773,7 @@ void Efficiency::Execute(Int_t ev){
                          }
                          m_h_pSAResPtBarrelAlpha->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
                          m_h_pSAResPtBarrelAlphaSector[LUTparameter[0]]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
-                         if(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0 >= 0.4)cout<<AlphaPt<<"   "<<m_poff_pt*0.001<<"   "<<LUTparameter[0]<<"   "<<LUTparameter[1]<<"   "<<LUTparameter[2]<<"   "<<LUTparameter[3]<<endl;
+                         //if(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0 >= 0.4)cout<<AlphaPt<<"   "<<m_poff_pt*0.001<<"   "<<LUTparameter[0]<<"   "<<LUTparameter[1]<<"   "<<LUTparameter[2]<<"   "<<LUTparameter[3]<<endl;
                     }//barrel alpha end
 
                     if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){//barrel beta
