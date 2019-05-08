@@ -1849,6 +1849,7 @@ public:
   bool CutEF(Int_t pass);
   bool PlateauCut(Double_t pt);
   bool CutSAMyLUT(Double_t Pt,Int_t L1Number,Int_t L1Sector,Int_t SANumber,Int_t SASector);
+  void CalcPtByAngle(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Double_t &pt);
   int DicisionArea(Double_t roiphi);
   int EtaDistribution();
   int EtaDistribution(Float_t roieta);

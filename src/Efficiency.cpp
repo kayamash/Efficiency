@@ -117,6 +117,34 @@ bool Efficiency::CutSAMyLUT(Double_t pt,Int_t L1Number,Int_t L1Sector,Int_t SANu
      return kFALSE;
 }
 
+void Efficiency::CalcPtByAngle(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Double_t &pt){
+     Double_t discriminant = 0;
+     Double_t sqrtDiscriminant = 0;
+     Double_t Angle = 0;
+     if(charge == 1.){
+          Angle = - std::fabs(angle);
+     }else{
+          Angle = std::fabs(angle);
+     }
+     discriminant = (parA*parA) + 4*parB*Angle;
+     if(discriminant > 0){
+          sqrtDiscriminant = std::sqrt(discriminant);
+     }
+     if(charge == 1.){
+          if(-parA - sqrtDiscriminant){
+               pt = 0;
+          }else{
+               pt = 2*parB/(-parA - sqrtDiscriminant);
+          }
+     }else{
+          if(-parA + sqrtDiscriminant){
+               pt = 0;
+          }else{
+               pt = 2*parB/(-parA + sqrtDiscriminant);
+          }
+     }
+}
+
 int Efficiency::DicisionArea(Double_t roiphi){
      Int_t dicisionarea = 0;
      if(m_poff_charge*m_poff_eta/std::fabs(m_poff_eta) == 1){
@@ -752,12 +780,12 @@ void Efficiency::Execute(Int_t ev){
                     if(LUTcheck && barrelalpha != 0){
                          Double_t parA = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
                          Double_t parB = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
-                         AlphaPt = 2.*parB/(-parA + sqrt(parA*parA + 4.*parB*barrelalpha));
+                         CalcPtByAngle(parA,parB,barrelalpha,m_poff_charge,AlphaPt);
                     }
                     if(LUTcheck && barrelbeta != 0){
                          Double_t parA = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
                          Double_t parB = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
-                         BetaPt = BetaPt = 2.*parB/(-parA + sqrt(parA*parA + 4.*parB*barrelbeta));
+                         CalcPtByAngle(parA,parB,barrelbeta,m_poff_charge,BetaPt);
                     }
 
                     if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){//barrel alpha
