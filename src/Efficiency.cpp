@@ -769,8 +769,10 @@ void Efficiency::Execute(Int_t ev){
                     }
                     */
                     Double_t phiInteg = 0;
-                    Double_t barrelalpha = atan(SPZMiddle/SPRMiddle) - atan(SPSlopeMiddle);//Reciprocal number?;
-                    Double_t barrelbeta = atan(1.0/SPSlopeInner) - atan(1.0/SPSlopeMiddle);//Reciprocal number?
+                    Double_t barrelalpha = 0;
+                    Double_t barrelbeta = 0;
+                    if(SPRMiddle != 0)barrelalpha = atan(SPZMiddle/SPRMiddle) - atan(SPSlopeMiddle);//Reciprocal number?;
+                    if(SPRInner != 0 && SPRMiddle != 0)barrelbeta = atan(1.0/SPSlopeInner) - atan(1.0/SPSlopeMiddle);//Reciprocal number?
                     Double_t AlphaPt = 0;
                     Double_t BetaPt = 0;
                     Int_t tmp_LUTpar[5] = {0,0,0,0,0};
