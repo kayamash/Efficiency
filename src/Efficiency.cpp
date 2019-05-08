@@ -131,13 +131,13 @@ void Efficiency::CalcPtByAngle(Double_t parA,Double_t parB,Double_t angle,Double
           sqrtDiscriminant = std::sqrt(discriminant);
      }
      if(charge == 1.){
-          if(-parA - sqrtDiscriminant){
+          if(-parA - sqrtDiscriminant == 0){
                pt = 0;
           }else{
                pt = 2*parB/(-parA - sqrtDiscriminant);
           }
      }else{
-          if(-parA + sqrtDiscriminant){
+          if(-parA + sqrtDiscriminant == 0){
                pt = 0;
           }else{
                pt = 2*parB/(-parA + sqrtDiscriminant);
