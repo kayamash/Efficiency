@@ -734,21 +734,25 @@ void Efficiency::Execute(Int_t ev){
                          SPRInner = pSA_superpointR_BI;
                          SPSlopeInner = pSA_superpointSlope_BI;
                     }
+                    /*
                     if(pSA_superpointR_BEE != 0){
                          SPZInner = pSA_superpointZ_BEE;
                          SPRInner = pSA_superpointR_BEE;
                          SPSlopeInner = pSA_superpointSlope_BEE;
                     }
+                    */
                     if(pSA_superpointR_BM != 0){
                          SPZMiddle = pSA_superpointZ_BM;
                          SPRMiddle = pSA_superpointR_BM;
                          SPSlopeMiddle = pSA_superpointSlope_BM;
                     }
+                    /*
                     if(pSA_superpointR_BME != 0){
                          SPZMiddle = pSA_superpointZ_BME;
                          SPRMiddle = pSA_superpointR_BME;
                          SPSlopeMiddle = pSA_superpointSlope_BME;
                     }
+                    */
                     Double_t phiInteg = 0;
                     Double_t barrelalpha = atan(SPZMiddle/SPRMiddle) - atan(SPSlopeMiddle);//Reciprocal number?;
                     Double_t barrelbeta = atan(1.0/SPSlopeInner) - atan(1.0/SPSlopeMiddle);//Reciprocal number?
