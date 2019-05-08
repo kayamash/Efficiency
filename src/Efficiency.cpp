@@ -47,8 +47,10 @@ void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Doubl
      m_reqL1dR = req;
 
      kayamashForLUT LUT(0.,0.);
-     LUT.ReadLUT("NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
-     LUT.ReadLUT("NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
+     //LUT.ReadLUT("NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
+     //LUT.ReadLUT("NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
+     LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
+     LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
 }
 
 bool Efficiency::DicisionBarrel(Double_t eta){
@@ -625,6 +627,7 @@ void Efficiency::Execute(Int_t ev){
                          m_h_eL1PtEndcapIMSmall->Fill(std::fabs(m_poff_pt*0.001));
                     }
                }
+               if(pt_method == 1)m_h_eL1PtEndcapBeta->Fill(std::fabs(m_poff_pt*0.001));
                break;
                case 3:
                m_h_eL1PtForward->Fill(std::fabs(m_poff_pt*0.001));
@@ -948,6 +951,7 @@ void Efficiency::Execute(Int_t ev){
                               if(m_probe_segment_chamberIndex[index] == 11)m_h_ChamberIndexvsRoIPhi->Fill(0.5,pSA_roiphi);
                               if(m_probe_segment_chamberIndex[index] == 12)m_h_ChamberIndexvsRoIPhi->Fill(1.5,pSA_roiphi);
                          }
+                         if(pt_method == 1)m_h_eSAPtEndcapBeta->Fill(std::fabs(m_poff_pt*0.001));
                          break;
                          case 3:
                          m_h_eSAPtForward->Fill(std::fabs(m_poff_pt*0.001));
@@ -2057,6 +2061,8 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtBarrelMyLUTAlpha,m_h_eSAPtBarrelCompareAlpha,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyBarrelCompareBeta","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtBarrelMyLUTBeta,m_h_eSAPtBarrelCompareBeta,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapBeta","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapBeta,m_h_eSAPtEndcapBeta,m_binmax,200,m_efficiency_xerr);
      cout<<"eff end"<<endl;
 
      m_h_pOffPt->Write();
@@ -2442,6 +2448,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtBarrelMyLUTBeta->Write();
      m_h_eSAPtBarrelCompareAlpha->Write();
      m_h_eSAPtBarrelCompareBeta->Write();
+     m_h_eL1PtEndcapBeta->Write();
+     m_h_eSAPtEndcapBeta->Write();
 
      m_h_pSAResPt->Write();
      m_h_pCBResPt->Write();

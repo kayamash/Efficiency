@@ -574,6 +574,8 @@ private:
   TH1D *m_h_eSAPtEndcap3SP;
   TH1D *m_h_eL1PtEndcapIM;
   TH1D *m_h_eSAPtEndcapIM;
+  TH1D *m_h_eL1PtEndcapBeta;
+  TH1D *m_h_eSAPtEndcapBeta;
   //
   TH1D *m_h_eL1PtEndcapLarge;
   TH1D *m_h_eSAPtEndcapLarge;
@@ -1678,6 +1680,8 @@ public:
     m_h_eSAPtBarrelMyLUTBeta = new TH1D("h_eSAPtBarrelMyLUTBeta",";;",200,-0.25,99.75);
     m_h_eSAPtBarrelCompareAlpha = new TH1D("h_eSAPtBarrelCompareAlpha",";;",200,-0.25,99.75);
     m_h_eSAPtBarrelCompareBeta = new TH1D("h_eSAPtBarrelCompareBeta",";;",200,-0.25,99.75);
+    m_h_eL1PtEndcapBeta = new TH1D("h_eL1PtEndcapBeta","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapBeta = new TH1D("h_eSAPtEndcapBeta","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
 
               //Residual
     m_h_pSAResPt = new TH1D("h_pSAResPt","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
@@ -2213,6 +2217,8 @@ public:
     delete  m_h_eSAPtEndcap3SP;
     delete  m_h_eL1PtEndcapIM;
     delete  m_h_eSAPtEndcapIM;
+    delete  m_h_eL1PtEndcapBeta;
+    delete  m_h_eSAPtEndcapBeta;
     delete  m_h_eL1PtEndcapSmall;
     delete  m_h_eSAPtEndcapSmall;
     delete  m_h_eL1PtEndcap0SPSmall;
