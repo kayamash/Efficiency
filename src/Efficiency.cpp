@@ -447,19 +447,6 @@ void Efficiency::Execute(Int_t ev){
                //if(m_probe_segment_chamberIndex[index] == 1 && (m_probe_segment_sector[index] == 11 || m_probe_segment_sector[index] == 15) && ((pSA_roiphi > -0.8 && pSA_roiphi < -0.6) || (pSA_roiphi > -2.6 && pSA_roiphi < -2.4)) )decision_noBIM++;
           }
           Int_t numAllSP = 0;
-          Int_t numBarrelSP = 0;
-          if(pSA_superpointR_BI > 0){
-               numSP++;
-               numBarrelSP++;
-          }
-          if(pSA_superpointR_BM > 0){
-               numSP++;
-               numBarrelSP++;
-          }
-          if(pSA_superpointR_BO > 0){
-               numSP++;
-               numBarrelSP++;
-          }
           if(pSA_superpointR_EI > 0)numSP++;
           if(pSA_superpointR_EM > 0)numSP++;
           if(pSA_superpointR_EO > 0)numSP++;
