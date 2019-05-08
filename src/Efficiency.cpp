@@ -445,9 +445,19 @@ void Efficiency::Execute(Int_t ev){
                //if(m_probe_segment_chamberIndex[index] == 1 && (m_probe_segment_sector[index] == 11 || m_probe_segment_sector[index] == 15) && ((pSA_roiphi > -0.8 && pSA_roiphi < -0.6) || (pSA_roiphi > -2.6 && pSA_roiphi < -2.4)) )decision_noBIM++;
           }
           Int_t numAllSP = 0;
-          if(pSA_superpointR_BI > 0)numSP++;
-          if(pSA_superpointR_BM > 0)numSP++;
-          if(pSA_superpointR_BO > 0)numSP++;
+          Int_t numBarrelSP = 0;
+          if(pSA_superpointR_BI > 0){
+               numSP++;
+               numBarrelSP++;
+          }
+          if(pSA_superpointR_BM > 0){
+               numSP++;
+               numBarrelSP++;
+          }
+          if(pSA_superpointR_BO > 0){
+               numSP++;
+               numBarrelSP++;
+          }
           if(pSA_superpointR_EI > 0)numSP++;
           if(pSA_superpointR_EM > 0)numSP++;
           if(pSA_superpointR_EO > 0)numSP++;
@@ -760,7 +770,7 @@ void Efficiency::Execute(Int_t ev){
                          m_h_BarrelAlpha->Fill(barrelalpha);
                          m_h_PtvsBarrelAlpha->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelalpha);
                          if(CutSA(pSA_pass))m_h_eSAPtBarrelCompareAlpha->Fill(std::fabs(m_poff_pt*0.001));
-                         switch(numSP){
+                         switch(numBarrelSP){
                               case 1:
                               if(AlphaPt != 0 && CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
                               break;
@@ -781,7 +791,7 @@ void Efficiency::Execute(Int_t ev){
                          m_h_PtvsBarrelBeta->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelbeta);
                          m_h_eL1PtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
                          if(CutSA(pSA_pass))m_h_eSAPtBarrelCompareBeta->Fill(std::fabs(m_poff_pt*0.001));
-                         switch(numSP){
+                         switch(numBarrelSP){
                               case 1:
                               if(AlphaPt != 0 && CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
                               break;
@@ -797,13 +807,13 @@ void Efficiency::Execute(Int_t ev){
                     }//barrel beta end
 
                     if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 && AlphaPt != 0){
-                         if(numSP == 1)m_h_pSAResPtBarrelAlpha1SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
-                         if(numSP == 2)m_h_pSAResPtBarrelAlpha2SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
-                         if(numSP == 3)m_h_pSAResPtBarrelAlpha3SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
+                         if(numBarrelSP == 1)m_h_pSAResPtBarrelAlpha1SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
+                         if(numBarrelSP == 2)m_h_pSAResPtBarrelAlpha2SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
+                         if(numBarrelSP == 3)m_h_pSAResPtBarrelAlpha3SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
                     }
                     if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 && BetaPt != 0){
-                         if(numSP == 2)m_h_pSAResPtBarrelBeta2SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
-                         if(numSP == 3)m_h_pSAResPtBarrelBeta3SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+                         if(numBarrelSP == 2)m_h_pSAResPtBarrelBeta2SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+                         if(numBarrelSP == 3)m_h_pSAResPtBarrelBeta3SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
                     }
 
           //SA
