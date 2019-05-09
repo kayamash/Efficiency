@@ -903,9 +903,18 @@ void Efficiency::Execute(Int_t ev){
                          case 0:
                          m_h_eSAPtBarrel->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 0)m_h_eSAPtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 1)m_h_eSAPtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_eSAPtBarrel2SP->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 3)m_h_eSAPtBarrel3SP->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 1){
+                              m_h_eSAPtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_pSAResPtBarrel1SP->Fill(resSA_pt);
+                         }
+                         if(numSP == 2){
+                              m_h_eSAPtBarrel2SP->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_pSAResPtBarrel2SP->Fill(resSA_pt);
+                         }
+                         if(numSP == 3){
+                              m_h_eSAPtBarrel3SP->Fill(std::fabs(m_poff_pt*0.001));
+                              m_h_pSAResPtBarrel3SP->Fill(resSA_pt);
+                         }
                          if(patternSP == 3)m_h_eSAPtBarrelIM->Fill(std::fabs(m_poff_pt*0.001));
                          m_h_pSAResPtBarrel->Fill(resSA_pt);
                          if(decision_noBIM == 0)m_h_eSAPtBarrelWithoutBIM->Fill(std::fabs(m_poff_pt*0.001));
@@ -2517,6 +2526,9 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_pSAResPtBarrelBeta2SP->Write();
      m_h_pSAResPtBarrelAlpha3SP->Write();
      m_h_pSAResPtBarrelBeta3SP->Write();
+     m_h_pSAResPtBarrel1SP->Write();
+     m_h_pSAResPtBarrel2SP->Write();
+     m_h_pSAResPtBarrel3SP->Write();
      m_h_SAResPtLargePlus->Write();
      m_h_SAResPtLSPlus->Write();
      m_h_SAResPtSmallPlus->Write();
