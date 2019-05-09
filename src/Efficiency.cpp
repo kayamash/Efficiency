@@ -817,7 +817,7 @@ void Efficiency::Execute(Int_t ev){
                     if(LUTcheck && barrelbeta != -99999){
                          Double_t parA = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
                          Double_t parB = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
-                         CalcPtByABwta(parA,parB,barrelbeta,m_poff_charge,BetaPt);
+                         CalcPtByBeta(parA,parB,barrelbeta,m_poff_charge,BetaPt);
                     }
 
                     if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){//barrel alpha
