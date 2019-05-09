@@ -902,16 +902,16 @@ void Efficiency::Execute(Int_t ev){
                     switch(EtaDistribution(pSA_roieta)){
                          case 0:
                          m_h_eSAPtBarrel->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 0)m_h_eSAPtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 1){
+                         if(numBarrelSP == 0)m_h_eSAPtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numBarrelSP == 1){
                               m_h_eSAPtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
                               m_h_pSAResPtBarrel1SP->Fill(resSA_pt);
                          }
-                         if(numSP == 2){
+                         if(numBarrelSP == 2){
                               m_h_eSAPtBarrel2SP->Fill(std::fabs(m_poff_pt*0.001));
                               m_h_pSAResPtBarrel2SP->Fill(resSA_pt);
                          }
-                         if(numSP == 3){
+                         if(numBarrelSP == 3){
                               m_h_eSAPtBarrel3SP->Fill(std::fabs(m_poff_pt*0.001));
                               m_h_pSAResPtBarrel3SP->Fill(resSA_pt);
                          }
