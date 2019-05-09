@@ -797,8 +797,8 @@ void Efficiency::Execute(Int_t ev){
                     }
                     */
                     Double_t phiInteg = 0;
-                    Double_t barrelalpha = 0;
-                    Double_t barrelbeta = 0;
+                    Double_t barrelalpha = -99999;
+                    Double_t barrelbeta = -99999;
                     if(SPRMiddle != 0)barrelalpha = atan(SPZMiddle/SPRMiddle) - atan(SPSlopeMiddle);//Reciprocal number?;
                     if(SPRInner != 0 && SPRMiddle != 0)barrelbeta = atan(1.0/SPSlopeInner) - atan(1.0/SPSlopeMiddle);//Reciprocal number?
                     Double_t AlphaPt = 0;
@@ -807,12 +807,14 @@ void Efficiency::Execute(Int_t ev){
                     bool LUTcheck = LUT.getLUTparameter(pSA_sAddress,m_poff_charge,pSA_eta,pSA_phi,tmp_LUTpar,phiInteg);
                     Int_t LUTparameter[4];
                     for(Int_t i = 0; i < 4; ++i)LUTparameter[i] = tmp_LUTpar[i];
-                    if(LUTcheck && barrelalpha != 0){
+                    if(barrelalpha != -99999)m_h_ChargevsAlpha->Fill(LUTparameter[1],barrelalpha);
+                    if(barrelbeta != -99999)m_h_ChargevsBeta->Fill(LUTparameter[1],barrelbeta);
+                    if(LUTcheck && barrelalpha != -99999){
                          Double_t parA = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
                          Double_t parB = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
                          CalcPtByAngle(parA,parB,barrelalpha,m_poff_charge,AlphaPt);
                     }
-                    if(LUTcheck && barrelbeta != 0){
+                    if(LUTcheck && barrelbeta != -99999){
                          Double_t parA = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
                          Double_t parB = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
                          CalcPtByAngle(parA,parB,barrelbeta,m_poff_charge,BetaPt);
@@ -2190,6 +2192,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_RoIEtavsPhiEndcap[0]->Write();
      m_h_RoIEtavsPhiEndcap[1]->Write();
      m_h_OfflineEtavsPhi->Write();
+     m_h_ChargevsAlpha->Write();
+     m_h_ChargevsBeta->Write();
 
      m_h_MDTHitXY->Write();
      m_h_RPCHitXY->Write();

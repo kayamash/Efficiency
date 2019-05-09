@@ -344,6 +344,8 @@ private:
   TH2F *m_h_RoIEtaPhiWeakBField[3];//WeakBFieldA,B,normal
   TH2F *m_h_RoIEtavsPhiEndcap[2];//Large,Small
   TH2F *m_h_OfflineEtavsPhi;
+  TH2F *m_h_ChargevsAlpha;
+  TH2F *m_h_ChargevsBeta;
 
   //SP,segment
   TH2F *m_h_MDTHitXY;
@@ -1308,6 +1310,8 @@ public:
     m_h_RoIEtavsPhiEndcap[0] = new TH2F("h_RoIEtavsPhiEndcapLarge","Endcap Large;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
     m_h_RoIEtavsPhiEndcap[1] = new TH2F("h_RoIEtavsPhiEndcapSmall","Endcap Small;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
     m_h_OfflineEtavsPhi = new TH2F("h_OfflineEtavsPhi","Offline;Offline #eta;Offline #phi",105,0,1.05,628,-TMath::Pi(),TMath::Pi());
+    m_h_ChargevsAlpha = new TH2F("h_ChargevsAlpha",";;",2,-0.5,1.5,120,-0.6,0.6);
+    m_h_ChargevsBeta = new TH2F("h_ChargevsBeta",";;",2,-0.5,1.5,120,-0.6,0.6);
 
               //SP,segment
 
@@ -1993,6 +1997,8 @@ public:
     delete  m_h_RoIEtavsPhiEndcap[0];
     delete  m_h_RoIEtavsPhiEndcap[1];
     delete  m_h_OfflineEtavsPhi;
+    delete  m_h_ChargevsAlpha;
+    delete  m_h_ChargevsBeta;
 
     delete  m_h_MDTHitXY;
     delete  m_h_RPCHitXY;
