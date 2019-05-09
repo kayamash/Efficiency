@@ -117,7 +117,7 @@ bool Efficiency::CutSAMyLUT(Double_t pt,Int_t L1Number,Int_t L1Sector,Int_t SANu
      return kFALSE;
 }
 
-void Efficiency::CalcPtByAngle(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Double_t &pt){
+void Efficiency::CalcPtByAlpha(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Double_t &pt){
      Double_t discriminant = 0;
      Double_t sqrtDiscriminant = 0;
      Double_t Angle = 0;
@@ -141,6 +141,34 @@ void Efficiency::CalcPtByAngle(Double_t parA,Double_t parB,Double_t angle,Double
                pt = 0;
           }else{
                pt = 2*parB/(-parA + sqrtDiscriminant);
+          }
+     }
+}
+
+void Efficiency::CalcPtByBeta(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Double_t &pt){
+     Double_t discriminant = 0;
+     Double_t sqrtDiscriminant = 0;
+     Double_t Angle = 0;
+     if(charge == 1.){
+          Angle = std::fabs(angle);
+     }else{
+          Angle = - std::fabs(angle);
+     }
+     discriminant = (parA*parA) + 4*parB*Angle;
+     if(discriminant > 0){
+          sqrtDiscriminant = std::sqrt(discriminant);
+     }
+     if(charge == 1.){
+          if(-parA - sqrtDiscriminant == 0){
+               pt = 0;
+          }else{
+               pt = 2*parB/(-parA + sqrtDiscriminant);
+          }
+     }else{
+          if(-parA + sqrtDiscriminant == 0){
+               pt = 0;
+          }else{
+               pt = 2*parB/(-parA - sqrtDiscriminant);
           }
      }
 }
