@@ -1,0 +1,48 @@
+#ifndef KAYAMASHFORLUT_CHH
+#define KAYAMASHFORLUT_CHH
+
+#include <TROOT.h>
+#include <TChain.h>
+#include <TFile.h>
+#include <TH1.h>
+#include <TH2.h>
+#include <TCanvas.h>
+#include <stdio.h>
+#include <math.h>
+#include <cmath>
+#include <iostream>
+#include <fstream>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <string>
+#include <sstream>
+#include <TF1.h>
+#include <TTree.h>
+#include <TStyle.h>
+#include <TText.h>
+#include <TGraphErrors.h>
+#include <TLegend.h>
+#include <vector>
+#include <TMath.h>
+#include <TBranch.h>
+#include <TObject.h>
+#include <TProfile.h>
+
+class kayamashForLUT
+{
+private:
+	Double_t m_etaMax;
+	Double_t m_phiMax;
+
+public:
+	kayamashForLUT(Double_t par1,Double_t par2){
+		m_etaMax = par1;
+		m_phiMax = par2;
+	}
+	bool getLUTparameter(Double_t address,Double_t charge,Double_t eta,Double_t phi,Int_t (&par)[5],Double_t &tmp_phi1);
+	bool WriteLUT(TProfile *prof,Int_t par1,Int_t par2,Int_t par3,Int_t par4,bool alpha,std::string filename);//if alpha, alpha = kTRUE
+	bool ReadLUT(Int_t (&par)[4],std::string lut,Double_t par1,Double_t par2);
+
+};
+
+#endif//kayamashForLUT_chh

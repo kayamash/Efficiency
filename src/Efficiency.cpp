@@ -1,4 +1,6 @@
-#include "Efficiency.chh"
+#include "../Efficiency/Efficiency.chh"
+#include "/home/kayamash/working/PtNewMethod/src/kayamashForLUT.cpp"
+#include "CalcEff.cpp"
 #include <TObject.h>
 #include <TFile.h>
 #include <TH1.h>
@@ -25,11 +27,11 @@
 #include <TBranch.h>
 #include <TROOT.h>
 #include <TChain.h>
-#include "CalcEff.cpp"
 
-//const Double_t pt_threshold[4] = {3.38,1.25,3.17,3.41};//MU4
-const Double_t pt_threshold[4] = {5.17,3.25,4.69,5.14};//MU6
+const Double_t pt_threshold[4] = {3.38,1.25,3.17,3.41};//MU4
+//const Double_t pt_threshold[4] = {5.17,3.25,4.69,5.14};//MU6
 //const Double_t pt_threshold[4] = {15.87,10.73,12.21,15.87};//MU20
+const Double_t LargeRegion[9] = {0.25,0.55,1.025,1.325,1.80,2.125,2.575,2.90,TMath::Pi()};
 
 void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,Int_t proc){
      m_nbin_phi = np;
@@ -43,6 +45,12 @@ void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Doubl
 
      	//initialize
      m_reqL1dR = req;
+
+     kayamashForLUT LUT(0.,0.);
+     //LUT.ReadLUT("NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
+     //LUT.ReadLUT("NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
+     LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
+     LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
 }
 
 bool Efficiency::DicisionBarrel(Double_t eta){
@@ -63,10 +71,10 @@ bool Efficiency::CutTagProbe(Int_t pass){
 
 bool Efficiency::CutL1(Int_t pass){
      if(pass > -1){
-         return kTRUE;
-    }else{
-     return kFALSE;
-}
+          return kTRUE;
+     }else{
+          return kFALSE;
+     }
 }
 
 bool Efficiency::CutSA(Int_t pass){
@@ -100,6 +108,68 @@ bool Efficiency::PlateauCut(Double_t pt){
           return kTRUE;
      }else{
           return kFALSE;
+     }
+}
+
+bool Efficiency::CutSAMyLUT(Double_t pt,Int_t L1Number,Int_t L1Sector,Int_t SANumber,Int_t SASector){
+     //if(L1Number == SANumber && L1Sector == SASector && pt >= pt_threshold[0])return kTRUE;
+     if(std::fabs(pt) >= pt_threshold[0])return kTRUE;
+     return kFALSE;
+}
+
+void Efficiency::CalcPtByAlpha(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Double_t &pt){
+     Double_t discriminant = 0;
+     Double_t sqrtDiscriminant = 0;
+     Double_t Angle = 0;
+     if(charge == 1.){
+          Angle = - std::fabs(angle);
+     }else{
+          Angle = std::fabs(angle);
+     }
+     discriminant = (parA*parA) + 4*parB*Angle;
+     if(discriminant > 0){
+          sqrtDiscriminant = std::sqrt(discriminant);
+     }
+     if(charge == 1.){
+          if(-parA - sqrtDiscriminant == 0){
+               pt = 0;
+          }else{
+               pt = 2*parB/(-parA - sqrtDiscriminant);
+          }
+     }else{
+          if(-parA + sqrtDiscriminant == 0){
+               pt = 0;
+          }else{
+               pt = 2*parB/(-parA + sqrtDiscriminant);
+          }
+     }
+}
+
+void Efficiency::CalcPtByBeta(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Double_t &pt){
+     Double_t discriminant = 0;
+     Double_t sqrtDiscriminant = 0;
+     Double_t Angle = 0;
+     if(charge == 1.){
+          Angle = std::fabs(angle);
+     }else{
+          Angle = - std::fabs(angle);
+     }
+     discriminant = (parA*parA) + 4*parB*Angle;
+     if(discriminant > 0){
+          sqrtDiscriminant = std::sqrt(discriminant);
+     }
+     if(charge == 1.){
+          if(-parA - sqrtDiscriminant == 0){
+               pt = 0;
+          }else{
+               pt = 2*parB/(-parA + sqrtDiscriminant);
+          }
+     }else{
+          if(-parA + sqrtDiscriminant == 0){
+               pt = 0;
+          }else{
+               pt = 2*parB/(-parA - sqrtDiscriminant);
+          }
      }
 }
 
@@ -150,6 +220,73 @@ int Efficiency::EtaDistribution(Float_t roieta){
      }
 }
 
+bool Efficiency::EndcapLargeDicision(Float_t roiphi){
+     /*
+     if(std::fabs(roiphi) <= LargeRegion[0] || LargeRegion[1] < std::fabs(roiphi) <= LargeRegion[2] || LargeRegion[3] < std::fabs(roiphi) <= LargeRegion[4] || LargeRegion[5] < std::fabs(roiphi) <= LargeRegion[6] || LargeRegion[7] < std::fabs(roiphi) <= LargeRegion[8]){
+          cout<<"Endcap Large!"<<endl;
+          return kTRUE;
+     }else{
+          cout<<"Endcap Small!"<<endl;
+          return kFALSE;
+     }
+     */
+     if(std::fabs(roiphi) <= LargeRegion[0]){
+          return kTRUE;
+     }else if(std::fabs(roiphi) <= LargeRegion[1]){
+          return kFALSE;
+     }else if(std::fabs(roiphi) <= LargeRegion[2]){
+          return kTRUE;
+     }else if(std::fabs(roiphi) <= LargeRegion[3]){
+          return kFALSE;
+     }else if(std::fabs(roiphi) <= LargeRegion[4]){
+          return kTRUE;
+     }else if(std::fabs(roiphi) <= LargeRegion[5]){
+          return kFALSE;
+     }else if(std::fabs(roiphi) <= LargeRegion[6]){
+          return kTRUE;
+     }else if(std::fabs(roiphi) <= LargeRegion[7]){
+          return kFALSE;
+     }else if(std::fabs(roiphi) <= LargeRegion[8]){
+          return kTRUE;
+     }
+     return kFALSE;
+}
+
+int Efficiency::WeakMagneticFieldRegion(float eta,float phi){
+     Float_t abseta = std::fabs(eta);
+     Float_t absphi = std::fabs(phi);
+     if( 1.3 <= abseta && abseta < 1.45 ){//WeakBFieldA
+          if( (0 <= absphi && absphi < TMath::Pi()/48. ) || (TMath::Pi()*11./48. <= absphi && absphi < TMath::Pi()*13./48. ) || (TMath::Pi()*23./48. <= absphi && absphi < TMath::Pi()*25./48. ) || (TMath::Pi()*35./48. <= absphi && absphi < TMath::Pi()*37./48. ) || (TMath::Pi()*47./48. <= absphi && absphi < TMath::Pi())){
+               return 0;
+          }
+     }else if( 1.5 <= abseta && abseta < 1.65 ){//WeakBFieldB
+          if( (TMath::Pi()*3./32. <= absphi && absphi < TMath::Pi()*5./32. ) || (TMath::Pi()*11./32. <= absphi && absphi < TMath::Pi()*13./32. ) || (TMath::Pi()*19./32. <= absphi && absphi < TMath::Pi()*21./32. ) || (TMath::Pi()*27./32. <= absphi && absphi < TMath::Pi()*29./32. ) || (TMath::Pi()*47./48. <= absphi && absphi < TMath::Pi())){
+               return 1;
+          }
+     }else return 2;
+     return -1;
+}
+
+int Efficiency::SPPatternMatching(Double_t SPR1,Double_t SPR2,Double_t SPR3,Double_t SPR4,Double_t SPR5){
+     if( (SPR1 != 0 || SPR2 != 0 || SPR3 != 0) && SPR4 == 0 && SPR5 == 0)return 0;
+     if( (SPR1 == 0 && SPR2 == 0 && SPR3 == 0) && SPR4 != 0 && SPR5 == 0)return 1;
+     if( (SPR1 == 0 && SPR2 == 0 && SPR3 == 0) && SPR4 == 0 && SPR5 != 0)return 2;
+     if( (SPR1 != 0 || SPR2 != 0 || SPR3 != 0) && SPR4 != 0 && SPR5 == 0)return 3;
+     if( (SPR1 != 0 || SPR2 != 0 || SPR3 != 0) && SPR4 == 0 && SPR5 != 0)return 4;
+     if( (SPR1 == 0 && SPR2 == 0 && SPR3 == 0) && SPR4 != 0 && SPR5 != 0)return 5;
+     return -1;
+}
+
+int Efficiency::BarrelSPPatternMatching(Double_t SPR1,Double_t SPR2,Double_t SPR3,Double_t SPR4,Double_t SPR5){
+     if( (SPR1 != 0 || SPR2 != 0 ) && (SPR3 == 0 && SPR4 == 0 ) && SPR5 == 0)return 0;
+     if( (SPR1 == 0 && SPR2 == 0 ) && (SPR3 != 0 || SPR4 != 0 ) && SPR5 == 0)return 1;
+     if( (SPR1 == 0 && SPR2 == 0 ) && (SPR3 == 0 && SPR4 == 0 ) && SPR5 != 0)return 2;
+     if( (SPR1 != 0 || SPR2 != 0 ) && (SPR3 != 0 || SPR4 != 0 ) && SPR5 == 0)return 3;
+     if( (SPR1 != 0 || SPR2 != 0 ) && (SPR3 == 0 && SPR4 == 0 ) && SPR5 != 0)return 4;
+     if( (SPR1 == 0 && SPR2 == 0 ) && (SPR3 != 0 || SPR4 != 0 ) && SPR5 != 0)return 5;
+     return -1;
+}
+
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
      Double_t pextL1_dR = 1; 
@@ -161,6 +298,8 @@ void Efficiency::Execute(Int_t ev){
      Double_t pL1_phi = 0;
      Double_t pL1_dR = 1;
      Int_t pL1_pass = 0;
+     Int_t pL1_roiNumber = -1;
+     Int_t pL1_roiSector = -1;
      Double_t pSA_pt = -99999;
      Double_t pSA_eta = 0;
      Double_t pSA_phi = 0;
@@ -171,6 +310,8 @@ void Efficiency::Execute(Int_t ev){
      Double_t pSA_phibe = -99999;
      float pSA_roieta = -99999;
      float pSA_roiphi = -99999;
+     Int_t pSA_roiNumber = -1;
+     Int_t pSA_roiSector = -1;
      vector<float> *pSA_rpcX = 0;
      vector<float> *pSA_rpcY = 0;
      vector<float> *pSA_rpcZ = 0;
@@ -202,6 +343,8 @@ void Efficiency::Execute(Int_t ev){
      Double_t pSA_superpointR_EE = 0;
      Double_t pSA_superpointR_CSC = 0;
      Double_t pSA_superpointR_BEE = 0;
+     Double_t pSA_superpointSlope_BI = 0;
+     Double_t pSA_superpointSlope_BM = 0;
      Double_t pCB_pt = -99999;
      Double_t pCB_eta = 0;
      Double_t pCB_phi = 0;
@@ -244,11 +387,15 @@ void Efficiency::Execute(Int_t ev){
                     pCB_dR = m_pCB_dR->at(method);
                     pEF_dR = m_pEF_dR->at(method);
                     pEFTAG_pass = m_pEFTAG_pass->at(method);
+                    pL1_roiNumber = m_pL1_roiNumber->at(method);
+                    pL1_roiSector = m_pL1_roiSector->at(method);
                     pSA_sAddress = m_pSA_sAddress->at(method);
                     pSA_phims = m_pSA_phims->at(method);
                     pSA_phibe = m_pSA_phibe->at(method);
                     pSA_roieta = m_pSA_roieta->at(method);
                     pSA_roiphi = m_pSA_roiphi->at(method);
+                    pSA_roiNumber = m_pSA_roiNumber->at(method);
+                    pSA_roiSector = m_pSA_roiSector->at(method);
                     pSA_rpcX = &(m_pSA_rpcX->at(method));
                     pSA_rpcY = &(m_pSA_rpcY->at(method));
                     pSA_rpcZ = &(m_pSA_rpcZ->at(method));
@@ -280,6 +427,8 @@ void Efficiency::Execute(Int_t ev){
                     pSA_superpointR_EE = m_pSA_superpointR_EE->at(method);
                     pSA_superpointR_CSC = m_pSA_superpointR_CSC->at(method);
                     pSA_superpointR_BEE = m_pSA_superpointR_BEE->at(method);
+                    pSA_superpointSlope_BI = m_pSA_superpointSlope_BI->at(method);
+                    pSA_superpointSlope_BM = m_pSA_superpointSlope_BM->at(method);
                }
           }
 
@@ -354,9 +503,6 @@ void Efficiency::Execute(Int_t ev){
                //if(m_probe_segment_chamberIndex[index] == 1 && (m_probe_segment_sector[index] == 11 || m_probe_segment_sector[index] == 15) && ((pSA_roiphi > -0.8 && pSA_roiphi < -0.6) || (pSA_roiphi > -2.6 && pSA_roiphi < -2.4)) )decision_noBIM++;
           }
           Int_t numAllSP = 0;
-          if(pSA_superpointR_BI > 0)numSP++;
-          if(pSA_superpointR_BM > 0)numSP++;
-          if(pSA_superpointR_BO > 0)numSP++;
           if(pSA_superpointR_EI > 0)numSP++;
           if(pSA_superpointR_EM > 0)numSP++;
           if(pSA_superpointR_EO > 0)numSP++;
@@ -420,23 +566,25 @@ void Efficiency::Execute(Int_t ev){
                if(std::fabs(nsector) < 16 && m_probe_segment_chamberIndex[index] >= 0 && m_probe_segment_chamberIndex[index] <= 5)m_h_SectorRoIPhi[nsector]->Fill(pSA_roiphi);
                if(m_probe_segment_sector[index] == 9)nosector9++;
           }
-
           Int_t numbersector = -1;
 
+          if(EtaDistribution(pSA_roieta) == 0)m_h_OfflineEtavsPhi->Fill(m_poff_eta,m_poff_phi);
 
           //L1
           if(!CutL1(pL1_pass))return;
           Double_t textL1_dR = TMath::Sqrt(pow(m_tL1_eta - m_toff_exteta,2) + pow(m_tL1_phi - m_toff_extphi,2));
           pextL1_dR = TMath::Sqrt(pow(pL1_eta - m_poff_exteta,2) + pow(pL1_phi - m_poff_extphi,2));
+          Int_t SPpattern = SPPatternMatching(pSA_superpointR_EI,pSA_superpointR_EE,pSA_superpointR_CSC,pSA_superpointR_EM,pSA_superpointR_EO);
+          Int_t BarrelSPpattern = BarrelSPPatternMatching(pSA_superpointR_BI,pSA_superpointR_BEE,pSA_superpointR_BME,pSA_superpointR_BM,pSA_superpointR_BO);
           m_h_pL1Pt->Fill(std::fabs(pL1_pt*0.001));
           m_h_pL1dR->Fill(pL1_dR);
           m_h_tExtL1dR->Fill(textL1_dR);
           m_h_pExtL1dR->Fill(pextL1_dR);
           m_h_eL1Pt->Fill(std::fabs(m_poff_pt*0.001));
-          m_h_L1pSAsAddress->Fill(pSA_sAddress);
           switch(EtaDistribution(pSA_roieta)){
                case 0:
                m_h_eL1PtBarrel->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 0)m_h_eL1PtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 1)m_h_eL1PtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 2)m_h_eL1PtBarrel2SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 3)m_h_eL1PtBarrel3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -444,9 +592,24 @@ void Efficiency::Execute(Int_t ev){
                if(decision_noBIM == 0)m_h_eL1PtBarrelWithoutBIM->Fill(std::fabs(m_poff_pt*0.001));
                m_h_eL1PtBarrelIncBIM->Fill(std::fabs(m_poff_pt*0.001));
                if(pSA_sAddress == 0 && nosector9 == 0)m_h_eL1PtLargeNormal->Fill(std::fabs(m_poff_pt*0.001));
+               switch(static_cast<Int_t>(pSA_sAddress)){
+                    case 0:
+                    if(BarrelSPpattern >= 0)m_h_eL1PtBarrelLargepattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                    break;
+                    case 1:
+                    if(BarrelSPpattern >= 0)m_h_eL1PtBarrelLSpattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                    break;
+                    case 2:
+                    if(BarrelSPpattern >= 0)m_h_eL1PtBarrelSmallpattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                    break;
+                    case 3:
+                    if(BarrelSPpattern >= 0)m_h_eL1PtBarrelSSpattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                    break;
+               }
                break;
                case 1:
                m_h_eL1PtTransition->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 0)m_h_eL1PtTransition0SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 1)m_h_eL1PtTransition1SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 2)m_h_eL1PtTransition2SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 3)m_h_eL1PtTransition3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -454,13 +617,64 @@ void Efficiency::Execute(Int_t ev){
                break;
                case 2:
                m_h_eL1PtEnd->Fill(std::fabs(m_poff_pt*0.001));
-               if(numSP == 1)m_h_eL1PtEndcap1SP->Fill(std::fabs(m_poff_pt*0.001));
-               if(numSP == 2)m_h_eL1PtEndcap2SP->Fill(std::fabs(m_poff_pt*0.001));
-               if(numSP == 3)m_h_eL1PtEndcap3SP->Fill(std::fabs(m_poff_pt*0.001));
-               if(patternSP == 3)m_h_eL1PtEndcapIM->Fill(std::fabs(m_poff_pt*0.001));
+               if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eL1PhiEndcapLowPtPassed->Fill(pSA_roiphi);
+               if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eL1PhiEndcapHighPtPassed->Fill(pSA_roiphi);
+               if(EndcapLargeDicision(pSA_roiphi)){
+                    m_h_eL1PtEndcapLarge->Fill(std::fabs(m_poff_pt*0.001));
+                    m_h_RoIEtavsPhiEndcap[0]->Fill(pSA_roieta,pSA_roiphi);
+                    if(SPpattern >= 0)m_h_eL1PtEndcapLargepattern[SPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+               }else{
+                    m_h_eL1PtEndcapSmall->Fill(std::fabs(m_poff_pt*0.001));
+                    m_h_RoIEtavsPhiEndcap[1]->Fill(pSA_roieta,pSA_roiphi);
+                    if(SPpattern >= 0)m_h_eL1PtEndcapSmallpattern[SPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+               }
+               if(numSP == 0){
+                    m_h_eL1PtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
+                    if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eL1PhiEndcapLowPtPassed0SP->Fill(pSA_roiphi);
+                    if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eL1PhiEndcapHighPtPassed0SP->Fill(pSA_roiphi);
+                    if(EndcapLargeDicision(pSA_roiphi)){
+                         m_h_eL1PtEndcap0SPLarge->Fill(std::fabs(m_poff_pt*0.001));
+                    }else{
+                         m_h_eL1PtEndcap0SPSmall->Fill(std::fabs(m_poff_pt*0.001));
+                    }
+               }
+               if(numSP == 1){
+                    m_h_eL1PtEndcap1SP->Fill(std::fabs(m_poff_pt*0.001));
+                    if(EndcapLargeDicision(pSA_roiphi)){
+                         m_h_eL1PtEndcap1SPLarge->Fill(std::fabs(m_poff_pt*0.001));
+                    }else{
+                         m_h_eL1PtEndcap1SPSmall->Fill(std::fabs(m_poff_pt*0.001));
+                    }
+               }
+               if(numSP == 2){
+                    m_h_eL1PtEndcap2SP->Fill(std::fabs(m_poff_pt*0.001));
+                    if(EndcapLargeDicision(pSA_roiphi)){
+                         m_h_eL1PtEndcap2SPLarge->Fill(std::fabs(m_poff_pt*0.001));
+                    }else{
+                         m_h_eL1PtEndcap2SPSmall->Fill(std::fabs(m_poff_pt*0.001));
+                    }
+               }
+               if(numSP == 3){
+                    m_h_eL1PtEndcap3SP->Fill(std::fabs(m_poff_pt*0.001));
+                    if(EndcapLargeDicision(pSA_roiphi)){
+                         m_h_eL1PtEndcap3SPLarge->Fill(std::fabs(m_poff_pt*0.001));
+                    }else{
+                         m_h_eL1PtEndcap3SPSmall->Fill(std::fabs(m_poff_pt*0.001));
+                    }
+               }
+               if(patternSP == 3){
+                    m_h_eL1PtEndcapIM->Fill(std::fabs(m_poff_pt*0.001));
+                    if(EndcapLargeDicision(pSA_roiphi)){
+                         m_h_eL1PtEndcapIMLarge->Fill(std::fabs(m_poff_pt*0.001));
+                    }else{
+                         m_h_eL1PtEndcapIMSmall->Fill(std::fabs(m_poff_pt*0.001));
+                    }
+               }
+               if(pt_method == 1)m_h_eL1PtEndcapBeta->Fill(std::fabs(m_poff_pt*0.001));
                break;
                case 3:
                m_h_eL1PtForward->Fill(std::fabs(m_poff_pt*0.001));
+               if(numSP == 0)m_h_eL1PtForward0SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 1)m_h_eL1PtForward1SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 2)m_h_eL1PtForward2SP->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 3)m_h_eL1PtForward3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -476,6 +690,7 @@ void Efficiency::Execute(Int_t ev){
                if(numSP == 2)m_h_eL1PtBarrel2SPRoI->Fill(std::fabs(m_poff_pt*0.001));
                if(numSP == 3)m_h_eL1PtBarrel3SPRoI->Fill(std::fabs(m_poff_pt*0.001));
                if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && pSA_superpointR_BO == 0)m_h_eL1PtBarrelIMRoI->Fill(std::fabs(m_poff_pt*0.001));
+               m_h_eL1PtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
                break;
                default:
                break;
@@ -487,6 +702,8 @@ void Efficiency::Execute(Int_t ev){
                m_h_eL1Phi->Fill(m_poff_phi);
                m_h_eL1Aipc->Fill(m_aipc);
           }
+
+          if(std::fabs(pSA_roieta) <= 2.5 && WeakMagneticFieldRegion(pSA_roieta,pSA_roiphi) >= 0)m_h_RoIEtaPhiWeakBField[WeakMagneticFieldRegion(pSA_roieta,pSA_roiphi)]->Fill(pSA_roieta,pSA_roiphi);
 
           areanumber = DicisionArea(pSA_roiphi);
                     switch(static_cast<Int_t>(pSA_sAddress)){//switch Large ,LS , Small ,SS
@@ -548,26 +765,102 @@ void Efficiency::Execute(Int_t ev){
                          break;
                     }
 
+                    kayamashForLUT LUT(0.,0.);
+                    Double_t SPZInner = 0;
+                    Double_t SPRInner = 0;
+                    Double_t SPSlopeInner = 0;
+                    Double_t SPZMiddle = 0;
+                    Double_t SPRMiddle = 0;
+                    Double_t SPSlopeMiddle = 0;
+                    if(pSA_superpointR_BI != 0){
+                         SPZInner = pSA_superpointZ_BI;
+                         SPRInner = pSA_superpointR_BI;
+                         SPSlopeInner = pSA_superpointSlope_BI;
+                    }
+                    /*
+                    if(pSA_superpointR_BEE != 0){
+                         SPZInner = pSA_superpointZ_BEE;
+                         SPRInner = pSA_superpointR_BEE;
+                         SPSlopeInner = pSA_superpointSlope_BEE;
+                    }
+                    */
+                    if(pSA_superpointR_BM != 0){
+                         SPZMiddle = pSA_superpointZ_BM;
+                         SPRMiddle = pSA_superpointR_BM;
+                         SPSlopeMiddle = pSA_superpointSlope_BM;
+                    }
+                    /*
+                    if(pSA_superpointR_BME != 0){
+                         SPZMiddle = pSA_superpointZ_BME;
+                         SPRMiddle = pSA_superpointR_BME;
+                         SPSlopeMiddle = pSA_superpointSlope_BME;
+                    }
+                    */
+                    Double_t phiInteg = 0;
+                    Double_t barrelalpha = -99999;
+                    Double_t barrelbeta = -99999;
+                    if(SPRMiddle != 0)barrelalpha = atan(SPZMiddle/SPRMiddle) - atan(SPSlopeMiddle);//Reciprocal number?;
+                    if(SPRInner != 0 && SPRMiddle != 0)barrelbeta = atan(1.0/SPSlopeInner) - atan(1.0/SPSlopeMiddle);//Reciprocal number?
+                    Double_t AlphaPt = 0;
+                    Double_t BetaPt = 0;
+                    Int_t tmp_LUTpar[5] = {0,0,0,0,0};
+                    bool LUTcheck = LUT.getLUTparameter(pSA_sAddress,m_poff_charge,pSA_eta,pSA_phi,tmp_LUTpar,phiInteg);
+                    Int_t LUTparameter[4];
+                    for(Int_t i = 0; i < 4; ++i)LUTparameter[i] = tmp_LUTpar[i];
+                    if(barrelalpha != -99999)m_h_ChargevsAlpha->Fill(LUTparameter[1],barrelalpha);
+                    if(barrelbeta != -99999)m_h_ChargevsBeta->Fill(LUTparameter[1],barrelbeta);
+                    if(LUTcheck && barrelalpha != -99999){
+                         Double_t parA = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
+                         Double_t parB = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
+                         CalcPtByAlpha(parA,parB,barrelalpha,m_poff_charge,AlphaPt);
+                    }
+                    if(LUTcheck && barrelbeta != -99999){
+                         Double_t parA = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
+                         Double_t parB = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
+                         CalcPtByBeta(parA,parB,barrelbeta,m_poff_charge,BetaPt);
+                    }
+
+                    if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){//barrel alpha
+                         m_h_BarrelAlpha->Fill(barrelalpha);
+                         m_h_PtvsBarrelAlpha->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelalpha);
+                         if(CutSA(pSA_pass))m_h_eSAPtBarrelCompareAlpha->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numBarrelSP <= 2){
+                              if(AlphaPt != 0 && CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
+                         }else if(CutSA(pSA_pass))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
+                         m_h_pSAResPtBarrelAlpha->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
+                         m_h_pSAResPtBarrelAlphaSector[LUTparameter[0]]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
+                         //if(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0 >= 0.4)cout<<AlphaPt<<"   "<<m_poff_pt*0.001<<"   "<<LUTparameter[0]<<"   "<<LUTparameter[1]<<"   "<<LUTparameter[2]<<"   "<<LUTparameter[3]<<endl;
+                    }//barrel alpha end
+
+                    if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0){//barrel beta
+                         m_h_BarrelBeta->Fill(barrelbeta);
+                         m_h_PtvsBarrelBeta->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelbeta);
+                         m_h_eL1PtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
+                         if(CutSA(pSA_pass))m_h_eSAPtBarrelCompareBeta->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numBarrelSP == 2){
+                              if(BetaPt != 0 && CutSAMyLUT(BetaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
+                         }else if(CutSA(pSA_pass))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
+                         m_h_pSAResPtBarrelBeta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+                         m_h_pSAResPtBarrelBetaSector[LUTparameter[0]]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+                    }//barrel beta end
+
+                    if(pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 && AlphaPt != 0){
+                         if(numBarrelSP == 1)m_h_pSAResPtBarrelAlpha1SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
+                         if(numBarrelSP == 2)m_h_pSAResPtBarrelAlpha2SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
+                         if(numBarrelSP == 3)m_h_pSAResPtBarrelAlpha3SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
+                    }
+                    if(pSA_superpointR_BI != 0 && pSA_superpointR_BM != 0 && EtaDistribution(pSA_roieta) == 0 && BetaPt != 0){
+                         if(numBarrelSP == 2)m_h_pSAResPtBarrelBeta2SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+                         if(numBarrelSP == 3)m_h_pSAResPtBarrelBeta3SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+                    }
+
           //SA
                     if(!CutSA(pSA_pass))return;
-                    string s_patternSP;
-                    if(patternSP == 3)s_patternSP = "Inner+Middle";
-                    if(patternSP == 4)s_patternSP = "Inner+Outer";
-                    if(patternSP == 5)s_patternSP = "Middle+Outer";
-                    if(std::fabs(m_poff_pt*0.001) < 2.75 && numSP == 2 && std::fabs(m_poff_eta) > 2.0){
-                         std::ofstream ofs;
-                         ofs.open("/home/kayamash/LowPtPassed2SPForward.txt",std::ios::app);
-                         ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<s_patternSP<<"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
-                         ofs.close();
+                    if(std::fabs(m_poff_pt)*0.001 < 3.25){
+                         m_h_LowPtPassedRoIEtavsPhi[numSP]->Fill(pSA_roieta,pSA_roiphi);
+                         if(patternSP == 3)m_h_LowPtPassedRoIEtavsPhi[4]->Fill(pSA_roieta,pSA_roiphi);
                     }
-                         
-                         if(std::fabs(m_poff_pt*0.001) < 3.25 && numSP == 2 && std::fabs(m_poff_eta) > 2.0){
-                              std::ofstream ofs;
-                              ofs.open("/home/kayamash/LowPtPassed2SP2binForward.txt",std::ios::app);
-                              ofs<<m_rNumber<<"   "<<m_eNumber<<"   "<<s_patternSP<<"   "<<pL1_eta<<"   "<<pL1_phi<<"   "<<pSA_pt<<"   "<<pSA_eta<<"   "<<pSA_phi<<"   "<<m_poff_pt*0.001<<"   "<<m_poff_eta<<"   "<<m_poff_phi<<std::endl;
-                              ofs.close();
-                         }
-                         
+
                     m_h_CountSA->Fill(m_poff_eta);
                     m_h_NumSP->Fill(numSP);
                     Double_t textSA_dR = TMath::Sqrt(pow(m_tSA_eta - m_toff_exteta,2) + pow(m_tSA_phi - m_toff_extphi,2));
@@ -575,7 +868,6 @@ void Efficiency::Execute(Int_t ev){
                     Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
                     Double_t buf_pSA_dR = TMath::Sqrt(pow(pSA_eta - m_poff_eta,2) + pow(pSA_phi - m_poff_phi,2));
                     Double_t buf_eta = 0;
-                    m_h_pSAsAddress->Fill(pSA_sAddress);
 
                     m_h_L2MuonSAPtAlphavsBeta[0]->Fill(std::fabs(pSA_ptalpha),std::fabs(pSA_ptbeta));
                     m_h_L2MuonSAPtAlphavsTGC[0]->Fill(std::fabs(pSA_ptalpha),std::fabs(pSA_ptTGC));
@@ -601,6 +893,7 @@ void Efficiency::Execute(Int_t ev){
                     switch(EtaDistribution(pSA_roieta)){
                          case 0:
                          m_h_eSAPtBarrel->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 0)m_h_eSAPtBarrel0SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eSAPtBarrel1SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eSAPtBarrel2SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 3)m_h_eSAPtBarrel3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -612,9 +905,24 @@ void Efficiency::Execute(Int_t ev){
                               m_h_MDTChamber->Fill(pSA_mdthitChamber->at(MDTsize));
                          }
                          if(pSA_sAddress == 0 && nosector9 == 0)m_h_eSAPtLargeNormal->Fill(std::fabs(m_poff_pt*0.001));
+                         switch(static_cast<Int_t>(pSA_sAddress)){
+                              case 0:
+                              if(BarrelSPpattern >= 0)m_h_eSAPtBarrelLargepattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                              case 1:
+                              if(BarrelSPpattern >= 0)m_h_eSAPtBarrelLSpattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                              case 2:
+                              if(BarrelSPpattern >= 0)m_h_eSAPtBarrelSmallpattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                              case 3:
+                              if(BarrelSPpattern >= 0)m_h_eSAPtBarrelSSpattern[BarrelSPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                              break;
+                         }
                          break;
                          case 1:
                          m_h_eSAPtTransition->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 0)m_h_eSAPtTransition0SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eSAPtTransition1SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eSAPtTransition2SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 3)m_h_eSAPtTransition3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -622,13 +930,67 @@ void Efficiency::Execute(Int_t ev){
                          break;
                          case 2:
                          m_h_eSAPtEnd->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 1)m_h_eSAPtEndcap1SP->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 2)m_h_eSAPtEndcap2SP->Fill(std::fabs(m_poff_pt*0.001));
-                         if(numSP == 3)m_h_eSAPtEndcap3SP->Fill(std::fabs(m_poff_pt*0.001));
-                         if(patternSP == 3)m_h_eSAPtEndcapIM->Fill(std::fabs(m_poff_pt*0.001));
+                         m_h_RoIPhiEndcap->Fill(pSA_roiphi);
+                         if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eSAPhiEndcapLowPtPassed->Fill(pSA_roiphi);
+                         if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eSAPhiEndcapHighPtPassed->Fill(pSA_roiphi);
+                         if(EndcapLargeDicision(pSA_roiphi)){
+                              m_h_eSAPtEndcapLarge->Fill(std::fabs(m_poff_pt*0.001));
+                              if(SPpattern >= 0)m_h_eSAPtEndcapLargepattern[SPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                         }else{
+                              m_h_eSAPtEndcapSmall->Fill(std::fabs(m_poff_pt*0.001));
+                              if(SPpattern >= 0)m_h_eSAPtEndcapSmallpattern[SPpattern]->Fill(std::fabs(m_poff_pt*0.001));
+                         }
+                         if(numSP == 0){
+                              m_h_eSAPtEndcap0SP->Fill(std::fabs(m_poff_pt*0.001));
+                              if(EndcapLargeDicision(pSA_roiphi)){
+                                   m_h_eSAPtEndcap0SPLarge->Fill(std::fabs(m_poff_pt*0.001));
+                              }else{
+                                   m_h_eSAPtEndcap0SPSmall->Fill(std::fabs(m_poff_pt*0.001));
+                              }
+                              if(std::fabs(m_poff_pt*0.001) < 3.25)m_h_eSAPhiEndcapLowPtPassed0SP->Fill(pSA_roiphi);
+                              if(std::fabs(m_poff_pt*0.001) > 10.0)m_h_eSAPhiEndcapHighPtPassed0SP->Fill(pSA_roiphi);
+                         }
+                         if(numSP == 1){
+                              m_h_eSAPtEndcap1SP->Fill(std::fabs(m_poff_pt*0.001));
+                              if(EndcapLargeDicision(pSA_roiphi)){
+                                   m_h_eSAPtEndcap1SPLarge->Fill(std::fabs(m_poff_pt*0.001));
+                              }else{
+                                   m_h_eSAPtEndcap1SPSmall->Fill(std::fabs(m_poff_pt*0.001));
+                              }
+                         }
+                         if(numSP == 2){
+                              m_h_eSAPtEndcap2SP->Fill(std::fabs(m_poff_pt*0.001));
+                              if(EndcapLargeDicision(pSA_roiphi)){
+                                   m_h_eSAPtEndcap2SPLarge->Fill(std::fabs(m_poff_pt*0.001));
+                              }else{
+                                   m_h_eSAPtEndcap2SPSmall->Fill(std::fabs(m_poff_pt*0.001));
+                              }
+                         }
+                         if(numSP == 3){
+                              m_h_eSAPtEndcap3SP->Fill(std::fabs(m_poff_pt*0.001));
+                              if(EndcapLargeDicision(pSA_roiphi)){
+                                   m_h_eSAPtEndcap3SPLarge->Fill(std::fabs(m_poff_pt*0.001));
+                              }else{
+                                   m_h_eSAPtEndcap3SPSmall->Fill(std::fabs(m_poff_pt*0.001));
+                              }
+                         }
+                         if(patternSP == 3){
+                              m_h_eSAPtEndcapIM->Fill(std::fabs(m_poff_pt*0.001));
+                              if(EndcapLargeDicision(pSA_roiphi)){
+                                   m_h_eSAPtEndcapIMLarge->Fill(std::fabs(m_poff_pt*0.001));
+                              }else{
+                                   m_h_eSAPtEndcapIMSmall->Fill(std::fabs(m_poff_pt*0.001));
+                              }
+                         }
+                         for(Int_t index = 0; index < 10;index++){
+                              if(m_probe_segment_chamberIndex[index] == 11)m_h_ChamberIndexvsRoIPhi->Fill(0.5,pSA_roiphi);
+                              if(m_probe_segment_chamberIndex[index] == 12)m_h_ChamberIndexvsRoIPhi->Fill(1.5,pSA_roiphi);
+                         }
+                         if(pt_method == 1)m_h_eSAPtEndcapBeta->Fill(std::fabs(m_poff_pt*0.001));
                          break;
                          case 3:
                          m_h_eSAPtForward->Fill(std::fabs(m_poff_pt*0.001));
+                         if(numSP == 0)m_h_eSAPtForward0SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 1)m_h_eSAPtForward1SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 2)m_h_eSAPtForward2SP->Fill(std::fabs(m_poff_pt*0.001));
                          if(numSP == 3)m_h_eSAPtForward3SP->Fill(std::fabs(m_poff_pt*0.001));
@@ -838,15 +1200,15 @@ void Efficiency::Execute(Int_t ev){
                          m_h_pOffEtavsSAResPtLSMinusS11outer->Fill(m_poff_eta,resSA_pt);
                          m_h_eSAPtLSMinusS11outer->Fill(std::fabs(m_poff_pt*0.001));
                          for(Int_t index = 0;index < 10;index++){
-                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_EtaIndexvsSAResPtLSMinusS11outer->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 2)m_h_EtaIndexvsSAResPtLSMinusS11outer2Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 3)m_h_EtaIndexvsSAResPtLSMinusS11outer3Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                          if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_SegmentZRLSMinusS11outer->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
-                     }
-                     m_h_MDTSPZRLSMinusS11outer->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
-                     m_h_MDTSPZRLSMinusS11outer->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
-                     m_h_MDTSPZRLSMinusS11outer->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
-                     break;
+                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_EtaIndexvsSAResPtLSMinusS11outer->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 2)m_h_EtaIndexvsSAResPtLSMinusS11outer2Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 3)m_h_EtaIndexvsSAResPtLSMinusS11outer3Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                             if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_SegmentZRLSMinusS11outer->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
+                        }
+                        m_h_MDTSPZRLSMinusS11outer->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
+                        m_h_MDTSPZRLSMinusS11outer->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
+                        m_h_MDTSPZRLSMinusS11outer->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
+                        break;
                          case 6://minus 11in
                          m_h_pOffPtvsSAResPtLSMinusS11inner->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                          if(numSP == 2)m_h_pOffPtvsSAResPtLSMinusS11inner2Station->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
@@ -872,15 +1234,15 @@ void Efficiency::Execute(Int_t ev){
                          m_h_pOffEtavsSAResPtLSMinusS15outer->Fill(m_poff_eta,resSA_pt);
                          m_h_eSAPtLSMinusS15outer->Fill(std::fabs(m_poff_pt*0.001));
                          for(Int_t index = 0;index < 10;index++){
-                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_EtaIndexvsSAResPtLSMinusS15outer->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 2)m_h_EtaIndexvsSAResPtLSMinusS15outer2Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                          if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 3)m_h_EtaIndexvsSAResPtLSMinusS15outer3Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
-                          if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_SegmentZRLSMinusS15outer->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
-                     }
-                     m_h_MDTSPZRLSMinusS15outer->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
-                     m_h_MDTSPZRLSMinusS15outer->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
-                     m_h_MDTSPZRLSMinusS15outer->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
-                     break;
+                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0)m_h_EtaIndexvsSAResPtLSMinusS15outer->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 2)m_h_EtaIndexvsSAResPtLSMinusS15outer2Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                             if(m_probe_segment_etaIndex[index] >= -8.0 && m_probe_segment_etaIndex[index] <= 8.0 && numSP == 3)m_h_EtaIndexvsSAResPtLSMinusS15outer3Station->Fill(m_probe_segment_etaIndex[index],resSA_pt);
+                             if(m_probe_segment_x[index] != -77777.0 && m_probe_segment_y[index] != -77777.0 && m_probe_segment_z[index] != -77777.0)m_h_SegmentZRLSMinusS15outer->Fill(m_probe_segment_z[index],sqrt(pow(m_probe_segment_x[index],2) + pow(m_probe_segment_y[index],2)));
+                        }
+                        m_h_MDTSPZRLSMinusS15outer->Fill(pSA_superpointZ_BI,pSA_superpointR_BI);
+                        m_h_MDTSPZRLSMinusS15outer->Fill(pSA_superpointZ_BM,pSA_superpointR_BM);
+                        m_h_MDTSPZRLSMinusS15outer->Fill(pSA_superpointZ_BO,pSA_superpointR_BO);
+                        break;
                          case 8://minus 15in
                          m_h_pOffPtvsSAResPtLSMinusS15inner->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
                          if(numSP == 2)m_h_pOffPtvsSAResPtLSMinusS15inner2Station->Fill(std::fabs(m_poff_pt*0.001),resSA_pt);
@@ -984,8 +1346,8 @@ void Efficiency::Execute(Int_t ev){
                if(pSA_sAddress == 0)overphi -= TMath::Pi()/8.0;
                numphi = overphi/TMath::Pi()*32.0 - fmod(overphi,TMath::Pi()/32.0);
                numeta += std::fabs(pSA_eta)/0.125 - fmod(std::fabs(pSA_eta),0.125);
-               if(pSA_sAddress == 0 && std::fabs(pSA_eta) < 1.0)m_h_DivideEtaOverPhiResPtLarge[numeta][numphi]->Fill(resSA_pt);
-               if(pSA_sAddress == 2 && std::fabs(pSA_eta) < 1.0)m_h_DivideEtaOverPhiResPtSmall[numeta][numphi]->Fill(resSA_pt);
+               //if(pSA_sAddress == 0 && std::fabs(pSA_eta) < 1.0)m_h_DivideEtaOverPhiResPtLarge[numeta][numphi]->Fill(resSA_pt);
+               //if(pSA_sAddress == 2 && std::fabs(pSA_eta) < 1.0)m_h_DivideEtaOverPhiResPtSmall[numeta][numphi]->Fill(resSA_pt);
 
                if(PlateauCut(std::fabs(m_poff_pt*0.001))){
                     m_h_eSAEtaPhi->Fill(m_poff_eta,m_poff_phi);
@@ -1319,6 +1681,13 @@ void Efficiency::Execute(Int_t ev){
                }else{
                     m_h_pCBResPtEndcap->Fill(resCB_pt);
                }
+               if(EtaDistribution(pSA_roieta) == 2 && numSP == 0){
+                    if(EndcapLargeDicision(pSA_roiphi)){
+                         m_h_eCBPtEndcap0SPLarge->Fill(std::fabs(m_poff_pt*0.001));
+                    }else{
+                         m_h_eCBPtEndcap0SPSmall->Fill(std::fabs(m_poff_pt*0.001));
+                    }
+               }
 
           //EF
                if(!CutEF(pEF_pass))return;
@@ -1359,6 +1728,13 @@ void Efficiency::Execute(Int_t ev){
                     m_h_eEFPtEnd->Fill(std::fabs(m_poff_pt*0.001));
                     m_h_pEFResPtEndcap->Fill(resEF_pt);
                }
+               if(EtaDistribution(pSA_roieta) == 2 && numSP == 0){
+                    if(EndcapLargeDicision(pSA_roiphi)){
+                         m_h_eEFPtEndcap0SPLarge->Fill(std::fabs(m_poff_pt*0.001));
+                    }else{
+                         m_h_eEFPtEndcap0SPSmall->Fill(std::fabs(m_poff_pt*0.001));
+                    }
+               }
 }//Execute
 
 void Efficiency::Finalize(TFile *tf1){
@@ -1375,10 +1751,6 @@ void Efficiency::Finalize(TFile *tf1){
      for(Int_t i = 0; i < 16;i++){
           m_h_SectorPhi[i]->Write();
           m_h_SectorRoIPhi[i]->Write();
-          for(Int_t j = 0; j < 8;j++){
-               m_h_DivideEtaOverPhiResPtLarge[i][j]->Write();
-               m_h_DivideEtaOverPhiResPtSmall[i][j]->Write();
-          }
      }
      for(Int_t i = 0;i < 4;i++){
           m_h_PtMethod[i]->Write();
@@ -1394,6 +1766,11 @@ void Efficiency::Finalize(TFile *tf1){
           m_h_L2MuonSAPtAlphavsBeta[i]->Write();
           m_h_L2MuonSAPtAlphavsTGC[i]->Write();
           m_h_L2MuonSAPtBetavsTGC[i]->Write();
+          m_h_RoIEtaPhiWeakBField[i]->Write();
+     }
+
+     for(Int_t i = 0;i < 5;i++){
+          m_h_LowPtPassedRoIEtavsPhi[i]->Write();
      }
 
           //base,target
@@ -1548,6 +1925,8 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.SetConditionbin(m_nbin_eta,m_nbin_phi,m_eta_max,m_phi_max);
      ceff.DrawEfficiency2D(m_h_eOffEtaPhi,m_h_eL1EtaPhi);
 
+     ceff.SetCondition("SAEfficiencyBarrel0SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrel0SP,m_h_eSAPtBarrel0SP,m_binmax,200,m_efficiency_xerr); 
      ceff.SetCondition("SAEfficiencyBarrel1SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtBarrel1SP,m_h_eSAPtBarrel1SP,m_binmax,200,m_efficiency_xerr); 
      ceff.SetCondition("SAEfficiencyBarrel2SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1556,6 +1935,8 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtBarrel3SP,m_h_eSAPtBarrel3SP,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyBarrelIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtBarrelIM,m_h_eSAPtBarrelIM,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcap0SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcap0SP,m_h_eSAPtEndcap0SP,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyEndcap1SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtEndcap1SP,m_h_eSAPtEndcap1SP,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyEndcap2SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1564,7 +1945,41 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtEndcap3SP,m_h_eSAPtEndcap3SP,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyEndcapIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtEndcapIM,m_h_eSAPtEndcapIM,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapLarge","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapLarge,m_h_eSAPtEndcapLarge,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcap0SPLarge","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcap0SPLarge,m_h_eSAPtEndcap0SPLarge,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("CBEfficiencyEndcap0SPLarge","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eSAPtEndcap0SPLarge,m_h_eCBPtEndcap0SPLarge,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("EFEfficiencyEndcap0SPLarge","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eCBPtEndcap0SPLarge,m_h_eEFPtEndcap0SPLarge,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcap1SPLarge","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcap1SPLarge,m_h_eSAPtEndcap1SPLarge,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcap2SPLarge","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcap2SPLarge,m_h_eSAPtEndcap2SPLarge,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcap3SPLarge","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcap3SPLarge,m_h_eSAPtEndcap3SPLarge,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapIMLarge","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapIMLarge,m_h_eSAPtEndcapIMLarge,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapSmall","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapSmall,m_h_eSAPtEndcapSmall,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcap0SPSmall","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcap0SPSmall,m_h_eSAPtEndcap0SPSmall,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("CBEfficiencyEndcap0SPSmall","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eSAPtEndcap0SPSmall,m_h_eCBPtEndcap0SPSmall,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("EFEfficiencyEndcap0SPSmall","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eCBPtEndcap0SPSmall,m_h_eEFPtEndcap0SPSmall,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcap1SPSmall","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcap1SPSmall,m_h_eSAPtEndcap1SPSmall,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcap2SPSmall","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcap2SPSmall,m_h_eSAPtEndcap2SPSmall,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcap3SPSmall","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcap3SPSmall,m_h_eSAPtEndcap3SPSmall,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapIMSmall","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapIMSmall,m_h_eSAPtEndcapIMSmall,m_binmax,200,m_efficiency_xerr);
 
+     ceff.SetCondition("SAEfficiencyForward0SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtForward0SP,m_h_eSAPtForward0SP,m_binmax,200,m_efficiency_xerr); 
      ceff.SetCondition("SAEfficiencyForward1SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtForward1SP,m_h_eSAPtForward1SP,m_binmax,200,m_efficiency_xerr); 
      ceff.SetCondition("SAEfficiencyForward2SP","L2MP Fficienuoncy;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1573,6 +1988,8 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtForward3SP,m_h_eSAPtForward3SP,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyForwardIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtForwardIM,m_h_eSAPtForwardIM,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyTransition0SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtTransition0SP,m_h_eSAPtTransition0SP,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyTransition1SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtTransition1SP,m_h_eSAPtTransition1SP,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyTransition2SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -1591,6 +2008,96 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtBarrel3SPRoI,m_h_eSAPtBarrel3SPRoI,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyBarrelIMRoI","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtBarrelIMRoI,m_h_eSAPtBarrelIMRoI,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyPhiEndcapLowPtPassed","SA Efficiency low p_{T} passed;RoI #phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapLowPtPassed,m_h_eSAPhiEndcapLowPtPassed);
+     ceff.SetCondition("SAEfficiencyPhiEndcapHighPtPassed","SA Efficiency low p_{T} passed;RoI #phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapHighPtPassed,m_h_eSAPhiEndcapHighPtPassed);
+     ceff.SetCondition("SAEfficiencyPhiEndcapLowPtPassed0SP","SA Efficiency low p_{T} passed;RoI #phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapLowPtPassed0SP,m_h_eSAPhiEndcapLowPtPassed0SP);
+     ceff.SetCondition("SAEfficiencyPhiEndcapHighPtPassed0SP","SA Efficiency low p_{T} passed;RoI #phi;Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiencyphi(m_h_eL1PhiEndcapHighPtPassed0SP,m_h_eSAPhiEndcapHighPtPassed0SP);
+     ceff.SetCondition("SAEfficiencyEndcapLarge1SPInner","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapLargepattern[0],m_h_eSAPtEndcapLargepattern[0],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapLarge1SPMiddle","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapLargepattern[1],m_h_eSAPtEndcapLargepattern[1],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapLarge1SPOuter","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapLargepattern[2],m_h_eSAPtEndcapLargepattern[2],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapLarge2SPIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapLargepattern[3],m_h_eSAPtEndcapLargepattern[3],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapLarge2SPIO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapLargepattern[4],m_h_eSAPtEndcapLargepattern[4],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapLarge2SPMO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapLargepattern[5],m_h_eSAPtEndcapLargepattern[5],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapSmall1SPInner","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[0],m_h_eSAPtEndcapSmallpattern[0],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapSmall1SPMiddle","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[1],m_h_eSAPtEndcapSmallpattern[1],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapSmall1SPOuter","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[2],m_h_eSAPtEndcapSmallpattern[2],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapSmall2SPIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[3],m_h_eSAPtEndcapSmallpattern[3],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapSmall2SPIO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[4],m_h_eSAPtEndcapSmallpattern[4],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapSmall2SPMO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapSmallpattern[5],m_h_eSAPtEndcapSmallpattern[5],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLarge1SPInner","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLargepattern[0],m_h_eSAPtBarrelLargepattern[0],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLarge1SPMiddle","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLargepattern[1],m_h_eSAPtBarrelLargepattern[1],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLarge1SPOuter","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLargepattern[2],m_h_eSAPtBarrelLargepattern[2],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLarge2SPIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLargepattern[3],m_h_eSAPtBarrelLargepattern[3],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLarge2SPIO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLargepattern[4],m_h_eSAPtBarrelLargepattern[4],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLarge2SPMO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLargepattern[5],m_h_eSAPtBarrelLargepattern[5],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSmall1SPInner","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSmallpattern[0],m_h_eSAPtBarrelSmallpattern[0],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSmall1SPMiddle","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSmallpattern[1],m_h_eSAPtBarrelSmallpattern[1],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSmall1SPOuter","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSmallpattern[2],m_h_eSAPtBarrelSmallpattern[2],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSmall2SPIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSmallpattern[3],m_h_eSAPtBarrelSmallpattern[3],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSmall2SPIO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSmallpattern[4],m_h_eSAPtBarrelSmallpattern[4],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSmall2SPMO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSmallpattern[5],m_h_eSAPtBarrelSmallpattern[5],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLS1SPInner","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLSpattern[0],m_h_eSAPtBarrelLSpattern[0],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLS1SPMiddle","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLSpattern[1],m_h_eSAPtBarrelLSpattern[1],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLS1SPOuter","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLSpattern[2],m_h_eSAPtBarrelLSpattern[2],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLS2SPIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLSpattern[3],m_h_eSAPtBarrelLSpattern[3],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLS2SPIO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLSpattern[4],m_h_eSAPtBarrelLSpattern[4],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelLS2SPMO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelLSpattern[5],m_h_eSAPtBarrelLSpattern[5],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSS1SPInner","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSSpattern[0],m_h_eSAPtBarrelSSpattern[0],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSS1SPMiddle","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSSpattern[1],m_h_eSAPtBarrelSSpattern[1],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSS1SPOuter","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSSpattern[2],m_h_eSAPtBarrelSSpattern[2],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSS2SPIM","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSSpattern[3],m_h_eSAPtBarrelSSpattern[3],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSS2SPIO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSSpattern[4],m_h_eSAPtBarrelSSpattern[4],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelSS2SPMO","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelSSpattern[5],m_h_eSAPtBarrelSSpattern[5],m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelMyLUTAlpha","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrel,m_h_eSAPtBarrelMyLUTAlpha,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelMyLUTBeta","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrel,m_h_eSAPtBarrelMyLUTBeta,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelCompareAlpha","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelMyLUTAlpha,m_h_eSAPtBarrelCompareAlpha,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelCompareBeta","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrelMyLUTBeta,m_h_eSAPtBarrelCompareBeta,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyEndcapBeta","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtEndcapBeta,m_h_eSAPtEndcapBeta,m_binmax,200,m_efficiency_xerr);
      cout<<"eff end"<<endl;
 
      m_h_pOffPt->Write();
@@ -1660,8 +2167,17 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_IndexvsEta->Write();
      m_h_OverPhi->Write();
      m_h_MDTChamber->Write();
-     m_h_L1pSAsAddress->Write();
-     m_h_pSAsAddress->Write();
+     m_h_RoIPhiEndcap->Write();
+     m_h_ChamberIndexvsRoIPhi->Write();
+     m_h_BarrelAlpha->Write();
+     m_h_BarrelBeta->Write();
+     m_h_PtvsBarrelAlpha->Write();
+     m_h_PtvsBarrelBeta->Write();
+     m_h_RoIEtavsPhiEndcap[0]->Write();
+     m_h_RoIEtavsPhiEndcap[1]->Write();
+     m_h_OfflineEtavsPhi->Write();
+     m_h_ChargevsAlpha->Write();
+     m_h_ChargevsBeta->Write();
 
      m_h_MDTHitXY->Write();
      m_h_RPCHitXY->Write();
@@ -1863,6 +2379,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtBarrelIncBIM->Write();
      m_h_eL1PtLSIncBIM->Write();
      m_h_eSAPtLSIncBIM->Write();
+     m_h_eL1PtBarrel0SP->Write();
+     m_h_eSAPtBarrel0SP->Write();
      m_h_eL1PtBarrel1SP->Write();
      m_h_eSAPtBarrel1SP->Write();
      m_h_eL1PtBarrel2SP->Write();
@@ -1871,6 +2389,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtBarrel3SP->Write();
      m_h_eL1PtBarrelIM->Write();
      m_h_eSAPtBarrelIM->Write();
+     m_h_eL1PtEndcap0SP->Write();
+     m_h_eSAPtEndcap0SP->Write();
      m_h_eL1PtEndcap1SP->Write();
      m_h_eSAPtEndcap1SP->Write();
      m_h_eL1PtEndcap2SP->Write();
@@ -1879,6 +2399,36 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtEndcap3SP->Write();
      m_h_eL1PtEndcapIM->Write();
      m_h_eSAPtEndcapIM->Write();
+     m_h_eL1PtEndcapLarge->Write();
+     m_h_eSAPtEndcapLarge->Write();
+     m_h_eL1PtEndcap0SPLarge->Write();
+     m_h_eSAPtEndcap0SPLarge->Write();
+     m_h_eCBPtEndcap0SPLarge->Write();
+     m_h_eEFPtEndcap0SPLarge->Write();
+     m_h_eL1PtEndcap1SPLarge->Write();
+     m_h_eSAPtEndcap1SPLarge->Write();
+     m_h_eL1PtEndcap2SPLarge->Write();
+     m_h_eSAPtEndcap2SPLarge->Write();
+     m_h_eL1PtEndcap3SPLarge->Write();
+     m_h_eSAPtEndcap3SPLarge->Write();
+     m_h_eL1PtEndcapIMLarge->Write();
+     m_h_eSAPtEndcapIMLarge->Write();
+     m_h_eL1PtEndcapSmall->Write();
+     m_h_eSAPtEndcapSmall->Write();
+     m_h_eL1PtEndcap0SPSmall->Write();
+     m_h_eSAPtEndcap0SPSmall->Write();
+     m_h_eCBPtEndcap0SPSmall->Write();
+     m_h_eEFPtEndcap0SPSmall->Write();
+     m_h_eL1PtEndcap1SPSmall->Write();
+     m_h_eSAPtEndcap1SPSmall->Write();
+     m_h_eL1PtEndcap2SPSmall->Write();
+     m_h_eSAPtEndcap2SPSmall->Write();
+     m_h_eL1PtEndcap3SPSmall->Write();
+     m_h_eSAPtEndcap3SPSmall->Write();
+     m_h_eL1PtEndcapIMSmall->Write();
+     m_h_eSAPtEndcapIMSmall->Write();
+     m_h_eL1PtForward0SP->Write();
+     m_h_eSAPtForward0SP->Write();
      m_h_eL1PtForward1SP->Write();
      m_h_eSAPtForward1SP->Write();
      m_h_eL1PtForward2SP->Write();
@@ -1887,6 +2437,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtForward3SP->Write();
      m_h_eL1PtForwardIM->Write();
      m_h_eSAPtForwardIM->Write();
+     m_h_eL1PtTransition0SP->Write();
+     m_h_eSAPtTransition0SP->Write();
      m_h_eL1PtTransition1SP->Write();
      m_h_eSAPtTransition1SP->Write();
      m_h_eL1PtTransition2SP->Write();
@@ -1905,6 +2457,36 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtBarrel3SPRoI->Write();
      m_h_eL1PtBarrelIMRoI->Write();
      m_h_eSAPtBarrelIMRoI->Write();
+     m_h_eL1PhiEndcapLowPtPassed->Write();
+     m_h_eSAPhiEndcapLowPtPassed->Write();
+     m_h_eL1PhiEndcapHighPtPassed->Write();
+     m_h_eSAPhiEndcapHighPtPassed->Write();
+     m_h_eL1PhiEndcapLowPtPassed0SP->Write();
+     m_h_eSAPhiEndcapLowPtPassed0SP->Write();
+     m_h_eL1PhiEndcapHighPtPassed0SP->Write();
+     m_h_eSAPhiEndcapHighPtPassed0SP->Write();
+     for(Int_t i = 0;i < 6;i++){
+          m_h_eL1PtEndcapLargepattern[i]->Write();
+          m_h_eSAPtEndcapLargepattern[i]->Write();
+          m_h_eL1PtEndcapSmallpattern[i]->Write();
+          m_h_eSAPtEndcapSmallpattern[i]->Write();
+          m_h_eL1PtBarrelLargepattern[i]->Write();
+          m_h_eSAPtBarrelLargepattern[i]->Write();
+          m_h_eL1PtBarrelSmallpattern[i]->Write();
+          m_h_eSAPtBarrelSmallpattern[i]->Write();
+          m_h_eL1PtBarrelLSpattern[i]->Write();
+          m_h_eSAPtBarrelLSpattern[i]->Write();
+          m_h_eL1PtBarrelSSpattern[i]->Write();
+          m_h_eSAPtBarrelSSpattern[i]->Write();
+     }
+     m_h_eL1PtBarrelMyLUTAlpha->Write();
+     m_h_eSAPtBarrelMyLUTAlpha->Write();
+     m_h_eL1PtBarrelMyLUTBeta->Write();
+     m_h_eSAPtBarrelMyLUTBeta->Write();
+     m_h_eSAPtBarrelCompareAlpha->Write();
+     m_h_eSAPtBarrelCompareBeta->Write();
+     m_h_eL1PtEndcapBeta->Write();
+     m_h_eSAPtEndcapBeta->Write();
 
      m_h_pSAResPt->Write();
      m_h_pCBResPt->Write();
@@ -1915,6 +2497,17 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_pSAResPtEndcap->Write();
      m_h_pCBResPtEndcap->Write();
      m_h_pEFResPtEndcap->Write();
+     m_h_pSAResPtBarrelAlpha->Write();
+     m_h_pSAResPtBarrelBeta->Write();
+     for(Int_t i = 0; i < 5;++i){
+          m_h_pSAResPtBarrelAlphaSector[i]->Write();
+          m_h_pSAResPtBarrelBetaSector[i]->Write();
+     }
+     m_h_pSAResPtBarrelAlpha1SP->Write();
+     m_h_pSAResPtBarrelAlpha2SP->Write();
+     m_h_pSAResPtBarrelBeta2SP->Write();
+     m_h_pSAResPtBarrelAlpha3SP->Write();
+     m_h_pSAResPtBarrelBeta3SP->Write();
      m_h_SAResPtLargePlus->Write();
      m_h_SAResPtLSPlus->Write();
      m_h_SAResPtSmallPlus->Write();

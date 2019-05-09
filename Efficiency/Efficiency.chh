@@ -87,6 +87,8 @@ private:
   std::vector<Double_t> *m_pL1_phi;
   std::vector<Double_t> *m_pL1_dR;
   std::vector<Int_t> *m_pL1_pass;
+  std::vector<Int_t> *m_pL1_roiNumber;
+  std::vector<Int_t> *m_pL1_roiSector;
   std::vector<Double_t> *m_pSA_pt;
   std::vector<Double_t> *m_pSA_eta;
   std::vector<Double_t> *m_pSA_phi;
@@ -97,6 +99,8 @@ private:
   std::vector<float> *m_pSA_roieta;
   std::vector<float> *m_pSA_roiphi;
   std::vector<Int_t> *m_pSA_pass;
+  std::vector<unsigned int> *m_pSA_roiNumber;
+  std::vector<unsigned int> *m_pSA_roiSector;
   std::vector<vector<float>> *m_pSA_rpcX;
   std::vector<vector<float>> *m_pSA_rpcY;
   std::vector<vector<float>> *m_pSA_rpcZ;
@@ -128,6 +132,8 @@ private:
   std::vector<Double_t> *m_pSA_superpointR_EE;
   std::vector<Double_t> *m_pSA_superpointR_CSC;
   std::vector<Double_t> *m_pSA_superpointR_BEE;
+  std::vector<Double_t> *m_pSA_superpointSlope_BI;
+  std::vector<Double_t> *m_pSA_superpointSlope_BM;
   std::vector<Double_t> *m_pCB_pt;
   std::vector<Double_t> *m_pCB_eta;
   std::vector<Double_t> *m_pCB_phi;
@@ -192,12 +198,16 @@ private:
   TBranch *b_pL1_phi;
   TBranch *b_pL1_dR;;
   TBranch *b_pL1_pass;
+  TBranch *b_pL1_roiNumber;
+  TBranch *b_pL1_roiSector;
   TBranch *b_sumReqdRL1;
   TBranch *b_pSA_pt;
   TBranch *b_pSA_eta;
   TBranch *b_pSA_phi;
   TBranch *b_pSA_dR;
   TBranch *b_pSA_sAddress;
+  TBranch *b_pSA_roiNumber;
+  TBranch *b_pSA_roiSector;
   TBranch *b_pSA_phims;
   TBranch *b_pSA_phibe;
   TBranch *b_pSA_roieta;
@@ -234,6 +244,8 @@ private:
   TBranch *b_pSA_superpointR_EE;
   TBranch *b_pSA_superpointR_CSC;
   TBranch *b_pSA_superpointR_BEE;
+  TBranch *b_pSA_superpointSlope_BI;
+  TBranch *b_pSA_superpointSlope_BM;
 
   TBranch *b_pCB_pt;
   TBranch *b_pCB_eta;
@@ -320,8 +332,20 @@ private:
   TH2F *m_h_IndexvsEta;
   TH1D *m_h_OverPhi;
   TH1D *m_h_MDTChamber;
-  TH1D* m_h_L1pSAsAddress;
-  TH1D* m_h_pSAsAddress;
+  TH1D *m_h_L1pSAsAddress;
+  TH1D *m_h_pSAsAddress;
+  TH1D *m_h_RoIPhiEndcap;
+  TH2F *m_h_LowPtPassedRoIEtavsPhi[5];//0SP,1SP,2SP,3SP,IM
+  TH2F *m_h_ChamberIndexvsRoIPhi;
+  TH1D *m_h_BarrelAlpha;
+  TH1D *m_h_BarrelBeta;
+  TH2F *m_h_PtvsBarrelAlpha;
+  TH2F *m_h_PtvsBarrelBeta;
+  TH2F *m_h_RoIEtaPhiWeakBField[3];//WeakBFieldA,B,normal
+  TH2F *m_h_RoIEtavsPhiEndcap[2];//Large,Small
+  TH2F *m_h_OfflineEtavsPhi;
+  TH2F *m_h_ChargevsAlpha;
+  TH2F *m_h_ChargevsBeta;
 
   //SP,segment
   TH2F *m_h_MDTHitXY;
@@ -532,6 +556,8 @@ private:
   TH1D *m_h_eSAPtBarrelIncBIM;
   TH1D *m_h_eL1PtLSIncBIM;
   TH1D *m_h_eSAPtLSIncBIM;
+  TH1D *m_h_eL1PtBarrel0SP;
+  TH1D *m_h_eSAPtBarrel0SP;
   TH1D *m_h_eL1PtBarrel1SP;
   TH1D *m_h_eSAPtBarrel1SP;
   TH1D *m_h_eL1PtBarrel2SP;
@@ -540,6 +566,8 @@ private:
   TH1D *m_h_eSAPtBarrel3SP;
   TH1D *m_h_eL1PtBarrelIM;
   TH1D *m_h_eSAPtBarrelIM;
+  TH1D *m_h_eL1PtEndcap0SP;
+  TH1D *m_h_eSAPtEndcap0SP;
   TH1D *m_h_eL1PtEndcap1SP;
   TH1D *m_h_eSAPtEndcap1SP;
   TH1D *m_h_eL1PtEndcap2SP;
@@ -548,6 +576,40 @@ private:
   TH1D *m_h_eSAPtEndcap3SP;
   TH1D *m_h_eL1PtEndcapIM;
   TH1D *m_h_eSAPtEndcapIM;
+  TH1D *m_h_eL1PtEndcapBeta;
+  TH1D *m_h_eSAPtEndcapBeta;
+  //
+  TH1D *m_h_eL1PtEndcapLarge;
+  TH1D *m_h_eSAPtEndcapLarge;
+  TH1D *m_h_eL1PtEndcap0SPLarge;
+  TH1D *m_h_eSAPtEndcap0SPLarge;
+  TH1D *m_h_eCBPtEndcap0SPLarge;
+  TH1D *m_h_eEFPtEndcap0SPLarge;
+  TH1D *m_h_eL1PtEndcap1SPLarge;
+  TH1D *m_h_eSAPtEndcap1SPLarge;
+  TH1D *m_h_eL1PtEndcap2SPLarge;
+  TH1D *m_h_eSAPtEndcap2SPLarge;
+  TH1D *m_h_eL1PtEndcap3SPLarge;
+  TH1D *m_h_eSAPtEndcap3SPLarge;
+  TH1D *m_h_eL1PtEndcapIMLarge;
+  TH1D *m_h_eSAPtEndcapIMLarge;
+  TH1D *m_h_eL1PtEndcapSmall;
+  TH1D *m_h_eSAPtEndcapSmall;
+  TH1D *m_h_eL1PtEndcap0SPSmall;
+  TH1D *m_h_eSAPtEndcap0SPSmall;
+  TH1D *m_h_eCBPtEndcap0SPSmall;
+  TH1D *m_h_eEFPtEndcap0SPSmall;
+  TH1D *m_h_eL1PtEndcap1SPSmall;
+  TH1D *m_h_eSAPtEndcap1SPSmall;
+  TH1D *m_h_eL1PtEndcap2SPSmall;
+  TH1D *m_h_eSAPtEndcap2SPSmall;
+  TH1D *m_h_eL1PtEndcap3SPSmall;
+  TH1D *m_h_eSAPtEndcap3SPSmall;
+  TH1D *m_h_eL1PtEndcapIMSmall;
+  TH1D *m_h_eSAPtEndcapIMSmall;
+  //
+  TH1D *m_h_eL1PtForward0SP;
+  TH1D *m_h_eSAPtForward0SP;
   TH1D *m_h_eL1PtForward1SP;
   TH1D *m_h_eSAPtForward1SP;
   TH1D *m_h_eL1PtForward2SP;
@@ -556,6 +618,8 @@ private:
   TH1D *m_h_eSAPtForward3SP;
   TH1D *m_h_eL1PtForwardIM;
   TH1D *m_h_eSAPtForwardIM;
+  TH1D *m_h_eL1PtTransition0SP;
+  TH1D *m_h_eSAPtTransition0SP;
   TH1D *m_h_eL1PtTransition1SP;
   TH1D *m_h_eSAPtTransition1SP;
   TH1D *m_h_eL1PtTransition2SP;
@@ -574,6 +638,32 @@ private:
   TH1D *m_h_eSAPtBarrel3SPRoI;
   TH1D *m_h_eL1PtBarrelIMRoI;
   TH1D *m_h_eSAPtBarrelIMRoI;
+  TH1D *m_h_eL1PhiEndcapLowPtPassed;//offline pt<3.25GeV
+  TH1D *m_h_eSAPhiEndcapLowPtPassed;//offline pt<3.25GeV
+  TH1D *m_h_eL1PhiEndcapHighPtPassed;//offline pt>10.0GeV
+  TH1D *m_h_eSAPhiEndcapHighPtPassed;//offline pt<10.0GeV
+  TH1D *m_h_eL1PhiEndcapLowPtPassed0SP;//offline pt<3.25GeV
+  TH1D *m_h_eSAPhiEndcapLowPtPassed0SP;//offline pt<3.25GeV
+  TH1D *m_h_eL1PhiEndcapHighPtPassed0SP;//offline pt>10.0GeV
+  TH1D *m_h_eSAPhiEndcapHighPtPassed0SP;//offline pt<10.0GeV
+  TH1D *m_h_eL1PtEndcapLargepattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eSAPtEndcapLargepattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eL1PtEndcapSmallpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eSAPtEndcapSmallpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eL1PtBarrelLargepattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eSAPtBarrelLargepattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eL1PtBarrelSmallpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eSAPtBarrelSmallpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eL1PtBarrelLSpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eSAPtBarrelLSpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eL1PtBarrelSSpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eSAPtBarrelSSpattern[6];//Inner,Middle,Outer,IM,IO,MO
+  TH1D *m_h_eL1PtBarrelMyLUTAlpha;
+  TH1D *m_h_eSAPtBarrelMyLUTAlpha;
+  TH1D *m_h_eL1PtBarrelMyLUTBeta;
+  TH1D *m_h_eSAPtBarrelMyLUTBeta;
+  TH1D *m_h_eSAPtBarrelCompareAlpha;
+  TH1D *m_h_eSAPtBarrelCompareBeta;
 
   //Residual
   TH1D *m_h_pSAResPt;
@@ -711,9 +801,18 @@ private:
   TH2F *m_h_EtaIndexvsSAResPtLSMinusS11inner3Station;
   TH2F *m_h_EtaIndexvsSAResPtLSMinusS15outer3Station;
   TH2F *m_h_EtaIndexvsSAResPtLSMinusS15inner3Station;
+  TH1D *m_h_pSAResPtBarrelAlpha;
+  TH1D *m_h_pSAResPtBarrelBeta;
+  TH1D *m_h_pSAResPtBarrelAlphaSector[5];//Large Sector11 Sector15 Small SmallSpecial
+  TH1D *m_h_pSAResPtBarrelBetaSector[5];
+  TH1D *m_h_pSAResPtBarrelAlpha3SP;
+  TH1D *m_h_pSAResPtBarrelBeta3SP;
+  TH1D *m_h_pSAResPtBarrelAlpha2SP;
+  TH1D *m_h_pSAResPtBarrelBeta2SP;
+  TH1D *m_h_pSAResPtBarrelAlpha1SP;
 
-  TH1D *m_h_DivideEtaOverPhiResPtLarge[16][8];
-  TH1D *m_h_DivideEtaOverPhiResPtSmall[16][8];
+  //TH1D *m_h_DivideEtaOverPhiResPtLarge[16][8];
+  //TH1D *m_h_DivideEtaOverPhiResPtSmall[16][8];
   TH2F *m_h_SegmentNumberBIM;
   TH2F *m_h_SegmentNumberBIR;
   TH1D *m_h_SectorPhi[16];
@@ -743,11 +842,15 @@ private:
   Double_t m_binmax;
   Double_t m_efficiency_xerr;
 
+  Double_t m_LUTAlphaSectorChargeEtaPhi[5][2][30][30][2];//Sector Charge Eta Phi parAorB
+  Double_t m_LUTBetaSectorChargeEtaPhi[5][2][30][30][2];
+
 public:
   Efficiency(TTree *tree){
     tChain = tree;
     m_eNumber = 0;
     m_rNumber = 0;
+    m_aipc = 0;
     m_tag_proc = 0;
     m_toff_pt = 0;
     m_toff_eta = 0;
@@ -789,6 +892,8 @@ public:
     m_pL1_phi = 0;
     m_pL1_dR = 0;
     m_pL1_pass = 0;
+    m_pL1_roiNumber = 0;
+    m_pL1_roiSector = 0;
     m_sumReqdRL1 = 0;
     m_pSA_pt = 0;
     m_pSA_eta = 0;
@@ -808,8 +913,11 @@ public:
     m_pSA_phibe = 0;
     m_pSA_roieta = 0;
     m_pSA_roiphi = 0;
+    m_pSA_roiNumber = 0;
+    m_pSA_roiSector = 0;
     m_pSA_ptalpha = 0;
     m_pSA_ptbeta = 0;
+    m_pSA_pttgc = 0;
     m_pSA_superpointZ_BI = 0;
     m_pSA_superpointZ_BM = 0;
     m_pSA_superpointZ_BO = 0;
@@ -824,12 +932,16 @@ public:
     m_pSA_superpointR_BI = 0;
     m_pSA_superpointR_BM = 0;
     m_pSA_superpointR_BO = 0;
+    m_pSA_superpointR_BME = 0;
     m_pSA_superpointR_EI = 0;
     m_pSA_superpointR_EM = 0;
     m_pSA_superpointR_EO = 0;
     m_pSA_superpointR_EE = 0;
     m_pSA_superpointR_CSC = 0;
     m_pSA_superpointR_BEE = 0;
+    m_pSA_superpointR_BME = 0;
+    m_pSA_superpointSlope_BI = 0;
+    m_pSA_superpointSlope_BM = 0;
     m_pCB_pt = 0;
     m_pCB_eta = 0;
     m_pCB_phi = 0;
@@ -896,6 +1008,8 @@ public:
     tChain->SetBranchStatus("probe_mesL1_phi",1);
     tChain->SetBranchStatus("probe_mesL1_pass",1);
     tChain->SetBranchStatus("probe_mesL1_dR",1);
+    tChain->SetBranchStatus("probe_mesL1_roiNumber",1);
+    tChain->SetBranchStatus("probe_mesL1_roiSector",1);
     tChain->SetBranchStatus("sumReqdRL1",1);
     tChain->SetBranchStatus("probe_mesSA_pt",1);
     tChain->SetBranchStatus("probe_mesSA_eta",1);
@@ -907,6 +1021,8 @@ public:
     tChain->SetBranchStatus("probe_mesSA_phibe",1);
     tChain->SetBranchStatus("probe_mesSA_roiEta",1);
     tChain->SetBranchStatus("probe_mesSA_roiPhi",1);
+    tChain->SetBranchStatus("probe_mesSA_roiNumber",1);
+    tChain->SetBranchStatus("probe_mesSA_roiSector",1);
     tChain->SetBranchStatus("probe_mesSA_rpcHitX",1);
     tChain->SetBranchStatus("probe_mesSA_rpcHitY",1);
     tChain->SetBranchStatus("probe_mesSA_rpcHitZ",1);
@@ -938,6 +1054,8 @@ public:
     tChain->SetBranchStatus("probe_mesSA_superPointR_EE",1);
     tChain->SetBranchStatus("probe_mesSA_superPointR_CSC",1);
     tChain->SetBranchStatus("probe_mesSA_superPointR_BEE",1);
+    tChain->SetBranchStatus("probe_mesSA_superPointSlope_BI",1);
+    tChain->SetBranchStatus("probe_mesSA_superPointSlope_BM",1);
     tChain->SetBranchStatus("probe_mesCB_pt",1);
     tChain->SetBranchStatus("probe_mesCB_eta",1);
     tChain->SetBranchStatus("probe_mesCB_phi",1);  
@@ -1003,6 +1121,8 @@ public:
     tChain->SetBranchAddress("probe_mesL1_phi",&m_pL1_phi,&b_pL1_phi);
     tChain->SetBranchAddress("probe_mesL1_pass",&m_pL1_pass,&b_pL1_pass);
     tChain->SetBranchAddress("probe_mesL1_dR",&m_pL1_dR,&b_pL1_dR);
+    tChain->SetBranchAddress("probe_mesL1_roiNumber",&m_pL1_roiNumber,&b_pL1_roiNumber);
+    tChain->SetBranchAddress("probe_mesL1_roiSector",&m_pL1_roiSector,&b_pL1_roiSector);
     tChain->SetBranchAddress("sumReqdRL1",&m_sumReqdRL1,&b_sumReqdRL1);
     tChain->SetBranchAddress("probe_mesSA_pt",&m_pSA_pt,&b_pSA_pt);
     tChain->SetBranchAddress("probe_mesSA_eta",&m_pSA_eta,&b_pSA_eta);
@@ -1025,6 +1145,8 @@ public:
     tChain->SetBranchAddress("probe_mesSA_phibe",&m_pSA_phibe,&b_pSA_phibe);
     tChain->SetBranchAddress("probe_mesSA_roiEta",&m_pSA_roieta,&b_pSA_roieta);
     tChain->SetBranchAddress("probe_mesSA_roiPhi",&m_pSA_roiphi,&b_pSA_roiphi);
+    tChain->SetBranchAddress("probe_mesSA_roiNumber",&m_pSA_roiNumber,&b_pSA_roiNumber);
+    tChain->SetBranchAddress("probe_mesSA_roiSector",&m_pSA_roiSector,&b_pSA_roiSector);
     tChain->SetBranchAddress("probe_mesSA_superPointZ_BI",&m_pSA_superpointZ_BI,&b_pSA_superpointZ_BI);
     tChain->SetBranchAddress("probe_mesSA_superPointZ_BM",&m_pSA_superpointZ_BM,&b_pSA_superpointZ_BM);
     tChain->SetBranchAddress("probe_mesSA_superPointZ_BO",&m_pSA_superpointZ_BO,&b_pSA_superpointZ_BO);
@@ -1045,6 +1167,8 @@ public:
     tChain->SetBranchAddress("probe_mesSA_superPointR_EE",&m_pSA_superpointR_EE,&b_pSA_superpointR_EE);
     tChain->SetBranchAddress("probe_mesSA_superPointR_CSC",&m_pSA_superpointR_CSC,&b_pSA_superpointR_CSC);
     tChain->SetBranchAddress("probe_mesSA_superPointR_BEE",&m_pSA_superpointR_BEE,&b_pSA_superpointR_BEE);
+    tChain->SetBranchAddress("probe_mesSA_superPointSlope_BI",&m_pSA_superpointSlope_BI,&b_pSA_superpointSlope_BI);
+    tChain->SetBranchAddress("probe_mesSA_superPointSlope_BM",&m_pSA_superpointSlope_BM,&b_pSA_superpointSlope_BM);
     tChain->SetBranchAddress("probe_mesCB_pt",&m_pCB_pt,&b_pCB_pt);
     tChain->SetBranchAddress("probe_mesCB_eta",&m_pCB_eta,&b_pCB_eta);
     tChain->SetBranchAddress("probe_mesCB_phi",&m_pCB_phi,&b_pCB_phi);
@@ -1065,14 +1189,12 @@ public:
     m_h_SARoIPhiSS = new TH1D("h_saroiphi_SmallSpecial_0GeV","RoI phi;RoI phi;Entries",600,-3.0,3.0);
     m_h_SegmentNumberBIM = new TH2F("SegmentNumberBIM","the number of segment;etaIndex;Sector number",6,0.5,6.5,2,-0.5,2.5);
     m_h_SegmentNumberBIR = new TH2F("SegmentNumberBIR","the number of segment;etaIndex;Sector number",6,0.5,6.5,2,-0.5,2.5);
-    m_h_L1pSAsAddress = new TH1D("L1pSA_sAddress","test;test;test",4,0,3);
-    m_h_pSAsAddress = new TH1D("SApSA_sAddress","test;test;test",4,0,3);
     for(Int_t i = 0; i < 16;i++){
       m_h_SectorPhi[i] = new TH1D(Form("h_sector%dphi",i+1),"sector phi;segment phi;Entries",628,-TMath::Pi(),TMath::Pi());
       m_h_SectorRoIPhi[i] = new TH1D(Form("h_sectorroi%dphi",i+1),"sector phi;segment phi;Entries",628,-TMath::Pi(),TMath::Pi());
       for(Int_t j = 0; j < 8;j++){
-        m_h_DivideEtaOverPhiResPtLarge[i][j] = new TH1D(Form("h_divideetaoverphi_resptLarge%d%d",i,j),"residual pt Large;residual pt;Entries",300,-1,1);
-        m_h_DivideEtaOverPhiResPtSmall[i][j] = new TH1D(Form("h_DivideEtaOverPhiResPtSmall%d%d",i,j),"residual pt Small;residual pt;Entries",300,-1,1);
+        //m_h_DivideEtaOverPhiResPtLarge[i][j] = new TH1D(Form("h_DivideEtaOverPhiResPtLarge%d%d",i,j),"residual pt Large;residual pt;Entries",300,-1,1);
+        //m_h_DivideEtaOverPhiResPtSmall[i][j] = new TH1D(Form("h_DivideEtaOverPhiResPtSmall%d%d",i,j),"residual pt Small;residual pt;Entries",300,-1,1);
       }
     }
     for(Int_t i = 0; i < 4;i++){
@@ -1091,7 +1213,7 @@ public:
         m_h_ResPtSAOverSector[j][i] = new TH1D(Form("h_resptSAoversector%d%d",j,i),"L2MuonSA residual pt;L2MuonSA pt[GeV];Entries",200,-1.0,1.0);
       }
     }
-    
+
               //Standard
     m_h_pOffPt = new TH1D("h_poff_pt","probe offline pt;offline pt[GeV];Entries",150,0,150);
     m_h_pL1Pt = new TH1D("h_pL1_pt","probe L1 pt;L1 pt[GeV];Entries",150,0,150);
@@ -1171,6 +1293,25 @@ public:
     m_h_L2MuonSAPtBetavsTGC[0] = new TH2F("h_L2MuonSAPtBetavsTGCAll",";L2MuonSA ptBeta[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
     m_h_L2MuonSAPtBetavsTGC[1] = new TH2F("h_L2MuonSAPtBetavsTGCLow",";L2MuonSA ptBeta[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
     m_h_L2MuonSAPtBetavsTGC[2] = new TH2F("h_L2MuonSAPtBetavsTGCOver",";L2MuonSA ptBeta[GeV];L2MuonSA ptTGC[GeV]",200,0.0,20.0,200,0.0,20.0);
+    m_h_RoIPhiEndcap = new TH1D("h_RoIPhiEndcap","Endcap;RoI Phi;Entries",628,TMath::Pi(),TMath::Pi());
+    m_h_LowPtPassedRoIEtavsPhi[0] = new TH2F("h_LowPtPassedRoIEtavsPhi0SP","LowPtPassed 0SP;RoI #eta;RoI #phi",40,-4.0,4.0,40,-4.0,4.0);
+    m_h_LowPtPassedRoIEtavsPhi[1] = new TH2F("h_LowPtPassedRoIEtavsPhi1SP","LowPtPassed 1SP;RoI #eta;RoI #phi",40,-4.0,4.0,40,-4.0,4.0);
+    m_h_LowPtPassedRoIEtavsPhi[2] = new TH2F("h_LowPtPassedRoIEtavsPhi2SP","LowPtPassed 2SP;RoI #eta;RoI #phi",40,-4.0,4.0,40,-4.0,4.0);
+    m_h_LowPtPassedRoIEtavsPhi[3] = new TH2F("h_LowPtPassedRoIEtavsPhi3SP","LowPtPassed 3SP;RoI #eta;RoI #phi",40,-4.0,4.0,40,-4.0,4.0);
+    m_h_LowPtPassedRoIEtavsPhi[4] = new TH2F("h_LowPtPassedRoIEtavsPhiIM","LowPtPassed Inner + Middle;RoI #eta;RoI #phi",40,-4.0,4.0,40,-4.0,4.0);
+    m_h_ChamberIndexvsRoIPhi = new TH2F("h_ChamberIndexvsRoIPhi",";chamber index;RoI #phi",2,0.,2.,628,TMath::Pi(),TMath::Pi());
+    m_h_BarrelAlpha = new TH1D("h_BarrelAlpha",";barrel #alpha;Entries",120,-0.6,0.6);
+    m_h_BarrelBeta = new TH1D("h_BarrelBeta",";barrel #beta;Entries",120,-0.6,0.6);
+    m_h_PtvsBarrelAlpha = new TH2F("h_PtvsBarrelAlpha","1/p_{T} vs Barrel #alpha;1/p_{T};barrel #alpha",100,0.,1.0,200,-1.0,1.0);
+    m_h_PtvsBarrelBeta = new TH2F("h_PtvsBarrelBeta","1/p_{T} vs Barrel #beta;1/p_{T};barrel #beta",100,0.,1.0,200,-1.0,1.0);
+    m_h_RoIEtaPhiWeakBField[0] = new TH2F("h_RoIEtaPhiWeakBFieldA","Weak Magnetic Field A;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
+    m_h_RoIEtaPhiWeakBField[1] = new TH2F("h_RoIEtaPhiWeakBFieldB","Weak Magnetic Field B;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
+    m_h_RoIEtaPhiWeakBField[2] = new TH2F("h_RoIEtaPhiWeakBFieldNormal","Weak Magnetic Field Normal;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
+    m_h_RoIEtavsPhiEndcap[0] = new TH2F("h_RoIEtavsPhiEndcapLarge","Endcap Large;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
+    m_h_RoIEtavsPhiEndcap[1] = new TH2F("h_RoIEtavsPhiEndcapSmall","Endcap Small;RoI #eta;RoI #phi",500,-2.5,2.5,628,TMath::Pi(),TMath::Pi());
+    m_h_OfflineEtavsPhi = new TH2F("h_OfflineEtavsPhi","Offline;Offline #eta;Offline #phi",105,0,1.05,628,-TMath::Pi(),TMath::Pi());
+    m_h_ChargevsAlpha = new TH2F("h_ChargevsAlpha",";;",2,-0.5,1.5,120,-0.6,0.6);
+    m_h_ChargevsBeta = new TH2F("h_ChargevsBeta",";;",2,-0.5,1.5,120,-0.6,0.6);
 
               //SP,segment
 
@@ -1379,6 +1520,8 @@ public:
     m_h_eSAPtBarrelIncBIM = new TH1D("h_eSA_ptBarrelIncBIM","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtLSIncBIM = new TH1D("h_eL1_ptLSIncBIM","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtLSIncBIM = new TH1D("h_eSA_ptLSIncBIM","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrel0SP = new TH1D("h_eL1PtBarrel0SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrel0SP = new TH1D("h_eSAPtBarrel0SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtBarrel1SP = new TH1D("h_eL1PtBarrel1SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtBarrel1SP = new TH1D("h_eSAPtBarrel1SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtBarrel2SP = new TH1D("h_eL1PtBarrel2SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
@@ -1387,6 +1530,8 @@ public:
     m_h_eSAPtBarrel3SP = new TH1D("h_eSAPtBarrel3SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtBarrelIM = new TH1D("h_eL1PtBarrelIM","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtBarrelIM = new TH1D("h_eSAPtBarrelIM","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcap0SP = new TH1D("h_eL1PtEndcap0SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcap0SP = new TH1D("h_eSAPtEndcap0SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtEndcap1SP = new TH1D("h_eL1PtEndcap1SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtEndcap1SP = new TH1D("h_eSAPtEndcap1SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtEndcap2SP = new TH1D("h_eL1PtEndcap2SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
@@ -1395,6 +1540,36 @@ public:
     m_h_eSAPtEndcap3SP = new TH1D("h_eSAPtEndcap3SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtEndcapIM = new TH1D("h_eL1PtEndcapIM","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtEndcapIM = new TH1D("h_eSAPtEndcapIM","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapLarge = new TH1D("h_eL1PtEndcapLarge","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapLarge = new TH1D("h_eSAPtEndcapLarge","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcap0SPLarge = new TH1D("h_eL1PtEndcap0SPLarge","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcap0SPLarge = new TH1D("h_eSAPtEndcap0SPLarge","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eCBPtEndcap0SPLarge = new TH1D("h_eCBPtEndcap0SPLarge","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eEFPtEndcap0SPLarge = new TH1D("h_eEFPtEndcap0SPLarge","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcap1SPLarge = new TH1D("h_eL1PtEndcap1SPLarge","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcap1SPLarge = new TH1D("h_eSAPtEndcap1SPLarge","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcap2SPLarge = new TH1D("h_eL1PtEndcap2SPLarge","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcap2SPLarge = new TH1D("h_eSAPtEndcap2SPLarge","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcap3SPLarge = new TH1D("h_eL1PtEndcap3SPLarge","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcap3SPLarge = new TH1D("h_eSAPtEndcap3SPLarge","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapIMLarge = new TH1D("h_eL1PtEndcapIMLarge","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapIMLarge = new TH1D("h_eSAPtEndcapIMLarge","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapSmall = new TH1D("h_eL1PtEndcapSmall","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapSmall = new TH1D("h_eSAPtEndcapSmall","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcap0SPSmall = new TH1D("h_eL1PtEndcap0SPSmall","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcap0SPSmall = new TH1D("h_eSAPtEndcap0SPSmall","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eCBPtEndcap0SPSmall = new TH1D("h_eCBPtEndcap0SPSmall","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eEFPtEndcap0SPSmall = new TH1D("h_eEFPtEndcap0SPSmall","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcap1SPSmall = new TH1D("h_eL1PtEndcap1SPSmall","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcap1SPSmall = new TH1D("h_eSAPtEndcap1SPSmall","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcap2SPSmall = new TH1D("h_eL1PtEndcap2SPSmall","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcap2SPSmall = new TH1D("h_eSAPtEndcap2SPSmall","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcap3SPSmall = new TH1D("h_eL1PtEndcap3SPSmall","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcap3SPSmall = new TH1D("h_eSAPtEndcap3SPSmall","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapIMSmall = new TH1D("h_eL1PtEndcapIMSmall","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapIMSmall = new TH1D("h_eSAPtEndcapIMSmall","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtForward0SP = new TH1D("h_eL1PtForward0SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtForward0SP = new TH1D("h_eSAPtForward0SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtForward1SP = new TH1D("h_eL1PtForward1SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtForward1SP = new TH1D("h_eSAPtForward1SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtForward2SP = new TH1D("h_eL1PtForward2SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
@@ -1403,6 +1578,8 @@ public:
     m_h_eSAPtForward3SP = new TH1D("h_eSAPtForward3SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtForwardIM = new TH1D("h_eL1PtForwardIM","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtForwardIM = new TH1D("h_eSAPtForwardIM","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtTransition0SP = new TH1D("h_eL1PtTransition0SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtTransition0SP = new TH1D("h_eSAPtTransition0SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtTransition1SP = new TH1D("h_eL1PtTransition1SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtTransition1SP = new TH1D("h_eSAPtTransition1SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtTransition2SP = new TH1D("h_eL1PtTransition2SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
@@ -1421,6 +1598,94 @@ public:
     m_h_eSAPtBarrel3SPRoI = new TH1D("h_eSAPtBarrel3SPRoI","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtBarrelIMRoI = new TH1D("h_eL1PtBarrelIMRoI","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtBarrelIMRoI = new TH1D("h_eSAPtBarrelIMRoI","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PhiEndcapLowPtPassed = new TH1D("h_eL1PhiEndcapLowPtPassed","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eSAPhiEndcapLowPtPassed = new TH1D("h_eSAPhiEndcapLowPtPassed","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eL1PhiEndcapHighPtPassed = new TH1D("h_eL1PhiEndcapHighPtPassed","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eSAPhiEndcapHighPtPassed = new TH1D("h_eSAPhiEndcapHighPtPassed","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eL1PhiEndcapLowPtPassed0SP = new TH1D("h_eL1PhiEndcapLowPtPassed0SP","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eSAPhiEndcapLowPtPassed0SP = new TH1D("h_eSAPhiEndcapLowPtPassed0SP","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eL1PhiEndcapHighPtPassed0SP = new TH1D("h_eL1PhiEndcapHighPtPassed0SP","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eSAPhiEndcapHighPtPassed0SP = new TH1D("h_eSAPhiEndcapHighPtPassed0SP","Low p_{T} passed;RoI #phi;Entries",48,-3.0,3.0);
+    m_h_eL1PtEndcapLargepattern[0] = new TH1D("h_eL1PtEndcapLarge1SPInner","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapLargepattern[0] = new TH1D("h_eSAPtEndcapLarge1SPInner","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapLargepattern[1] = new TH1D("h_eL1PtEndcapLarge1SPMiddle","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapLargepattern[1] = new TH1D("h_eSAPtEndcapLarge1SPMiddle","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapLargepattern[2] = new TH1D("h_eL1PtEndcapLarge1SPOuter","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapLargepattern[2] = new TH1D("h_eSAPtEndcapLarge1SPOuter","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapLargepattern[3] = new TH1D("h_eL1PtEndcapLarge2SPIM","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapLargepattern[3] = new TH1D("h_eSAPtEndcapLarge2SPIM","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapLargepattern[4] = new TH1D("h_eL1PtEndcapLarge2SPIO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapLargepattern[4] = new TH1D("h_eSAPtEndcapLarge2SPIO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapLargepattern[5] = new TH1D("h_eL1PtEndcapLarge2SPMO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapLargepattern[5] = new TH1D("h_eSAPtEndcapLarge2SPMO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapSmallpattern[0] = new TH1D("h_eL1PtEndcapSmall1SPInner","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapSmallpattern[0] = new TH1D("h_eSAPtEndcapSmall1SPInner","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapSmallpattern[1] = new TH1D("h_eL1PtEndcapSmall1SPMiddle","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapSmallpattern[1] = new TH1D("h_eSAPtEndcapSmall1SPMiddle","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapSmallpattern[2] = new TH1D("h_eL1PtEndcapSmall1SPOuter","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapSmallpattern[2] = new TH1D("h_eSAPtEndcapSmall1SPOuter","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapSmallpattern[3] = new TH1D("h_eL1PtEndcapSmall2SPIM","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapSmallpattern[3] = new TH1D("h_eSAPtEndcapSmall2SPIM","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapSmallpattern[4] = new TH1D("h_eL1PtEndcapSmall2SPIO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapSmallpattern[4] = new TH1D("h_eSAPtEndcapSmall2SPIO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtEndcapSmallpattern[5] = new TH1D("h_eL1PtEndcapSmall2SPMO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapSmallpattern[5] = new TH1D("h_eSAPtEndcapSmall2SPMO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLargepattern[0] = new TH1D("h_eL1PtBarrelLarge1SPInner","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLargepattern[0] = new TH1D("h_eSAPtBarrelLarge1SPInner","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLargepattern[1] = new TH1D("h_eL1PtBarrelLarge1SPMiddle","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLargepattern[1] = new TH1D("h_eSAPtBarrelLarge1SPMiddle","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLargepattern[2] = new TH1D("h_eL1PtBarrelLarge1SPOuter","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLargepattern[2] = new TH1D("h_eSAPtBarrelLarge1SPOuter","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLargepattern[3] = new TH1D("h_eL1PtBarrelLarge2SPIM","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLargepattern[3] = new TH1D("h_eSAPtBarrelLarge2SPIM","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLargepattern[4] = new TH1D("h_eL1PtBarrelLarge2SPIO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLargepattern[4] = new TH1D("h_eSAPtBarrelLarge2SPIO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLargepattern[5] = new TH1D("h_eL1PtBarrelLarge2SPMO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLargepattern[5] = new TH1D("h_eSAPtBarrelLarge2SPMO","Large 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSmallpattern[0] = new TH1D("h_eL1PtBarrelSmall1SPInner","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSmallpattern[0] = new TH1D("h_eSAPtBarrelSmall1SPInner","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSmallpattern[1] = new TH1D("h_eL1PtBarrelSmall1SPMiddle","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSmallpattern[1] = new TH1D("h_eSAPtBarrelSmall1SPMiddle","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSmallpattern[2] = new TH1D("h_eL1PtBarrelSmall1SPOuter","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSmallpattern[2] = new TH1D("h_eSAPtBarrelSmall1SPOuter","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSmallpattern[3] = new TH1D("h_eL1PtBarrelSmall2SPIM","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSmallpattern[3] = new TH1D("h_eSAPtBarrelSmall2SPIM","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSmallpattern[4] = new TH1D("h_eL1PtBarrelSmall2SPIO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSmallpattern[4] = new TH1D("h_eSAPtBarrelSmall2SPIO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSmallpattern[5] = new TH1D("h_eL1PtBarrelSmall2SPMO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSmallpattern[5] = new TH1D("h_eSAPtBarrelSmall2SPMO","Small 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLSpattern[0] = new TH1D("h_eL1PtBarrelLS1SPInner","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLSpattern[0] = new TH1D("h_eSAPtBarrelLS1SPInner","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLSpattern[1] = new TH1D("h_eL1PtBarrelLS1SPMiddle","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLSpattern[1] = new TH1D("h_eSAPtBarrelLS1SPMiddle","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLSpattern[2] = new TH1D("h_eL1PtBarrelLS1SPOuter","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLSpattern[2] = new TH1D("h_eSAPtBarrelLS1SPOuter","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLSpattern[3] = new TH1D("h_eL1PtBarrelLS2SPIM","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLSpattern[3] = new TH1D("h_eSAPtBarrelLS2SPIM","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLSpattern[4] = new TH1D("h_eL1PtBarrelLS2SPIO","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLSpattern[4] = new TH1D("h_eSAPtBarrelLS2SPIO","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelLSpattern[5] = new TH1D("h_eL1PtBarrelLS2SPMO","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelLSpattern[5] = new TH1D("h_eSAPtBarrelLS2SPMO","LS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSSpattern[0] = new TH1D("h_eL1PtBarrelSS1SPInner","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSSpattern[0] = new TH1D("h_eSAPtBarrelSS1SPInner","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSSpattern[1] = new TH1D("h_eL1PtBarrelSS1SPMiddle","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSSpattern[1] = new TH1D("h_eSAPtBarrelSS1SPMiddle","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSSpattern[2] = new TH1D("h_eL1PtBarrelSS1SPOuter","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSSpattern[2] = new TH1D("h_eSAPtBarrelSS1SPOuter","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSSpattern[3] = new TH1D("h_eL1PtBarrelSS2SPIM","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSSpattern[3] = new TH1D("h_eSAPtBarrelSS2SPIM","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSSpattern[4] = new TH1D("h_eL1PtBarrelSS2SPIO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSSpattern[4] = new TH1D("h_eSAPtBarrelSS2SPIO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelSSpattern[5] = new TH1D("h_eL1PtBarrelSS2SPMO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrelSSpattern[5] = new TH1D("h_eSAPtBarrelSS2SPMO","SS 1Sp Inner;offline p_{T}[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrelMyLUTAlpha = new TH1D("h_eL1PtBarrelMyLUTAlpha",";;",200,-0.25,99.75);
+    m_h_eSAPtBarrelMyLUTAlpha = new TH1D("h_eSAPtBarrelMyLUTAlpha",";;",200,-0.25,99.75);
+    m_h_eL1PtBarrelMyLUTBeta = new TH1D("h_eL1PtBarrelMyLUTBeta",";;",200,-0.25,99.75);
+    m_h_eSAPtBarrelMyLUTBeta = new TH1D("h_eSAPtBarrelMyLUTBeta",";;",200,-0.25,99.75);
+    m_h_eSAPtBarrelCompareAlpha = new TH1D("h_eSAPtBarrelCompareAlpha",";;",200,-0.25,99.75);
+    m_h_eSAPtBarrelCompareBeta = new TH1D("h_eSAPtBarrelCompareBeta",";;",200,-0.25,99.75);
+    m_h_eL1PtEndcapBeta = new TH1D("h_eL1PtEndcapBeta","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtEndcapBeta = new TH1D("h_eSAPtEndcapBeta","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
 
               //Residual
     m_h_pSAResPt = new TH1D("h_pSAResPt","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
@@ -1432,6 +1697,23 @@ public:
     m_h_pSAResPtEndcap = new TH1D("h_pSAResPtEndcap","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pCBResPtEndcap = new TH1D("h_pCBResPtEndcap","probe muComb residual pt;residual pt;Entries",640,-0.8,0.8);
     m_h_pEFResPtEndcap = new TH1D("h_pEFResPtEndcap","probe EventFilter residual pt;residual pt;Entries",1800,-0.3,0.3);
+    m_h_pSAResPtBarrelAlpha = new TH1D("h_pSAResPtBarrelAlpha","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBeta = new TH1D("h_pSAResPtBarrelBeta","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[0] = new TH1D("h_pSAResPtBarrelAlphaLarge","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBetaSector[0] = new TH1D("h_pSAResPtBarrelBetaLarge","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[1] = new TH1D("h_pSAResPtBarrelAlphaSector11","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBetaSector[1] = new TH1D("h_pSAResPtBarrelBetaSector11","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[2] = new TH1D("h_pSAResPtBarrelAlphaSector15","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBetaSector[2] = new TH1D("h_pSAResPtBarrelBetaSector15","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[3] = new TH1D("h_pSAResPtBarrelAlphaSmall","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBetaSector[3] = new TH1D("h_pSAResPtBarrelBetaSmall","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[4] = new TH1D("h_pSAResPtBarrelAlphaSmallSpecial","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBetaSector[4] = new TH1D("h_pSAResPtBarrelBetaSmallSpecial","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelAlpha3SP = new TH1D("h_pSAResPtBarrelAlpha3SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBeta3SP = new TH1D("h_pSAResPtBarrelBeta3SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelAlpha2SP = new TH1D("h_pSAResPtBarrelAlpha2SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelBeta2SP = new TH1D("h_pSAResPtBarrelBeta2SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtBarrelAlpha1SP = new TH1D("h_pSAResPtBarrelAlpha1SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
 
     m_h_SAResPtLargePlus = new TH1D("h_SAResPtLargePlus","SAresidualptLarge;L2MuonSA residual pt;Entries",1000,-5.0,5.0);
     m_h_SAResPtLSPlus = new TH1D("h_SAResPtLSPlus","SAresidualptLargeSpecial;L2MuonSA residual pt;Entries",1000,-5.0,5.0);
@@ -1560,20 +1842,6 @@ public:
     m_h_EtaIndexvsSAResPtLSMinusS15outer3Station = new TH2F("h_etaIndexvsSAResPtLSMinusS15outer3Station","etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0);
     m_h_EtaIndexvsSAResPtLSMinusS15inner3Station = new TH2F("h_etaIndexvsSAResPtLSMinusS15inner3Station","etaIndex vs respt;offline eta;SApt residual",17,-8.5,8.5,300,-2.0,1.0);
 
-    std::ofstream ofs;
-    /*
-    ofs.open("/home/kayamash/LowPtPassed20190409.txt");
-    ofs<<"RunNumber   EventNumber   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
-    ofs.close();
-    ofs.open("/home/kayamash/LowPtPassed2bin20190409.txt");
-    ofs<<"RunNumber   EventNumber   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
-    */
-    ofs.open("/home/kayamash/LowPtPassed2SPForward.txt");
-    ofs<<"RunNumber   EventNumber   SPpattern   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
-    ofs.close();
-    ofs.open("/home/kayamash/LowPtPassed2SP2binForward.txt");
-    ofs<<"RunNumber   EventNumber   SPpattern   L1Eta   Phi   L2SAPt   Eta   Phi   OfflinePt   Eta   Phi"<<std::endl;
-    ofs.close();
   }
 
   void Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,Int_t proc);
@@ -1584,9 +1852,16 @@ public:
   bool CutCB(Int_t pass);
   bool CutEF(Int_t pass);
   bool PlateauCut(Double_t pt);
+  bool CutSAMyLUT(Double_t Pt,Int_t L1Number,Int_t L1Sector,Int_t SANumber,Int_t SASector);
+  void CalcPtByAlpha(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Double_t &pt);
+  void CalcPtByBeta(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Double_t &pt);
   int DicisionArea(Double_t roiphi);
   int EtaDistribution();
   int EtaDistribution(Float_t roieta);
+  bool EndcapLargeDicision(Float_t roiphi);
+  int WeakMagneticFieldRegion(Float_t eta,Float_t phi);
+  int SPPatternMatching(Double_t SPR1,Double_t SPR2,Double_t SPR3,Double_t SPR4,Double_t SPR5);
+  int BarrelSPPatternMatching(Double_t SPR1,Double_t SPR2,Double_t SPR3,Double_t SPR4,Double_t SPR5);
   void Execute(Int_t ev);
   void Finalize(TFile *tf1);
   ~Efficiency(){
@@ -1594,14 +1869,12 @@ public:
     delete m_h_pOffPhiLS;
     delete m_h_SAPhimsLS;
     delete m_h_SARoIPhiLS;
-    delete  m_h_L1pSAsAddress;
-    delete  m_h_pSAsAddress;
     for(Int_t i = 0; i < 16;i++){
       delete  m_h_SectorPhi[i];
       delete  m_h_SectorRoIPhi[i];
       for(Int_t j = 0; j < 8;j++){
-        delete  m_h_DivideEtaOverPhiResPtLarge[i][j];
-        delete  m_h_DivideEtaOverPhiResPtSmall[i][j];
+        //delete  m_h_DivideEtaOverPhiResPtLarge[i][j];
+        //delete  m_h_DivideEtaOverPhiResPtSmall[i][j];
       }
     }
     for(Int_t i = 0;i < 4;i++){
@@ -1625,6 +1898,27 @@ public:
       delete  m_h_L2MuonSAPtAlphavsBeta[i];
       delete  m_h_L2MuonSAPtAlphavsTGC[i];
       delete  m_h_L2MuonSAPtBetavsTGC[i];
+      delete  m_h_RoIEtaPhiWeakBField[i];
+    }
+    for(Int_t i = 0;i < 5;i++){
+      delete  m_h_LowPtPassedRoIEtavsPhi[i];
+      delete  m_h_pSAResPtBarrelAlphaSector[i];
+      delete  m_h_pSAResPtBarrelBetaSector[i];
+    }
+    for(Int_t i = 0;i < 6;i++){
+      delete  m_h_eL1PtEndcapLargepattern[i];
+      delete  m_h_eSAPtEndcapLargepattern[i];
+      delete  m_h_eL1PtEndcapSmallpattern[i];
+      delete  m_h_eSAPtEndcapSmallpattern[i];
+      delete  m_h_eL1PtBarrelLargepattern[i];
+      delete  m_h_eSAPtBarrelLargepattern[i];
+      delete  m_h_eL1PtBarrelSmallpattern[i];
+      delete  m_h_eSAPtBarrelSmallpattern[i];
+      delete  m_h_eL1PtBarrelLSpattern[i];
+      delete  m_h_eSAPtBarrelLSpattern[i];
+      delete  m_h_eL1PtBarrelSSpattern[i];
+      delete  m_h_eSAPtBarrelSSpattern[i];
+
     }
 
     delete  m_h_pOffPt;
@@ -1694,6 +1988,17 @@ public:
     delete  m_h_IndexvsEta;
     delete  m_h_OverPhi;
     delete  m_h_MDTChamber;
+    delete  m_h_RoIPhiEndcap;
+    delete  m_h_ChamberIndexvsRoIPhi;//EOS,EOL
+    delete  m_h_BarrelAlpha;
+    delete  m_h_BarrelBeta;
+    delete  m_h_PtvsBarrelAlpha;
+    delete  m_h_PtvsBarrelBeta;
+    delete  m_h_RoIEtavsPhiEndcap[0];
+    delete  m_h_RoIEtavsPhiEndcap[1];
+    delete  m_h_OfflineEtavsPhi;
+    delete  m_h_ChargevsAlpha;
+    delete  m_h_ChargevsBeta;
 
     delete  m_h_MDTHitXY;
     delete  m_h_RPCHitXY;
@@ -1900,6 +2205,8 @@ public:
     delete  m_h_eSAPtBarrelIncBIM;
     delete  m_h_eL1PtLSIncBIM;
     delete  m_h_eSAPtLSIncBIM;
+    delete  m_h_eL1PtBarrel0SP;
+    delete  m_h_eSAPtBarrel0SP;
     delete  m_h_eL1PtBarrel1SP;
     delete  m_h_eSAPtBarrel1SP;
     delete  m_h_eL1PtBarrel2SP;
@@ -1908,6 +2215,8 @@ public:
     delete  m_h_eSAPtBarrel3SP;
     delete  m_h_eL1PtBarrelIM;
     delete  m_h_eSAPtBarrelIM;
+    delete  m_h_eL1PtEndcap0SP;
+    delete  m_h_eSAPtEndcap0SP;
     delete  m_h_eL1PtEndcap1SP;
     delete  m_h_eSAPtEndcap1SP;
     delete  m_h_eL1PtEndcap2SP;
@@ -1916,6 +2225,38 @@ public:
     delete  m_h_eSAPtEndcap3SP;
     delete  m_h_eL1PtEndcapIM;
     delete  m_h_eSAPtEndcapIM;
+    delete  m_h_eL1PtEndcapBeta;
+    delete  m_h_eSAPtEndcapBeta;
+    delete  m_h_eL1PtEndcapSmall;
+    delete  m_h_eSAPtEndcapSmall;
+    delete  m_h_eL1PtEndcap0SPSmall;
+    delete  m_h_eSAPtEndcap0SPSmall;
+    delete  m_h_eCBPtEndcap0SPSmall;
+    delete  m_h_eEFPtEndcap0SPSmall;
+    delete  m_h_eL1PtEndcap1SPSmall;
+    delete  m_h_eSAPtEndcap1SPSmall;
+    delete  m_h_eL1PtEndcap2SPSmall;
+    delete  m_h_eSAPtEndcap2SPSmall;
+    delete  m_h_eL1PtEndcap3SPSmall;
+    delete  m_h_eSAPtEndcap3SPSmall;
+    delete  m_h_eL1PtEndcapIMSmall;
+    delete  m_h_eSAPtEndcapIMSmall;
+    delete  m_h_eL1PtEndcapLarge;
+    delete  m_h_eSAPtEndcapLarge;
+    delete  m_h_eL1PtEndcap0SPLarge;
+    delete  m_h_eSAPtEndcap0SPLarge;
+    delete  m_h_eCBPtEndcap0SPLarge;
+    delete  m_h_eEFPtEndcap0SPLarge;
+    delete  m_h_eL1PtEndcap1SPLarge;
+    delete  m_h_eSAPtEndcap1SPLarge;
+    delete  m_h_eL1PtEndcap2SPLarge;
+    delete  m_h_eSAPtEndcap2SPLarge;
+    delete  m_h_eL1PtEndcap3SPLarge;
+    delete  m_h_eSAPtEndcap3SPLarge;
+    delete  m_h_eL1PtEndcapIMLarge;
+    delete  m_h_eSAPtEndcapIMLarge;
+    delete  m_h_eL1PtForward0SP;
+    delete  m_h_eSAPtForward0SP;
     delete  m_h_eL1PtForward1SP;
     delete  m_h_eSAPtForward1SP;
     delete  m_h_eL1PtForward2SP;
@@ -1924,6 +2265,8 @@ public:
     delete  m_h_eSAPtForward3SP;
     delete  m_h_eL1PtForwardIM;
     delete  m_h_eSAPtForwardIM;
+    delete  m_h_eL1PtTransition0SP;
+    delete  m_h_eSAPtTransition0SP;
     delete  m_h_eL1PtTransition1SP;
     delete  m_h_eSAPtTransition1SP;
     delete  m_h_eL1PtTransition2SP;
@@ -1942,6 +2285,20 @@ public:
     delete  m_h_eSAPtBarrel3SPRoI;
     delete  m_h_eL1PtBarrelIMRoI;
     delete  m_h_eSAPtBarrelIMRoI;
+    delete  m_h_eL1PhiEndcapLowPtPassed;
+    delete  m_h_eSAPhiEndcapLowPtPassed;
+    delete  m_h_eL1PhiEndcapHighPtPassed;
+    delete  m_h_eSAPhiEndcapHighPtPassed;
+    delete  m_h_eL1PhiEndcapLowPtPassed0SP;
+    delete  m_h_eSAPhiEndcapLowPtPassed0SP;
+    delete  m_h_eL1PhiEndcapHighPtPassed0SP;
+    delete  m_h_eSAPhiEndcapHighPtPassed0SP;
+    delete  m_h_eL1PtBarrelMyLUTAlpha;
+    delete  m_h_eSAPtBarrelMyLUTAlpha;
+    delete  m_h_eL1PtBarrelMyLUTBeta;
+    delete  m_h_eSAPtBarrelMyLUTBeta;
+    delete  m_h_eSAPtBarrelCompareAlpha;
+    delete  m_h_eSAPtBarrelCompareBeta;
 
     delete  m_h_pSAResPt;
     delete  m_h_pCBResPt;
@@ -1952,6 +2309,13 @@ public:
     delete  m_h_pSAResPtEndcap;
     delete  m_h_pCBResPtEndcap;
     delete  m_h_pEFResPtEndcap;
+    delete  m_h_pSAResPtBarrelAlpha;
+    delete  m_h_pSAResPtBarrelBeta;
+    delete  m_h_pSAResPtBarrelAlpha3SP;
+    delete  m_h_pSAResPtBarrelBeta3SP;
+    delete  m_h_pSAResPtBarrelAlpha2SP;
+    delete  m_h_pSAResPtBarrelBeta2SP;
+    delete  m_h_pSAResPtBarrelAlpha1SP;
     delete  m_h_SAResPtLargePlus;
     delete  m_h_SAResPtLSPlus;
     delete  m_h_SAResPtSmallPlus;
