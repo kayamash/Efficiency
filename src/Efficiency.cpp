@@ -32,6 +32,8 @@ const Double_t pt_threshold[4] = {3.38,1.25,3.17,3.41};//MU4
 //const Double_t pt_threshold[4] = {5.17,3.25,4.69,5.14};//MU6
 //const Double_t pt_threshold[4] = {15.87,10.73,12.21,15.87};//MU20
 const Double_t LargeRegion[9] = {0.25,0.55,1.025,1.325,1.80,2.125,2.575,2.90,TMath::Pi()};
+const Double_t correctionAlpha[3] = {0,0.0283101,-0.00993997};//1SP 2SP 3SP
+const Double_t correctionBeta[3] = {0,0.024428,-0.00257345};//1SP 2SP 3SP
 
 void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,Int_t proc){
      m_nbin_phi = np;
@@ -47,10 +49,10 @@ void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Doubl
      m_reqL1dR = req;
 
      kayamashForLUT LUT(0.,0.);
-     //LUT.ReadLUT("NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
-     //LUT.ReadLUT("NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
-     LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
-     LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
+     LUT.ReadLUT("NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
+     LUT.ReadLUT("NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
+     //LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
+     //LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
 }
 
 bool Efficiency::DicisionBarrel(Double_t eta){
@@ -117,16 +119,19 @@ bool Efficiency::CutSAMyLUT(Double_t pt,Int_t L1Number,Int_t L1Sector,Int_t SANu
      return kFALSE;
 }
 
-void Efficiency::CalcPtByAlpha(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Double_t &pt){
+void Efficiency::CalcPtByAlpha(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Int_t nSP,Double_t &pt){
      Double_t discriminant = 0;
      Double_t sqrtDiscriminant = 0;
      Double_t Angle = 0;
+     Double_t correction = 0;
+     if(nSP == 2)correction = correctionAlpha[1];
+     if(nSP == 3)correction = correctionAlpha[2];
      if(charge == 1.){
           Angle = - std::fabs(angle);
      }else{
           Angle = std::fabs(angle);
      }
-     discriminant = (parA*parA) + 4*parB*Angle;
+     discriminant = (parA*parA) + 4*parB*(correction + Angle);
      if(discriminant > 0){
           sqrtDiscriminant = std::sqrt(discriminant);
      }
@@ -145,16 +150,19 @@ void Efficiency::CalcPtByAlpha(Double_t parA,Double_t parB,Double_t angle,Double
      }
 }
 
-void Efficiency::CalcPtByBeta(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Double_t &pt){
+void Efficiency::CalcPtByBeta(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Int_t nSP,Double_t &pt){
      Double_t discriminant = 0;
      Double_t sqrtDiscriminant = 0;
      Double_t Angle = 0;
+     Double_t correction = 0;
+     if(nSP == 2)correction = correctionBeta[1];
+     if(nSP == 3)correction = correctionBeta[2];
      if(charge == 1.){
           Angle = std::fabs(angle);
      }else{
           Angle = - std::fabs(angle);
      }
-     discriminant = (parA*parA) + 4*parB*Angle;
+     discriminant = (parA*parA) + 4*parB*(correction + Angle);
      if(discriminant > 0){
           sqrtDiscriminant = std::sqrt(discriminant);
      }
@@ -814,12 +822,12 @@ void Efficiency::Execute(Int_t ev){
                     if(LUTcheck && barrelalpha != -99999){
                          Double_t parA = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
                          Double_t parB = m_LUTAlphaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
-                         CalcPtByAlpha(parA,parB,barrelalpha,m_poff_charge,AlphaPt);
+                         CalcPtByAlpha(parA,parB,barrelalpha,m_poff_charge,numBarrelSP,AlphaPt);
                     }
                     if(LUTcheck && barrelbeta != -99999){
                          Double_t parA = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][0];
                          Double_t parB = m_LUTBetaSectorChargeEtaPhi[LUTparameter[0]][LUTparameter[1]][LUTparameter[2]][LUTparameter[3]][1];
-                         CalcPtByBeta(parA,parB,barrelbeta,m_poff_charge,BetaPt);
+                         CalcPtByBeta(parA,parB,barrelbeta,m_poff_charge,numBarrelSP,BetaPt);
                     }
 
                     if(SPRMiddle != 0 && EtaDistribution(pSA_roieta) == 0){//barrel alpha
