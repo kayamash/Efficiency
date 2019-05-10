@@ -487,8 +487,15 @@ void Efficiency::Execute(Int_t ev){
 
      Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
      if(SPRInner != 0){
-          Double_t LineBI = atan(SPRInner/SPZInner) - atan(1.0/SPSlopeInner);
-          m_h_pSAResPtvsDeltaTheta->Fill(LineBI,resSA_pt);
+          Double_t deltaTheta = atan(SPRInner/SPZInner) - atan(1.0/SPSlopeInner);
+          m_h_pSAResPtvsDeltaTheta->Fill(deltaTheta,std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+          m_h_pOffPtvsDeltaTheta->Fill(std::fabs(m_poff_pt*0.001),deltaTheta);
+          m_h_pOffPtvsDeltaThetaForProf->Fill(std::fabs(m_poff_pt*0.001),std::fabs(deltaTheta));
+          if(deltaTheta < 0.05){
+               m_h_pASResPtBarrelBetaSmallDeltaTheta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+          }else{
+               m_h_pASResPtBarrelBetaLargeDeltaTheta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+          }
      }
 
           //SA
@@ -613,6 +620,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_ChargevsBeta->Write();
      m_h_lutAvsBAlpha->Write();
      m_h_lutAvsBBeta->Write();
+     m_h_pOffPtvsDeltaTheta->Write();
+     m_h_pOffPtvsDeltaThetaForProf->Write();
 
      m_h_eOffPt->Write();
      m_h_eL1Pt->Write();
@@ -666,5 +675,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_pSAResPtBarrel2SP->Write();
      m_h_pSAResPtBarrel3SP->Write();
      m_h_pSAResPtvsDeltaTheta->Write();
+     m_h_pASResPtBarrelBetaSmallDeltaTheta->Write();//!
+     m_h_pASResPtBarrelBetaLargeDeltaTheta->Write();//!
      cout<<"finish!"<<endl;
 }

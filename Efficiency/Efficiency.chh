@@ -241,6 +241,8 @@ private:
   TH2F *m_h_ChargevsBeta;
   TH2F *m_h_lutAvsBAlpha;
   TH2F *m_h_lutAvsBBeta;
+  TH2F *m_h_pOffPtvsDeltaTheta;
+  TH2F *m_h_pOffPtvsDeltaThetaForProf;
 
   //Efficiency
   TH1D *m_h_eOffPt;
@@ -293,6 +295,8 @@ private:
   TH1D *m_h_pSAResPtBarrel2SP;
   TH1D *m_h_pSAResPtBarrel1SP;
   TH2F *m_h_pSAResPtvsDeltaTheta;
+  TH1D *m_h_pASResPtBarrelBetaSmallDeltaTheta;//theta < 0.05
+  TH1D *m_h_pASResPtBarrelBetaLargeDeltaTheta;//theta >= 0.05
 
   //parameter
   Int_t m_nbin_eta,m_nbin_phi;
@@ -606,6 +610,8 @@ public:
     m_h_ChargevsBeta = new TH2F("h_ChargevsBeta",";;",2,-0.5,1.5,120,-0.6,0.6);
     m_h_lutAvsBAlpha = new TH2F("h_lutAvsBAlpha","LUT parameter A vs B; parameter A;parameter B",200,-1.,1.,2000,-10.,10.);
     m_h_lutAvsBBeta = new TH2F("h_lutAvsBBeta","LUT parameter A vs B; parameter A;parameter B",200,-1.,1.,2000,-10.,10.);
+    m_h_pOffPtvsDeltaTheta = new TH2F("h_pOffPtvsDeltaTheta","offline p_{T} vs #Delta#theta;offline p_{T}[GeV];#Delta#theta",200,-0.25,99.75,100,-0.5,0.5);
+    m_h_pOffPtvsDeltaThetaForProf = new TH2F("h_pOffPtvsDeltaThetaForProf","offline p_{T} vs #Delta#theta;offline p_{T}[GeV];#Delta#theta",200,-0.25,99.75,500,0.,0.5);
 
               //Efficiency
     m_h_eOffPt = new TH1D("h_eoff_pt","mesoff_pt;offline pt[GeV];Entries",200,-0.25,99.75);
@@ -690,6 +696,8 @@ public:
     m_h_pSAResPtBarrel2SP = new TH1D("h_pSAResPtBarrel2SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pSAResPtBarrel3SP = new TH1D("h_pSAResPtBarrel3SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pSAResPtvsDeltaTheta = new TH2F("h_pSAResPtvsDeltaTheta","#Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",100,-0.5,0.5,300,-1,1);
+    m_h_pASResPtBarrelBetaSmallDeltaTheta = new TH1D("h_pASResPtBarrelBetaSmallDeltaTheta","#alpha Small #Delta#theta;p_{T} residual;Events",300,-1,1);
+    m_h_pASResPtBarrelBetaLargeDeltaTheta = new TH1D("h_pASResPtBarrelBetaLargeDeltaTheta","#alpha Small #Delta#theta;p_{T} residual;Events",300,-1,1);
   }
 
   void Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,Int_t proc);
@@ -725,7 +733,6 @@ public:
     delete  m_h_pOffPt;
     delete  m_h_pL1Pt;
     delete  m_h_pSAPt;
-
     delete  m_h_BarrelAlpha;
     delete  m_h_BarrelBeta;
     delete  m_h_PtvsBarrelAlpha;
@@ -734,6 +741,8 @@ public:
     delete  m_h_ChargevsBeta;
     delete  m_h_lutAvsBAlpha;
     delete  m_h_lutAvsBBeta;
+    delete  m_h_pOffPtvsDeltaTheta;
+    delete  m_h_pOffPtvsDeltaThetaForProf;
 
     delete  m_h_eOffPt;
     delete  m_h_eL1Pt;
@@ -772,6 +781,8 @@ public:
     delete  m_h_pSAResPtBarrel2SP;
     delete  m_h_pSAResPtBarrel3SP;
     delete  m_h_pSAResPtvsDeltaTheta;
+    delete  m_h_pASResPtBarrelBetaSmallDeltaTheta;
+    delete  m_h_pASResPtBarrelBetaLargeDeltaTheta;
   }
 };
 
