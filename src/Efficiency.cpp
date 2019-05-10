@@ -622,6 +622,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_lutAvsBBeta->Write();
      m_h_pOffPtvsDeltaTheta->Write();
      m_h_pOffPtvsDeltaThetaForProf->Write();
+     m_prof_pOffPtvsDeltaTheta = m_h_pOffPtvsDeltaThetaForProf->ProfileX();
+     m_prof_pOffPtvsDeltaTheta->Write();
 
      m_h_eOffPt->Write();
      m_h_eL1Pt->Write();
