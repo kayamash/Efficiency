@@ -49,10 +49,10 @@ void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Doubl
      m_reqL1dR = req;
 
      kayamashForLUT LUT(0.,0.);
-     LUT.ReadLUT("NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
-     LUT.ReadLUT("NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
-     //LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
-     //LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
+     //LUT.ReadLUT("NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
+     //LUT.ReadLUT("NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
+     LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
+     LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
      for(Int_t sector = 0; sector < 5; ++sector){
           for(Int_t charge = 0; charge < 2; ++charge){
                for(Int_t eta = 0; eta < 30; ++eta){
@@ -250,6 +250,7 @@ void Efficiency::Execute(Int_t ev){
      Double_t pSA_superpointR_BEE = 0;
      Double_t pSA_superpointSlope_BI = 0;
      Double_t pSA_superpointSlope_BM = 0;
+     Double_t pSA_superpointSlope_BME = 0;
      Int_t pEFTAG_pass = -1;
 
      for(Int_t method = 0;method < 25;method++){
@@ -312,6 +313,7 @@ void Efficiency::Execute(Int_t ev){
                pSA_superpointR_BEE = m_pSA_superpointR_BEE->at(method);
                pSA_superpointSlope_BI = m_pSA_superpointSlope_BI->at(method);
                pSA_superpointSlope_BM = m_pSA_superpointSlope_BM->at(method);
+               pSA_superpointSlope_BME = m_pSA_superpointSlope_BME->at(method);
           }
      }
 
@@ -452,7 +454,6 @@ void Efficiency::Execute(Int_t ev){
      if(SPRMiddle != 0 && EtaDistribution(pSA_roieta) == 0){//barrel alpha
           m_h_BarrelAlpha->Fill(barrelalpha);
           m_h_PtvsBarrelAlpha->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelalpha);
-          if(CutSA(pSA_pass))m_h_eSAPtBarrelCompareAlpha->Fill(std::fabs(m_poff_pt*0.001));
           m_h_pSAResPtBarrelAlpha->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
           m_h_pSAResPtBarrelAlphaSector[LUTparameter[0]]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
      }//barrel alpha end
@@ -461,7 +462,6 @@ void Efficiency::Execute(Int_t ev){
           m_h_BarrelBeta->Fill(barrelbeta);
           m_h_PtvsBarrelBeta->Fill(1.0/std::fabs(m_poff_pt*0.001),barrelbeta);
           m_h_eL1PtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
-          if(CutSA(pSA_pass))m_h_eSAPtBarrelCompareBeta->Fill(std::fabs(m_poff_pt*0.001));
           m_h_pSAResPtBarrelBeta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
           m_h_pSAResPtBarrelBetaSector[LUTparameter[0]]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
      }//barrel beta end
