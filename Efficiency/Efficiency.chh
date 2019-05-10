@@ -243,6 +243,7 @@ private:
   TH2F *m_h_lutAvsBBeta;
   TH2F *m_h_pOffPtvsDeltaTheta;
   TH2F *m_h_pOffPtvsDeltaThetaForProf;
+  TProfile *m_prof_pOffPtvsDeltaTheta;
 
   //Efficiency
   TH1D *m_h_eOffPt;
@@ -601,7 +602,6 @@ public:
     m_h_pOffPt = new TH1D("h_poff_pt","probe offline pt;offline pt[GeV];Entries",150,0,150);
     m_h_pL1Pt = new TH1D("h_pL1_pt","probe L1 pt;L1 pt[GeV];Entries",150,0,150);
     m_h_pSAPt = new TH1D("h_pSA_pt","probe L2MuonSA pt;L2MuonSA pt[GeV];Entries",150,0,150); 
-
     m_h_BarrelAlpha = new TH1D("h_BarrelAlpha",";barrel #alpha;Entries",120,-0.6,0.6);
     m_h_BarrelBeta = new TH1D("h_BarrelBeta",";barrel #beta;Entries",120,-0.6,0.6);
     m_h_PtvsBarrelAlpha = new TH2F("h_PtvsBarrelAlpha","1/p_{T} vs Barrel #alpha;1/p_{T};barrel #alpha",100,0.,1.0,200,-1.0,1.0);
@@ -612,6 +612,7 @@ public:
     m_h_lutAvsBBeta = new TH2F("h_lutAvsBBeta","LUT parameter A vs B; parameter A;parameter B",200,-1.,1.,2000,-10.,10.);
     m_h_pOffPtvsDeltaTheta = new TH2F("h_pOffPtvsDeltaTheta","offline p_{T} vs #Delta#theta;offline p_{T}[GeV];#Delta#theta",200,-0.25,99.75,100,-0.5,0.5);
     m_h_pOffPtvsDeltaThetaForProf = new TH2F("h_pOffPtvsDeltaThetaForProf","offline p_{T} vs #Delta#theta;offline p_{T}[GeV];#Delta#theta",200,-0.25,99.75,500,0.,0.5);
+    m_prof_pOffPtvsDeltaTheta = new TProfile("m_prof_pOffPtvsDeltaTheta","Profile offline p_{T} vs #Delta#theta;offline p_{T}[GeV];#Delta#theta",200,-0.25,99.75);
 
               //Efficiency
     m_h_eOffPt = new TH1D("h_eoff_pt","mesoff_pt;offline pt[GeV];Entries",200,-0.25,99.75);
@@ -743,6 +744,7 @@ public:
     delete  m_h_lutAvsBBeta;
     delete  m_h_pOffPtvsDeltaTheta;
     delete  m_h_pOffPtvsDeltaThetaForProf;
+    delete  m_prof_pOffPtvsDeltaTheta;
 
     delete  m_h_eOffPt;
     delete  m_h_eL1Pt;
