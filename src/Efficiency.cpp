@@ -489,8 +489,8 @@ void Efficiency::Execute(Int_t ev){
           }
      }
 
+     Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
      if(SPRInner != 0){
-          Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
           Double_t LineBI = atan(SPRInner/SPZInner) - atan(1.0/SPSlopeInner);
           m_h_pSAResPtvsDeltaTheta->Fill(LineBI,resSA_pt);
      }
