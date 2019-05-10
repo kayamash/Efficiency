@@ -27,6 +27,7 @@
 #include <TBranch.h>
 #include <TObject.h>
 #include <TChain.h>
+#include <TProfile.h>
 
 class Efficiency
 {
