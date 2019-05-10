@@ -251,26 +251,19 @@ void Efficiency::Execute(Int_t ev){
      Double_t pSA_superpointSlope_BI = 0;
      Double_t pSA_superpointSlope_BM = 0;
      Double_t pSA_superpointSlope_BME = 0;
+     Double_t pSA_superpointSlope_BEE = 0;
      Int_t pEFTAG_pass = -1;
 
      for(Int_t method = 0;method < 25;method++){
           if(m_mes_name->at(method) == m_method_name){
                pL1_pt = m_pL1_pt->at(method);
                pSA_pt = m_pSA_pt->at(method);
-               pCB_pt = m_pCB_pt->at(method);
-               pEF_pt = m_pEF_pt->at(method);
                pL1_eta = m_pL1_eta->at(method);
                pSA_eta = m_pSA_eta->at(method);
-               pCB_eta = m_pCB_eta->at(method);
-               pEF_eta = m_pEF_eta->at(method);
                pL1_phi = m_pL1_phi->at(method);
                pSA_phi = m_pSA_phi->at(method);
-               pCB_phi = m_pCB_phi->at(method);
-               pEF_phi = m_pEF_phi->at(method);
                pL1_pass = m_pL1_pass->at(method);
                pSA_pass = m_pSA_pass->at(method);
-               pCB_pass = m_pCB_pass->at(method);
-               pEF_pass = m_pEF_pass->at(method);
                pL1_dR = m_pL1_dR->at(method);
                pSA_dR = m_pSA_dR->at(method);
                pEFTAG_pass = m_pEFTAG_pass->at(method);
@@ -314,6 +307,7 @@ void Efficiency::Execute(Int_t ev){
                pSA_superpointSlope_BI = m_pSA_superpointSlope_BI->at(method);
                pSA_superpointSlope_BM = m_pSA_superpointSlope_BM->at(method);
                pSA_superpointSlope_BME = m_pSA_superpointSlope_BME->at(method);
+               pSA_superpointSlope_BEE = m_pSA_superpointSlope_BEE->at(method);
           }
      }
 

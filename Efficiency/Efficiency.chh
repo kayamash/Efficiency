@@ -126,6 +126,7 @@ private:
   std::vector<Double_t> *m_pSA_superpointSlope_BI;
   std::vector<Double_t> *m_pSA_superpointSlope_BM;
   std::vector<Double_t> *m_pSA_superpointSlope_BME;
+  std::vector<Double_t> *m_pSA_superpointSlope_BEE;
   std::vector<Int_t> *m_pEFTAG_pass;
 
   //TBranch *b_aipc;
@@ -220,6 +221,7 @@ private:
   TBranch *b_pSA_superpointSlope_BI;
   TBranch *b_pSA_superpointSlope_BM;
   TBranch *b_pSA_superpointSlope_BME;
+  TBranch *b_pSA_superpointSlope_BEE;
 
   TBranch *b_sumReqdREF;
   TBranch *b_pEF_pass;
@@ -393,6 +395,7 @@ public:
     m_pSA_superpointSlope_BI = 0;
     m_pSA_superpointSlope_BM = 0;
     m_pSA_superpointSlope_BME = 0;
+    m_pSA_superpointSlope_BEE = 0;
     m_pEFTAG_pass = 0;
     m_sumReqdREF = 0;
 
@@ -489,6 +492,7 @@ public:
     tChain->SetBranchStatus("probe_mesSA_superPointSlope_BI",1);
     tChain->SetBranchStatus("probe_mesSA_superPointSlope_BM",1);
     tChain->SetBranchStatus("probe_mesSA_superPointSlope_BME",1);
+    tChain->SetBranchStatus("probe_mesSA_superPointSlope_BEE",1);
     tChain->SetBranchStatus("sumReqdREF",1);
     tChain->SetBranchStatus("probe_mesEFTAG_pass",1);
 
@@ -584,6 +588,7 @@ public:
     tChain->SetBranchAddress("probe_mesSA_superPointSlope_BI",&m_pSA_superpointSlope_BI,&b_pSA_superpointSlope_BI);
     tChain->SetBranchAddress("probe_mesSA_superPointSlope_BM",&m_pSA_superpointSlope_BM,&b_pSA_superpointSlope_BM);
     tChain->SetBranchAddress("probe_mesSA_superPointSlope_BME",&m_pSA_superpointSlope_BME,&b_pSA_superpointSlope_BME);
+    tChain->SetBranchAddress("probe_mesSA_superPointSlope_BEE",&m_pSA_superpointSlope_BEE,&b_pSA_superpointSlope_BEE);
     tChain->SetBranchAddress("sumReqdREF",&m_sumReqdREF,&b_sumReqdREF);
     tChain->SetBranchAddress("probe_mesEFTAG_pass",&m_pEFTAG_pass,&b_pEFTAG_pass);
 
