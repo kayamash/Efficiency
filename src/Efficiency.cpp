@@ -272,8 +272,6 @@ void Efficiency::Execute(Int_t ev){
                pEF_pass = m_pEF_pass->at(method);
                pL1_dR = m_pL1_dR->at(method);
                pSA_dR = m_pSA_dR->at(method);
-               pCB_dR = m_pCB_dR->at(method);
-               pEF_dR = m_pEF_dR->at(method);
                pEFTAG_pass = m_pEFTAG_pass->at(method);
                pL1_roiNumber = m_pL1_roiNumber->at(method);
                pL1_roiSector = m_pL1_roiSector->at(method);

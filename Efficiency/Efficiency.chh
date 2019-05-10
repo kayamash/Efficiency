@@ -103,9 +103,6 @@ private:
   std::vector<vector<float>> *m_pSA_mdtR;
   std::vector<vector<float>> *m_pSA_mdtPhi;
   std::vector<vector<Int_t>> *m_pSA_mdthitChamber;
-  std::vector<Double_t> *m_pSA_pttgc;
-  std::vector<Double_t> *m_pSA_ptalpha;
-  std::vector<Double_t> *m_pSA_ptbeta;
   std::vector<Double_t> *m_pSA_superpointZ_BI;
   std::vector<Double_t> *m_pSA_superpointZ_BM;
   std::vector<Double_t> *m_pSA_superpointZ_BO;
@@ -199,9 +196,6 @@ private:
   TBranch *b_pSA_mdtR;
   TBranch *b_pSA_mdtPhi;
   TBranch *b_pSA_mdthitChamber;
-  TBranch *b_pSA_pttgc;
-  TBranch *b_pSA_ptalpha;
-  TBranch *b_pSA_ptbeta;
   TBranch *b_pSA_superpointZ_BI;
   TBranch *b_pSA_superpointZ_BM;
   TBranch *b_pSA_superpointZ_BO;
@@ -372,9 +366,6 @@ public:
     m_pSA_roiphi = 0;
     m_pSA_roiNumber = 0;
     m_pSA_roiSector = 0;
-    m_pSA_ptalpha = 0;
-    m_pSA_ptbeta = 0;
-    m_pSA_pttgc = 0;
     m_pSA_superpointZ_BI = 0;
     m_pSA_superpointZ_BM = 0;
     m_pSA_superpointZ_BO = 0;
@@ -472,9 +463,6 @@ public:
     tChain->SetBranchStatus("probe_mesSA_mdtHitR",1);
     tChain->SetBranchStatus("probe_mesSA_mdtHitPhi",1);
     tChain->SetBranchStatus("probe_mesSA_mdtHitChamber",1);
-    tChain->SetBranchStatus("probe_mesSA_tgcpt",1);
-    tChain->SetBranchStatus("probe_mesSA_ptEndcapAlpha",1);
-    tChain->SetBranchStatus("probe_mesSA_ptEndcapBeta",1);
     tChain->SetBranchStatus("probe_mesSA_superPointZ_BI",1);
     tChain->SetBranchStatus("probe_mesSA_superPointZ_BM",1);
     tChain->SetBranchStatus("probe_mesSA_superPointZ_BO",1);
@@ -563,9 +551,6 @@ public:
     tChain->SetBranchAddress("probe_mesSA_mdtHitR",&m_pSA_mdtR,&b_pSA_mdtR);
     tChain->SetBranchAddress("probe_mesSA_mdtHitPhi",&m_pSA_mdtPhi,&b_pSA_mdtPhi);
     tChain->SetBranchAddress("probe_mesSA_mdtHitChamber",&m_pSA_mdthitChamber,&b_pSA_mdthitChamber);
-    tChain->SetBranchAddress("probe_mesSA_tgcpt",&m_pSA_pttgc,&b_pSA_pttgc);
-    tChain->SetBranchAddress("probe_mesSA_ptEndcapAlpha",&m_pSA_ptalpha,&b_pSA_ptalpha);
-    tChain->SetBranchAddress("probe_mesSA_ptEndcapBeta",&m_pSA_ptbeta,&b_pSA_ptbeta);
     tChain->SetBranchAddress("probe_mesSA_phims",&m_pSA_phims,&b_pSA_phims);
     tChain->SetBranchAddress("probe_mesSA_phibe",&m_pSA_phibe,&b_pSA_phibe);
     tChain->SetBranchAddress("probe_mesSA_roiEta",&m_pSA_roieta,&b_pSA_roieta);
