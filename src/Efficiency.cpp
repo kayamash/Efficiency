@@ -27,6 +27,7 @@
 #include <TBranch.h>
 #include <TROOT.h>
 #include <TChain.h>
+#include <TProfile.h>
 
 const Double_t pt_threshold[4] = {3.38,1.25,3.17,3.41};//MU4
 //const Double_t pt_threshold[4] = {5.17,3.25,4.69,5.14};//MU6
