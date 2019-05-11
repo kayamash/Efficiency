@@ -12,8 +12,8 @@
 ./efficiencyloop_cpp.so: ../Efficiency/Efficiency.chh
 ./efficiencyloop_cpp.so: /usr/include/root/TROOT.h /usr/include/root/TChain.h
 ./efficiencyloop_cpp.so: /usr/include/root/TObject.h
-./efficiencyloop_cpp.so: /home/kayamash/working/PtNewMethod/src/kayamashForLUT.cpp
 ./efficiencyloop_cpp.so: /usr/include/root/TProfile.h
+./efficiencyloop_cpp.so: /home/kayamash/working/PtNewMethod/src/kayamashForLUT.cpp
 ./efficiencyloop_cpp.so: /home/kayamash/working/PtNewMethod/PtNewMethod/kayamashForLUT.chh
 ./efficiencyloop_cpp.so: ../src/CalcEff.cpp ../Efficiency/CalcEff.chh
 ./efficiencyloop_cpp.so: /usr/include/root/RVersion.h /usr/include/root/RConfig.h /usr/include/root/TClass.h /usr/include/root/TDictAttributeMap.h /usr/include/root/TInterpreter.h /usr/include/root/TROOT.h /usr/include/root/TBuffer.h /usr/include/root/TMemberInspector.h /usr/include/root/TError.h /usr/include/root/RtypesImp.h /usr/include/root/TIsAProxy.h /usr/include/root/TFileMergeInfo.h /usr/include/root/TCollectionProxyInfo.h /usr/bin/rootcling
