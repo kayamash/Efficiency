@@ -111,8 +111,8 @@ bool Efficiency::PlateauCut(Double_t pt){
 }
 
 bool Efficiency::CutSAMyLUT(Double_t pt,Int_t L1Number,Int_t L1Sector,Int_t SANumber,Int_t SASector){
-     //if(L1Number == SANumber && L1Sector == SASector && pt >= pt_threshold[0])return kTRUE;
-     if(std::fabs(pt) >= pt_threshold[0])return kTRUE;
+     if(L1Number == SANumber && L1Sector == SASector && std::fabs(pt) >= pt_threshold[0])return kTRUE;
+     //if(std::fabs(pt) >= pt_threshold[0])return kTRUE;
      return kFALSE;
 }
 
@@ -484,6 +484,15 @@ void Efficiency::Execute(Int_t ev){
           }else{
                if(CutSA(pSA_pass))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
           }
+          if(numBarrelSP == 3){
+               if(CutSA(pSA_pass))m_h_eSAPtBarrelkayamashMethod->Fill(std::fabs(m_poff_pt*0.001));
+          }else if(SPRInner != 0 && SPRMiddle != 0 && SPROuter == 0 && deltaTheta <= 0.08){
+               if(CutSAMyLUT(BetaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelkayamashMethod->Fill(std::fabs(m_poff_pt*0.001));
+          }else if(SPRMiddle != 0){
+               if(CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelkayamashMethod->Fill(std::fabs(m_poff_pt*0.001));
+          }else{
+               if(CutSA(pSA_pass))m_h_eSAPtBarrelkayamashMethod->Fill(std::fabs(m_poff_pt*0.001));
+          }
      }
 
      Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
@@ -608,6 +617,8 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eL1PtBarrel,m_h_eSAPtBarrelMyLUTAlpha,m_binmax,200,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyBarrelMyLUTBeta","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtBarrel,m_h_eSAPtBarrelMyLUTBeta,m_binmax,200,m_efficiency_xerr);
+     ceff.SetCondition("SAEfficiencyBarrelkayamashMethod","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eL1PtBarrel,m_h_eSAPtBarrelkayamashMethod,m_binmax,200,m_efficiency_xerr);
      cout<<"efficiency end"<<endl;
 
      m_h_pOffPt->Write();
@@ -662,6 +673,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtBarrelMyLUTAlpha->Write();
      m_h_eL1PtBarrelMyLUTBeta->Write();
      m_h_eSAPtBarrelMyLUTBeta->Write();
+     m_h_eSAPtBarrelkayamashMethod->Write();
 
      m_h_pSAResPt->Write();
      m_h_pSAResPtBarrelAlpha->Write();

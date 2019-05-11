@@ -280,6 +280,7 @@ private:
   TH1D *m_h_eSAPtBarrelMyLUTAlpha;
   TH1D *m_h_eL1PtBarrelMyLUTBeta;
   TH1D *m_h_eSAPtBarrelMyLUTBeta;
+  TH1D *m_h_eSAPtBarrelkayamashMethod;
 
   //Residual
   TH1D *m_h_pSAResPt;
@@ -676,6 +677,7 @@ public:
     m_h_eSAPtBarrelMyLUTAlpha = new TH1D("h_eSAPtBarrelMyLUTAlpha",";;",200,-0.25,99.75);
     m_h_eL1PtBarrelMyLUTBeta = new TH1D("h_eL1PtBarrelMyLUTBeta",";;",200,-0.25,99.75);
     m_h_eSAPtBarrelMyLUTBeta = new TH1D("h_eSAPtBarrelMyLUTBeta",";;",200,-0.25,99.75);
+    m_h_eSAPtBarrelkayamashMethod = new TH1D("h_eSAPtBarrelMyLUTBeta",";;",200,-0.25,99.75);
 
       //Residual
     m_h_pSAResPt = new TH1D("h_pSAResPt","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
@@ -776,6 +778,7 @@ public:
     delete  m_h_eSAPtBarrelMyLUTAlpha;
     delete  m_h_eL1PtBarrelMyLUTBeta;
     delete  m_h_eSAPtBarrelMyLUTBeta;
+    delete  m_h_eSAPtBarrelkayamashMethod;
     delete  m_h_pSAResPt;
     delete  m_h_pSAResPtBarrelAlpha;
     delete  m_h_pSAResPtBarrelBeta;
