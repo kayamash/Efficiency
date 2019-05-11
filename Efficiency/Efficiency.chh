@@ -298,6 +298,7 @@ private:
   TH1D *m_h_pSAResPtBarrel2SP;
   TH1D *m_h_pSAResPtBarrel1SP;
   TH2F *m_h_pSAResPtvsDeltaTheta;
+  TH2F *m_h_pAlphaResPtvsDeltaTheta;
   TH2F *m_h_pSAResPtvsDeltaThetaForProf;
   TH1D *m_h_pASResPtBarrelBetaSmallDeltaTheta;//theta < 0.05
   TH1D *m_h_pASResPtBarrelBetaLargeDeltaTheta;//theta >= 0.05
@@ -702,6 +703,7 @@ public:
     m_h_pSAResPtBarrel2SP = new TH1D("h_pSAResPtBarrel2SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pSAResPtBarrel3SP = new TH1D("h_pSAResPtBarrel3SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pSAResPtvsDeltaTheta = new TH2F("h_pSAResPtvsDeltaTheta","#Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",100,-0.5,0.5,300,-1,1);
+    m_h_pAlphaResPtvsDeltaTheta = new TH2F("h_pAlphaResPtvsDeltaTheta","#Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",100,-0.5,0.5,300,-1,1);
     m_h_pSAResPtvsDeltaThetaForProf = new TH2F("h_pSAResPtvsDeltaThetaForProf","#Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",500,0.,0.5,100,0.,1.);
     m_prof_pSAResPtvsDeltaTheta = new TProfile("m_prof_pSAResPtvsDeltaTheta","Profile #Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",500,0.,0.5);
     m_h_pASResPtBarrelBetaSmallDeltaTheta = new TH1D("h_pASResPtBarrelBetaSmallDeltaTheta","#alpha Small #Delta#theta;p_{T} residual;Events",300,-1,1);
