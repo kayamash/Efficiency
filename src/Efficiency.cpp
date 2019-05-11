@@ -488,7 +488,7 @@ void Efficiency::Execute(Int_t ev){
 
           if(numBarrelSP == 3){
                if(CutSA(pSA_pass))m_h_eSAPtBarrelkayamashMethod->Fill(std::fabs(m_poff_pt*0.001));
-          }else if(SPRInner != 0 && SPRMiddle != 0 && SPROuter == 0 && std::fabs(deltaTheta) <= 0.02){
+          }else if(SPRInner != 0 && SPRMiddle != 0 && SPROuter == 0 && std::fabs(deltaTheta) <= 0.05){
                if(CutSAMyLUT(BetaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelkayamashMethod->Fill(std::fabs(m_poff_pt*0.001));
           }else if(SPRMiddle != 0){
                if(CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelkayamashMethod->Fill(std::fabs(m_poff_pt*0.001));
