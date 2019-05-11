@@ -38,8 +38,6 @@ const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/Zmumu364160.root";
 const Int_t efficiency_maxenergy = 61;
 const Double_t efficiency_x_err = 0.25;
-const Int_t nhist = 1;
-const Int_t thpitch = 4;
 
 //main function
 void efficiencyloop(){
@@ -55,17 +53,17 @@ void efficiencyloop(){
 	//tr1->Add(inputfilename.c_str());
 
 	if(!tr1)cout<<"tree failed"<<endl;
-	Efficiency *eff = new Efficiency(nhist,thpitch,tr1);
+	Efficiency *eff = new Efficiency(tr1);
 	std::ofstream ofs("LargeSpecialEvent.dat");
 	ofs.close();
 	
 	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
 
 	cout<<"Initialize"<<endl;
-	eff->Init(trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,nhist,proc);
+	eff->Init(trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,proc);
 	cout<<tr1->GetEntries()<<endl;
 	cout<<"Execute"<<endl;
-	for(Int_t event = 0;event < tr1->GetEntries(); event++){
+	for(Int_t event = 0;event < tr1->GetEntries(); ++event){
 	//for(Int_t event = 0;event < 100000; event++){
 		eff->Execute(event);
 	}

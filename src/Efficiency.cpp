@@ -473,6 +473,7 @@ void Efficiency::Execute(Int_t ev){
           if(numBarrelSP == 3)m_h_pSAResPtBarrelBeta3SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
      }
 
+     Double_t deltaTheta = atan(SPRInner/SPZInner) - atan(1.0/SPSlopeInner);
      if(EtaDistribution(pSA_roieta) == 0){
           if(SPRMiddle != 0 && numBarrelSP <= 2){
                if(CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
@@ -484,6 +485,7 @@ void Efficiency::Execute(Int_t ev){
           }else{
                if(CutSA(pSA_pass))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
           }
+          
           if(numBarrelSP == 3){
                if(CutSA(pSA_pass))m_h_eSAPtBarrelkayamashMethod->Fill(std::fabs(m_poff_pt*0.001));
           }else if(SPRInner != 0 && SPRMiddle != 0 && SPROuter == 0 && deltaTheta <= 0.08){
@@ -497,7 +499,6 @@ void Efficiency::Execute(Int_t ev){
 
      Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
      if(SPRInner != 0){
-          Double_t deltaTheta = atan(SPRInner/SPZInner) - atan(1.0/SPSlopeInner);
           m_h_pSAResPtvsDeltaTheta->Fill(deltaTheta,std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
           m_h_pSAResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0));
           m_h_pOffPtvsDeltaTheta->Fill(std::fabs(m_poff_pt*0.001),deltaTheta);
