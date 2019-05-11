@@ -500,7 +500,8 @@ void Efficiency::Execute(Int_t ev){
      Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
      if(SPRInner != 0){
           m_h_pSAResPtvsDeltaTheta->Fill(deltaTheta,std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
-          m_h_pSAResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0));
+          if(barrelbeta != -99999)m_h_pSAResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0));
+          if(barrelalpha != -99999)m_h_pAlphaResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0));
           m_h_pOffPtvsDeltaTheta->Fill(std::fabs(m_poff_pt*0.001),deltaTheta);
           m_h_pOffPtvsDeltaThetaForProf->Fill(std::fabs(m_poff_pt*0.001),std::fabs(deltaTheta));
           if(deltaTheta < 0.05){
@@ -693,6 +694,9 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_pSAResPtBarrel3SP->Write();
      m_h_pSAResPtvsDeltaTheta->Write();
      m_h_pSAResPtvsDeltaThetaForProf->Write();
+     m_h_pAlphaResPtvsDeltaThetaForProf->Write();
+     m_prof_pAlphaResPtvsDeltaTheta = m_h_pAlphaResPtvsDeltaThetaForProf->ProfileX();
+     m_prof_pAlphaResPtvsDeltaTheta->Write();
      m_prof_pSAResPtvsDeltaTheta = m_h_pSAResPtvsDeltaThetaForProf->ProfileX();
      m_prof_pSAResPtvsDeltaTheta->Write();
      m_h_pASResPtBarrelBetaSmallDeltaTheta->Write();//!
