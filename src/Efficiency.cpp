@@ -52,10 +52,10 @@ void Efficiency::Init(std::string name,const Int_t np,const Int_t ne,const Doubl
      m_reqL1dR = req;
 
      kayamashForLUT LUT(0.,0.);
-     LUT.ReadLUT("NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
-     LUT.ReadLUT("NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
-     //LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
-     //LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
+     //LUT.ReadLUT("NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
+     //LUT.ReadLUT("NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
+     LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodAlphaJPZ.LUT",m_LUTAlphaSectorChargeEtaPhi);
+     LUT.ReadLUT("/gpfs/fs7001/kayamash/Mywork/LUT/test/NewMethodBetaJPZ.LUT",m_LUTBetaSectorChargeEtaPhi);
      for(Int_t sector = 0; sector < 5; ++sector){
           for(Int_t charge = 0; charge < 2; ++charge){
                for(Int_t eta = 0; eta < 30; ++eta){
@@ -490,6 +490,7 @@ void Efficiency::Execute(Int_t ev){
      if(SPRInner != 0){
           Double_t deltaTheta = atan(SPRInner/SPZInner) - atan(1.0/SPSlopeInner);
           m_h_pSAResPtvsDeltaTheta->Fill(deltaTheta,std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+          m_h_pSAResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0));
           m_h_pOffPtvsDeltaTheta->Fill(std::fabs(m_poff_pt*0.001),deltaTheta);
           m_h_pOffPtvsDeltaThetaForProf->Fill(std::fabs(m_poff_pt*0.001),std::fabs(deltaTheta));
           if(deltaTheta < 0.05){
@@ -678,6 +679,9 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_pSAResPtBarrel2SP->Write();
      m_h_pSAResPtBarrel3SP->Write();
      m_h_pSAResPtvsDeltaTheta->Write();
+     m_h_pSAResPtvsDeltaThetaForProf->Write();
+     m_prof_pSAResPtvsDeltaTheta = m_h_pSAResPtvsDeltaThetaForProf->ProfileX();
+     m_prof_pSAResPtvsDeltaTheta->Write();
      m_h_pASResPtBarrelBetaSmallDeltaTheta->Write();//!
      m_h_pASResPtBarrelBetaLargeDeltaTheta->Write();//!
      cout<<"finish!"<<endl;
