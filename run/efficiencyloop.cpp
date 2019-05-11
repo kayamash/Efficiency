@@ -38,6 +38,7 @@ const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput
 //const string outputfilename = "/gpfs/fs6001/kayamash/Mywork/efficiencyloopoutput/Zmumu364160.root";
 const Int_t efficiency_maxenergy = 61;
 const Double_t efficiency_x_err = 0.25;
+const bool EventFullScan = kTRUE;//true = full scan,false = sample scan(1000000 event)
 
 //main function
 void efficiencyloop(){
@@ -63,9 +64,10 @@ void efficiencyloop(){
 	eff->Init(trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,proc);
 	cout<<tr1->GetEntries()<<endl;
 	cout<<"Execute"<<endl;
-	for(Int_t event = 0;event < tr1->GetEntries(); ++event){
-	//for(Int_t event = 0;event < 100000; event++){
+	Int_t nEvent = (EventFullScan)?(tr1->GetEntries()):(1000000);
+	for(Int_t event = 0;event < nEvent; ++event){
 		eff->Execute(event);
+		if(event % 1000000 == 0)cout<<"The event is "<<event<<endl;
 	}
 	cout<<"Finalize"<<endl;
 	eff->Finalize(output_file);
