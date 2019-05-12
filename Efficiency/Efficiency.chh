@@ -684,10 +684,10 @@ public:
 
       //Residual
     m_h_pSAResPt = new TH1D("h_pSAResPt","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtLS[0] = new TH1D("h_pSAResPt15outer","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtLS[1] = new TH1D("h_pSAResPt15inner","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtLS[2] = new TH1D("h_pSAResPt11inner","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtLS[3] = new TH1D("h_pSAResPt11outer","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtLS[0] = new TH1D("h_pSAResPt15outer","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
+    m_h_pSAResPtLS[1] = new TH1D("h_pSAResPt15inner","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
+    m_h_pSAResPtLS[2] = new TH1D("h_pSAResPt11inner","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
+    m_h_pSAResPtLS[3] = new TH1D("h_pSAResPt11outer","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
     m_h_pSAResPtBarrelAlpha = new TH1D("h_pSAResPtBarrelAlpha","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pSAResPtBarrelBeta = new TH1D("h_pSAResPtBarrelBeta","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pSAResPtBarrelAlphaSector[0] = new TH1D("h_pSAResPtBarrelAlphaLarge","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
