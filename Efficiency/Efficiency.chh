@@ -285,6 +285,7 @@ private:
   //Residual
   TH1D *m_h_pSAResPt;
   TH1D *m_h_pSAResPtLS[4];//15outer,15inner,11inner,11outer
+  TH1D *m_h_pSAResPtLargeSpecial;
 
   TH1D *m_h_pSAResPtBarrelAlpha;
   TH1D *m_h_pSAResPtBarrelBeta;
@@ -683,38 +684,39 @@ public:
     m_h_eSAPtBarrelkayamashMethod = new TH1D("h_eSAPtBarrelkayamashMethod",";;",200,-0.25,99.75);
 
       //Residual
-    m_h_pSAResPt = new TH1D("h_pSAResPt","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPt = new TH1D("h_pSAResPt","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
     m_h_pSAResPtLS[0] = new TH1D("h_pSAResPt15outer","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
     m_h_pSAResPtLS[1] = new TH1D("h_pSAResPt15inner","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
     m_h_pSAResPtLS[2] = new TH1D("h_pSAResPt11inner","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
     m_h_pSAResPtLS[3] = new TH1D("h_pSAResPt11outer","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
-    m_h_pSAResPtBarrelAlpha = new TH1D("h_pSAResPtBarrelAlpha","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelBeta = new TH1D("h_pSAResPtBarrelBeta","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelAlphaSector[0] = new TH1D("h_pSAResPtBarrelAlphaLarge","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelBetaSector[0] = new TH1D("h_pSAResPtBarrelBetaLarge","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelAlphaSector[1] = new TH1D("h_pSAResPtBarrelAlphaSector11","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelBetaSector[1] = new TH1D("h_pSAResPtBarrelBetaSector11","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelAlphaSector[2] = new TH1D("h_pSAResPtBarrelAlphaSector15","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelBetaSector[2] = new TH1D("h_pSAResPtBarrelBetaSector15","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelAlphaSector[3] = new TH1D("h_pSAResPtBarrelAlphaSmall","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelBetaSector[3] = new TH1D("h_pSAResPtBarrelBetaSmall","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelAlphaSector[4] = new TH1D("h_pSAResPtBarrelAlphaSmallSpecial","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelBetaSector[4] = new TH1D("h_pSAResPtBarrelBetaSmallSpecial","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelAlpha3SP = new TH1D("h_pSAResPtBarrelAlpha3SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelBeta3SP = new TH1D("h_pSAResPtBarrelBeta3SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelAlpha2SP = new TH1D("h_pSAResPtBarrelAlpha2SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelBeta2SP = new TH1D("h_pSAResPtBarrelBeta2SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrelAlpha1SP = new TH1D("h_pSAResPtBarrelAlpha1SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrel1SP = new TH1D("h_pSAResPtBarrel1SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrel2SP = new TH1D("h_pSAResPtBarrel2SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtBarrel3SP = new TH1D("h_pSAResPtBarrel3SP","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
-    m_h_pSAResPtvsDeltaTheta = new TH2F("h_pSAResPtvsDeltaTheta","#Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",100,-0.5,0.5,300,-1,1);
+    m_h_pSAResPtLargeSpecial = new TH1D("h_pSAResPtLargeSpecial","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelAlpha = new TH1D("h_pSAResPtBarrelAlpha","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelBeta = new TH1D("h_pSAResPtBarrelBeta","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[0] = new TH1D("h_pSAResPtBarrelAlphaLarge","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelBetaSector[0] = new TH1D("h_pSAResPtBarrelBetaLarge","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[1] = new TH1D("h_pSAResPtBarrelAlphaSector11","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelBetaSector[1] = new TH1D("h_pSAResPtBarrelBetaSector11","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[2] = new TH1D("h_pSAResPtBarrelAlphaSector15","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelBetaSector[2] = new TH1D("h_pSAResPtBarrelBetaSector15","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[3] = new TH1D("h_pSAResPtBarrelAlphaSmall","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelBetaSector[3] = new TH1D("h_pSAResPtBarrelBetaSmall","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelAlphaSector[4] = new TH1D("h_pSAResPtBarrelAlphaSmallSpecial","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelBetaSector[4] = new TH1D("h_pSAResPtBarrelBetaSmallSpecial","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelAlpha3SP = new TH1D("h_pSAResPtBarrelAlpha3SP","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelBeta3SP = new TH1D("h_pSAResPtBarrelBeta3SP","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelAlpha2SP = new TH1D("h_pSAResPtBarrelAlpha2SP","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelBeta2SP = new TH1D("h_pSAResPtBarrelBeta2SP","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrelAlpha1SP = new TH1D("h_pSAResPtBarrelAlpha1SP","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrel1SP = new TH1D("h_pSAResPtBarrel1SP","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrel2SP = new TH1D("h_pSAResPtBarrel2SP","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtBarrel3SP = new TH1D("h_pSAResPtBarrel3SP","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
+    m_h_pSAResPtvsDeltaTheta = new TH2F("h_pSAResPtvsDeltaTheta","#Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",100,-0.5,0.5,200,-1,1);
     m_h_pSAResPtvsDeltaThetaForProf = new TH2F("h_pSAResPtvsDeltaThetaForProf","#Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",500,0.,0.5,100,0.,1.);
     m_h_pAlphaResPtvsDeltaThetaForProf = new TH2F("h_pAlphaResPtvsDeltaThetaForProf","#Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",500,0.,0.5,100,0.,1.);
     m_prof_pAlphaResPtvsDeltaTheta = new TProfile("m_prof_pAlphaResPtvsDeltaTheta","Profile #Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",500,0.,0.5);
     m_prof_pSAResPtvsDeltaTheta = new TProfile("m_prof_pSAResPtvsDeltaTheta","Profile #Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",500,0.,0.5);
-    m_h_pASResPtBarrelBetaSmallDeltaTheta = new TH1D("h_pASResPtBarrelBetaSmallDeltaTheta","#alpha Small #Delta#theta;p_{T} residual;Events",300,-1,1);
-    m_h_pASResPtBarrelBetaLargeDeltaTheta = new TH1D("h_pASResPtBarrelBetaLargeDeltaTheta","#alpha Small #Delta#theta;p_{T} residual;Events",300,-1,1);
+    m_h_pASResPtBarrelBetaSmallDeltaTheta = new TH1D("h_pASResPtBarrelBetaSmallDeltaTheta","#alpha Small #Delta#theta;p_{T} residual;Events",200,-1,1);
+    m_h_pASResPtBarrelBetaLargeDeltaTheta = new TH1D("h_pASResPtBarrelBetaLargeDeltaTheta","#alpha Small #Delta#theta;p_{T} residual;Events",200,-1,1);
   }
 
   void Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,Int_t proc);
@@ -790,7 +792,9 @@ public:
     delete  m_h_eL1PtBarrelMyLUTBeta;
     delete  m_h_eSAPtBarrelMyLUTBeta;
     delete  m_h_eSAPtBarrelkayamashMethod;
+
     delete  m_h_pSAResPt;
+    delete  m_h_pSAResPtLargeSpecial;
     delete  m_h_pSAResPtBarrelAlpha;
     delete  m_h_pSAResPtBarrelBeta;
     delete  m_h_pSAResPtBarrelAlpha3SP;

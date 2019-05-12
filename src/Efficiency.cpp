@@ -519,6 +519,7 @@ void Efficiency::Execute(Int_t ev){
           m_h_pSAResPtvsDeltaTheta->Fill(deltaTheta,std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
           if(barrelbeta != -99999)m_h_pSAResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0));
           if(barrelalpha != -99999)m_h_pAlphaResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0));
+          if(pSA_sAddress == 1)m_h_pSAResPtLargeSpecial->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
           if(getLSSector(pSA_roiphi,pSA_sAddress) >= 0)m_h_pSAResPtLS[getLSSector(pSA_roiphi,pSA_sAddress)]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
           m_h_pOffPtvsDeltaTheta->Fill(std::fabs(m_poff_pt*0.001),deltaTheta);
           m_h_pOffPtvsDeltaThetaForProf->Fill(std::fabs(m_poff_pt*0.001),std::fabs(deltaTheta));
@@ -699,6 +700,7 @@ void Efficiency::Finalize(TFile *tf1){
      for(Int_t i = 0; i < 4; ++i){
           m_h_pSAResPtLS[i]->Write();
      }
+     m_h_pSAResPtLargeSpecial->Write();
      m_h_pSAResPtBarrelAlpha->Write();
      m_h_pSAResPtBarrelBeta->Write();
      for(Int_t i = 0; i < 5;++i){
