@@ -202,6 +202,23 @@ int Efficiency::EtaDistribution(Float_t roieta){
      }
 }
 
+int Efficiency::getLSSector(Double_t roiphi,Int_t address){
+     if(address != 1)goto exit;
+     if(roiphi >= -2.6 && roiphi < -2.4){
+          return 0;//15 outer
+     }else if(roiphi >= -2.4 && roiphi < -2.0){
+          return 1;//15 inner
+     }else if(roiphi >= -1.0 && roiphi < -0.8){
+          return 2;//11 inner 
+     }else if(roiphi >= -0.8 && roiphi < -0.6){
+          return 3;//11outer
+     }
+     exit:
+          return -1;
+
+     return -1;
+}
+
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
      Double_t pL1_pt = -99999;
@@ -523,6 +540,7 @@ void Efficiency::Execute(Int_t ev){
           if(numBarrelSP == 1)m_h_pSAResPtBarrel1SP->Fill(resSA_pt);
           if(numBarrelSP == 2)m_h_pSAResPtBarrel2SP->Fill(resSA_pt);
           if(numBarrelSP == 3)m_h_pSAResPtBarrel3SP->Fill(resSA_pt);
+          if(getLSSector(pSA_roiphi,pSA_sAddress) >= 0)m_h_pSAResPtLS[getLSSector(pSA_roiphi,pSA_sAddress)]->Fill(resSA_pt);
           break;
           case 1://Transition
           m_h_eSAPtTransition->Fill(std::fabs(m_poff_pt*0.001));
@@ -678,6 +696,9 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eSAPtBarrelkayamashMethod->Write();
 
      m_h_pSAResPt->Write();
+     for(Int_t i = 0; i < 4; ++i){
+          m_h_pSAResPtLS[i]->Write();
+     }
      m_h_pSAResPtBarrelAlpha->Write();
      m_h_pSAResPtBarrelBeta->Write();
      for(Int_t i = 0; i < 5;++i){

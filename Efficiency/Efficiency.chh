@@ -284,6 +284,7 @@ private:
 
   //Residual
   TH1D *m_h_pSAResPt;
+  TH1D *m_h_pSAResPtLS[4];//15outer,15inner,11inner,11outer
 
   TH1D *m_h_pSAResPtBarrelAlpha;
   TH1D *m_h_pSAResPtBarrelBeta;
@@ -683,6 +684,10 @@ public:
 
       //Residual
     m_h_pSAResPt = new TH1D("h_pSAResPt","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtLS[0] = new TH1D("h_pSAResPt15outer","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtLS[1] = new TH1D("h_pSAResPt15inner","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtLS[2] = new TH1D("h_pSAResPt11inner","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
+    m_h_pSAResPtLS[3] = new TH1D("h_pSAResPt11outer","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pSAResPtBarrelAlpha = new TH1D("h_pSAResPtBarrelAlpha","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pSAResPtBarrelBeta = new TH1D("h_pSAResPtBarrelBeta","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
     m_h_pSAResPtBarrelAlphaSector[0] = new TH1D("h_pSAResPtBarrelAlphaLarge","probe L2MuonSA residual pt;residual pt;Entries",300,-1,1);
@@ -723,6 +728,7 @@ public:
   void CalcPtByBeta(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Int_t nSP,Double_t &pt);
   int EtaDistribution();
   int EtaDistribution(Float_t roieta);
+  int getLSSector(Double_t roiphi,Int_t address);
   void Execute(Int_t ev);
   void Finalize(TFile *tf1);
   ~Efficiency(){
@@ -740,6 +746,7 @@ public:
       delete  m_h_eSAPtEndcapSP[i];
       delete  m_h_eL1PtForwardSP[i];
       delete  m_h_eSAPtForwardSP[i];
+      delete  m_h_pSAResPtLS[i];
     }
 
     delete  m_h_pOffPt;
