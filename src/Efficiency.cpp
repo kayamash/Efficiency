@@ -535,7 +535,7 @@ void Efficiency::Execute(Int_t ev){
      }
 
      if(pSA_sAddress == 1)m_h_pSAResPtLargeSpecial->Fill(NewMethodResPt);
-     if(getLSSector(pSA_roiphi,pSA_sAddress) >= 0)m_h_pSAResPtLS[getLSSector(pSA_roiphi,pSA_sAddress)]->Fill(NewMethodResPt);
+     if(getLSSector(pSA_roiphi,pSA_sAddress) >= 0 && SPRMiddle != 0)m_h_pSAResPtLS[getLSSector(pSA_roiphi,pSA_sAddress)]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
 
           //SA
      if(!CutSA(pSA_pass))return;
