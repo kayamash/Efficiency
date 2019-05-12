@@ -519,6 +519,7 @@ void Efficiency::Execute(Int_t ev){
           m_h_pSAResPtvsDeltaTheta->Fill(deltaTheta,std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
           if(barrelbeta != -99999)m_h_pSAResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0));
           if(barrelalpha != -99999)m_h_pAlphaResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0));
+          if(getLSSector(pSA_roiphi,pSA_sAddress) >= 0)m_h_pSAResPtLS[getLSSector(pSA_roiphi,pSA_sAddress)]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
           m_h_pOffPtvsDeltaTheta->Fill(std::fabs(m_poff_pt*0.001),deltaTheta);
           m_h_pOffPtvsDeltaThetaForProf->Fill(std::fabs(m_poff_pt*0.001),std::fabs(deltaTheta));
           if(deltaTheta < 0.05){
@@ -540,7 +541,6 @@ void Efficiency::Execute(Int_t ev){
           if(numBarrelSP == 1)m_h_pSAResPtBarrel1SP->Fill(resSA_pt);
           if(numBarrelSP == 2)m_h_pSAResPtBarrel2SP->Fill(resSA_pt);
           if(numBarrelSP == 3)m_h_pSAResPtBarrel3SP->Fill(resSA_pt);
-          if(getLSSector(pSA_roiphi,pSA_sAddress) >= 0)m_h_pSAResPtLS[getLSSector(pSA_roiphi,pSA_sAddress)]->Fill(resSA_pt);
           break;
           case 1://Transition
           m_h_eSAPtTransition->Fill(std::fabs(m_poff_pt*0.001));
