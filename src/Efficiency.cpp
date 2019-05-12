@@ -491,16 +491,26 @@ void Efficiency::Execute(Int_t ev){
      }
 
      Double_t deltaTheta = atan(SPRInner/SPZInner) - atan(1.0/SPSlopeInner);
+     Double_t newMethodSAPt = 0;
+     Double_t NewMethodResPt = 0;
      if(EtaDistribution(pSA_roieta) == 0){
           if(SPRMiddle != 0 && numBarrelSP <= 2){
                if(CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
+               newMethodSAPt = AlphaPt;
+               NewMethodResPt = std::fabs(m_poff_pt*0.001)/std::fabs(newMethodSAPt) - 1.0
           }else{
                if(CutSA(pSA_pass))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
+               newMethodSAPt = pSA_pt;
+               NewMethodResPt = std::fabs(m_poff_pt*0.001)/std::fabs(newMethodSAPt) - 1.0
           }
           if(SPRInner != 0 && SPRMiddle != 0 && SPROuter == 0){
                if(CutSAMyLUT(BetaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
+               newMethodSAPt = BetaPt;
+               NewMethodResPt = std::fabs(m_poff_pt*0.001)/std::fabs(newMethodSAPt) - 1.0
           }else{
                if(CutSA(pSA_pass))m_h_eSAPtBarrelMyLUTBeta->Fill(std::fabs(m_poff_pt*0.001));
+               newMethodSAPt = pSA_pt;
+               NewMethodResPt = std::fabs(m_poff_pt*0.001)/std::fabs(newMethodSAPt) - 1.0
           }
 
           if(numBarrelSP == 3){
@@ -519,8 +529,6 @@ void Efficiency::Execute(Int_t ev){
           m_h_pSAResPtvsDeltaTheta->Fill(deltaTheta,std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
           if(barrelbeta != -99999)m_h_pSAResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0));
           if(barrelalpha != -99999)m_h_pAlphaResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0));
-          if(pSA_sAddress == 1)m_h_pSAResPtLargeSpecial->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
-          if(getLSSector(pSA_roiphi,pSA_sAddress) >= 0)m_h_pSAResPtLS[getLSSector(pSA_roiphi,pSA_sAddress)]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
           m_h_pOffPtvsDeltaTheta->Fill(std::fabs(m_poff_pt*0.001),deltaTheta);
           m_h_pOffPtvsDeltaThetaForProf->Fill(std::fabs(m_poff_pt*0.001),std::fabs(deltaTheta));
           if(deltaTheta < 0.05){
@@ -529,6 +537,9 @@ void Efficiency::Execute(Int_t ev){
                m_h_pASResPtBarrelBetaLargeDeltaTheta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
           }
      }
+
+     if(pSA_sAddress == 1)m_h_pSAResPtLargeSpecial->Fill(NewMethodResPt);
+     if(getLSSector(pSA_roiphi,pSA_sAddress) >= 0)m_h_pSAResPtLS[getLSSector(pSA_roiphi,pSA_sAddress)]->Fill(NewMethodResPt);
 
           //SA
      if(!CutSA(pSA_pass))return;
