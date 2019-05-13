@@ -301,7 +301,7 @@ private:
   TH1D *m_h_pSAResPtBarrel1SP;
   TH2F *m_h_pSAResPtvsDeltaTheta;
   TH2F *m_h_pSAResPtvsDeltaThetaForProf;
-  TH2F *m_h_pAlphaResPtvsDeltaThetaForProf;
+  TH2F *m_h_pAlphaResPtvsDeltaTheta;
   TProfile *m_prof_pAlphaResPtvsDeltaTheta;
   TH1D *m_h_pASResPtBarrelBetaSmallDeltaTheta;//theta < 0.05
   TH1D *m_h_pASResPtBarrelBetaLargeDeltaTheta;//theta >= 0.05
@@ -712,7 +712,7 @@ public:
     m_h_pSAResPtBarrel3SP = new TH1D("h_pSAResPtBarrel3SP","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
     m_h_pSAResPtvsDeltaTheta = new TH2F("h_pSAResPtvsDeltaTheta","#Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",100,-0.5,0.5,200,-1,1);
     m_h_pSAResPtvsDeltaThetaForProf = new TH2F("h_pSAResPtvsDeltaThetaForProf","#Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",500,0.,0.5,100,0.,1.);
-    m_h_pAlphaResPtvsDeltaThetaForProf = new TH2F("h_pAlphaResPtvsDeltaThetaForProf","#Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",500,0.,0.5,100,0.,1.);
+    m_h_pAlphaResPtvsDeltaTheta = new TH2F("h_pAlphaResPtvsDeltaTheta","#Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",1000,-0.5,0.5,200,-1.,1.);
     m_prof_pAlphaResPtvsDeltaTheta = new TProfile("m_prof_pAlphaResPtvsDeltaTheta","Profile #Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",500,0.,0.5);
     m_prof_pSAResPtvsDeltaTheta = new TProfile("m_prof_pSAResPtvsDeltaTheta","Profile #Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",500,0.,0.5);
     m_h_pASResPtBarrelBetaSmallDeltaTheta = new TH1D("h_pASResPtBarrelBetaSmallDeltaTheta","#alpha Small #Delta#theta;p_{T} residual;Events",200,-1,1);
@@ -807,7 +807,7 @@ public:
     delete  m_h_pSAResPtBarrel3SP;
     delete  m_h_pSAResPtvsDeltaTheta;
     delete  m_h_pSAResPtvsDeltaThetaForProf;
-    delete  m_h_pAlphaResPtvsDeltaThetaForProf;
+    delete  m_h_pAlphaResPtvsDeltaTheta;
     delete  m_prof_pAlphaResPtvsDeltaTheta;
     delete  m_prof_pSAResPtvsDeltaTheta;
     delete  m_h_pASResPtBarrelBetaSmallDeltaTheta;
