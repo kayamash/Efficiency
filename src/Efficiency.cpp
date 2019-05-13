@@ -663,7 +663,8 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_lutAvsBBeta->Write();
      m_h_pOffPtvsDeltaTheta->Write();
      m_h_pOffPtvsDeltaThetaForProf->Write();
-     m_prof_pOffPtvsDeltaTheta = m_h_pOffPtvsDeltaThetaForProf->ProfileX();
+     m_prof_pOffPtvsDeltaTheta = m_h_pOffPtvsDeltaTheta->ProfileX();
+     m_prof_pOffPtvsDeltaTheta->SetErrorOption("s");
      m_prof_pOffPtvsDeltaTheta->Write();
 
      m_h_eOffPt->Write();
@@ -725,9 +726,11 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_pSAResPtvsDeltaTheta->Write();
      m_h_pSAResPtvsDeltaThetaForProf->Write();
      m_h_pAlphaResPtvsDeltaThetaForProf->Write();
-     m_prof_pAlphaResPtvsDeltaTheta = m_h_pAlphaResPtvsDeltaThetaForProf->ProfileX();
+     m_prof_pAlphaResPtvsDeltaTheta = m_h_pAlphaResPtvsDeltaTheta->ProfileX();
+     m_prof_pAlphaResPtvsDeltaTheta->SetErrorOption("s");
      m_prof_pAlphaResPtvsDeltaTheta->Write();
-     m_prof_pSAResPtvsDeltaTheta = m_h_pSAResPtvsDeltaThetaForProf->ProfileX();
+     m_prof_pSAResPtvsDeltaTheta = m_h_pSAResPtvsDeltaTheta->ProfileX();
+     m_prof_pSAResPtvsDeltaTheta->SetErrorOption("s");
      m_prof_pSAResPtvsDeltaTheta->Write();
      m_h_pASResPtBarrelBetaSmallDeltaTheta->Write();//!
      m_h_pASResPtBarrelBetaLargeDeltaTheta->Write();//!
