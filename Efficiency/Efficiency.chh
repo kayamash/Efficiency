@@ -285,6 +285,7 @@ private:
   //Residual
   TH1D *m_h_pSAResPt;
   TH1D *m_h_pSAResPtLS[4];//15outer,15inner,11inner,11outer
+  TH1D *m_h_pSAResPtLSRadius[4];//15outer,15inner,11inner,11outer
   TH1D *m_h_pSAResPtLargeSpecial;
 
   TH1D *m_h_pSAResPtBarrelAlpha;
@@ -689,6 +690,10 @@ public:
     m_h_pSAResPtLS[1] = new TH1D("h_pSAResPt15inner","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
     m_h_pSAResPtLS[2] = new TH1D("h_pSAResPt11inner","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
     m_h_pSAResPtLS[3] = new TH1D("h_pSAResPt11outer","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
+    m_h_pSAResPtLSRadius[0] = new TH1D("h_pSAResPtRadius15outer","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
+    m_h_pSAResPtLSRadius[1] = new TH1D("h_pSAResPtRadius15inner","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
+    m_h_pSAResPtLSRadius[2] = new TH1D("h_pSAResPtRadius11inner","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
+    m_h_pSAResPtLSRadius[3] = new TH1D("h_pSAResPtRadius11outer","probe L2MuonSA residual pt;residual pt;Entries",200,-1.,1.);
     m_h_pSAResPtLargeSpecial = new TH1D("h_pSAResPtLargeSpecial","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
     m_h_pSAResPtBarrelAlpha = new TH1D("h_pSAResPtBarrelAlpha","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
     m_h_pSAResPtBarrelBeta = new TH1D("h_pSAResPtBarrelBeta","probe L2MuonSA residual pt;residual pt;Entries",200,-1,1);
@@ -749,6 +754,7 @@ public:
       delete  m_h_eL1PtForwardSP[i];
       delete  m_h_eSAPtForwardSP[i];
       delete  m_h_pSAResPtLS[i];
+      delete  m_h_pSAResPtLSRadius[i];
     }
 
     delete  m_h_pOffPt;

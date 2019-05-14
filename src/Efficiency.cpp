@@ -536,6 +536,7 @@ void Efficiency::Execute(Int_t ev){
 
      if(pSA_sAddress == 1)m_h_pSAResPtLargeSpecial->Fill(NewMethodResPt);
      if(getLSSector(pSA_roiphi,pSA_sAddress) >= 0 && SPRMiddle != 0)m_h_pSAResPtLS[getLSSector(pSA_roiphi,pSA_sAddress)]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
+     if(getLSSector(pSA_roiphi,pSA_sAddress) >= 0 && SPRMiddle != 0)m_h_pSAResPtLSRadius[getLSSector(pSA_roiphi,pSA_sAddress)]->Fill(resSA_pt);
 
           //SA
      if(!CutSA(pSA_pass))return;
@@ -706,6 +707,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_pSAResPt->Write();
      for(Int_t i = 0; i < 4; ++i){
           m_h_pSAResPtLS[i]->Write();
+          m_h_pSAResPtLSRadius[i]->Write();
      }
      m_h_pSAResPtLargeSpecial->Write();
      m_h_pSAResPtBarrelAlpha->Write();
