@@ -489,7 +489,7 @@ void Efficiency::Execute(Int_t ev){
           }
      }
      if(BIsegmentcheck)truthBeta = atan(segmentBISlope) - atan(segmentBMSlope);
-     if(barrelbeta != -99999 && truthBeta != -99999){
+     if(BIsegmentcheck && BMsegmentcheck && EtaDistribution(pSA_roieta) == 0){
           m_h_BarrelBetavsTruth->Fill(barrelbeta,truthBeta);
      }
      Int_t tmp_LUTpar[5] = {0,0,0,0,0};
