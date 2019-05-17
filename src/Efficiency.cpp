@@ -449,6 +449,7 @@ void Efficiency::Execute(Int_t ev){
      if(SPRInner != 0 && SPRMiddle != 0)barrelbeta = atan(1.0/SPSlopeInner) - atan(1.0/SPSlopeMiddle);//Reciprocal number?
      Double_t truthBeta = -99999;
      bool BIsegmentcheck = kFALSE;
+     Double_t segmentBISlope - 0;
      for(Int_t segmentNumber = 0; segmentNumber < 10; ++segmentNumber){
           Double_t tmp_segmentR = sqrt(m_probe_segment_x[segmentNumber]*m_probe_segment_x[segmentNumber] + m_probe_segment_y[segmentNumber]*m_probe_segment_y[segmentNumber]);
           Double_t tmp_segmentPR = sqrt(m_probe_segment_px[segmentNumber]*m_probe_segment_px[segmentNumber] + m_probe_segment_py[segmentNumber]*m_probe_segment_py[segmentNumber]);

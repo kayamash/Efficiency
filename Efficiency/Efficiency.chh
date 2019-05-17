@@ -52,6 +52,9 @@ private:
   Double_t m_probe_segment_x[10];
   Double_t m_probe_segment_y[10];
   Double_t m_probe_segment_z[10];
+  Double_t m_probe_segment_px[10];
+  Double_t m_probe_segment_py[10];
+  Double_t m_probe_segment_pz[10];
   Double_t m_probe_segment_nPrecisionHits[10];
   Double_t m_probe_segment_sector[10];
   Double_t m_poff_pt;
@@ -161,6 +164,9 @@ private:
   TBranch *b_probe_segment_x;
   TBranch *b_probe_segment_y;
   TBranch *b_probe_segment_z;
+  TBranch *b_probe_segment_px;
+  TBranch *b_probe_segment_py;
+  TBranch *b_probe_segment_pz;
   TBranch *b_probe_segment_nPrecisionHits;
   TBranch *b_probe_segment_sector;
   TBranch *b_tp_dR;
@@ -448,6 +454,9 @@ public:
     tChain->SetBranchStatus("probe_segment_x",1);
     tChain->SetBranchStatus("probe_segment_y",1);
     tChain->SetBranchStatus("probe_segment_z",1);
+    tChain->SetBranchStatus("probe_segment_px",1);
+    tChain->SetBranchStatus("probe_segment_py",1);
+    tChain->SetBranchStatus("probe_segment_pz",1);
     tChain->SetBranchStatus("probe_segment_nPrecisionHits",1);
     tChain->SetBranchStatus("probe_segment_sector",1);
     tChain->SetBranchStatus("tp_dR",1);
@@ -544,6 +553,9 @@ public:
     tChain->SetBranchAddress("probe_segment_x",m_probe_segment_x,&b_probe_segment_x);
     tChain->SetBranchAddress("probe_segment_y",m_probe_segment_y,&b_probe_segment_y);
     tChain->SetBranchAddress("probe_segment_z",m_probe_segment_z,&b_probe_segment_z);
+    tChain->SetBranchAddress("probe_segment_px",m_probe_segment_px,&b_probe_segment_px);
+    tChain->SetBranchAddress("probe_segment_py",m_probe_segment_py,&b_probe_segment_py);
+    tChain->SetBranchAddress("probe_segment_pz",m_probe_segment_pz,&b_probe_segment_pz);
     tChain->SetBranchAddress("probe_segment_nPrecisionHits",m_probe_segment_nPrecisionHits,&b_probe_segment_nPrecisionHits);
     tChain->SetBranchAddress("probe_segment_sector",m_probe_segment_sector,&b_probe_segment_sector);
     tChain->SetBranchAddress("tp_dR",&m_tp_dR,&b_tp_dR);
