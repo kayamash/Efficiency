@@ -245,6 +245,9 @@ private:
   TH2F *m_h_pOffPtvsDeltaTheta;
   TH2F *m_h_pOffPtvsDeltaThetaForProf;
   TProfile *m_prof_pOffPtvsDeltaTheta;
+  TH2F *m_h_pOffPtvsDeltaThetaEtaIndex[6];
+  TH2F *m_h_DeltaThetavsHits;
+  TH2F *m_h_BarrelBetavsTruth;
 
   //Efficiency
   TH1D *m_h_eOffPt;
@@ -622,6 +625,11 @@ public:
     m_h_pOffPtvsDeltaTheta = new TH2F("h_pOffPtvsDeltaTheta","offline p_{T} vs #Delta#theta;offline p_{T}[GeV];#Delta#theta",200,-0.25,99.75,100,-0.5,0.5);
     m_h_pOffPtvsDeltaThetaForProf = new TH2F("h_pOffPtvsDeltaThetaForProf","offline p_{T} vs #Delta#theta;offline p_{T}[GeV];#Delta#theta",200,-0.25,99.75,500,0.,0.5);
     m_prof_pOffPtvsDeltaTheta = new TProfile("m_prof_pOffPtvsDeltaTheta","Profile offline p_{T} vs #Delta#theta;offline p_{T}[GeV];#Delta#theta",200,-0.25,99.75);
+    for(Int_t i = 0; i < 6;++i){
+      m_h_pOffPtvsDeltaThetaEtaIndex[i] = new TH2F(Form("h_pOffPtvsDeltaThetaEtaIndex%d",i),"offline p_{T} vs #Delta#theta;offline p_{T}[GeV];#Delta#theta",200,-0.25,99.75,100,-0.5,0.5);
+    }
+    m_h_DeltaThetavsHits = new TH2F("h_DeltaThetavsHits","#Delta#theta vs Hits;#Delta#theta;Hits",100,-0.5,0.5,21,-0.5,20.5);
+    m_h_BarrelBetavsTruth = new TH2F("h_BarrelBetavsTruth","Barrel#beta vs Truth;Barrel#beta;Truth #beta",120,-0.6,0.6,120,-0.6,0.6);
 
               //Efficiency
     m_h_eOffPt = new TH1D("h_eoff_pt","mesoff_pt;offline pt[GeV];Entries",200,-0.25,99.75);
@@ -771,6 +779,11 @@ public:
     delete  m_h_pOffPtvsDeltaTheta;
     delete  m_h_pOffPtvsDeltaThetaForProf;
     delete  m_prof_pOffPtvsDeltaTheta;
+    for(Int_t i = 0;i < 6;++i){
+      delete  m_h_pOffPtvsDeltaThetaEtaIndex[i];
+    }
+    delete  m_h_DeltaThetavsHits;
+    delete  m_h_BarrelBetavsTruth;
 
     delete  m_h_eOffPt;
     delete  m_h_eL1Pt;

@@ -447,6 +447,18 @@ void Efficiency::Execute(Int_t ev){
      Double_t barrelbeta = -99999;
      if(SPRMiddle != 0)barrelalpha = atan(SPZMiddle/SPRMiddle) - atan(SPSlopeMiddle);//Reciprocal number?;
      if(SPRInner != 0 && SPRMiddle != 0)barrelbeta = atan(1.0/SPSlopeInner) - atan(1.0/SPSlopeMiddle);//Reciprocal number?
+     Double_t truthBeta = -99999;
+     bool BIsegmentcheck = kFALSE;
+     for(Int_t segmentNumber = 0; segmentNumber < 10; ++segmentNumber){
+          Double_t tmp_segmentR = sqrt(m_probe_segment_x[segmentNumber]*m_probe_segment_x[segmentNumber] + m_probe_segment_y[segmentNumber]*m_probe_segment_y[segmentNumber]);
+          Double_t tmp_segmentPR = sqrt(m_probe_segment_px[segmentNumber]*m_probe_segment_px[segmentNumber] + m_probe_segment_py[segmentNumber]*m_probe_segment_py[segmentNumber]);
+          if(tmp_segmentR > 4000 && tmp_segmentR < 6500 && BIsegmentcheck == kFALSE){
+               BIsegmentcheck = kTRUE;
+               segmentBISlope = tmp_segmentPR/m_probe_segment_pz[segmentNumber];
+          }
+     }
+     if(BIsegmentcheck)truthBeta = atan(segmentBISlope) - atan(1.0/pSA_superpointSlope_BI);
+     if(barrelbeta != -99999 && truthBeta == -99999)m_h_BarrelBetavsTruth->Fill(barrelbeta,truthBeta);
      Double_t AlphaPt = 0;
      Double_t BetaPt = 0;
      Int_t tmp_LUTpar[5] = {0,0,0,0,0};
@@ -521,16 +533,20 @@ void Efficiency::Execute(Int_t ev){
      Double_t NewMethodResPt = std::fabs(m_poff_pt*0.001)/std::fabs(newMethodSAPt) - 1.0;
 
      Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
-     if(SPRInner != 0){
+     if(SPRInner != 0 && EtaDistribution(pSA_roieta) == 0){
           m_h_pSAResPtvsDeltaTheta->Fill(deltaTheta,std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
           if(barrelbeta != -99999)m_h_pSAResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0));
           if(barrelalpha != -99999)m_h_pAlphaResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0));
           m_h_pOffPtvsDeltaTheta->Fill(std::fabs(m_poff_pt*0.001),deltaTheta);
+          m_h_pOffPtvsDeltaThetaEtaIndex[static_cast<Int_t>(std::fabs(pSA_roieta)*6./1.05) - 1]->Fill(std::fabs(m_poff_pt*0.001),deltaTheta);
           m_h_pOffPtvsDeltaThetaForProf->Fill(std::fabs(m_poff_pt*0.001),std::fabs(deltaTheta));
           if(deltaTheta < 0.05){
                m_h_pASResPtBarrelBetaSmallDeltaTheta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
           }else{
                m_h_pASResPtBarrelBetaLargeDeltaTheta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
+          }
+          for(Int_t seg = 0; seg < 10; ++seg){
+               if(m_probe_segment_chamberIndex[seg] == 0 || m_probe_segment_chamberIndex[seg] == 1)m_h_DeltaThetavsHits->Fill(deltaTheta,m_probe_segment_nPrecisionHits[seg]);
           }
      }
 
@@ -666,6 +682,11 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_pOffPtvsDeltaThetaForProf->Write();
      m_prof_pOffPtvsDeltaTheta = m_h_pOffPtvsDeltaThetaForProf->ProfileX();
      m_prof_pOffPtvsDeltaTheta->Write();
+     for(Int_t i = 0; i < 6; ++i){
+          m_h_pOffPtvsDeltaThetaEtaIndex[i]->Write();
+     }
+     m_h_DeltaThetavsHits->Write();
+     m_h_BarrelBetavsTruth->Write();
 
      m_h_eOffPt->Write();
      m_h_eL1Pt->Write();
