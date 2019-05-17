@@ -100,6 +100,14 @@ bool Efficiency::CutSA(Int_t pass){
      }
 }
 
+bool Efficiency::CutCB(Int_t pass){
+     if(pass == 1){
+          return kTRUE;
+     }else{
+          return kFALSE;
+     }
+}
+
 bool Efficiency::PlateauCut(Double_t pt){
      Double_t cut_pt = 40.0;
      if(m_method_name == "mu4" || m_method_name == "mu6")cut_pt = 8.0;
@@ -272,20 +280,30 @@ void Efficiency::Execute(Int_t ev){
      Double_t pSA_superpointSlope_BM = 0;
      Double_t pSA_superpointSlope_BME = 0;
      Double_t pSA_superpointSlope_BEE = 0;
+     Double_t pCB_pt = -99999;
+     Double_t pCB_eta = 0;
+     Double_t pCB_phi = 0;
+     Double_t pCB_dR = 1;
+     Int_t pCB_pass = 0;
      Int_t pEFTAG_pass = -1;
 
      for(Int_t method = 0;method < 25;method++){
           if(m_mes_name->at(method) == m_method_name){
                pL1_pt = m_pL1_pt->at(method);
                pSA_pt = m_pSA_pt->at(method);
+               pCB_pt = m_pCB_pt->at(method);
                pL1_eta = m_pL1_eta->at(method);
                pSA_eta = m_pSA_eta->at(method);
+               pCB_eta = m_pCB_eta->at(method);
                pL1_phi = m_pL1_phi->at(method);
                pSA_phi = m_pSA_phi->at(method);
+               pCB_phi = m_pCB_phi->at(method);
                pL1_pass = m_pL1_pass->at(method);
                pSA_pass = m_pSA_pass->at(method);
+               pCB_pass = m_pCB_pass->at(method);
                pL1_dR = m_pL1_dR->at(method);
                pSA_dR = m_pSA_dR->at(method);
+               pCB_dR = m_pCB_dR->at(method);
                pEFTAG_pass = m_pEFTAG_pass->at(method);
                pL1_roiNumber = m_pL1_roiNumber->at(method);
                pL1_roiSector = m_pL1_roiSector->at(method);
@@ -588,6 +606,17 @@ void Efficiency::Execute(Int_t ev){
           m_h_eSAEta->Fill(m_poff_eta);
           m_h_eSAPhi->Fill(m_poff_phi);
      }
+
+     //CB
+     if(!CutCB(pCB_pass))return;
+     switch(EtaDistribution(pSA_roieta)){
+          case 0:
+          m_h_eCBPtBarrel->Fill(std::fabs(m_poff_pt*0.001));
+          break;
+          default:
+          break;
+     }
+
 }//Execute
 
 void Efficiency::Finalize(TFile *tf1){
@@ -617,6 +646,8 @@ void Efficiency::Finalize(TFile *tf1){
      ceff.DrawEfficiency(m_h_eOffPtBarrel,m_h_eL1PtBarrel,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyBarrel","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtBarrel,m_h_eSAPtBarrel,m_binmax,300,m_efficiency_xerr);
+     ceff.SetCondition("CBEfficiencyBarrel","L2MuonComb Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
+     ceff.DrawEfficiency(m_h_eSAPtBarrel,m_h_eCBPtBarrel,m_binmax,300,m_efficiency_xerr);
      ceff.SetCondition("SAEfficiencyBarrel0SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
      ceff.DrawEfficiency(m_h_eL1PtBarrelSP[0],m_h_eSAPtBarrelSP[0],m_binmax,200,m_efficiency_xerr); 
      ceff.SetCondition("SAEfficiencyBarrel1SP","L2MuonSA Efficiency;offline pt[GeV];Efficiency",1.0,0.1,0.1,0.105,0.165);
@@ -704,6 +735,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_eOffPtBarrel->Write();
      m_h_eL1PtBarrel->Write();
      m_h_eSAPtBarrel->Write();
+     m_h_eCBPtBarrel->Write();
      m_h_eOffPtTransition->Write();
      m_h_eL1PtTransition->Write();
      m_h_eSAPtTransition->Write();

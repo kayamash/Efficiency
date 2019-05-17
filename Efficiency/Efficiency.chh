@@ -132,6 +132,11 @@ private:
   std::vector<Double_t> *m_pSA_superpointSlope_BME;
   std::vector<Double_t> *m_pSA_superpointSlope_BEE;
   std::vector<Int_t> *m_pEFTAG_pass;
+  std::vector<Int_t> *m_pCB_pass;
+  std::vector<Double_t> *m_pCB_pt;
+  std::vector<Double_t> *m_pCB_eta;
+  std::vector<Double_t> *m_pCB_phi;
+  std::vector<Double_t> *m_pCB_dR;
 
   //TBranch *b_aipc;
   TBranch *b_eNumber;
@@ -229,6 +234,11 @@ private:
   TBranch *b_pSA_superpointSlope_BM;
   TBranch *b_pSA_superpointSlope_BME;
   TBranch *b_pSA_superpointSlope_BEE;
+  TBranch *b_pCB_pass;
+  TBranch *b_pCB_pt;
+  TBranch *b_pCB_eta;
+  TBranch *b_pCB_phi;
+  TBranch *b_pCB_dR;
 
   TBranch *b_sumReqdREF;
   TBranch *b_pEF_pass;
@@ -268,6 +278,7 @@ private:
   TH1D *m_h_eOffPtBarrel;
   TH1D *m_h_eL1PtBarrel;
   TH1D *m_h_eSAPtBarrel;
+  TH1D *m_h_eCBPtBarrel;
   TH1D *m_h_eL1PtBarrelSP[4];
   TH1D *m_h_eSAPtBarrelSP[4];
   TH1D *m_h_eOffPtTransition;
@@ -421,6 +432,11 @@ public:
     m_pSA_superpointSlope_BEE = 0;
     m_pEFTAG_pass = 0;
     m_sumReqdREF = 0;
+    m_pCB_pt = 0;
+    m_pCB_eta = 0;
+    m_pCB_phi = 0;
+    m_pCB_dR = 0;
+    m_pCB_pass = 0;
 
       //active only need branch 
     tChain->SetBranchStatus("*",0);
@@ -521,6 +537,11 @@ public:
     tChain->SetBranchStatus("probe_mesSA_superPointSlope_BEE",1);
     tChain->SetBranchStatus("sumReqdREF",1);
     tChain->SetBranchStatus("probe_mesEFTAG_pass",1);
+    tChain->SetBranchStatus("probe_mesCB_pt",1);
+    tChain->SetBranchStatus("probe_mesCB_eta",1);
+    tChain->SetBranchStatus("probe_mesCB_phi",1);
+    tChain->SetBranchStatus("probe_mesCB_pass",1);
+    tChain->SetBranchStatus("probe_mesCB_dR",1);
 
       //setting each branch address
     tChain->SetBranchAddress("EventNumber",&m_eNumber,&b_eNumber);
@@ -618,6 +639,11 @@ public:
     tChain->SetBranchAddress("probe_mesSA_superPointSlope_BM",&m_pSA_superpointSlope_BM,&b_pSA_superpointSlope_BM);
     tChain->SetBranchAddress("probe_mesSA_superPointSlope_BME",&m_pSA_superpointSlope_BME,&b_pSA_superpointSlope_BME);
     tChain->SetBranchAddress("probe_mesSA_superPointSlope_BEE",&m_pSA_superpointSlope_BEE,&b_pSA_superpointSlope_BEE);
+    tChain->SetBranchAddress("probe_mesCB_pt",&m_pCB_pt,&b_pCB_pt);
+    tChain->SetBranchAddress("probe_mesCB_eta",&m_pCB_eta,&b_pCB_eta);
+    tChain->SetBranchAddress("probe_mesCB_phi",&m_pCB_phi,&b_pCB_phi);
+    tChain->SetBranchAddress("probe_mesCB_pass",&m_pCB_pass,&b_pCB_pass);
+    tChain->SetBranchAddress("probe_mesCB_dR",&m_pCB_dR,&b_pCB_dR);
     tChain->SetBranchAddress("sumReqdREF",&m_sumReqdREF,&b_sumReqdREF);
     tChain->SetBranchAddress("probe_mesEFTAG_pass",&m_pEFTAG_pass,&b_pEFTAG_pass);
 
@@ -654,8 +680,9 @@ public:
     m_h_eL1Phi = new TH1D("h_eL1_phi","L1 phi;L1 phi;Entries",48,-3.0,3.0);
     m_h_eSAPhi = new TH1D("h_eSA_phi","SA phi;SA phi;Entries",48,-3.0,3.0);
     m_h_eOffPtBarrel = new TH1D("h_eoff_ptBarrel","off_pt;off pt[GeV];Entries",200,-0.25,99.75);
-    m_h_eL1PtBarrel = new TH1D("h_eL1_ptBarrel","L1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
-    m_h_eSAPtBarrel = new TH1D("h_eSA_ptBarrel","SA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eL1PtBarrel = new TH1D("h_eL1_ptBarrel","L1 pt;L1 pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eSAPtBarrel = new TH1D("h_eSA_ptBarrel","SA pt;SA pt[GeV];Entries",200,-0.25,99.75);
+    m_h_eCBPtBarrel = new TH1D("h_eCB_ptBarrel","CB pt;CB pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtBarrelSP[0] = new TH1D("h_eL1PtBarrel0SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
     m_h_eSAPtBarrelSP[0] = new TH1D("h_eSAPtBarrel0SP","mesSA_pt;SA pt[GeV];Entries",200,-0.25,99.75);
     m_h_eL1PtBarrelSP[1] = new TH1D("h_eL1PtBarrel1SP","mesL1_pt;L1 pt[GeV];Entries",200,-0.25,99.75);
@@ -749,6 +776,7 @@ public:
   bool CutTagProbe(Int_t pass);
   bool CutL1(Int_t pass);
   bool CutSA(Int_t pass);
+  bool CutCB(Int_t pass);
   bool PlateauCut(Double_t pt);
   bool CutSAMyLUT(Double_t Pt,Int_t L1Number,Int_t L1Sector,Int_t SANumber,Int_t SASector);
   void CalcPtByAlpha(Double_t parA,Double_t parB,Double_t angle,Double_t charge,Int_t nSP,Double_t &pt);
@@ -809,6 +837,7 @@ public:
     delete  m_h_eOffPtBarrel;
     delete  m_h_eL1PtBarrel;
     delete  m_h_eSAPtBarrel;
+    delete  m_h_eCBPtBarrel;
     delete  m_h_eOffPtEndcap;
     delete  m_h_eL1PtEndcap;
     delete  m_h_eSAPtEndcap;
