@@ -369,6 +369,7 @@ void Efficiency::Execute(Int_t ev){
      Double_t AlphaPt = 0;
      Double_t BetaPt = 0;
      Double_t deltaTheta = 0;
+     Double_t NewMethodSAPt = 0;
      Double_t NewMethodResPt = 0;
 
      if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
