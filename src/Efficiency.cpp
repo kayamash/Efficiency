@@ -349,8 +349,28 @@ void Efficiency::Execute(Int_t ev){
           }
      }
 
-     if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
      Int_t numBarrelSP = 0;
+     Int_t numSP = 0;
+     Double_t SPZInner = 0;
+     Double_t SPRInner = 0;
+     Double_t SPSlopeInner = 0;
+     Double_t SPZMiddle = 0;
+     Double_t SPRMiddle = 0;
+     Double_t SPSlopeMiddle = 0;
+     Double_t SPROuter = 0;
+     Double_t SPZOuter = 0;
+     Double_t SPSlopeOuter = 0;
+     Double_t phiInteg = 0;
+     Double_t barrelalpha = -99999;
+     Double_t barrelbeta = -99999;
+     Double_t truthBeta = -99999;
+     Double_t segmentBISlope = 0;
+     Double_t segmentBMSlope = 0;
+     Double_t AlphaPt = 0;
+     Double_t BetaPt = 0;
+     Double_t NewMethodResPt = 0;
+
+     if(std::fabs(m_toff_pt)*0.001 < 10.0)m_reqL1dR = -0.00001*std::fabs(m_toff_pt) + 0.18;
      if(pSA_superpointR_BI != 0){
           numBarrelSP++;
      }
@@ -361,7 +381,6 @@ void Efficiency::Execute(Int_t ev){
           numBarrelSP++;
      }
 
-     Int_t numSP = 0;
      if(pSA_superpointR_BI > 0)numSP++;
      if(pSA_superpointR_BM > 0)numSP++;
      if(pSA_superpointR_BO > 0)numSP++;
@@ -429,15 +448,6 @@ void Efficiency::Execute(Int_t ev){
      }
 
      kayamashForLUT LUT(0.,0.);
-     Double_t SPZInner = 0;
-     Double_t SPRInner = 0;
-     Double_t SPSlopeInner = 0;
-     Double_t SPZMiddle = 0;
-     Double_t SPRMiddle = 0;
-     Double_t SPSlopeMiddle = 0;
-     Double_t SPROuter = 0;
-     Double_t SPZOuter = 0;
-     Double_t SPSlopeOuter = 0;
      if(pSA_superpointR_BI != 0){
           SPZInner = pSA_superpointZ_BI;
           SPRInner = pSA_superpointR_BI;
@@ -460,14 +470,10 @@ void Efficiency::Execute(Int_t ev){
      }
      if(pSA_superpointR_BO != 0)SPROuter = pSA_superpointR_BO;
 
-     Double_t phiInteg = 0;
-     Double_t barrelalpha = -99999;
-     Double_t barrelbeta = -99999;
      if(SPRMiddle != 0)barrelalpha = atan(SPZMiddle/SPRMiddle) - atan(SPSlopeMiddle);//Reciprocal number?;
      if(SPRInner != 0 && SPRMiddle != 0)barrelbeta = atan(1.0/SPSlopeInner) - atan(1.0/SPSlopeMiddle);//Reciprocal number?
-     Double_t truthBeta = -99999;
      bool BIsegmentcheck = kFALSE;
-     Double_t segmentBISlope = 0;
+     bool BMsegmentcheck = kFALSE;
      for(Int_t segmentNumber = 0; segmentNumber < 10; ++segmentNumber){
           Double_t tmp_segmentR = sqrt(m_probe_segment_x[segmentNumber]*m_probe_segment_x[segmentNumber] + m_probe_segment_y[segmentNumber]*m_probe_segment_y[segmentNumber]);
           Double_t tmp_segmentPR = sqrt(m_probe_segment_px[segmentNumber]*m_probe_segment_px[segmentNumber] + m_probe_segment_py[segmentNumber]*m_probe_segment_py[segmentNumber]);
@@ -475,14 +481,15 @@ void Efficiency::Execute(Int_t ev){
                BIsegmentcheck = kTRUE;
                segmentBISlope = tmp_segmentPR/m_probe_segment_pz[segmentNumber];
           }
+          if(tmp_segmentR > 6000 && tmp_segmentR < 9000 && BMsegmentcheck == kFALSE){
+               BMsegmentcheck = kTRUE;
+               segmentBMSlope = tmp_segmentPR/m_probe_segment_pz[segmentNumber];
+          }
      }
-     if(BIsegmentcheck)truthBeta = atan(segmentBISlope) - atan(1.0/pSA_superpointSlope_BI);
+     if(BIsegmentcheck)truthBeta = atan(segmentBISlope) - atan(segmentBMSlope);
      if(barrelbeta != -99999 && truthBeta != -99999){
           m_h_BarrelBetavsTruth->Fill(barrelbeta,truthBeta);
-          //cout<<barrelbeta<<"   "<<truthBeta<<endl;
      }
-     Double_t AlphaPt = 0;
-     Double_t BetaPt = 0;
      Int_t tmp_LUTpar[5] = {0,0,0,0,0};
      bool LUTcheck = LUT.getLUTparameter(pSA_sAddress,m_poff_charge,pSA_eta,pSA_phi,tmp_LUTpar,phiInteg);
      Int_t LUTparameter[4] = {tmp_LUTpar[0],tmp_LUTpar[1],tmp_LUTpar[2],tmp_LUTpar[3]};
@@ -524,8 +531,7 @@ void Efficiency::Execute(Int_t ev){
           if(numBarrelSP == 3)m_h_pSAResPtBarrelBeta3SP->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
      }
 
-     Double_t deltaTheta = atan(SPRInner/SPZInner) - atan(1.0/SPSlopeInner);
-     Double_t newMethodSAPt = 0;
+     deltaTheta = atan(SPRInner/SPZInner) - atan(1.0/SPSlopeInner);
      if(EtaDistribution(pSA_roieta) == 0){
           if(SPRMiddle != 0 && numBarrelSP <= 2){
                if(CutSAMyLUT(AlphaPt,pL1_roiNumber,pL1_roiSector,pSA_roiNumber,pSA_roiSector))m_h_eSAPtBarrelMyLUTAlpha->Fill(std::fabs(m_poff_pt*0.001));
@@ -552,7 +558,7 @@ void Efficiency::Execute(Int_t ev){
                if(CutSA(pSA_pass))m_h_eSAPtBarrelkayamashMethod->Fill(std::fabs(m_poff_pt*0.001));
           }
      }
-     Double_t NewMethodResPt = std::fabs(m_poff_pt*0.001)/std::fabs(newMethodSAPt) - 1.0;
+     NewMethodResPt = std::fabs(m_poff_pt*0.001)/std::fabs(newMethodSAPt) - 1.0;
 
      Double_t resSA_pt = std::fabs(m_poff_pt*0.001)/std::fabs(pSA_pt) - 1.0;
      if(SPRInner != 0 && EtaDistribution(pSA_roieta) == 0){
@@ -560,7 +566,7 @@ void Efficiency::Execute(Int_t ev){
           if(barrelbeta != -99999)m_h_pSAResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0));
           if(barrelalpha != -99999)m_h_pAlphaResPtvsDeltaThetaForProf->Fill(std::fabs(deltaTheta),std::fabs(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0));
           m_h_pOffPtvsDeltaTheta->Fill(std::fabs(m_poff_pt*0.001),deltaTheta);
-          m_h_pOffPtvsDeltaThetaEtaIndex[static_cast<Int_t>(std::fabs(pSA_roieta)*6./1.05) - 1]->Fill(std::fabs(m_poff_pt*0.001),deltaTheta);
+          m_h_pOffPtvsDeltaThetaEtaIndex[static_cast<Int_t>(std::fabs(pSA_roieta)*6./1.05)]->Fill(std::fabs(m_poff_pt*0.001),deltaTheta);
           m_h_pOffPtvsDeltaThetaForProf->Fill(std::fabs(m_poff_pt*0.001),std::fabs(deltaTheta));
           if(deltaTheta < 0.05){
                m_h_pASResPtBarrelBetaSmallDeltaTheta->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(BetaPt) - 1.0);
