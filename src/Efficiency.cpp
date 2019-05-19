@@ -840,9 +840,9 @@ void Efficiency::Finalize(TFile *tf1){
      TProfile *profMy = m_h_PtInvvsMyRes->ProfileX();
      profSA->SetErrorOption("s");
      profMy->SetErrorOption("s");
-     vector<Double_t> *parX = 0;
-     vector<Double_t> *parSA = 0;
-     vector<Double_t> *parMy = 0;
+     vector<Double_t> *parX;
+     vector<Double_t> *parSA;
+     vector<Double_t> *parMy;
      for(Int_t bin = 0; bin < 100; ++bin){
           parSA->push_back(profSA->GetBinError(bin + 1));
           parMy->push_back(profMy->GetBinError(bin + 1));
