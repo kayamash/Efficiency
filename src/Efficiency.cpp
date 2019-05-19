@@ -837,11 +837,13 @@ void Efficiency::Finalize(TFile *tf1){
      SAResolution->SetParameter(2,0.35);
      SAResolution->SetParameter(3,-0.017);
      SAResolution->Draw();
-     SAResolution->Write();
+     c1->SaveAs("/gpfs/fs7001/kayamash/Mywork/efficiencyloopoutput/20190514/SAResolution.png");
+     SAResolution->Write("SAResolution");
      TF1 *IDResolution = new TF1("IDResolution","([0]*x+[1]/1000.)/1000.",0.05,0.5);
      IDResolution->SetParameter(0,0.017);
      IDResolution->SetParameter(1,0.000000418);
      IDResolution->Draw();
-     IDResolution->Write();
+     c1->SaveAs("/gpfs/fs7001/kayamash/Mywork/efficiencyloopoutput/20190514/IDResolution.png");
+     IDResolution->Write("IDResolution");
      cout<<"finish!"<<endl;
 }
