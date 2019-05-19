@@ -840,16 +840,16 @@ void Efficiency::Finalize(TFile *tf1){
      TProfile *profMy = m_h_PtInvvsMyRes->ProfileX();
      profSA->SetErrorOption("s");
      profMy->SetErrorOption("s");
-     vector<Double_t> *parX;
-     vector<Double_t> *parSA;
-     vector<Double_t> *parMy;
+     vector<Double_t> parX;
+     vector<Double_t> parSA;
+     vector<Double_t> parMy;
      for(Int_t bin = 0; bin < 100; ++bin){
-          parSA->push_back(profSA->GetBinError(bin + 1));
-          parMy->push_back(profMy->GetBinError(bin + 1));
-          parX->push_back(0.00045*static_cast<Double_t>(bin) + 0.05);
+          parSA.push_back(profSA->GetBinError(bin + 1));
+          parMy.push_back(profMy->GetBinError(bin + 1));
+          parX.push_back(0.00045*static_cast<Double_t>(bin) + 0.05);
      }
-     TGraph *grSA = new TGraph(parX->size(),parX->data(),parSA->data());
-     TGraph *grMy = new TGraph(parX->size(),parX->data(),parMy->data());
+     TGraph *grSA = new TGraph(parX.size(),parX.data(),parSA.data());
+     TGraph *grMy = new TGraph(parX.size(),parX.data(),parMy.data());
      grSA->Write("SAMethodProfResolution");
      grSA->Write("SAMethodProfResolution");
      delete  grSA;
