@@ -850,6 +850,8 @@ void Efficiency::Finalize(TFile *tf1){
      TGraph *grMy = new TGraph(parX.size(),&(parX.at(0)),&(parMy.at(0)));
      grSA->Write("SAMethodProfResolution");
      grSA->Write("SAMethodProfResolution");
+     delete  grSA;
+     delete  grMy;
 
      TCanvas *c1 = new TCanvas("c1","c1",1600,900);
      TF1 *SAResolution = new TF1("SAResolution","[0]*x*x*x/(1000.*1000.)+[1]*x*x/1000.+[2]*x+[3]/1000.",0.05,0.5);
