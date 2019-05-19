@@ -248,11 +248,11 @@ bool Efficiency::getBarrelMuFastRes(Double_t ptGeV,Double_t &res){
 
 bool getBarrelIDSCANRes(Double_t ptMeV,Double_t &res){
      Double_t par[2] = {0.017, 0.000000418};
-     if(pt == 0){
+     if(ptMeV == 0){
           res = 1.0e33;
           return kTRUE;
      }else{
-          Double_t AbsPtInv = std::fabs(1./pt);
+          Double_t AbsPtInv = std::fabs(1./ptMeV);
           res = par[0]*AbsPtInv + par[1]/1000.;
           return kTRUE;
      }
