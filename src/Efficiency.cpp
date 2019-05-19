@@ -834,6 +834,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_pASResPtBarrelBetaLargeDeltaTheta->Write();//!
      m_h_PtInvvsSARes->Write();
      m_h_PtInvvsMyRes->Write();
+     
      TProfile *profSA = m_h_PtInvvsSARes->ProfileX();
      TProfile *profMy = m_h_PtInvvsMyRes->ProfileX();
      profSA->SetErrorOption("s");
