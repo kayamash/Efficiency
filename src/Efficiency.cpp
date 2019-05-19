@@ -846,8 +846,11 @@ void Efficiency::Finalize(TFile *tf1){
           parMy.push_back(profMy->GetBinError(bin + 1));
           parX.push_back(0.00045*static_cast<Double_t>(bin) + 0.05);
      }
-     TGraph *grSA = new TGraph(parX.size(),&(parX.at(0)),&(parSA.at(0)));
-     TGraph *grMy = new TGraph(parX.size(),&(parX.at(0)),&(parMy.at(0)));
+     Double_t *xpoint = &(parX.at(0));
+     Double_t *SApoint = &(parSA.at(0));
+     Double_t *Mypoint = &(parMy.at(0));
+     TGraph *grSA = new TGraph(parX.size(),xpoint,SApoint);
+     TGraph *grMy = new TGraph(parX.size(),xpoint,Mypoint);
      grSA->Write("SAMethodProfResolution");
      grSA->Write("SAMethodProfResolution");
      delete  grSA;
