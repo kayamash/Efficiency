@@ -615,12 +615,14 @@ void Efficiency::Execute(Int_t ev){
      if(pSA_sAddress == 1)m_h_pSAResPtLargeSpecial->Fill(NewMethodResPt);
      if(getLSSector(pSA_roiphi,pSA_sAddress) >= 0 && SPRMiddle != 0)m_h_pSAResPtLS[getLSSector(pSA_roiphi,pSA_sAddress)]->Fill(std::fabs(m_poff_pt*0.001)/std::fabs(AlphaPt) - 1.0);
      if(getLSSector(pSA_roiphi,pSA_sAddress) >= 0 && SPRMiddle != 0)m_h_pSAResPtLSRadius[getLSSector(pSA_roiphi,pSA_sAddress)]->Fill(resSA_pt);
+     if(EtaDistribution(pSA_roieta) == 0)m_h_PtInvvsMyRes->Fill(1./std::fabs(m_poff_pt*0.001),NewMethodResPt);
 
           //SA
      if(!CutSA(pSA_pass))return;
      m_h_pSAPt->Fill(std::fabs(pSA_pt));
      m_h_eSAPt->Fill(std::fabs(m_poff_pt*0.001));
      m_h_pSAResPt->Fill(resSA_pt);
+     m_h_PtInvvsSARes->Fill(1./std::fabs(m_poff_pt*0.001),resSA_pt);
      switch(EtaDistribution(pSA_roieta)){
           case 0://Barrel
           m_h_eSAPtBarrel->Fill(std::fabs(m_poff_pt*0.001));
@@ -830,23 +832,26 @@ void Efficiency::Finalize(TFile *tf1){
      m_prof_pSAResPtvsDeltaTheta->Write();
      m_h_pASResPtBarrelBetaSmallDeltaTheta->Write();//!
      m_h_pASResPtBarrelBetaLargeDeltaTheta->Write();//!
+     m_h_PtInvvsSARes->Write();
+     m_h_PtInvvsMyRes->Write();
 
-     TCanvas *c1 = new TCanvas("c1","c1",1600,900);
+     TCanvas *SARes = new TCanvas("SARes","SARes",1600,900);
      TF1 *SAResolution = new TF1("SAResolution","([0]*x*x*x/(1000.*1000.)+[1]*x*x/1000.+[2]*x+[3]/1000.)/1000.",0.05,0.5);
      SAResolution->SetParameter(0,3.5);
      SAResolution->SetParameter(1,-1.8);
      SAResolution->SetParameter(2,0.35);
      SAResolution->SetParameter(3,-0.017);
      SAResolution->Draw();
-     c1->SaveAs("/gpfs/fs7001/kayamash/Mywork/efficiencyloopoutput/20190514/SAResolution.png");
-     SAResolution->Write("SAResolution");
-     c1->Write("SAResolution");
+     SARes->SaveAs("/gpfs/fs7001/kayamash/Mywork/efficiencyloopoutput/20190514/SAResolution.png");
+     SARes->Write();
+     delete SARes;
+     TCanvas *IDRes = new TCanvas("IDRes","IDRes",1600,900);
      TF1 *IDResolution = new TF1("IDResolution","([0]*x+[1]/1000.)/1000.",0.05,0.5);
      IDResolution->SetParameter(0,0.017);
      IDResolution->SetParameter(1,0.000000418);
      IDResolution->Draw();
-     c1->SaveAs("/gpfs/fs7001/kayamash/Mywork/efficiencyloopoutput/20190514/IDResolution.png");
-     IDResolution->Write("IDResolution");
-     c1->Write("IDResolution");
+     IDRes->SaveAs("/gpfs/fs7001/kayamash/Mywork/efficiencyloopoutput/20190514/IDResolution.png");
+     IDRes->Write();
+     delete IDRes;
      cout<<"finish!"<<endl;
 }

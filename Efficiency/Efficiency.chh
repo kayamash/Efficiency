@@ -264,6 +264,8 @@ private:
   TH2F *m_h_pOffPtvsDeltaThetaEtaIndex[6];
   TH2F *m_h_DeltaThetavsHits;
   TH2F *m_h_BarrelBetavsTruth;
+  TH2F *m_h_PtInvvsSARes;
+  TH2F *m_h_PtInvvsMyRes;
 
   //Efficiency
   TH1D *m_h_eOffPt;
@@ -769,6 +771,8 @@ public:
     m_prof_pSAResPtvsDeltaTheta = new TProfile("m_prof_pSAResPtvsDeltaTheta","Profile #Delta#theta vs p_{T} residual;#Delta#theta;p_{T} residual",500,0.,0.5);
     m_h_pASResPtBarrelBetaSmallDeltaTheta = new TH1D("h_pASResPtBarrelBetaSmallDeltaTheta","#alpha Small #Delta#theta;p_{T} residual;Events",200,-1,1);
     m_h_pASResPtBarrelBetaLargeDeltaTheta = new TH1D("h_pASResPtBarrelBetaLargeDeltaTheta","#alpha Small #Delta#theta;p_{T} residual;Events",200,-1,1);
+    m_h_PtInvvsSARes = new TH2F("h_PtInvvsSARes",";;",100,0.05,0.5,200,-1.,1.);
+    m_h_PtInvvsMyRes = new TH2F("h_PtInvvsMyRes",";;",100,0.05,0.5,200,-1.,1.);
   }
 
   void Init(std::string name,const Int_t np,const Int_t ne,const Double_t mp,const Double_t me,Double_t req,Int_t max,Double_t err,Int_t proc);
@@ -874,6 +878,8 @@ public:
     delete  m_prof_pSAResPtvsDeltaTheta;
     delete  m_h_pASResPtBarrelBetaSmallDeltaTheta;
     delete  m_h_pASResPtBarrelBetaLargeDeltaTheta;
+    delete  m_h_PtInvvsSARes;
+    delete  m_h_PtInvvsMyRes;
   }
 };
 
