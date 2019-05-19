@@ -784,6 +784,8 @@ public:
   int EtaDistribution();
   int EtaDistribution(Float_t roieta);
   int getLSSector(Double_t roiphi,Int_t address);
+  bool getBarrelMuFastRes(Double_t ptGeV,Double_t &res);
+  bool getBarrelIDSCANRes(Double_t ptMeV,Double_t &res);
   void Execute(Int_t ev);
   void Finalize(TFile *tf1);
   ~Efficiency(){

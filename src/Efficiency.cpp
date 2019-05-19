@@ -227,6 +227,38 @@ int Efficiency::getLSSector(Double_t roiphi,Int_t address){
      return -1;
 }
 
+bool Efficiency::getBarrelMuFastRes(Double_t ptGeV,Double_t &res){
+     Double_t par[6] = {0.042, -0.00046, 3.5, -1.8, 0.35, -0.017};
+     Double_t pt = ptGeV*1000.;
+     Double_t AbsPtInv = std::fabs(1./pt);
+     if(pt == 0){
+          res = 1.0e33;
+          return kTRUE;
+     }else{
+          if(AbsPtInv < 0.000186){
+               res = par[0]*AbsPtInv + par[1]/1000.;
+               return kTRUE;
+          }else{
+               res = par[2]*pow(AbsPtInv,3)/(1000.*1000.) + par[3]*pow(AbsPtInv,2)/(1000.) + par[4]*AbsPtInv + par[5]/1000.;
+               return kTRUE;
+          }
+     }
+     return kFALSE;
+}
+
+bool getBarrelIDSCANRes(Double_t ptMeV,Double_t &res){
+     Double_t par[2] = {0.017, 0.000000418};
+     if(pt == 0){
+          res = 1.0e33;
+          return kTRUE;
+     }else{
+          Double_t AbsPtInv = std::fabs(1./pt);
+          res = par[0]*AbsPtInv + par[1]/1000.;
+          return kTRUE;
+     }
+     return kFALSE;
+}
+
 void Efficiency::Execute(Int_t ev){
      tChain->GetEntry(ev);
      Double_t pL1_pt = -99999;
@@ -798,5 +830,18 @@ void Efficiency::Finalize(TFile *tf1){
      m_prof_pSAResPtvsDeltaTheta->Write();
      m_h_pASResPtBarrelBetaSmallDeltaTheta->Write();//!
      m_h_pASResPtBarrelBetaLargeDeltaTheta->Write();//!
+
+     TF1 *SAResolution = new TF1("SAResolution","([0]*x*x*x/(1000.*1000.)+[1]*x*x/1000.+[2]*x+[3]/1000.)/1000.",0.05,0.5);
+     SAResolution->SetParameter(0,3.5);
+     SAResolution->SetParameter(1,-1.8);
+     SAResolution->SetParameter(2,0.35);
+     SAResolution->SetParameter(3,-0.017);
+     SAResolution->Draw();
+     SAResolution->Write();
+     TF1 *IDResolution = new TF1("IDResolution","([0]*x+[1]/1000.)/1000.",0.05,0.5);
+     IDResolution->SetParameter(0,0.017);
+     IDResolution->SetParameter(1,0.000000418);
+     IDResolution->Draw();
+     IDResolution->Write();
      cout<<"finish!"<<endl;
 }
