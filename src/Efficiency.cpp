@@ -838,13 +838,13 @@ void Efficiency::Finalize(TFile *tf1){
      TProfile *profMy = m_h_PtInvvsMyRes->ProfileX();
      profSA->SetErrorOption("s");
      profMy->SetErrorOption("s");
-     TGraph *grSA;
-     TGraph *grMy;
+     TGraph *grSA = 0;
+     TGraph *grMy = 0;
      for(Int_t bin = 0; bin < 100; ++bin){
           Double_t errSA = profSA->GetBinError(bin + 1);
           Double_t errMy = profMy->GetBinError(bin + 1);
-          grSA->SetPoint(bin,0.00045*static_cast<Double_t>(bin),errSA);
-          grMy->SetPoint(bin,0.00045*static_cast<Double_t>(bin),errMy);
+          grSA->SetPoint(bin + 1,0.00045*static_cast<Double_t>(bin),errSA);
+          grMy->SetPoint(bin + 1,0.00045*static_cast<Double_t>(bin),errMy);
      }
      grSA->Write("SAMethodProfResolution");
      grSA->Write("SAMethodProfResolution");
