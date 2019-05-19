@@ -831,6 +831,7 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_pASResPtBarrelBetaSmallDeltaTheta->Write();//!
      m_h_pASResPtBarrelBetaLargeDeltaTheta->Write();//!
 
+     TCanvas *c1 = new TCanvas("c1","c1",1600,900);
      TF1 *SAResolution = new TF1("SAResolution","([0]*x*x*x/(1000.*1000.)+[1]*x*x/1000.+[2]*x+[3]/1000.)/1000.",0.05,0.5);
      SAResolution->SetParameter(0,3.5);
      SAResolution->SetParameter(1,-1.8);
@@ -839,11 +840,13 @@ void Efficiency::Finalize(TFile *tf1){
      SAResolution->Draw();
      c1->SaveAs("/gpfs/fs7001/kayamash/Mywork/efficiencyloopoutput/20190514/SAResolution.png");
      SAResolution->Write("SAResolution");
+     c1->Write("SAResolution");
      TF1 *IDResolution = new TF1("IDResolution","([0]*x+[1]/1000.)/1000.",0.05,0.5);
      IDResolution->SetParameter(0,0.017);
      IDResolution->SetParameter(1,0.000000418);
      IDResolution->Draw();
      c1->SaveAs("/gpfs/fs7001/kayamash/Mywork/efficiencyloopoutput/20190514/IDResolution.png");
      IDResolution->Write("IDResolution");
+     c1->Write("IDResolution");
      cout<<"finish!"<<endl;
 }
