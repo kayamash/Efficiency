@@ -844,12 +844,12 @@ void Efficiency::Finalize(TFile *tf1){
      vector<Double_t> *parSA = 0;
      vector<Double_t> *parMy = 0;
      for(Int_t bin = 0; bin < 100; ++bin){
-          parSA.push_back(profSA->GetBinError(bin + 1));
-          parMy.push_back(profMy->GetBinError(bin + 1));
-          parX.push_back(0.00045*static_cast<Double_t>(bin) + 0.05);
+          parSA->push_back(profSA->GetBinError(bin + 1));
+          parMy->push_back(profMy->GetBinError(bin + 1));
+          parX->push_back(0.00045*static_cast<Double_t>(bin) + 0.05);
      }
-     TGraph *grSA = new TGraph(parX.size(),parX.data(),parSA.data());
-     TGraph *grMy = new TGraph(parX.size(),parX.data(),parMy.data());
+     TGraph *grSA = new TGraph(parX->size(),parX->at(0),parSA->at(0));
+     TGraph *grMy = new TGraph(parX->size(),parX->at(0),parMy->at(0));
      grSA->Write("SAMethodProfResolution");
      grSA->Write("SAMethodProfResolution");
      delete  grSA;
