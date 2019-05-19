@@ -836,22 +836,22 @@ void Efficiency::Finalize(TFile *tf1){
      m_h_PtInvvsMyRes->Write();
 
      TCanvas *SARes = new TCanvas("SARes","SARes",1600,900);
-     TF1 *SAResolution = new TF1("SAResolution","([0]*x*x*x/(1000.*1000.)+[1]*x*x/1000.+[2]*x+[3]/1000.)/1000.",0.05,0.5);
+     TF1 *SAResolution = new TF1("SAResolution","[0]*x*x*x/(1000.*1000.)+[1]*x*x/1000.+[2]*x+[3]/1000.",0.05,0.5);
      SAResolution->SetParameter(0,3.5);
      SAResolution->SetParameter(1,-1.8);
      SAResolution->SetParameter(2,0.35);
      SAResolution->SetParameter(3,-0.017);
      SAResolution->Draw();
-     SARes->SaveAs("/gpfs/fs7001/kayamash/Mywork/efficiencyloopoutput/20190514/SAResolution.png");
      SARes->Write();
+     SAResolution->Write();
      delete SARes;
      TCanvas *IDRes = new TCanvas("IDRes","IDRes",1600,900);
-     TF1 *IDResolution = new TF1("IDResolution","([0]*x+[1]/1000.)/1000.",0.05,0.5);
+     TF1 *IDResolution = new TF1("IDResolution","[0]*x+[1]",0.05,0.5);
      IDResolution->SetParameter(0,0.017);
      IDResolution->SetParameter(1,0.000000418);
      IDResolution->Draw();
-     IDRes->SaveAs("/gpfs/fs7001/kayamash/Mywork/efficiencyloopoutput/20190514/IDResolution.png");
      IDRes->Write();
+     IDResolution->Write();
      delete IDRes;
      cout<<"finish!"<<endl;
 }
