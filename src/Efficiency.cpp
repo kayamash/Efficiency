@@ -866,7 +866,7 @@ void Efficiency::Finalize(TFile *tf1){
           grIDCAN->SetPoint(pt,1./static_cast<Double_t>(pt),resID);
      }
      grMuFast->Write("MuFast");
-     grMuIDCAN->Write("MuIDCAN");
+     grIDCAN->Write("MuIDCAN");
 
      TF1 *SAResolution = new TF1("SAResolution","[0]*x*x*x/(1000.*1000.)+[1]*x*x/1000.+[2]*x+[3]/1000.",0.05,0.5);
      SAResolution->SetParameter(0,3.5);
