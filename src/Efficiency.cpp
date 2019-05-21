@@ -247,7 +247,7 @@ bool Efficiency::getBarrelMuFastRes(Double_t ptGeV,Double_t &res){
      return kFALSE;
 }
 
-bool getBarrelIDSCANRes(Double_t ptMeV,Double_t &res){
+bool Efficiency::getBarrelIDSCANRes(Double_t ptMeV,Double_t &res){
      Double_t par[2] = {0.017, 0.000000418};
      if(ptMeV == 0){
           res = 1.0e33;
