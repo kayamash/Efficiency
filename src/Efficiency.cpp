@@ -858,11 +858,12 @@ void Efficiency::Finalize(TFile *tf1){
      TGraph *grMuFast = new TGraph(1000);
      TGraph *grIDCAN = new TGraph(1000);
      for(Int_t pt = 1; pt <= 1000; ++pt){
-          cout<<pt<<endl;
           Double_t resSA = 0;
-          if(getBarrelMuFastRes(static_cast<Double_t>(pt),resSA))grMuFast->SetPoint(pt,1./static_cast<Double_t>(pt),resSA);
+          getBarrelMuFastRes(static_cast<Double_t>(pt),resSA);
+          grMuFast->SetPoint(pt,1./static_cast<Double_t>(pt),resSA);
           Double_t resID = 0;
-          if(getBarrelIDSCANRes(static_cast<Double_t>(pt)*1000.,resID))grIDCAN->SetPoint(pt,1./static_cast<Double_t>(pt),resID);
+          getBarrelIDSCANRes(static_cast<Double_t>(pt)*1000.,resID);
+          grIDCAN->SetPoint(pt,1./static_cast<Double_t>(pt),resID);
      }
      grMuFast->Write("MuFast");
      grIDCAN->Write("MuIDCAN");
