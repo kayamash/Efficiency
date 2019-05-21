@@ -855,19 +855,28 @@ void Efficiency::Finalize(TFile *tf1){
      delete  grSA;
      delete  grMy;
 
-     TCanvas *c1 = new TCanvas("c1","c1",1600,900);
+     TGraph *grMuFast;
+     TGraph *grIDCAN;
+     for(Int_t pt = 1; pt < 1000; ++pt){
+          Double_t resSA = 0;
+          getBarrelMuFastRes(static_cast<Double_t>(pt),resSA);
+          grMuFast->SetPoint(pt,1./static_cast<Double_t>(pt),resSA);
+          Double_t resID = 0;
+          getBarrelIDSCANRes(static_cast<Double_t>(pt)*1000.,resID);
+          grIDCAN->SetPoint(pt,1./static_cast<Double_t>(pt),resID);
+     }
+     grMuFast->Write("MuFast");
+     grMuIDCAN->Write("MuIDCAN");
+
      TF1 *SAResolution = new TF1("SAResolution","[0]*x*x*x/(1000.*1000.)+[1]*x*x/1000.+[2]*x+[3]/1000.",0.05,0.5);
      SAResolution->SetParameter(0,3.5);
      SAResolution->SetParameter(1,-1.8);
      SAResolution->SetParameter(2,0.35);
      SAResolution->SetParameter(3,-0.017);
-     SAResolution->Draw();
      SAResolution->Write();
      TF1 *IDResolution = new TF1("IDResolution","[0]*x+[1]",0.05,0.5);
      IDResolution->SetParameter(0,0.017);
      IDResolution->SetParameter(1,0.000000418);
-     IDResolution->Draw();
      IDResolution->Write();
-     delete  c1;
      cout<<"finish!"<<endl;
 }
