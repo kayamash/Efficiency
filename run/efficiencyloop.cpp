@@ -50,16 +50,10 @@ void efficiencyloop(){
 	while(getline(ifs,str)){
 		tr1->Add(str.c_str());
 	}
-	
-	//tr1->Add(inputfilename.c_str());
-
 	if(!tr1)cout<<"tree failed"<<endl;
-	Efficiency *eff = new Efficiency(tr1);
-	std::ofstream ofs("LargeSpecialEvent.dat");
-	ofs.close();
-	
-	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
 
+	Efficiency *eff = new Efficiency(tr1);
+	TFile *output_file = new TFile(outputfilename.c_str(),"RECREATE");
 	cout<<"Initialize"<<endl;
 	eff->Init(trigger,48,80,3.0,2.5,0.08,efficiency_maxenergy,efficiency_x_err,proc);
 	cout<<tr1->GetEntries()<<endl;
