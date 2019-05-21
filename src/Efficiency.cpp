@@ -855,9 +855,9 @@ void Efficiency::Finalize(TFile *tf1){
      delete  grSA;
      delete  grMy;
 
-     TGraph *grMuFast;
-     TGraph *grIDCAN;
-     for(Int_t pt = 1; pt < 1000; ++pt){
+     TGraph *grMuFast = new TGraph(1000);
+     TGraph *grIDCAN = new TGraph(1000);
+     for(Int_t pt = 1; pt <= 1000; ++pt){
           Double_t resSA = 0;
           getBarrelMuFastRes(static_cast<Double_t>(pt),resSA);
           grMuFast->SetPoint(pt,1./static_cast<Double_t>(pt),resSA);
